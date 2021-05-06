@@ -9,17 +9,6 @@
 
 # dependencies
 /node_modules
-/e2e
-.browserslistrc
-.editorconfig
-angular.json
-karma.conf.js
-package.json
-package-lock.json
-tsconfig.app.json
-tsconfig.json
-tsconfig.spec.json
-tslint.json
 
 # profiling files
 chrome-profiler-events*.json
