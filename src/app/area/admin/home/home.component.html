@@ -1,0 +1,1118 @@
+<div class="page-title-box">
+    <div class="page-breadcrumb">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="http://localhost:8080/booking/dashboard">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    My Homes
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="page-title-right">
+        <a class="btn btn-success waves-effect waves-light"
+            href="http://localhost:8080/booking/dashboard/add-new-home">
+            <i class="ti-plus mr-1"></i>
+            Create New
+        </a>
+    </div>
+</div>
+<div class="card-box">
+    <div class="header-area d-flex align-items-center">
+        <h4 class="header-title mb-0">All Homes</h4>
+        <form class="form-inline right d-none d-sm-block" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" name="_s" value="" placeholder="Search by id, title">
+            </div>
+            <button type="submit" class="btn btn-default"><i class="ti-search"></i></button>
+        </form>
+    </div>
+    <div class="action-toolbar">
+        <form class="hh-form form-inline" action="http://localhost:8080/booking/dashboard/home-bulk-actions"
+            data-target="#table-my-home" method="post">
+            <select class="mr-1 min-w-100" name="action" data-plugin="customselect">
+                <option value="none">Bulk Actions</option>
+                <option value="publish">Publish</option>
+                <option value="pending">Pending</option>
+                <option value="draft">Draft</option>
+                <option value="trash">Trash</option>
+                <option value="delete">Delete</option>
+            </select>
+            <button type="submit" class="btn btn-success">Apply</button>
+        </form>
+    </div>
+
+
+    <table id="table-my-home" class="table table-large mb-0 dt-responsive nowrap w-100" data-plugin="datatable"
+        data-paging="false" data-export="on" data-csv-name="Export to CSV" data-pdf-name="Export to PDF"
+        data-cols="WzEsMiwzLDQsNV0=" data-ordering="false">
+        <thead>
+            <tr>
+
+                <th data-priority="-1" class="hh-checkbox-td">
+                    <div class="checkbox checkbox-success hh-check-all">
+                        <input id="hh-checkbox-all--my-home" type="checkbox">
+                        <label for="hh-checkbox-all--my-home"><span class="d-none">Check All</span></label>
+                    </div>
+                </th>
+                <th data-priority="1">
+                    <a href="/booking/dashboard/my-home?orderby=post_title&amp;order=asc" class="order">
+                        <span class="exp">Name</span>
+                        <i class="icon-arrow-up"></i> </a>
+                </th>
+                <th data-priority="3">
+                    <a href="/booking/dashboard/my-home?orderby=base_price&amp;order=asc" class="order">
+                        <span class="exp">Price</span>
+                        <i class="icon-arrow-up"></i> </a>
+                </th>
+                <th data-priority="4" class="text-center">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle not-show-caret" id="dropdownFilterStatus"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="exp">Status</span>
+                            <i class="icon-arrow-down"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownFilterStatus">
+                            <a class="dropdown-item" href="/booking/dashboard/my-home">All</a>
+                            <a class="dropdown-item"
+                                href="/booking/dashboard/my-home?status=publish">Publish</a>
+                            <a class="dropdown-item"
+                                href="/booking/dashboard/my-home?status=pending">Pending</a>
+                            <a class="dropdown-item" href="/booking/dashboard/my-home?status=draft">Draft</a>
+                            <a class="dropdown-item" href="/booking/dashboard/my-home?status=trash">Trash</a>
+                        </div>
+                    </div>
+                </th>
+                <th data-priority="5" class="text-center"><span class="exp">No. Guest</span></th>
+                <th data-priority="6"><span class="exp">Home Type</span></th>
+                <th data-priority="-1" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="39" id="hh-check-all-item-39"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-39"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a href="http://localhost:8080/booking/home/39/new-home-1620127872"
+                                    target="_blank">New Home - 1620127972</a>
+                                <span class="text-muted"> - 39</span>
+                            </h5>
+                            <span class="exp d-none">[39] New Home - 1620127972</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block"></p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$0.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status pending status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Pending"><span class="exp d-none">Pending</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">1</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Apartment </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/39">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM5LCJzZXJ2aWNlRW5jcnlwdCI6IjQ0ZWZhOGNiZGNlNGE5ZDIwNmZkYzYwZDllZmU1ZmQ5Iiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM5LCJzZXJ2aWNlRW5jcnlwdCI6IjQ0ZWZhOGNiZGNlNGE5ZDIwNmZkYzYwZDllZmU1ZmQ5Iiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM5LCJzZXJ2aWNlRW5jcnlwdCI6IjQ0ZWZhOGNiZGNlNGE5ZDIwNmZkYzYwZDllZmU1ZmQ5Iiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM5LCJzZXJ2aWNlRW5jcnlwdCI6IjQ0ZWZhOGNiZGNlNGE5ZDIwNmZkYzYwZDllZmU1ZmQ5Iiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM5LCJzZXJ2aWNlRW5jcnlwdCI6IjQ0ZWZhOGNiZGNlNGE5ZDIwNmZkYzYwZDllZmU1ZmQ5In0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjM5LCJzZXJ2aWNlRW5jcnlwdCI6IjQ0ZWZhOGNiZGNlNGE5ZDIwNmZkYzYwZDllZmU1ZmQ5In0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="38" id="hh-check-all-item-38"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-38"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a href="http://localhost:8080/booking/home/38/new-home-1620127872"
+                                    target="_blank">New Home - 1620127872</a>
+                                <span class="text-muted"> - 38</span>
+                            </h5>
+                            <span class="exp d-none">[38] New Home - 1620127872</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block"></p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$0.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status pending status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Pending"><span class="exp d-none">Pending</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp"></span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"></span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/38">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM4LCJzZXJ2aWNlRW5jcnlwdCI6IjY1ZDkyN2FjNWRiNDBhNGM4NGJlMjE0NTc0N2I1YzBmIiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM4LCJzZXJ2aWNlRW5jcnlwdCI6IjY1ZDkyN2FjNWRiNDBhNGM4NGJlMjE0NTc0N2I1YzBmIiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM4LCJzZXJ2aWNlRW5jcnlwdCI6IjY1ZDkyN2FjNWRiNDBhNGM4NGJlMjE0NTc0N2I1YzBmIiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM4LCJzZXJ2aWNlRW5jcnlwdCI6IjY1ZDkyN2FjNWRiNDBhNGM4NGJlMjE0NTc0N2I1YzBmIiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM4LCJzZXJ2aWNlRW5jcnlwdCI6IjY1ZDkyN2FjNWRiNDBhNGM4NGJlMjE0NTc0N2I1YzBmIn0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjM4LCJzZXJ2aWNlRW5jcnlwdCI6IjY1ZDkyN2FjNWRiNDBhNGM4NGJlMjE0NTc0N2I1YzBmIn0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="37" id="hh-check-all-item-37"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-37"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a
+                                    href="http://localhost:8080/booking/home/37/desirable-deal-on-the-park"
+                                    target="_blank">Desirable Deal on The Park</a>
+                                <span class="text-muted"> - 37</span>
+                            </h5>
+                            <span class="exp d-none">[37] Desirable Deal on The Park</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">Los Angeles, United States of
+                                America</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$5.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">1</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Cabin </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/37">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM3LCJzZXJ2aWNlRW5jcnlwdCI6IjFkOTExZjQ0NDBiYWI0YjU2M2NiMWQyMTliYWIwNjNiIiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM3LCJzZXJ2aWNlRW5jcnlwdCI6IjFkOTExZjQ0NDBiYWI0YjU2M2NiMWQyMTliYWIwNjNiIiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM3LCJzZXJ2aWNlRW5jcnlwdCI6IjFkOTExZjQ0NDBiYWI0YjU2M2NiMWQyMTliYWIwNjNiIiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM3LCJzZXJ2aWNlRW5jcnlwdCI6IjFkOTExZjQ0NDBiYWI0YjU2M2NiMWQyMTliYWIwNjNiIiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM3LCJzZXJ2aWNlRW5jcnlwdCI6IjFkOTExZjQ0NDBiYWI0YjU2M2NiMWQyMTliYWIwNjNiIn0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjM3LCJzZXJ2aWNlRW5jcnlwdCI6IjFkOTExZjQ0NDBiYWI0YjU2M2NiMWQyMTliYWIwNjNiIn0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="34" id="hh-check-all-item-34"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-34"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a
+                                    href="http://localhost:8080/booking/home/34/private-room-in-apartment"
+                                    target="_blank">Private room in apartment</a>
+                                <span class="text-muted"> - 34</span>
+                            </h5>
+                            <span class="exp d-none">[34] Private room in apartment</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">United States of America</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$100.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">5</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Townhouse </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/34">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM0LCJzZXJ2aWNlRW5jcnlwdCI6IjJkODE5M2NmYWY2MjYzMTk1NGVmYjU5MzJiNjFhYjc4Iiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM0LCJzZXJ2aWNlRW5jcnlwdCI6IjJkODE5M2NmYWY2MjYzMTk1NGVmYjU5MzJiNjFhYjc4Iiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM0LCJzZXJ2aWNlRW5jcnlwdCI6IjJkODE5M2NmYWY2MjYzMTk1NGVmYjU5MzJiNjFhYjc4Iiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM0LCJzZXJ2aWNlRW5jcnlwdCI6IjJkODE5M2NmYWY2MjYzMTk1NGVmYjU5MzJiNjFhYjc4Iiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjM0LCJzZXJ2aWNlRW5jcnlwdCI6IjJkODE5M2NmYWY2MjYzMTk1NGVmYjU5MzJiNjFhYjc4In0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjM0LCJzZXJ2aWNlRW5jcnlwdCI6IjJkODE5M2NmYWY2MjYzMTk1NGVmYjU5MzJiNjFhYjc4In0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="33" id="hh-check-all-item-33"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-33"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a
+                                    href="http://localhost:8080/booking/home/33/enmidtown-manhattan-hideaway"
+                                    target="_blank">Midtown Manhattan Hideaway</a>
+                                <span class="text-muted"> - 33</span>
+                            </h5>
+                            <span class="exp d-none">[33] Midtown Manhattan Hideaway</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">Chicago, United States of America
+                            </p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$6.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">2</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Cabin </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/33">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMzLCJzZXJ2aWNlRW5jcnlwdCI6ImM0ZDgxZWNjZmExNjMxMjExZjlmZTc5ZGYyYjM4NzliIiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMzLCJzZXJ2aWNlRW5jcnlwdCI6ImM0ZDgxZWNjZmExNjMxMjExZjlmZTc5ZGYyYjM4NzliIiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMzLCJzZXJ2aWNlRW5jcnlwdCI6ImM0ZDgxZWNjZmExNjMxMjExZjlmZTc5ZGYyYjM4NzliIiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMzLCJzZXJ2aWNlRW5jcnlwdCI6ImM0ZDgxZWNjZmExNjMxMjExZjlmZTc5ZGYyYjM4NzliIiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMzLCJzZXJ2aWNlRW5jcnlwdCI6ImM0ZDgxZWNjZmExNjMxMjExZjlmZTc5ZGYyYjM4NzliIn0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjMzLCJzZXJ2aWNlRW5jcnlwdCI6ImM0ZDgxZWNjZmExNjMxMjExZjlmZTc5ZGYyYjM4NzliIn0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="32" id="hh-check-all-item-32"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-32"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a
+                                    href="http://localhost:8080/booking/home/32/enuptown-chic-in-hobokenvi"
+                                    target="_blank">Uptown Chic in Hoboken</a>
+                                <span class="text-muted"> - 32</span>
+                            </h5>
+                            <span class="exp d-none">[32] Uptown Chic in Hoboken</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">Ha Noi, Vietnam</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$3.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">2</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Hostel </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/32">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMyLCJzZXJ2aWNlRW5jcnlwdCI6IjBiMjM4YTI3NzBlYjU3NmFkNDUyMzY4Yzg5ZTU2YWIxIiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMyLCJzZXJ2aWNlRW5jcnlwdCI6IjBiMjM4YTI3NzBlYjU3NmFkNDUyMzY4Yzg5ZTU2YWIxIiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMyLCJzZXJ2aWNlRW5jcnlwdCI6IjBiMjM4YTI3NzBlYjU3NmFkNDUyMzY4Yzg5ZTU2YWIxIiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMyLCJzZXJ2aWNlRW5jcnlwdCI6IjBiMjM4YTI3NzBlYjU3NmFkNDUyMzY4Yzg5ZTU2YWIxIiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMyLCJzZXJ2aWNlRW5jcnlwdCI6IjBiMjM4YTI3NzBlYjU3NmFkNDUyMzY4Yzg5ZTU2YWIxIn0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjMyLCJzZXJ2aWNlRW5jcnlwdCI6IjBiMjM4YTI3NzBlYjU3NmFkNDUyMzY4Yzg5ZTU2YWIxIn0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="31" id="hh-check-all-item-31"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-31"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="http://localhost:8080/booking/storage/u-1/2021/05/04/ashampoo-snap-20210330-16h56m08s-002-1620186694-75x75.png"
+                            class="d-none d-md-block mr-3" alt="Ashampoo_Snap_2021.03.30_16h56m08s_002_">
+                        <div class="media-body">
+                            <h5 class="m-0"><a
+                                    href="http://localhost:8080/booking/home/31/enbright-airy-in-highland-parkvinew-home-1582010499"
+                                    target="_blank">Bright &amp; Airy in Highland Park</a>
+                                <span class="text-muted"> - 31</span>
+                            </h5>
+                            <span class="exp d-none">[31] Bright &amp; Airy in Highland Park</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">Vietnam</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$5.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">1</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Cabin </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/31">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMxLCJzZXJ2aWNlRW5jcnlwdCI6IjFjZWZhY2ZjZmJiYzMyYzNiMmVmMjM2MjA3YjVmM2I1Iiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMxLCJzZXJ2aWNlRW5jcnlwdCI6IjFjZWZhY2ZjZmJiYzMyYzNiMmVmMjM2MjA3YjVmM2I1Iiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMxLCJzZXJ2aWNlRW5jcnlwdCI6IjFjZWZhY2ZjZmJiYzMyYzNiMmVmMjM2MjA3YjVmM2I1Iiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMxLCJzZXJ2aWNlRW5jcnlwdCI6IjFjZWZhY2ZjZmJiYzMyYzNiMmVmMjM2MjA3YjVmM2I1Iiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjMxLCJzZXJ2aWNlRW5jcnlwdCI6IjFjZWZhY2ZjZmJiYzMyYzNiMmVmMjM2MjA3YjVmM2I1In0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjMxLCJzZXJ2aWNlRW5jcnlwdCI6IjFjZWZhY2ZjZmJiYzMyYzNiMmVmMjM2MjA3YjVmM2I1In0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="29" id="hh-check-all-item-29"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-29"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a href="http://localhost:8080/booking/home/29/the-autumn-homestay"
+                                    target="_blank">The Autumn Homestay</a>
+                                <span class="text-muted"> - 29</span>
+                            </h5>
+                            <span class="exp d-none">[29] The Autumn Homestay</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">Hanoi, Vietnam</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$55.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">2</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Townhouse </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/29">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI5LCJzZXJ2aWNlRW5jcnlwdCI6IjE1ODc4MmEyYjc5ZmQ5NGZhZjQ0NmVjMzYxM2FkNDg3Iiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI5LCJzZXJ2aWNlRW5jcnlwdCI6IjE1ODc4MmEyYjc5ZmQ5NGZhZjQ0NmVjMzYxM2FkNDg3Iiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI5LCJzZXJ2aWNlRW5jcnlwdCI6IjE1ODc4MmEyYjc5ZmQ5NGZhZjQ0NmVjMzYxM2FkNDg3Iiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI5LCJzZXJ2aWNlRW5jcnlwdCI6IjE1ODc4MmEyYjc5ZmQ5NGZhZjQ0NmVjMzYxM2FkNDg3Iiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI5LCJzZXJ2aWNlRW5jcnlwdCI6IjE1ODc4MmEyYjc5ZmQ5NGZhZjQ0NmVjMzYxM2FkNDg3In0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjI5LCJzZXJ2aWNlRW5jcnlwdCI6IjE1ODc4MmEyYjc5ZmQ5NGZhZjQ0NmVjMzYxM2FkNDg3In0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="28" id="hh-check-all-item-28"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-28"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a href="http://localhost:8080/booking/home/28/aimee-2"
+                                    target="_blank">Aimee #2</a>
+                                <span class="text-muted"> - 28</span>
+                            </h5>
+                            <span class="exp d-none">[28] Aimee #2</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">Hanoi, Vietnam</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$45.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">2</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Guesthouse </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/28">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI4LCJzZXJ2aWNlRW5jcnlwdCI6ImRkMjMwZTliN2M3YjUwOTkxNDZhNmE5YWE2Y2JjMTJhIiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI4LCJzZXJ2aWNlRW5jcnlwdCI6ImRkMjMwZTliN2M3YjUwOTkxNDZhNmE5YWE2Y2JjMTJhIiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI4LCJzZXJ2aWNlRW5jcnlwdCI6ImRkMjMwZTliN2M3YjUwOTkxNDZhNmE5YWE2Y2JjMTJhIiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI4LCJzZXJ2aWNlRW5jcnlwdCI6ImRkMjMwZTliN2M3YjUwOTkxNDZhNmE5YWE2Y2JjMTJhIiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI4LCJzZXJ2aWNlRW5jcnlwdCI6ImRkMjMwZTliN2M3YjUwOTkxNDZhNmE5YWE2Y2JjMTJhIn0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjI4LCJzZXJ2aWNlRW5jcnlwdCI6ImRkMjMwZTliN2M3YjUwOTkxNDZhNmE5YWE2Y2JjMTJhIn0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="27" id="hh-check-all-item-27"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-27"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a
+                                    href="http://localhost:8080/booking/home/27/trans-home-lovely-balc"
+                                    target="_blank">Trần’s home-Lovely Balc</a>
+                                <span class="text-muted"> - 27</span>
+                            </h5>
+                            <span class="exp d-none">[27] Trần’s home-Lovely Balc</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">Ha Noi, Vietnam</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$40.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">2</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Hostel </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/27">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI3LCJzZXJ2aWNlRW5jcnlwdCI6IjgxZjY2MDY2M2YyN2UxNzRiMzc5YjJkM2IyZmE4ODdkIiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI3LCJzZXJ2aWNlRW5jcnlwdCI6IjgxZjY2MDY2M2YyN2UxNzRiMzc5YjJkM2IyZmE4ODdkIiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI3LCJzZXJ2aWNlRW5jcnlwdCI6IjgxZjY2MDY2M2YyN2UxNzRiMzc5YjJkM2IyZmE4ODdkIiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI3LCJzZXJ2aWNlRW5jcnlwdCI6IjgxZjY2MDY2M2YyN2UxNzRiMzc5YjJkM2IyZmE4ODdkIiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI3LCJzZXJ2aWNlRW5jcnlwdCI6IjgxZjY2MDY2M2YyN2UxNzRiMzc5YjJkM2IyZmE4ODdkIn0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjI3LCJzZXJ2aWNlRW5jcnlwdCI6IjgxZjY2MDY2M2YyN2UxNzRiMzc5YjJkM2IyZmE4ODdkIn0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="26" id="hh-check-all-item-26"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-26"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a href="http://localhost:8080/booking/home/26/bawhome-komorebi"
+                                    target="_blank">BAWhome - Komorebi</a>
+                                <span class="text-muted"> - 26</span>
+                            </h5>
+                            <span class="exp d-none">[26] BAWhome - Komorebi</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">Ha Noi, Vietnam</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$70.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">4</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Bungalow </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/26">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI2LCJzZXJ2aWNlRW5jcnlwdCI6IjI3YzYyMGI5NDY5YmU0YWZjNDliOWMwMWQ3ZDNhODE3Iiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI2LCJzZXJ2aWNlRW5jcnlwdCI6IjI3YzYyMGI5NDY5YmU0YWZjNDliOWMwMWQ3ZDNhODE3Iiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI2LCJzZXJ2aWNlRW5jcnlwdCI6IjI3YzYyMGI5NDY5YmU0YWZjNDliOWMwMWQ3ZDNhODE3Iiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI2LCJzZXJ2aWNlRW5jcnlwdCI6IjI3YzYyMGI5NDY5YmU0YWZjNDliOWMwMWQ3ZDNhODE3Iiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI2LCJzZXJ2aWNlRW5jcnlwdCI6IjI3YzYyMGI5NDY5YmU0YWZjNDliOWMwMWQ3ZDNhODE3In0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjI2LCJzZXJ2aWNlRW5jcnlwdCI6IjI3YzYyMGI5NDY5YmU0YWZjNDliOWMwMWQ3ZDNhODE3In0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle hh-checkbox-td">
+                    <div class="checkbox checkbox-success">
+                        <input type="checkbox" name="post_id" value="25" id="hh-check-all-item-25"
+                            class="hh-check-all-item">
+                        <label for="hh-check-all-item-25"></label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="media align-items-center">
+                        <img src="//via.placeholder.com/75x75" class="d-none d-md-block mr-3" alt="Image">
+                        <div class="media-body">
+                            <h5 class="m-0"><a href="http://localhost:8080/booking/home/25/new-home-1579158855"
+                                    target="_blank">Twins Apartment</a>
+                                <span class="text-muted"> - 25</span>
+                            </h5>
+                            <span class="exp d-none">[25] Twins Apartment</span>
+                            <p class="text-muted mb-0 mt-2 d-none d-md-block">75015, Paris, France</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <span class="exp">$50.00</span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="service-status publish status-icon" data-toggle="tooltip" data-placement="right"
+                        title="" data-original-title="Publish"><span class="exp d-none">Publish</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="exp">4</span>
+                </td>
+                <td class="align-middle">
+                    <span class="exp"> Guesthouse </span>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown dropleft">
+                        <a href="javascript: void(0)" class="dropdown-toggle table-action-link"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="ti-settings"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" target="_blank"
+                                href="http://localhost:8080/booking/dashboard/edit-home/25">Edit</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI1LCJzZXJ2aWNlRW5jcnlwdCI6ImRlNzI2YTZhZGZjYzlmMmRjOTJhZWNhNTM4NTc2ODJkIiwic3RhdHVzIjoicHVibGlzaCJ9"
+                                href="javascript: void(0)">Publish</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI1LCJzZXJ2aWNlRW5jcnlwdCI6ImRlNzI2YTZhZGZjYzlmMmRjOTJhZWNhNTM4NTc2ODJkIiwic3RhdHVzIjoicGVuZGluZyJ9"
+                                href="javascript: void(0)">Pending</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI1LCJzZXJ2aWNlRW5jcnlwdCI6ImRlNzI2YTZhZGZjYzlmMmRjOTJhZWNhNTM4NTc2ODJkIiwic3RhdHVzIjoiZHJhZnQifQ=="
+                                href="javascript: void(0)">Draft</a>
+                            <a class="dropdown-item hh-link-action hh-link-change-status-home"
+                                data-action="http://localhost:8080/booking/dashboard/change-status-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI1LCJzZXJ2aWNlRW5jcnlwdCI6ImRlNzI2YTZhZGZjYzlmMmRjOTJhZWNhNTM4NTc2ODJkIiwic3RhdHVzIjoidHJhc2gifQ=="
+                                href="javascript: void(0)">Trash</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-duplicate-home"
+                                data-action="http://localhost:8080/booking/dashboard/duplicate-home"
+                                data-parent="tr" data-is-delete="false"
+                                data-params="eyJzZXJ2aWNlSUQiOjI1LCJzZXJ2aWNlRW5jcnlwdCI6ImRlNzI2YTZhZGZjYzlmMmRjOTJhZWNhNTM4NTc2ODJkIn0="
+                                href="javascript: void(0)">Duplicate</a>
+
+                            <a class="dropdown-item hh-link-action hh-link-delete-home"
+                                data-action="http://localhost:8080/booking/dashboard/delete-home-item"
+                                data-parent="tr" data-is-delete="true" data-confirm="yes"
+                                data-confirm-title="System Alert"
+                                data-confirm-question="Are you sure want to delete this home?"
+                                data-confirm-button="Delete it!"
+                                data-params="eyJzZXJ2aWNlSUQiOjI1LCJzZXJ2aWNlRW5jcnlwdCI6ImRlNzI2YTZhZGZjYzlmMmRjOTJhZWNhNTM4NTc2ODJkIn0="
+                                href="javascript: void(0)">Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="clearfix mt-2">
+        <nav aria-label="navigation">
+            <ul class="pagination">
+                <li class="disabled"><a class="page-link" href="javascript:void(0);" title="previous"><i
+                            class="icon-arrow-left"></i></a></li>
+                <li class="active page-item"><a class="page-link" data-pagination="1"
+                        href="javascript:void(0);">1</a></li>
+                <li class="page-item"><a class="page-link" data-pagination="2"
+                        href="http://localhost:8080/booking/dashboard/my-home/2/"> 2</a></li>
+                <li class="page-item"><a class="page-link" data-pagination="3"
+                        href="http://localhost:8080/booking/dashboard/my-home/3/"> 3</a></li>
+                <li class="page-item"><a class="page-link" data-pagination="2"
+                        href="http://localhost:8080/booking/dashboard/my-home/2/" title="next"><i
+                            class="icon-arrow-right"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
