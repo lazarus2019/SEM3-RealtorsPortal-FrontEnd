@@ -40,7 +40,10 @@ export class AdminComponent {
       '../../../assets/plugins/tinymce/tinymce.min.js',
       '../../../assets/plugins/tinymce/init-tinymce.js',
       '../../../assets/plugins/jquery.filer/js/jquery.filer.min.js',
-      '../../../assets/plugins/jquery.filer/js/temp.js'
+      '../../../assets/plugins/jquery.filer/js/temp.js',
+      '../../../assets/plugins/sweetalert/sweetalert.min.js',
+      '../../../assets/js/jquery.sweetalert.js'
+
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {
       const node = document.createElement('script');
@@ -60,7 +63,7 @@ export class AdminComponent {
       '../../../assets/plugins/datatables/datatables.min.css',
       '../../../assets/plugins/jquery.filer/css/jquery.filer.css',
       '../../../assets/plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css',
-
+      '../../../assets/plugins/sweetalert/sweetalert.css'
     ];
     for (let i = 0; i < dynamicStyles.length; i++) {
       const node = document.createElement('link');
