@@ -491,6 +491,10 @@ body.adminbody .main-sidebar.left {
     /*height: 100%*/
 }
 
+.submenu{
+    cursor: pointer;
+}
+
 #sidebar-menu,
 #sidebar-menu a,
 #sidebar-menu li,
