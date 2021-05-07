@@ -27,6 +27,9 @@ export class AdminComponent {
       '../../../assets/js/jquery.nicescroll.js',
 
       '../../../assets/js/admin.js',
+      '../../../../assets/js/jquery.dataTable.js',
+      '../../../../assets/js/jquery.goToTop.js',
+      '../../../../assets/js/jquery.lightBox.js',
       '../../../assets/plugins/chart.js/Chart.min.js',
       '../../../assets/plugins/datatables/datatables.min.js',
 

@@ -1,0 +1,157 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="fas fa-table"></i> Ads Package</h3>
+            </div>
+
+            <div class="card-body">
+                <div class="form-group d-flex justify-content-between">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        Add new
+                    </button>
+                    <!-- Button trigger modal -->
+
+                    <input type="text" class="form-control" placeholder="Enter name" style="width: 200px;">
+                </div>
+
+                <table class="table table-responsive-xl table-hover" style="font-size: 18px">
+                    <thead align="center">
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Period (day)</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Ads amount</th>
+                            <th scope="col">Activate</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody align="center">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>BASIC</td>
+                            <td>15</td>
+                            <td>$10</td>
+                            <td>5</td>
+                            <td>5 users</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
+                                    data-target="#exampleModalCenter"><i class="fas fa-pencil-alt "></i> Edit</a>
+                                <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
+                                    Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>PLUS</td>
+                            <td>30</td>
+                            <td>$25</td>
+                            <td>10</td>
+                            <td>12 users</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
+                                    data-target="#exampleModalCenter"><i class="fas fa-pencil-alt "></i> Edit</a>
+                                <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
+                                    Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>VIP</td>
+                            <td>45</td>
+                            <td>$45</td>
+                            <td>15</td>
+                            <td>9 users</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
+                                    data-target="#exampleModalCenter"><i class="fas fa-pencil-alt "></i> Edit</a>
+                                <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
+                                    Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>VIP PLUS</td>
+                            <td>60</td>
+                            <td>$60</td>
+                            <td>20</td>
+                            <td>0 users</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
+                                    data-target="#exampleModalCenter"><i class="fas fa-pencil-alt "></i> Edit</a>
+                                <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
+                                    Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- end card-->
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add new/Edit Ad Package</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Ad Package name:</label>
+                        <input type="text" class="form-control" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="example1">
+                            Price: <span class="text-danger">*</span>
+                        </label>
+                        <input data-parsley-type="number" type="number" min="1" max="5000" class="form-control"
+                            required="" placeholder="Enter price" required="required">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="message-text" placeholder="Enter description"
+                            required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="recipient-name" class="col-form-label">Ads amount:</label>
+                                <input type="number" class="form-control" placeholder="Enter number" min="1" max="50"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="userName">Period (day)<span class="text-danger">*</span></label>
+                                <div class="mb-1"></div>
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    required="required">
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                    <option value="60">60</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

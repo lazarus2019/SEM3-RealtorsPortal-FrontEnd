@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: './addNew.component.html'
+  templateUrl: './manageMember.component.html'
 })
-export class AddNewPropertyComponent {
+export class AdminManageMemberComponent {
   constructor() {
     this.loadScripts();
   }
@@ -31,14 +31,10 @@ export class AddNewPropertyComponent {
       '../../../../assets/plugins/datatables/datatables.min.js',
 
       '../../../../assets/plugins/waypoints/lib/jquery.waypoints.min.js',
-      '../../../../assets/plugins/counterup/jquery.counterup.min.js',
 
       '../../../../assets/data/data_datatables.js',
 
       '../../../../assets/data/data_charts_dashboard.js',
-      '../../../../assets/plugins/tinymce/jquery.tinymce.min.js',
-      '../../../../assets/plugins/tinymce/tinymce.min.js',
-      '../../../../assets/plugins/tinymce/init-tinymce.js',
       '../../../../assets/plugins/jquery.filer/js/jquery.filer.min.js',
       '../../../../assets/plugins/jquery.filer/js/temp.js',
       '../../../../assets/plugins/sweetalert/sweetalert.min.js',
