@@ -18,6 +18,7 @@ import { TestComponent } from './area/admin/testing/testing.component';
 import { UserManageInvoiceComponent } from './area/admin/invoice/userManageInvoice.component';
 import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInvoice.component';
 import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.component';
+import { ReportComponent } from './area/admin/reports/reports.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,7 @@ const routes: Routes = [
         { path: 'adminManageInvoice', component: AdminManageInvoiceComponent },
         { path: 'invoiceTemplate', component: InvoiceTemplateComponent },
         { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent },
+        { path: 'reports', component: ReportComponent },
       ]
   },
   { path: 'testing', component: TestComponent }

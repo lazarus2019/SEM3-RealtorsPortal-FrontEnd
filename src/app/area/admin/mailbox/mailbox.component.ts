@@ -4,4 +4,5 @@ import { Component } from '@angular/core';
   templateUrl: './mailBox.component.html'
 })
 export class AdminMailBoxComponent {
+  
 }

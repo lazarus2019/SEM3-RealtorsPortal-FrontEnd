@@ -17,6 +17,7 @@ import { AdminManageMemberComponent } from './member/manageMember.component';
 import { AddNewPropertyComponent } from './property/addNew.component';
 import { AdminManagePropertyComponent } from './property/adminManage.component';
 import { UserManagePropertyComponent } from './property/userManage.component';
+import { ReportComponent } from './reports/reports.component';
 import { AdminSettingComponent } from './setting/adminSetting.component';
 import { TemplateComponent } from './template/template.component';
 
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'adminManageInvoice', component: AdminManageInvoiceComponent },
   { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent },
   { path: 'invoiceTemplate', component: InvoiceTemplateComponent },
+  { path: 'reports', component: ReportComponent },
 
 
 

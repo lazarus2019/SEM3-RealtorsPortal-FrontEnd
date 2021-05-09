@@ -40,8 +40,6 @@ export class AdminComponent {
       '../../../assets/plugins/tinymce/jquery.tinymce.min.js',
       '../../../assets/plugins/tinymce/tinymce.min.js',
       '../../../assets/plugins/tinymce/init-tinymce.js',
-      '../../../assets/plugins/jquery.filer/js/jquery.filer.min.js',
-      '../../../assets/plugins/jquery.filer/js/temp.js',
       '../../../assets/plugins/sweetalert/sweetalert.min.js',
       '../../../assets/js/jquery.sweetalert.js',
 

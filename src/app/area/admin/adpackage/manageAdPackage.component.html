@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="card mb-3">
@@ -9,14 +10,24 @@
             </div>
 
             <div class="card-body">
-                <div class="form-group d-flex justify-content-between">
-                    <div class="range-wrap">
-                        <div class="range-value" id="rangeV">Price below: $200</div>
-                        <input id="range" type="range" min="0" max="200" value="200" step="1">
+                <!-- Form Search & Filter -->
+                <div class="from-group mb-3 d-flex justify-content-end">
+                    <div class="row">
+                        <div class="col-md-5 mb-1">
+                            <div class="range-wrap">
+                                <div class="range-value" id="rangeV">Price below: $200</div>
+                                <input id="range" type="range" min="0" max="200" value="200" step="1">
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-1">
+                            <input type="text" class="form-control " placeholder="Enter name" style="width: 200px;">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary">Search</button>
+                        </div>
                     </div>
-
-                    <input type="text" class="form-control " placeholder="Enter name" style="width: 200px;">
                 </div>
+    
 
                 <table class="table table-responsive-xl table-hover" style="font-size: 18px">
                     <thead align="center">

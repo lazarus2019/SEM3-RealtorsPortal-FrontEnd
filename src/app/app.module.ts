@@ -27,6 +27,7 @@ import { AdminService } from './services/adminService.service';
 import { UserManageInvoiceComponent } from './area/admin/invoice/userManageInvoice.component';
 import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInvoice.component';
 import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.component';
+import { ReportComponent } from './area/admin/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.c
     AdminManageInvoiceComponent,
     AdminManageInvoiceAdPackageComponent,
     InvoiceTemplateComponent,
+    ReportComponent,
     TemplateComponent,
     TestComponent
     ],

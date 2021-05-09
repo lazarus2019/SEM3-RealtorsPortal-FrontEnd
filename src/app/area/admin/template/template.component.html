@@ -87,6 +87,39 @@
     </div>
 </div>
 
+ <!-- Form Search & Filter -->
+ <div class="from-group mb-3">
+    <div class="row">
+        <div class="col-md-3 mb-1">
+            <input type="text" class="form-control" value="" placeholder="Enter name">
+        </div>
+        <div class="col-md-3 mb-1">
+            <input data-parsley-type="text" type="text" class="form-control" required=""
+                placeholder="Enter email" required="required">
+        </div>
+        <div class="col-md-3 mb-1">
+            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
+                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                <option value="customer">Customer</option>
+                <option value="agent">Agent</option>
+                <option value="seller">Seller</option>
+                <option value="administration">Administration</option>
+            </select>
+        </div>
+        <div class="col-md-2 mb-1">
+            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
+                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                <option value="activate">Activate</option>
+                <option value="deactivate">Deactivate</option>
+                <option value="pending">Pending</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</div>
+
 <!-- Button Success and Error -->
 <a class="btn btn-success" role="button" (click)="test_success_alert()">Show alert</a>
 <a class="btn btn-danger" role="button" (click)="test_error_alert()">Show alert</a>
