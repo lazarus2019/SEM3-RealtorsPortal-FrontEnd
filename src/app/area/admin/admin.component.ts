@@ -27,11 +27,9 @@ export class AdminComponent {
       '../../../assets/js/jquery.nicescroll.js',
 
       '../../../assets/js/admin.js',
-      '../../../../assets/js/jquery.dataTable.js',
-      '../../../../assets/js/jquery.goToTop.js',
-      '../../../../assets/js/jquery.lightBox.js',
-      '../../../assets/plugins/chart.js/Chart.min.js',
-      '../../../assets/plugins/datatables/datatables.min.js',
+      '../../../assets/js/jquery.dataTable.js',
+      '../../../assets/js/jquery.goToTop.js',
+      '../../../assets/js/jquery.lightBox.js',
 
       '../../../assets/plugins/waypoints/lib/jquery.waypoints.min.js',
       '../../../assets/plugins/counterup/jquery.counterup.min.js',
@@ -45,7 +43,7 @@ export class AdminComponent {
       '../../../assets/plugins/jquery.filer/js/jquery.filer.min.js',
       '../../../assets/plugins/jquery.filer/js/temp.js',
       '../../../assets/plugins/sweetalert/sweetalert.min.js',
-      '../../../assets/js/jquery.sweetalert.js'
+      '../../../assets/js/jquery.sweetalert.js',
 
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {
@@ -66,7 +64,8 @@ export class AdminComponent {
       '../../../assets/plugins/datatables/datatables.min.css',
       '../../../assets/plugins/jquery.filer/css/jquery.filer.css',
       '../../../assets/plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css',
-      '../../../assets/plugins/sweetalert/sweetalert.css'
+      '../../../assets/plugins/sweetalert/sweetalert.css',
+      '../../../assets/plugins/datetimepicker/css/daterangepicker.css'
     ];
     for (let i = 0; i < dynamicStyles.length; i++) {
       const node = document.createElement('link');

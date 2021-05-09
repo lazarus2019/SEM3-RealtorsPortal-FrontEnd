@@ -25,16 +25,16 @@ export class UserManagePropertyComponent {
       '../../../../assets/js/jquery.blockUI.js',
       '../../../../assets/js/jquery.nicescroll.js',
 
-      '../../../../assets/js/jquery.dataTable.js',
       '../../../../assets/js/jquery.goToTop.js',
       '../../../../assets/js/jquery.lightBox.js',
       '../../../../assets/plugins/chart.js/Chart.min.js',
       '../../../../assets/plugins/datatables/datatables.min.js',
-
+      
       '../../../../assets/plugins/waypoints/lib/jquery.waypoints.min.js',
       '../../../../assets/plugins/counterup/jquery.counterup.min.js',
-
+      
       '../../../../assets/data/data_datatables.js',
+      '../../../../assets/js/jquery.dataTable.js',
 
       '../../../../assets/data/data_charts_dashboard.js',
       '../../../../assets/plugins/tinymce/jquery.tinymce.min.js',

@@ -2,18 +2,20 @@
     <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="card mb-3">
             <div class="card-header">
+                <!-- Button trigger modal -->
+                <span class="pull-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewAdPackage"><i class="fas fa-plus" aria-hidden="true"></i> Add new
+                        package</button></span>
                 <h3><i class="fas fa-table"></i> Ads Package</h3>
             </div>
 
             <div class="card-body">
                 <div class="form-group d-flex justify-content-between">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        Add new
-                    </button>
-                    <!-- Button trigger modal -->
+                    <div class="range-wrap">
+                        <div class="range-value" id="rangeV">Price below: $200</div>
+                        <input id="range" type="range" min="0" max="200" value="200" step="1">
+                    </div>
 
-                    <input type="text" class="form-control" placeholder="Enter name" style="width: 200px;">
+                    <input type="text" class="form-control " placeholder="Enter name" style="width: 200px;">
                 </div>
 
                 <table class="table table-responsive-xl table-hover" style="font-size: 18px">
@@ -38,7 +40,7 @@
                             <td>5 users</td>
                             <td>
                                 <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                    data-target="#exampleModalCenter"><i class="fas fa-pencil-alt "></i> Edit</a>
+                                    data-target="#addNewAdPackage"><i class="fas fa-pencil-alt "></i> Edit</a>
                                 <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
                                     Delete</a>
                             </td>
@@ -52,7 +54,7 @@
                             <td>12 users</td>
                             <td>
                                 <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                    data-target="#exampleModalCenter"><i class="fas fa-pencil-alt "></i> Edit</a>
+                                    data-target="#addNewAdPackage"><i class="fas fa-pencil-alt "></i> Edit</a>
                                 <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
                                     Delete</a>
                             </td>
@@ -66,7 +68,7 @@
                             <td>9 users</td>
                             <td>
                                 <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                    data-target="#exampleModalCenter"><i class="fas fa-pencil-alt "></i> Edit</a>
+                                    data-target="#addNewAdPackage"><i class="fas fa-pencil-alt "></i> Edit</a>
                                 <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
                                     Delete</a>
                             </td>
@@ -80,7 +82,7 @@
                             <td>0 users</td>
                             <td>
                                 <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                    data-target="#exampleModalCenter"><i class="fas fa-pencil-alt "></i> Edit</a>
+                                    data-target="#addNewAdPackage"><i class="fas fa-pencil-alt "></i> Edit</a>
                                 <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
                                     Delete</a>
                             </td>
@@ -96,7 +98,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="addNewAdPackage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

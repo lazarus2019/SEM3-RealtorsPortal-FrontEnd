@@ -229,7 +229,7 @@
 
                     <li class="submenu">
                         <a [routerLink]="['/admin/manageMember']">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-users"></i>
                             <span> Members </span>
                         </a>
                     </li>
@@ -244,7 +244,30 @@
 
                     <li class="submenu">
                         <a>
-                            <i class="fas fa-table"></i>
+                            <i class="fab fa-wpforms"></i>
+                            <span> Admin Invoices </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a [routerLink]="['/admin/adminManageInvoice']">All Invoices</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/admin/manageInvoiceAdPackage']">Invoice Ads package</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/userManageInvoice']">
+                            <i class="fab fa-wpforms"></i>
+                            <span> User Invoices </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a>
+                            <i class="fas fa-building"></i>
                             <span> Property </span>
                             <span class="menu-arrow"></span>
                         </a>
@@ -263,7 +286,7 @@
 
                     <li class="submenu">
                         <a>
-                            <i class="fas fa-table"></i>
+                            <i class="fas fa-th-list"></i>
                             <span> Ads Package </span>
                             <span class="menu-arrow"></span>
                         </a>
@@ -285,7 +308,7 @@
 
                     <li class="submenu">
                         <a>
-                            <i class="fas fa-table"></i>
+                            <i class="fas fa-chart-bar"></i>
                             <span> Reports </span>
                             <span class="menu-arrow"></span>
                         </a>
@@ -301,17 +324,16 @@
 
                     <li class="submenu">
                         <a>
-                            <i class="fas fa-table"></i>
+                            <i class="fas fa-cogs"></i>
                             <span> Setting </span>
                             <span class="menu-arrow"></span>
                         </a>
                         <ul class="list-unstyled">
-                            <a href="slider.html">
-                                <i class="fas fa-photo-video"></i>
-                                <span> Slider </span>
+                            <a [routerLink]="['/admin/adminSetting']">
+                                <span> Admin Setting </span>
                             </a>
                             <li>
-                                <a href="tables-datatable.html">Setting 2</a>
+                                <a href="tables-datatable.html">User Setting</a>
                             </li>
                             <li>
                                 <a href="ui-alerts.html">Alerts</a>
