@@ -4,6 +4,11 @@
 .widescreen{
     margin: 0 !important;
 }
+
+.avatar{
+    cursor: pointer;
+}
+
 html {
     position: relative;
     min-height: 100%
