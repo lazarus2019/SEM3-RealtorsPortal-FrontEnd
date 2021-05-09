@@ -29,9 +29,23 @@ import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInv
 import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.component';
 import { ReportComponent } from './area/admin/reports/reports.component';
 
+// User area
+import { AboutComponent } from './area/user/about/about.component';
+import { ContactComponent } from './area/user/contact/contact.component';
+import { IndexComponent } from './area/user/index/index.component';
+import { ListingComponent } from './area/user/listing/listing.component';
+import { AgentComponent } from './area/user/phonebook/agent/agent.component';
+import { SellerComponent } from './area/user/phonebook/seller/seller.component';
+import { AddPropertyComponent } from './area/user/single-property/add_property/addproperty.component';
+import { PropertyComponent } from './area/user/single-property/property.component';
+import { UserRoutingModule } from './area/user/user-routing.module';
+import { UserComponent } from './area/user/user.component';
+
 @NgModule({
   declarations: [
     AppComponent,
+
+    // Admin area
     AdminComponent,
     AddNewPropertyComponent,
     AdminDashboardComponent,
@@ -51,19 +65,40 @@ import { ReportComponent } from './area/admin/reports/reports.component';
     AdminManageInvoiceAdPackageComponent,
     InvoiceTemplateComponent,
     ReportComponent,
+
+    // Template component
     TemplateComponent,
-    TestComponent
+
+    // Testing component
+    TestComponent,
+
+    // User area
+    UserComponent,
+    IndexComponent,
+    ListingComponent,
+    ContactComponent,
+    PropertyComponent,
+    AboutComponent,
+    AddPropertyComponent,
+    AgentComponent,
+    SellerComponent
+
     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AdminRoutingModule,
     // Load form module để truyền dữ liệu
     FormsModule,
     // 
     ReactiveFormsModule,
     // Add routing module
     AppRoutingModule,
+
+    // Admin module
+    AdminRoutingModule,
+
+    // User module
+    UserRoutingModule
   ],
   providers: [
     AddNewService,

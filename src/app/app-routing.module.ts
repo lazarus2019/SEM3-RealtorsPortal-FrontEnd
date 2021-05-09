@@ -14,18 +14,20 @@ import { AdminManagePropertyComponent } from './area/admin/property/adminManage.
 import { UserManagePropertyComponent } from './area/admin/property/userManage.component';
 import { TemplateComponent } from './area/admin/template/template.component';
 import { AdminSettingComponent } from './area/admin/setting/adminSetting.component';
-import { TestComponent } from './area/admin/testing/testing.component';
 import { UserManageInvoiceComponent } from './area/admin/invoice/userManageInvoice.component';
 import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInvoice.component';
 import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.component';
 import { ReportComponent } from './area/admin/reports/reports.component';
+import { IndexComponent } from './area/user/index/index.component';
+import { UserComponent } from './area/user/user.component';
 
 const routes: Routes = [
   {
-    path: '', component: AdminComponent,
+    path: '', component: UserComponent,
     children:
       [
-        { path: '', component: AdminDashboardComponent }
+        // { path: '', component: AdminDashboardComponent }
+        { path: '', component: IndexComponent }
       ]
   },
   {
@@ -45,8 +47,8 @@ const routes: Routes = [
         { path: 'addAdPackage', component: AdminAddAdPackageComponent },
         { path: 'manageInvoice', component: AdminManageInvoiceAdPackageComponent },
         { path: 'adminSetting', component: AdminSettingComponent },
-        {path: 'template', component: TemplateComponent},
-        {path: 'adminSetting', component: AdminSettingComponent},
+        { path: 'template', component: TemplateComponent },
+        { path: 'adminSetting', component: AdminSettingComponent },
         { path: 'userManageInvoice', component: UserManageInvoiceComponent },
         { path: 'adminManageInvoice', component: AdminManageInvoiceComponent },
         { path: 'invoiceTemplate', component: InvoiceTemplateComponent },
@@ -54,7 +56,14 @@ const routes: Routes = [
         { path: 'reports', component: ReportComponent },
       ]
   },
-  { path: 'testing', component: TestComponent }
+  {
+    path: 'user', component: UserComponent,
+    children:
+      [
+        { path: '', component: IndexComponent },
+      ]
+  },
+
 ];
 
 @NgModule({
