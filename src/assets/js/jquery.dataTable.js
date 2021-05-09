@@ -1,3 +1,5 @@
-$(document).on('ready', function () { 
-    $('#dataTable').DataTable();
-  });
+$(document).on('ready', function () {
+  let dataTable = $('#dataTable');
+  if (dataTable != null)
+    dataTable.DataTable();
+});
