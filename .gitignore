@@ -20,6 +20,7 @@ tsconfig.app.json
 tsconfig.json
 tsconfig.spec.json
 tslint.json
+src/app/area/admin/testing/
 
 # profiling files
 chrome-profiler-events*.json

@@ -1,0 +1,59 @@
+<div class="row">
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="far fa-check-square"></i> Add new ad package</h3>
+            </div>
+
+            <div class="card-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Ad Package name:</label>
+                        <input type="text" class="form-control" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="example1">
+                            Price: <span class="text-danger">*</span>
+                        </label>
+                        <input data-parsley-type="number" type="number" min="1" max="5000" class="form-control"
+                            required="" placeholder="Enter price" required="required">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="message-text" placeholder="Enter description"
+                            required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="recipient-name" class="col-form-label">Ads amount:</label>
+                                <input type="number" class="form-control" placeholder="Enter number" min="1" max="50"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="userName">Period (day)<span class="text-danger">*</span></label>
+                                <div class="mb-1"></div>
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    required="required">
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                    <option value="60">60</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+
+            </div>
+        </div><!-- end card-->
+    </div>
+</div>
