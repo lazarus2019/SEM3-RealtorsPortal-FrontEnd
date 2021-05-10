@@ -58,7 +58,7 @@
                         </a>
 
                         <!-- All-->
-                        <a [routerLink]="['/admin/mailbox']"  class="dropdown-item notify-item notify-all">
+                        <a [routerLink]="['/admin/mailbox']" class="dropdown-item notify-item notify-all">
                             View All Messages
                         </a>
 
@@ -236,9 +236,35 @@
                     </li>
 
                     <li class="submenu">
-                        <a [routerLink]="['/admin/manageAdPackage']">
+                        <a>
                             <i class="fas fa-th-list"></i>
                             <span> Ads Package </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a [routerLink]="['/admin/manageAdPackage']">Manage</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/admin/adPackage']">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span> Upgrade </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/blogs']">
+                            <i class="fas fa-file-alt"></i>
+                            <span> Blog </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/faq']">
+                            <i class="fas fa-question-circle"></i>
+                            <span> FAQ </span>
                         </a>
                     </li>
 
@@ -253,13 +279,6 @@
                         <a [routerLink]="['/admin/setting']">
                             <i class="fas fa-cogs"></i>
                             <span> Setting </span>
-                        </a>
-                    </li>
-
-                    <li class="submenu">
-                        <a [routerLink]="['/admin/adPackage']">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span> Upgrade </span>
                         </a>
                     </li>
 
