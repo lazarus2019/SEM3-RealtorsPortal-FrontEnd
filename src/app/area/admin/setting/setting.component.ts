@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-declare var alertFunction: any;
 
 @Component({
-  templateUrl: './adminSetting.component.html'
+  templateUrl: './setting.component.html'
 })
-export class AdminSettingComponent {
+export class SettingComponent {
   constructor() {
     this.loadScripts();
   }
@@ -36,9 +35,7 @@ export class AdminSettingComponent {
       '../../../../assets/plugins/jquery.filer/js/jquery.filer.min.js',
       '../../../../assets/plugins/jquery.filer/js/temp.js',
       '../../../../assets/plugins/sweetalert/sweetalert.min.js',
-      '../../../../assets/js/jquery.sweetalert.js',
-      '../../../../assets/plugins/datetimepicker/js/daterangepicker.js',
-      '../../../../assets/js/jquery.datePicker.js',
+      '../../../../assets/js/jquery.sweetalert.js'
 
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {
@@ -48,13 +45,5 @@ export class AdminSettingComponent {
       node.async = false;
       document.body.appendChild(node);
     }
-  }
-
-  test_success_alert(){
-    alertFunction.success();
-  }
-  
-  test_error_alert(){
-    alertFunction.error();
   }
 }
