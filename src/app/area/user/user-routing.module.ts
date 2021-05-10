@@ -1,14 +1,14 @@
 import { IndexComponent } from './index/index.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PropertyComponent } from './single-property/property.component';
 
-// Admin components
+// User components
 
-// Admin Services
 
 const routes: Routes = [
-  { path: '', component:  IndexComponent}
-
+  { path: '', component:  IndexComponent},
+  {path: 'single-property', component: PropertyComponent}
 ];
 
 @NgModule({

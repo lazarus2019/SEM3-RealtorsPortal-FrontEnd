@@ -24,6 +24,7 @@ export class UserComponent implements OnInit {
       '../../../assets/user/js/jquery.magnific-popup.min.js',
       '../../../assets/user/js/bootstrap.min.js',
       '../../../assets/user/js/jquery.start.js',
+      '../../../assets/user/js/jquery.goToTop.js',
 
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {

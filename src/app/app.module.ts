@@ -17,9 +17,8 @@ import { UserManagePropertyComponent } from './area/admin/property/userManage.co
 import { AdminManageMemberComponent } from './area/admin/member/manageMember.component';
 import { AdminAdPackageComponent } from './area/admin/adpackage/adPackage.component';
 import { AdminManageAdPackageComponent } from './area/admin/adpackage/manageAdPackage.component';
-import { AdminAddAdPackageComponent } from './area/admin/adpackage/addAdPackage.component';
 import { AdminManageInvoiceAdPackageComponent } from './area/admin/invoice/manageInvoiceAdPackage.component';
-import { AdminSettingComponent } from './area/admin/setting/adminSetting.component';
+import { SettingComponent } from './area/admin/setting/setting.component';
 import { TemplateComponent } from './area/admin/template/template.component';
 import { AddNewService } from './services/addNewService';
 import { TestComponent } from './area/admin/testing/testing.component';
@@ -40,6 +39,7 @@ import { AddPropertyComponent } from './area/user/single-property/add_property/a
 import { PropertyComponent } from './area/user/single-property/property.component';
 import { UserRoutingModule } from './area/user/user-routing.module';
 import { UserComponent } from './area/user/user.component';
+import { ProfileComponent } from './area/admin/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -56,15 +56,14 @@ import { UserComponent } from './area/user/user.component';
     UserManagePropertyComponent,
     AdminManageMemberComponent,
     AdminManageAdPackageComponent,
-    AdminAddAdPackageComponent,
     AdminManageInvoiceAdPackageComponent,
-    AdminSettingComponent,
-    AdminSettingComponent,
+    SettingComponent,
     UserManageInvoiceComponent,
     AdminManageInvoiceComponent,
     AdminManageInvoiceAdPackageComponent,
     InvoiceTemplateComponent,
     ReportComponent,
+    ProfileComponent,
 
     // Template component
     TemplateComponent,
@@ -81,7 +80,7 @@ import { UserComponent } from './area/user/user.component';
     AboutComponent,
     AddPropertyComponent,
     AgentComponent,
-    SellerComponent
+    SellerComponent,    
 
     ],
   imports: [

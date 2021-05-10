@@ -141,7 +141,7 @@
                         </div>
 
                         <!-- item-->
-                        <a [routerLink]="['/admin/adminSetting']" class="dropdown-item notify-item">
+                        <a [routerLink]="['/admin/profile']" class="dropdown-item notify-item">
                             <i class="fas fa-user"></i>
                             <span>Profile</span>
                         </a>
@@ -195,17 +195,10 @@
                         <a [routerLink]="['/admin/mailbox']">
                             <span class="label radius-circle bg-danger float-right">18</span>
                             <i class="fas fa-envelope"></i>
-                            <span> Mailbox </span>
+                            <span> Message box </span>
                         </a>
                     </li>
 
-                    <li class="submenu">
-                        <a [routerLink]="['/admin/notifications']">
-                            <span class="label radius-circle bg-danger float-right">3</span>
-                            <i class="fas fa-bell"></i>
-                            <span> Notifications </span>
-                        </a>
-                    </li>
 
                     <li class="submenu">
                         <a>
@@ -215,26 +208,12 @@
                         </a>
                         <ul class="list-unstyled">
                             <li>
-                                <a [routerLink]="['/admin/adminManageInvoice']">All Invoices</a>
+                                <a [routerLink]="['/admin/adminManageInvoice']">Invoices Property</a>
                             </li>
                             <li>
                                 <a [routerLink]="['/admin/manageInvoiceAdPackage']">Invoice Ads package</a>
                             </li>
                         </ul>
-                    </li>
-
-                    <li class="submenu">
-                        <a [routerLink]="['/admin/userManageInvoice']">
-                            <i class="fab fa-wpforms"></i>
-                            <span> User Invoices </span>
-                        </a>
-                    </li>
-
-                    <li class="submenu">
-                        <a [routerLink]="['/admin/invoiceTemplate']">
-                            <i class="fab fa-wpforms"></i>
-                            <span> Invoices Template</span>
-                        </a>
                     </li>
 
                     <li class="submenu">
@@ -245,10 +224,10 @@
                         </a>
                         <ul class="list-unstyled">
                             <li>
-                                <a [routerLink]="['/admin/adminManage']">Manage Admin</a>
+                                <a [routerLink]="['/admin/adminManage']">Manage Property (Admin)</a>
                             </li>
                             <li>
-                                <a [routerLink]="['/admin/userManage']">Manage Member</a>
+                                <a [routerLink]="['/admin/userManage']">Manage Property (User)</a>
                             </li>
                             <li>
                                 <a [routerLink]="['/admin/addNew']">Add New Property</a>
@@ -257,25 +236,10 @@
                     </li>
 
                     <li class="submenu">
-                        <a>
+                        <a [routerLink]="['/admin/manageAdPackage']">
                             <i class="fas fa-th-list"></i>
                             <span> Ads Package </span>
-                            <span class="menu-arrow"></span>
                         </a>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a [routerLink]="['/admin/manageAdPackage']">Manage</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="['/admin/addAdPackage']">Add Ads Package</a>
-                            </li>
-                            <li class="submenu">
-                                <a [routerLink]="['/admin/adPackage']">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    <span> Upgrade </span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
                     <li class="submenu">
@@ -286,19 +250,24 @@
                     </li>
 
                     <li class="submenu">
-                        <a>
+                        <a [routerLink]="['/admin/setting']">
                             <i class="fas fa-cogs"></i>
                             <span> Setting </span>
-                            <span class="menu-arrow"></span>
                         </a>
-                        <ul class="list-unstyled">
-                            <a [routerLink]="['/admin/adminSetting']">
-                                <span> Admin Setting </span>
-                            </a>
-                            <li>
-                                <a href="tables-datatable.html">User Setting</a>
-                            </li>
-                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/adPackage']">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span> Upgrade </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/template']">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span> Template </span>
+                        </a>
                     </li>
 
                 </ul>
