@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// Admin area
+// Module
+import { AppRoutingModule } from './app-routing.module';
 import { AdminRoutingModule } from './area/admin/admin-routing.module';
+import { UserRoutingModule } from './area/user/user-routing.module';
+
+// Admin area
 import { AdminComponent } from './area/admin/admin.component';
 import { AdminDashboardComponent } from './area/admin/dashboard/dashboard.component';
 import { AdminGalleryComponent } from './area/admin/gallery/gallery.component';
@@ -27,9 +30,9 @@ import { UserManageInvoiceComponent } from './area/admin/invoice/userManageInvoi
 import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInvoice.component';
 import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.component';
 import { ReportComponent } from './area/admin/reports/reports.component';
+import { ProfileComponent } from './area/admin/profile/profile.component';
 
 // User area
-import { AboutComponent } from './area/user/about/about.component';
 import { ContactComponent } from './area/user/contact/contact.component';
 import { IndexComponent } from './area/user/index/index.component';
 import { ListingComponent } from './area/user/listing/listing.component';
@@ -37,9 +40,12 @@ import { AgentComponent } from './area/user/phonebook/agent/agent.component';
 import { SellerComponent } from './area/user/phonebook/seller/seller.component';
 import { AddPropertyComponent } from './area/user/single-property/add_property/addproperty.component';
 import { PropertyComponent } from './area/user/single-property/property.component';
-import { UserRoutingModule } from './area/user/user-routing.module';
 import { UserComponent } from './area/user/user.component';
-import { ProfileComponent } from './area/admin/profile/profile.component';
+import { DetailsComponent } from './area/user/phonebook/detail/detail.component';
+import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
+import { NewsComponent } from './area/user/news/news.component';
+import { CategoryComponent } from './area/user/category/category.component';
+
 
 @NgModule({
   declarations: [
@@ -77,12 +83,16 @@ import { ProfileComponent } from './area/admin/profile/profile.component';
     ListingComponent,
     ContactComponent,
     PropertyComponent,
-    AboutComponent,
+    AboutUsComponent,
     AddPropertyComponent,
     AgentComponent,
-    SellerComponent,    
-
-    ],
+    SellerComponent,
+    ListingComponent,
+    ContactComponent,
+    DetailsComponent,
+    NewsComponent,
+    CategoryComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
