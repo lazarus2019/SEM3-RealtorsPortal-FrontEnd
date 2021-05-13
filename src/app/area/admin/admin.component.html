@@ -255,10 +255,21 @@
                     </li>
 
                     <li class="submenu">
-                        <a [routerLink]="['/admin/blogs']">
+                        <a >
                             <i class="fas fa-file-alt"></i>
-                            <span> Blog </span>
+                            <span> News </span>
+                            <span class="menu-arrow"></span>
                         </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a [routerLink]="['/admin/manageNews']">Manage</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/admin/news']">
+                                    <span> Add new </span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li class="submenu">
