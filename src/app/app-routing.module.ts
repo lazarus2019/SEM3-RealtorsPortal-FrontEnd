@@ -33,16 +33,18 @@ import { AgentComponent } from './area/user/phonebook/agent/agent.component';
 import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
 import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
+import { AdminNewsComponent } from './area/admin/news/addNew.component';
+import { AdminManageNewsComponent } from './area/admin/news/manageNews.component';
 
 const routes: Routes = [
 
   // Default Component
   {
-    path: '', component: UserComponent,
+    path: '', component: AdminComponent,
     children:
       [
-        // { path: '', component: AdminDashboardComponent }
-        { path: '', component: IndexComponent }
+        { path: '', component: AdminDashboardComponent }
+        // { path: '', component: IndexComponent }
       ]
   },
 
@@ -89,6 +91,8 @@ const routes: Routes = [
         { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent },
         { path: 'reports', component: ReportComponent },
         { path: 'profile', component: ProfileComponent },
+        { path: 'news', component: AdminNewsComponent },
+        { path: 'manageNews', component: AdminManageNewsComponent },
       ]
   },
 

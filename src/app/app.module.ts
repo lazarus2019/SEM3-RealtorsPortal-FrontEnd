@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminRoutingModule } from './area/admin/admin-routing.module';
 import { UserRoutingModule } from './area/user/user-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 // Admin area
 import { AdminComponent } from './area/admin/admin.component';
@@ -32,6 +33,10 @@ import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.c
 import { ReportComponent } from './area/admin/reports/reports.component';
 import { ProfileComponent } from './area/admin/profile/profile.component';
 
+// Admin Services
+import { NewsAPIService } from './services/admin/news/newsAPI.service';
+
+
 // User area
 import { ContactComponent } from './area/user/contact/contact.component';
 import { IndexComponent } from './area/user/index/index.component';
@@ -45,6 +50,9 @@ import { DetailsComponent } from './area/user/phonebook/detail/detail.component'
 import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
 import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
+import { AdminNewsComponent } from './area/admin/news/addNew.component';
+import { AdminManageNewsComponent } from './area/admin/news/manageNews.component';
+import { NewsCategoryAPIService } from './services/admin/newsCategory/newsCategoryAPI.service';
 
 
 @NgModule({
@@ -70,6 +78,8 @@ import { CategoryComponent } from './area/user/category/category.component';
     InvoiceTemplateComponent,
     ReportComponent,
     ProfileComponent,
+    AdminNewsComponent,
+    AdminManageNewsComponent,
 
     // Template component
     TemplateComponent,
@@ -95,11 +105,12 @@ import { CategoryComponent } from './area/user/category/category.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     // Load form module để truyền dữ liệu
     FormsModule,
-    // 
+    // Http Client module
     ReactiveFormsModule,
+    // 
+    HttpClientModule,
     // Add routing module
     AppRoutingModule,
 
@@ -111,7 +122,9 @@ import { CategoryComponent } from './area/user/category/category.component';
   ],
   providers: [
     AddNewService,
-    AdminService
+    AdminService,
+    NewsAPIService,
+    NewsCategoryAPIService
   ],
   bootstrap: [AppComponent]
 })
