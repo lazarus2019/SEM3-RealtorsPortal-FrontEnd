@@ -1,0 +1,143 @@
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="fas fa-table"></i> Manage News/Posts</h3>
+            </div>
+            <div class="card-body">
+
+                <!-- Form Search & Filter -->
+                <div class="from-group mb-3">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4 mb-1">
+                                <input type="text" class="form-control" value="" placeholder="Enter title">
+                            </div>
+                            <div class="col-md-4 mb-1">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    required="required">
+                                    <ng-container *ngFor="let category of allNewsCategory">
+                                        <option value="{{category.id}}">{{category.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-1">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    required="required">
+                                    <option value="all">All</option>
+                                    <option value="deactivate">Public</option>
+                                    <option value="activate">Draft</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-primary" style="width: 100%;">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="dataTable"
+                                        class="table table-bordered table-hover display dataTable no-footer"
+                                        style="width: 100%;" role="grid" aria-describedby="dataTable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending"
+                                                    style="width: 50px;">No.</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending"
+                                                    style="width: 159px;">Title</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Position: activate to sort column ascending"
+                                                    style="width: 180px;">Thumbnail</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Office: activate to sort column ascending"
+                                                    style="width: 115px;">Category</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Date: activate to sort column ascending"
+                                                    style="width: 98px;">Date</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Date: activate to sort column ascending"
+                                                    style="width: 98px;">Status</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 92px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngFor="let news of allNews; index as i">
+                                                <tr role="row" class="odd">
+                                                    <td class="sorting_1">{{i+1}}</td>
+                                                    <td class="sorting_1">{{news.title}}</td>
+                                                    <td>
+                                                        <img src="https://via.placeholder.com/180x120g" alt="">
+                                                    </td>
+                                                    <td>{{news.categoryName}}</td>
+                                                    <td>{{news.createdDate|date:'dd/MM/y'}}</td>
+                                                    <td>
+                                                        <span *ngIf="news.status; else elseBlock">
+                                                            <i class="fas fa-dot-circle text-success"></i> Public
+                                                        </span>
+                                                        <ng-template #elseBlock>
+                                                            <i class="fas fa-dot-circle text-warning"></i> Draft
+                                                        </ng-template>
+                                                    </td>
+                                                    <td>
+                                                        <a href="# " class="btn btn-primary btn-sm btn-block "><i
+                                                                class="fas fa-pencil-alt "></i> Details</a>
+                                                        <a (click)="deleteNews(news)" class="btn btn-danger btn-sm btn-block mt-2 "><i
+                                                                class="fas fa-trash " ></i> Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end table-responsive-->
+
+            </div>
+            <!-- end card-body-->
+
+        </div>
+        <!-- end card-->
+
+    </div>
+
+</div>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large
+    modal</button>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">News title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="" alt="Thumbnail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
