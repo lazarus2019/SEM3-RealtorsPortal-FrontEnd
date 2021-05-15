@@ -30,10 +30,10 @@ export class NewsAPIService {
             .then(res => res);
     }
 
-    updateNews(news: NewsAPI) {
+    updateNews(news: NewsOrgAPI) {
         return this.http.put(this.BASE_URL + 'updateNews', news)
             .toPromise()
-            .then(res => res as NewsAPI);
+            .then(res => res as NewsOrgAPI);
     }
 
     createNews(news: NewsOrgAPI) {
@@ -46,5 +46,11 @@ export class NewsAPIService {
         return this.http.get(this.BASE_URL + 'sortFilterNews/' + title + '/' + category + '/' + status)
             .toPromise()
             .then(res => res as NewsAPI[]);
+    }
+
+    findNews(newsId: number) {
+        return this.http.get(this.BASE_URL + 'findNews/' + newsId)
+            .toPromise()
+            .then(res => res as NewsAPI);
     }
 }

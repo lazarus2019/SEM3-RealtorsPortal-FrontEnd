@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms'
+import { Router } from '@angular/router';
 import { NewsAPI } from 'src/app/models/news/news.model';
 import { NewsCategoryAPI } from 'src/app/models/newsCategory/newsCategory.model';
 import { NewsAPIService } from 'src/app/services/admin/news/newsAPI.service';
@@ -17,8 +18,10 @@ export class AdminManageNewsComponent implements OnInit {
   allNews: NewsAPI[] = [];
   statusRecords:string = "";
   allNewsCategory: NewsCategoryAPI[] = [];
+  currentNews: NewsAPI = new NewsAPI;
 
   constructor(
+    private router: Router,
     // Declare services
     private newsAPIService: NewsAPIService,
     private newsCategoryAPIService: NewsCategoryAPIService
@@ -75,6 +78,8 @@ export class AdminManageNewsComponent implements OnInit {
 
   }
 
+
+
   loadAllNews() {
     // this.newsAPIService.getAllNews().subscribe((val)=>{
     //   this.allNews = val,
@@ -96,7 +101,6 @@ export class AdminManageNewsComponent implements OnInit {
     this.newsCategoryAPIService.findAllNewsCategory().then(
       res => {
         this.allNewsCategory = res;
-        console.table(res);
       },
       err =>{
 
@@ -120,6 +124,21 @@ export class AdminManageNewsComponent implements OnInit {
       //   }
       // )
     // }
+  }
+
+  viewNews(newsId:number){
+    this.newsAPIService.findNews(newsId).then(
+      res =>{
+        this.currentNews = res;
+      },
+      err =>{
+        alertFunction.error("This query is cancel cause cant get any data!");
+      }
+    )
+  }
+
+  editNews(news:NewsAPI){
+    this.router.navigate(['/admin/news', news.id]);
   }
 
   // Alert

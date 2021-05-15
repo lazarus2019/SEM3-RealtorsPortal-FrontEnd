@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NewsAPI } from 'src/app/models/news/news.model';
@@ -17,6 +18,7 @@ declare var getTinyMCEContent: any;
 export class AdminNewsComponent implements OnInit {
 
   url: string = "";
+  currentNews: NewsAPI = new NewsAPI;
 
   formAddNewGroup: FormGroup = new FormGroup({});
 
@@ -26,6 +28,8 @@ export class AdminNewsComponent implements OnInit {
     // Declare form builder
     private formBuilder: FormBuilder,
     private elementRef: ElementRef,
+    private router: Router,
+    private route: ActivatedRoute,
 
     // Declare services
     private newsAPIService: NewsAPIService,
@@ -33,6 +37,10 @@ export class AdminNewsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    var id = this.route.snapshot.paramMap.get('newsId');
+    if(id!=null){
+      this.getNews(parseInt(id));
+    }
 
     // Load Categories
     this.loadAllNewsCategory();
@@ -45,8 +53,6 @@ export class AdminNewsComponent implements OnInit {
       status: false,
       categoryId: 0
     });
-
-
 
   }
 
@@ -97,12 +103,20 @@ export class AdminNewsComponent implements OnInit {
     )
   }
 
-  addNews() {
+  addNews(buttonType: string) {
     var news: NewsOrgAPI = this.formAddNewGroup.value;
     news.description = getTinyMCEContent();
+    // Set status: public for news
+    if (buttonType == 'public') {
+      news.status = true;
+    }
+    if (buttonType == 'draft') {
+      news.status = false;
+    }
     this.newsAPIService.createNews(news).then(
       res => {
         alertFunction.success("Add news succeeded!");
+        this.router.navigate(['/admin/manageNews']);
       },
       err => {
         alertFunction.error("Please try again!")
@@ -110,6 +124,32 @@ export class AdminNewsComponent implements OnInit {
     )
   }
 
+  getNews(newsId:number){
+    this.newsAPIService.findNews(newsId).then(
+      res =>{
+        this.currentNews = res;
+        alert(this.currentNews.title)
+      },
+      err =>{
+        alertFunction.error("This query is cancel cause cant get any data!");
+      }
+    )
+  }
+
+  updateNews(newsId:number){
+    var news: NewsOrgAPI = this.formAddNewGroup.value;
+    news.description = getTinyMCEContent();
+    news.id = newsId;
+    this.newsAPIService.updateNews(news).then(
+      res => {
+        alertFunction.success("Update news succeeded!");
+        this.router.navigate(['/admin/manageNews']);
+      },
+      err => {
+        alertFunction.error("Please try again!")
+      }
+    )
+  }
 
   // Generate title to url when title change
   generateUrl(e: any) {

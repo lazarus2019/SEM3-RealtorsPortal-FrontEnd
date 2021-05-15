@@ -46,6 +46,7 @@ const routes: Routes = [
   { path: 'reports', component: ReportComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'news', component: AdminNewsComponent },
+  { path: 'news/:newsId', component: AdminNewsComponent },
   { path: 'manageNews', component: AdminManageNewsComponent },
 
 

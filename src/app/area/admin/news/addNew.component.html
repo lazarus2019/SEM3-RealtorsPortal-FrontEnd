@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="card mb-3">
@@ -8,12 +9,22 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <form [formGroup]="formAddNewGroup" (ngSubmit)="addNews()">
+                        <form [formGroup]="formAddNewGroup">
                             <div class="form-group">
                                 <label for="userName">Title<span class="text-danger">*</span></label>
-                                <input (keyup)="generateUrl($event)" formControlName="title" type="text" name="title"
-                                    data-parsley-trigger="change" required placeholder="Enter title"
-                                    class="form-control" minlength="6">
+                                <ng-container *ngIf="currentNews.id!==0; else elseInput;">
+                                    <input (keyup)="generateUrl($event)" formControlName="title" type="text"
+                                        name="title" data-parsley-trigger="change" required placeholder="Enter title"
+                                        class="form-control" minlength="6" id="getInputValue">
+                                </ng-container>
+                                <ng-template #elseInput>
+                                    <input (keyup)="generateUrl($event)" formControlName="title" type="text"
+                                        name="title" data-parsley-trigger="change" required placeholder="Enter title"
+                                        class="form-control" minlength="6">
+                                </ng-template>
+                                <button id="valuvalue">
+                                    Get Value
+                                </button>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -38,7 +49,7 @@
                                             name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
                                             required="required">
                                             <option *ngFor="let category of allNewsCategory; index as i;"
-                                                value="{{category.id}}" selected="{{i===1}}">{{category.name}}</option>
+                                                value="{{category.id}}" selected="{{category.id===currentNews.categoryId}}">{{category.name}}</option>
                                         </select>
                                     </div>
 
@@ -47,7 +58,9 @@
 
                             <div class="form-group">
                                 <label>News content</label>
-                                <textarea id="format-custom"></textarea>
+                                <textarea id="format-custom">
+                                    <ng-container *ngIf="currentNews.id!==0">{{currentNews.description}}</ng-container>
+                                </textarea>
                             </div>
 
                             <div class="form-group">
@@ -58,9 +71,20 @@
                             </div>
 
                             <div class="form-group text-right m-b-0">
-                                <button class="btn btn-primary" type="submit">
-                                    Save change
-                                </button>
+                                <ng-container *ngIf="currentNews.id!==0; else elseBlock">
+                                    <button class="btn btn-primary mr-2" type="submit"
+                                        (click)="updateNews(currentNews.id)">
+                                        Update
+                                    </button>
+                                </ng-container>
+                                <ng-template #elseBlock>
+                                    <button class="btn btn-primary mr-2" type="submit" (click)="addNews('draft')">
+                                        Save Draft
+                                    </button>
+                                    <button class="btn btn-primary" type="button" (click)="addNews('public')">
+                                        Save & Public
+                                    </button>
+                                </ng-template>
                                 <!-- <button class="btn btn-primary click-success" type="submit">
                                     Save change
                                 </button> -->
@@ -98,3 +122,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelector("#valuvalue").addEventListener("click",()=>{
+        alert(document.querySelector("#getInputValue").value)
+    })
+</script>
