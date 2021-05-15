@@ -25,6 +25,16 @@ a {
     text-decoration: none
 }
 
+/* CUSTOM CSS START */
+.bold{
+    font-weight: bold;
+}
+
+.italic{
+font-style: italic;
+}
+/* CUSTOM CSS END */
+
 .small {
     font-size: .7rem
 }
