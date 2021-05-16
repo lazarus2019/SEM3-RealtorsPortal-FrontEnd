@@ -1,0 +1,172 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="far fa-file"></i> Property Information</h3>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form method="GET" enctype="multipart/form-data" [formGroup]="addFormGroup"
+                            (ngSubmit)="addNewProperty()">
+                            <span>
+                                <h3>Property Information</h3>
+                            </span>
+                            <div class="form-group">
+                                <label for="userName">Title: <span class="text-danger">*</span></label>
+                                <input type="text" name="title" data-parsley-trigger="change" required="required"
+                                    value="{{property.title}}" placeholder="Enter title" class="form-control"
+                                    formControlName="title" minlength="6">
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="region">
+                                            Select Region: <span class="text-danger">*</span>
+                                        </label>
+                                        <div>
+                                            <input data-parsley-type="number" type="text" class="form-control"
+                                                value="{{property.cityName}}" required="" id="region"
+                                                formControlName="region" placeholder="Enter region" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="country">
+                                            Select Country: <span class="text-danger">*</span>
+                                        </label>
+                                        <div>
+                                            <input data-parsley-type="number" type="text" class="form-control"
+                                                value="{{property.cityName}}" required="" id="country"
+                                                formControlName="country" placeholder="Enter country"
+                                                required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="city">
+                                            Select City: <span class="text-danger">*</span>
+                                        </label>
+                                        <div>
+                                            <input data-parsley-type="number" type="text" class="form-control"
+                                                value="{{property.cityName}}" required="" id="city"
+                                                formControlName="city" placeholder="Enter city" required="required">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="addresss">Address: <span class="text-danger">*</span></label>
+                                <div>
+                                    <input data-parsley-type="number" type="text" class="form-control" required=""
+                                        id="address" value="{{property.address}}" placeholder="Enter address"
+                                        formControlName="address" required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="example1">
+                                            Select type: <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="mb-1"></div>
+                                        <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                            name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                            formControlName="type" required="required">
+                                            <option value="Rent/Sale">Rent/Sale</option>
+                                            <option value="Sale">Sale</option>
+                                            <option value="Rent">Rent</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="category">
+                                            Select category: <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="mb-1"></div>
+                                        <select class="form-control select2 select2-hidden-accessible" id="category"
+                                            name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                            formControlName="category" required="required">
+                                            <!--<option *ngFor="let category of categories" [ngValue]="category">{{category}}</option>-->
+                                            <option value="sell">Office space</option>
+                                            <option value="rent">Shops</option>
+                                            <option value="rent">Commercial land</option>
+                                            <option value="rent">Industrial property</option>
+                                            <option value="rent">Apartments</option>
+                                            <option value="rent">Villas</option>
+                                            <option value="rent">Businesses for sale</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="price">
+                                            Price($): <span class="text-danger">*</span>
+                                        </label>
+                                        <input data-parsley-type="number" type="number" class="form-control" required=""
+                                            value="{{property.price}}" id="price" placeholder="Enter price" formControlName="price"
+                                            required="required">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="userName">Area (m2): <span class="text-danger">*</span></label>
+                                        <input data-parsley-type="number" type="number" class="form-control" required="" formControlName="area"
+                                            value="{{property.area}}" placeholder="Enter area" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="room">Number of rooms: <span class="text-danger">*</span></label>
+                                        <input type="number" name="title" data-parsley-trigger="change"
+                                            value="{{property.bedNumber}}" required="required" id="room" formControlName="roomNumber"
+                                            placeholder="Enter number" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="bedroom">Number of bedrooms: <span
+                                                class="text-danger">*</span></label>
+                                        <input type="number" name="title" data-parsley-trigger="change"
+                                            class="form-control" value="{{property.roomNumber}}" required="required" formControlName="bedNumber"
+                                            id="bedroom" placeholder="Enter number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <h3>Ad/Post content</h3>
+                                </label>
+                                <textarea id="format-custom" formControlName="content">{{property.description}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <h3>Choose Image</h3>
+                                </label>
+                                <br>
+                                <input type="file" multiple (change)="detectFiles($event)" formControlName="files"
+                                    accept=".jpg, .png, .jpeg, .gif">
+                                <div>
+                                    <div class="image-box">
+                                        <ng-container *ngFor="let url of urls; index as indexImage">
+                                            <img [src]="url" class="img-thumbnail" width="200" height="180">
+                                            <button (click)="deleteImage(indexImage)">Remove</button>
+                                            {{indexImage}}
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-right m-b-0">
+                                <button class="btn btn-primary click-success" type="submit">
+                                    Save
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end card-->
+    </div>
+</div>

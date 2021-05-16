@@ -1,0 +1,147 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="fas fa-table"></i> Members</h3>
+            </div>
+
+            <div class="card-body">
+                <!-- Form Search & Filter -->
+                <div class="from-group mb-3">
+                    <div class="row">
+                        <div class="col-md-3 mb-1">
+                            <input type="text" class="form-control" value="" placeholder="Enter name">
+                        </div>
+                        <div class="col-md-3 mb-1">
+                            <input data-parsley-type="text" type="text" class="form-control" required=""
+                                placeholder="Enter email" required="required">
+                        </div>
+                        <div class="col-md-3 mb-1">
+                            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
+                                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                                <option value="customer">Customer</option>
+                                <option value="agent">Agent</option>
+                                <option value="seller">Seller</option>
+                                <option value="administration">Administration</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 mb-1">
+                            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
+                                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                                <option value="activate">Activate</option>
+                                <option value="deactivate">Deactivate</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Show Table-->
+                <div class="table-responsive">
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table
+                                    class="table table-bordered table-hover display dataTable no-footer"
+                                    style="width: 100%;" role="grid" aria-describedby="dataTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th aria-controls="dataTable" rowspan="1"
+                                                colspan="1"
+                                                style="width: 5%;">No.</th>
+                                            <th aria-controls="dataTable" rowspan="1"
+                                                colspan="1" 
+                                                style="width: 30%;">Full Name</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1"
+                                                style="width: 25%;">Email</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1"
+                                                style="width: 15%;">Role</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" 
+                                                style="width: 15%;">Create date</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1"
+                                                style="width: 10%;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let member of members index as i">
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">{{i+1}}</td>
+                                                <td>{{member.fullName}}</td>
+                                                <td>{{member.email}}</td>
+                                                <td>{{member.role.name}}</td>
+                                                <td>{{member.birthday|date:'dd/MM/y'}}</td>
+                                                <td>
+                                                    <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
+                                                        data-target="#sendMail"><i class="fas fa-envelope "></i> Send
+                                                        mail</a>
+                                                    <a class="btn btn-danger btn-sm btn-block mt-2 "
+                                                        *ngIf="member.status == true" (click)="blockAlert()"><i
+                                                            class="fas fa-lock "></i> Block</a>
+                                                    <a class="btn btn-danger btn-sm btn-block mt-2 "
+                                                        *ngIf="member.status == false" (click)="unblockAlert()"><i
+                                                            class="fas fa-unlock "></i> Unblock</a>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end table-responsive-->
+
+            </div>
+            <!-- end card-body-->
+
+        </div>
+        <!-- end card-->
+
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="sendMail" tabindex="-1" role="dialog" aria-labelledby="sendMailTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">New email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="emailFormGroup" (ngSubmit)="sendEmail()">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Send to:</label>
+                        <input type="text" class="form-control" value="youremail@gmail.com"  formControlName="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="example1">
+                            Subject: <span class="text-danger">*</span>
+                        </label>
+                        <input data-parsley-type="text" type="text" class="form-control" required="" formControlName="subject"
+                            placeholder="Enter title" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Content:</label>
+                        <textarea class="form-control" id="message-text" placeholder="Enter description" formControlName="content"
+                            required></textarea>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" (click)="sendAlert()">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

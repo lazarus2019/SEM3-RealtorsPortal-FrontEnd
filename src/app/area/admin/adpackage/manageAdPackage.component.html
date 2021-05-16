@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <!-- Button trigger modal -->
+                <span class="pull-right"><button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#addNewAdPackage">
+                        <i class="fas fa-plus" aria-hidden="true"></i> Add new package</button></span>
+                <h3><i class="fas fa-table"></i> Ads Package</h3>
+            </div>
+
+            <div class="card-body">
+                <!-- Form Search & Filter -->
+                <div class="from-group mb-3 d-flex justify-content-end">
+                    <div class="row">
+                        <div class="col-md-5 mb-1">
+                            <div class="range-wrap">
+                                <div class="range-value" id="rangeV">Price below: $200</div>
+                                <input id="range" type="range" min="0" max="200" value="200" step="1">
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-1">
+                            <input type="text" class="form-control " placeholder="Enter name" style="width: 200px;">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="table-responsive">
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-hover display dataTable no-footer"
+                                    style="width: 100%;" role="grid" aria-describedby="dataTable_info">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 5%;">No.</th>
+                                            <th scope="col" style="width: 17%;">Name</th>
+                                            <th scope="col" style="width: 9%;">Period (day)</th>
+                                            <th scope="col" style="width: 9%;">Price</th>
+                                            <th scope="col" style="width: 9%;">Ads amount</th>
+                                            <th scope="col" style="width: 41%;">Description</th>
+                                            <th scope="col" style="width: 10%;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let adsPackage of adsPackages index as i">
+                                            <tr>
+                                                <td>{{i+1}}</td>
+                                                <td>{{adsPackage.nameAdPackage}}</td>
+                                                <td>{{adsPackage.period}}</td>
+                                                <td>${{adsPackage.price}}</td>
+                                                <td>{{adsPackage.amount}}</td>
+                                                <td>{{adsPackage.description}}</td>
+                                                <td>
+                                                    <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
+                                                        data-target="#addNewAdPackage" (click)="onEdit(adsPackage)"><i
+                                                            class="fas fa-pencil-alt "></i>
+                                                        Edit</a>
+                                                    <a class="btn btn-danger btn-sm btn-block mt-2 "
+                                                        (click)="deleteAlert()"><i class="fas fa-trash "></i>
+                                                        Delete</a>
+                                                </td>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end card-->
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addNewAdPackage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add new/Edit Ad Package</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Ad Package name:</label>
+                            <input type="text" class="form-control" placeholder="Enter name" required value="{{adsPackage.nameAdPackage}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="example1">
+                                Price: <span class="text-danger">*</span>
+                            </label>
+                            <input data-parsley-type="number" type="number" min="1" max="5000" class="form-control"
+                                required="" placeholder="Enter price" required="required" value="{{adsPackage.price}}">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="message-text" placeholder="Enter description"
+                                required value="{{adsPackage.description}}"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="recipient-name" class="col-form-label">Ads amount:</label>
+                                    <input type="number" class="form-control" placeholder="Enter number" min="1"
+                                        max="50" required value="{{adsPackage.amount}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="userName">Period (day)<span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" placeholder="Enter number" min="1"
+                                        max="50" required value="{{adsPackage.amount}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
