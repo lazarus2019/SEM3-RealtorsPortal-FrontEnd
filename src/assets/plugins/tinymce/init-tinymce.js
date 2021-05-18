@@ -2,18 +2,15 @@
 tinymce.init({
     selector: 'textarea#format-custom',
     height: 500,
-    plugins: 'table wordcount',
+    plugins: 'table wordcount lists',
+    toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | numlist bullist',
     content_style: '.left { text-align: left; } ' +
-      'img.left { float: left; } ' +
       'table.left { float: left; } ' +
       '.right { text-align: right; } ' +
-      'img.right { float: right; } ' +
       'table.right { float: right; } ' +
       '.center { text-align: center; } ' +
-      'img.center { display: block; margin: 0 auto; } ' +
       'table.center { display: block; margin: 0 auto; } ' +
       '.full { text-align: justify; } ' +
-      'img.full { display: block; margin: 0 auto; } ' +
       'table.full { display: block; margin: 0 auto; } ' +
       '.bold { font-weight: bold; } ' +
       '.italic { font-style: italic; } ' +
