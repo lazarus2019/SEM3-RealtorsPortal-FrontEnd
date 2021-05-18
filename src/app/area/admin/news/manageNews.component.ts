@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router';
 import { NewsAPI } from 'src/app/models/news/news.model';
 import { NewsCategoryAPI } from 'src/app/models/newsCategory/newsCategory.model';
+import { NewsImageAPI } from 'src/app/models/newsImage/newsImage.model';
 import { NewsAPIService } from 'src/app/services/admin/news/newsAPI.service';
 import { NewsCategoryAPIService } from 'src/app/services/admin/newsCategory/newsCategoryAPI.service';
+import { PublicService } from 'src/app/services/publicService.service';
 
 // Declare custom function
 declare var alertFunction: any;
-declare var myFunc:any;
+declare var myFunc: any;
 
 @Component({
   templateUrl: './manageNews.component.html'
@@ -16,16 +18,27 @@ declare var myFunc:any;
 export class AdminManageNewsComponent implements OnInit {
 
   allNews: NewsAPI[] = [];
-  statusRecords:string = "";
+
+  statusRecords: string = "";
+
   allNewsCategory: NewsCategoryAPI[] = [];
+  
   currentNews: NewsAPI = new NewsAPI;
 
+  galleryNews: NewsImageAPI[] = [];
+
+  formSearchNews: FormGroup = new FormGroup({});
+
   constructor(
+    // Declare form builder
+    private formBuilder: FormBuilder,
     private router: Router,
     // Declare services
     private newsAPIService: NewsAPIService,
-    private newsCategoryAPIService: NewsCategoryAPIService
+    private newsCategoryAPIService: NewsCategoryAPIService,
+    private publicService: PublicService
   ) {
+    this.loadStyle();
     this.loadScripts();
   }
 
@@ -55,7 +68,11 @@ export class AdminManageNewsComponent implements OnInit {
       '../../../../assets/js/jquery.dataTable.js',
 
       '../../../../assets/plugins/sweetalert/sweetalert.min.js',
-      '../../../../assets/js/jquery.sweetalert.js'
+      '../../../../assets/js/jquery.sweetalert.js',
+      '../../../../assets/js/jquery.slidercustom.js',
+      // '../../../../assets/plugins/owlcarousel/owl.carousel.js',
+      // '../../../../assets/js/jquery.owlcarousel.js',
+      
 
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {
@@ -67,18 +84,36 @@ export class AdminManageNewsComponent implements OnInit {
     }
   }
 
+  loadStyle() {
+    const dynamicStyles = [
+      '../../../../assets/css/style.slidercustom.css',
+      // '../../../../assets/plugins/owlcarousel/owl.carousel.min.css',
+    ];
+    for (let i = 0; i < dynamicStyles.length; i++) {
+      const node = document.createElement('link');
+      node.href = dynamicStyles[i];
+      node.type = 'text/css';
+      node.rel = "stylesheet";
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+  }
+
   ngOnInit() {
+
+    this.formSearchNews = this.formBuilder.group({
+      title: "",
+      categoryName: "all",
+      status: "all"
+    });
 
     // Load Categories
     this.loadAllNewsCategory();
 
     // Load data
     this.loadAllNews();
-    
+
 
   }
-
-
 
   loadAllNews() {
     // this.newsAPIService.getAllNews().subscribe((val)=>{
@@ -97,13 +132,29 @@ export class AdminManageNewsComponent implements OnInit {
     )
   }
 
-  loadAllNewsCategory(){
+  loadAllNewsCategory() {
     this.newsCategoryAPIService.findAllNewsCategory().then(
       res => {
         this.allNewsCategory = res;
       },
-      err =>{
+      err => {
 
+      }
+    )
+  }
+
+  sortFilterNews() {
+    var inputSearch = this.formSearchNews.value;
+    if(inputSearch.title == ""){
+      inputSearch.title = ".all";
+    }
+
+    this.newsAPIService.sortFilterNews(inputSearch.title, inputSearch.categoryName, inputSearch.status).then(
+      res => {
+        this.allNews = res;
+      },
+      err => {
+        alertFunction.error("This query is cancel cause cant get any data!");
       }
     )
   }
@@ -111,34 +162,54 @@ export class AdminManageNewsComponent implements OnInit {
   deleteNews(news: NewsAPI) {
     console.log(news.id);
     console.log(myFunc(alertFunction.yesNo().callBackFunc()));
-    
+
     // if (myFunc(alertFunction.yesNo())) {
-      // console.log("true")
-      // this.newsAPIService.deleteNew(news).then(
-      //   res => {
-      //     this.test_success_alert();
-      //     this.loadAllNews();
-      //   },
-      //   err => {
-      //     this.test_error_alert();
-      //   }
-      // )
+    // console.log("true")
+    // this.newsAPIService.deleteNew(news).then(
+    //   res => {
+    //     this.test_success_alert();
+    //     this.loadAllNews();
+    //   },
+    //   err => {
+    //     this.test_error_alert();
+    //   }
+    // )
     // }
   }
 
-  viewNews(newsId:number){
+  // Preview news start
+  
+  viewNews(newsId: number) {
     this.newsAPIService.findNews(newsId).then(
-      res =>{
+      res => {
         this.currentNews = res;
+        this.getGalleryNews(newsId);
       },
-      err =>{
+      err => {
         alertFunction.error("This query is cancel cause cant get any data!");
       }
     )
   }
 
-  editNews(news:NewsAPI){
-    this.router.navigate(['/admin/news', news.id]);
+  getGalleryNews(newsId:number){
+    this.newsAPIService.getGalleryNews(newsId).then(
+      res=>{
+        this.galleryNews = res;
+      },
+      err=>{
+        alertFunction.error("This query is cancel cause cant get news gallery");
+      }
+    )
+  }
+
+  getUrlImage(imageName:string){
+    return this.publicService.getUrlImage("news", imageName);
+  }
+
+  // Preview news end
+
+  editNews(news: NewsAPI) {
+    this.router.navigate(['/admin/editNews', news.id]);
   }
 
   // Alert

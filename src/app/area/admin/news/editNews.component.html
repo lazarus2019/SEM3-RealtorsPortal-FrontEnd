@@ -1,0 +1,135 @@
+<input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display: none;">
+<button (click)="file.click()">Upload image</button>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="far fa-file"></i> Create a new post</h3>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form [formGroup]="formAddNewGroup">
+                            <div class="form-group">
+                                <label for="title">Title<span class="text-danger">*</span></label>
+                                <ng-container *ngIf="currentNews.id!==0; else elseInput;">
+                                    <input (keyup)="generateUrl($event)" formControlName="title" type="text"
+                                        name="title" data-parsley-trigger="change" required placeholder="Enter title"
+                                        class="form-control" minlength="6">
+                                    <!-- <div *ngIf="title.errors.required">Title is required.</div> -->
+                                    <!-- <div *ngIf="title.errors.minLength">Title should be 5 character.</div> -->
+                                </ng-container>
+                                <ng-template #elseInput>
+                                    <input (keyup)="generateUrl($event)" formControlName="title" type="text"
+                                        name="title" data-parsley-trigger="change" required placeholder="Enter title"
+                                        class="form-control" minlength="6">
+                                    <!-- <div *ngIf="title.errors.required">Title is required.</div> -->
+                                    <!-- <div *ngIf="title.errors.minLength">Title should be 5 character.</div> -->
+                                </ng-template>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="userName">Custome URL<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                    id="basic-addon3">localhost:4200/user/news/</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="basic-url"
+                                                aria-describedby="basic-addon3" value="{{url}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="example3">
+                                            Select category:<span class="text-danger">*</span>
+                                        </label>
+                                        <div class="mb-1"></div>
+                                        <select formControlName="categoryId"
+                                            class="form-control select2 select2-hidden-accessible" id="example1"
+                                            name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                            required="required">
+                                            <option *ngFor="let category of allNewsCategory; index as i;"
+                                                value="{{category.id}}"
+                                                selected="{{category.id===currentNews.categoryId}}">{{category.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>News content</label>
+                                <textarea id="format-custom">
+                                    <ng-container *ngIf="currentNews.id!==0">{{currentNews.description}}</ng-container>
+                                </textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="remember-1" type="checkbox" data-parsley-multiple="remember-1">
+                                    <label for="remember-1"> Is Featured? </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-right m-b-0">
+                                <ng-container *ngIf="currentNews.id!==0; else elseBlock">
+                                    <button class="btn btn-primary mr-2" type="submit"
+                                        (click)="updateNews(currentNews.id)">
+                                        Update
+                                    </button>
+                                </ng-container>
+                                <ng-template #elseBlock>
+                                    <button class="btn btn-primary mr-2" type="submit" (click)="addNews('draft')">
+                                        Save Draft
+                                    </button>
+                                    <button class="btn btn-primary" type="button" (click)="addNews('public')">
+                                        Save & Public
+                                    </button>
+                                </ng-template>
+                                <!-- <button class="btn btn-primary click-success" type="submit">
+                                    Save change
+                                </button> -->
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end card-->
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="fas fa-download"></i> Upload gallery</h3>
+            </div>
+
+            <div class="card-body">
+                <form action="">
+                    <div>
+                        <div class="image-box">
+                            <ng-container *ngFor="let url of urls; index as indexImage">
+                                <img [src]="url" class="img-thumbnail" width="200" height="180">  
+                                <button (click)="deleteImage(indexImage)">Remove</button>
+                                {{indexImage}}
+                            </ng-container>
+                        </div>
+                    </div>
+                    <input type="file" multiple (change)="detectFiles($event)" accept=".jpg, .png, .jpeg">
+                    <div class="form-group text-right m-b-0">
+                        <button class="btn btn-primary click-success" type="submit">
+                            Upload Gallery
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { NewsAPI } from "../../../models/news/news.model";
+import { NewsImageAPI } from 'src/app/models/newsImage/newsImage.model';
 
 @Injectable()
 export class NewsAPIService {
@@ -42,7 +43,7 @@ export class NewsAPIService {
             .then(res => res);
     }
 
-    sortFilterNews(title: string, category: string, status: boolean) {
+    sortFilterNews(title: string, category: string, status: string) {
         return this.http.get(this.BASE_URL + 'sortFilterNews/' + title + '/' + category + '/' + status)
             .toPromise()
             .then(res => res as NewsAPI[]);
@@ -53,4 +54,11 @@ export class NewsAPIService {
             .toPromise()
             .then(res => res as NewsAPI);
     }
+
+    getGalleryNews(newsId: number) {
+        return this.http.get(this.BASE_URL + "getGallery/" + newsId)
+            .toPromise()
+            .then(res => res as NewsImageAPI[])
+    }
+
 }
