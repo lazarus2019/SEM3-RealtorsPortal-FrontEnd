@@ -3,7 +3,8 @@ export class NewsAPI {
     title: string = "";
     description: string = "";
     createdDate: Date = new Date();
-    status: boolean = false;
+    status: string = "";
     categoryId: number = 0;
     categoryName: string = "";
+    thumbnailName: string = "";
 }
