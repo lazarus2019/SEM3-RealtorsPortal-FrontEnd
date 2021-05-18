@@ -50,9 +50,12 @@ import { DetailsComponent } from './area/user/phonebook/detail/detail.component'
 import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
 import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
-import { AdminNewsComponent } from './area/admin/news/addNew.component';
+import { AdminNewsComponent } from './area/admin/news/addNews.component';
 import { AdminManageNewsComponent } from './area/admin/news/manageNews.component';
 import { NewsCategoryAPIService } from './services/admin/newsCategory/newsCategoryAPI.service';
+import { ImageService } from './services/admin/image/imageService.service';
+import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
+import { PublicService } from './services/publicService.service';
 
 
 @NgModule({
@@ -80,6 +83,7 @@ import { NewsCategoryAPIService } from './services/admin/newsCategory/newsCatego
     ProfileComponent,
     AdminNewsComponent,
     AdminManageNewsComponent,
+    AdminEditNewsComponent,
 
     // Template component
     TemplateComponent,
@@ -124,6 +128,8 @@ import { NewsCategoryAPIService } from './services/admin/newsCategory/newsCatego
     AddNewService,
     AdminService,
     NewsAPIService,
+    ImageService,
+    PublicService,
     NewsCategoryAPIService
   ],
   bootstrap: [AppComponent]

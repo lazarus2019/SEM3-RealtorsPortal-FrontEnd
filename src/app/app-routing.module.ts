@@ -33,8 +33,9 @@ import { AgentComponent } from './area/user/phonebook/agent/agent.component';
 import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
 import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
-import { AdminNewsComponent } from './area/admin/news/addNew.component';
+import { AdminNewsComponent } from './area/admin/news/addNews.component';
 import { AdminManageNewsComponent } from './area/admin/news/manageNews.component';
+import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
 
 const routes: Routes = [
 
@@ -92,7 +93,7 @@ const routes: Routes = [
         { path: 'reports', component: ReportComponent },
         { path: 'profile', component: ProfileComponent },
         { path: 'news', component: AdminNewsComponent },
-        { path: 'news/:newsId', component: AdminNewsComponent },
+        { path: 'editNews/:newsId', component: AdminEditNewsComponent },
         { path: 'manageNews', component: AdminManageNewsComponent },
       ]
   },
