@@ -9,6 +9,7 @@ import { NewsAPIService } from 'src/app/services/admin/news/newsAPI.service';
 import { ImageService } from 'src/app/services/admin/image/imageService.service';
 import { NewsImageAPI } from 'src/app/models/newsImage/newsImage.model';
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { PublicService } from 'src/app/services/publicService.service';
 
 // Declare custom function
 declare var generateUrlFunction: any;
@@ -25,14 +26,22 @@ export class AdminEditNewsComponent implements OnInit {
   // Upload images
   urls = new Array<string>();
 
-  listImage = new Array<Object>();
+  numberImage: number = 0;
 
-  newsGallery: NewsImageAPI[] = [];
+  successImage: number = 0;
+
+  imageForm: FormData[] = [];
+
+  galleryNews: NewsImageAPI[] = [];
+
+  listImageDelete = new Array<Object>();
 
   currentNews: NewsAPI = new NewsAPI;
 
+  newsId: number = 0;
+
   // Form content
-  formAddNewGroup: FormGroup = new FormGroup({});
+  formEditNewsGroup: FormGroup = new FormGroup({});
 
   // Category
   allNewsCategory: NewsCategoryAPI[] = [];
@@ -49,26 +58,31 @@ export class AdminEditNewsComponent implements OnInit {
     // Declare services
     private newsAPIService: NewsAPIService,
     private newsCategoryAPIService: NewsCategoryAPIService,
-    private imageService: ImageService
-  ) { }
+    private imageService: ImageService,
+    private publicService: PublicService
+  ) {
+
+  }
 
   ngOnInit() {
-    var id = this.route.snapshot.paramMap.get('newsId');
-    if (id != null) {
-      this.getNews(parseInt(id));
-    }
-
     // Load Categories
     this.loadAllNewsCategory();
-
-
-    this.formAddNewGroup = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      description: new FormControl(''),
-      createdDate: new Date(),
-      status: "",
-      categoryId: new FormControl('all', [Validators.required])
+    // 
+    this.formEditNewsGroup = this.formBuilder.group({
+      title: new FormControl("", [Validators.required, Validators.minLength(5)]),
+      description: new FormControl(""),
+      categoryId: new FormControl("", [Validators.required])
     });
+
+    var id = this.route.snapshot.paramMap.get('newsId');
+
+    if (id != null) {
+      // set id from query to newsId
+      this.newsId = parseInt(id);
+      this.getCurrentNews(this.newsId);
+    } else {
+      alertFunction.error("Doesn't receive any data!");
+    }
 
 
   }
@@ -108,8 +122,23 @@ export class AdminEditNewsComponent implements OnInit {
     }
   }
 
-  get title() { return this.formAddNewGroup.get('title') }
-  get categoryId() { return this.formAddNewGroup.get('categoryId') }
+
+  updateNews() {
+    var news: NewsOrgAPI = this.formEditNewsGroup.value;
+    news.description = getTinyMCEContent();
+    news.id = this.newsId;
+    this.newsAPIService.updateNews(news).then(
+      res => {
+        this.uploadImage(news.id.toString());
+        // alertFunction.success("Update news succeeded!");
+        // this.router.navigate(['/admin/manageNews']);
+      },
+      err => {
+        alertFunction.error("Please try again!")
+      }
+    )
+  }
+
 
   detectFiles(event: any) {
     let files = event.target.files;
@@ -124,7 +153,9 @@ export class AdminEditNewsComponent implements OnInit {
           for (let file of files) {
             let status = this.imageService.validate(file);
             if (status == null) {
-              this.listImage.push(file)
+              let fileUpload = new FormData();
+              fileUpload.append('file', file, file.name);
+              this.imageForm.push(fileUpload);
               let reader = new FileReader();
               reader.onload = (e: any) => {
                 this.urls.push(e.target.result)
@@ -134,38 +165,56 @@ export class AdminEditNewsComponent implements OnInit {
               alertFunction.error(status);
             }
           }
-          // console.table(this.listImage);
         }
       }
     }
   }
 
-  deleteImage(index: number) {
+  deleteImageStore(index: number) {
     this.urls.splice(index, 1);
-    this.listImage.splice(index, 1);
+    this.imageForm.splice(index, 1);
   }
 
-  uploadImage(listImage: any, newsId: number) {
-    for (let image of listImage) {
-      let newsImage = new NewsImageAPI;
-      newsImage.name = image.name;
-      this.newsGallery.push(newsImage);
+  deleteGalleryImage(index: number) {
+    let image = new NewsImageAPI();
+    image = this.galleryNews[index];
+    this.galleryNews.splice(index, 1);
+    this.listImageDelete.push(image);
+  }
+
+  deleteImage() {
+    for (var delImage of this.listImageDelete) {
+      let image = Object.values(delImage);
+      this.imageService.deleteImage(image[1], image[2], "news").then(
+        res => {
+        },
+        err => {
+          alertFunction.error("Can not delete file in database and folder wwwroot");
+        }
+      )
     }
   }
 
-  public uploadFile = (files:any) => {
-    if (files.length === 0)
-      return;
+  uploadImage(newsId: string) {
+    this.successImage = 0;
+    this.numberImage = this.imageForm.length;
 
-    let fileToUpload = <File>files[0];
-    const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
-
-    this.http.post('http://localhost:65320/api/upload', formData, { reportProgress: true, observe: 'events' }).subscribe(event => {
-      if (event.type === HttpEventType.Response) {
-        alert("Upload success");
-      }
-    })
+    for (var image of this.imageForm) {
+      this.imageService.uploadImage(newsId, "news", image).then(
+        res => {
+          this.successImage++;
+          if (this.successImage === this.numberImage) {
+            this.imageForm = [];
+            this.urls = [];
+            this.deleteImage();
+            alertFunction.success("Upload gallery success!")
+          }
+        },
+        err => {
+          alertFunction.error("Can't upload your gallery, please try it again.");
+        }
+      )
+    }
   }
 
   loadAllNewsCategory() {
@@ -179,47 +228,34 @@ export class AdminEditNewsComponent implements OnInit {
     )
   }
 
-  addNews(buttonType: string) {
-    var news: NewsOrgAPI = this.formAddNewGroup.value;
-    news.description = getTinyMCEContent();
-    // Set status: public for news
-    news.status = buttonType;
-    this.newsAPIService.createNews(news).then(
-      res => {
-        alertFunction.success("Add news succeeded!");
-        this.router.navigate(['/admin/manageNews']);
-      },
-      err => {
-        alertFunction.error("Please try again!")
-      }
-    )
-  }
-
-  getNews(newsId: number) {
+  getCurrentNews(newsId: number) {
+    this.getGalleryNews(newsId);
     this.newsAPIService.findNews(newsId).then(
       res => {
         this.currentNews = res;
-        alert(this.currentNews.title)
+        this.formEditNewsGroup.get("title")?.setValue(this.currentNews.title);
+        this.formEditNewsGroup.get("description")?.setValue(this.currentNews.description);
+        this.formEditNewsGroup.get("categoryId")?.setValue(this.currentNews.categoryId);
       },
       err => {
-        alertFunction.error("This query is cancel cause cant get any data!");
+        alertFunction.error("Can not get news form url!");
       }
     )
   }
 
-  updateNews(newsId: number) {
-    var news: NewsOrgAPI = this.formAddNewGroup.value;
-    news.description = getTinyMCEContent();
-    news.id = newsId;
-    this.newsAPIService.updateNews(news).then(
+  getGalleryNews(newsId: number) {
+    this.newsAPIService.getGalleryNews(newsId).then(
       res => {
-        alertFunction.success("Update news succeeded!");
-        this.router.navigate(['/admin/manageNews']);
+        this.galleryNews = res;
       },
       err => {
-        alertFunction.error("Please try again!")
+        alertFunction.error("This query is cancel cause cant get news gallery");
       }
     )
+  }
+
+  getUrlImage(imageName: string) {
+    return this.publicService.getUrlImage("news", imageName);
   }
 
   // Generate title to url when title change
