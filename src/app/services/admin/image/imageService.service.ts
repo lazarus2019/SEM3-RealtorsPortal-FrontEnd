@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { NewsImageAPI } from "src/app/models/newsImage/newsImage.model";
 
 @Injectable()
 export class ImageService {
 
-    private BASE_URL = 'http://localhost:65320/api/upload/';
+    private BASE_URL = 'http://localhost:65320/api/image/';
 
     constructor(
         private http: HttpClient
@@ -26,15 +27,16 @@ export class ImageService {
         return null;
     }
 
-    uploadImageNews(newsId: string, data: FormData) {
-        return this.http.post(`${this.BASE_URL}news/${newsId}`, data)
+    uploadImage(id: string, directName: string, data: FormData) {
+        return this.http.post(`${this.BASE_URL}upload/${id}/${directName}`, data)
             .toPromise()
             .then(res => res);
     }
 
-    sendNewsId(newsId: string) {
-        return this.http.get(this.BASE_URL + "receiveNewsId/" + newsId)
+    deleteImage(id: number, name:string, directName: string) {
+        return this.http.delete(`${this.BASE_URL}delete/${id}/${name}/${directName}`)
             .toPromise()
             .then(res => res);
     }
+
 }
