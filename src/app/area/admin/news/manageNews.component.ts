@@ -160,7 +160,7 @@ export class AdminManageNewsComponent implements OnInit {
   }
 
   deleteNews(news: NewsAPI) {
-    console.log(news.id);
+    console.log(news.newsId);
     console.log(myFunc(alertFunction.yesNo().callBackFunc()));
 
     // if (myFunc(alertFunction.yesNo())) {
@@ -209,7 +209,7 @@ export class AdminManageNewsComponent implements OnInit {
   // Preview news end
 
   editNews(news: NewsAPI) {
-    this.router.navigate(['/admin/editNews', news.id]);
+    this.router.navigate(['/admin/editNews', news.newsId]);
   }
 
   // Alert

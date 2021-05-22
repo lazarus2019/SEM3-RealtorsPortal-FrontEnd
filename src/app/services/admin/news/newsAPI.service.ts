@@ -8,7 +8,7 @@ import { NewsImageAPI } from 'src/app/models/newsImage/newsImage.model';
 @Injectable()
 export class NewsAPIService {
 
-    private BASE_URL = 'http://localhost:65320/api/admin/';
+    private BASE_URL = 'http://localhost:65320/api/admin/news/';
 
     constructor(
         private http: HttpClient
@@ -26,7 +26,7 @@ export class NewsAPIService {
     }
 
     deleteNews(news: NewsAPI) {
-        return this.http.delete(this.BASE_URL + 'deleteNews/' + news.id)
+        return this.http.delete(this.BASE_URL + 'deleteNews/' + news.newsId)
             .toPromise()
             .then(res => res);
     }
@@ -38,6 +38,7 @@ export class NewsAPIService {
     }
 
     createNews(news: NewsOrgAPI) {
+        console.table(news);
         return this.http.post(this.BASE_URL + 'createNews', news)
             .toPromise()
             .then(res => res);

@@ -34,8 +34,8 @@ export class AdminComponent {
       '../../../assets/plugins/waypoints/lib/jquery.waypoints.min.js',
       '../../../assets/plugins/counterup/jquery.counterup.min.js',
 
-      '../../../assets/plugins/tinymce/jquery.tinymce.min.js',
       '../../../assets/plugins/tinymce/tinymce.min.js',
+      '../../../assets/plugins/tinymce/jquery.tinymce.min.js',
       '../../../assets/plugins/tinymce/init-tinymce.js',
       '../../../assets/plugins/sweetalert/sweetalert.min.js',
       '../../../assets/js/jquery.sweetalert.js',

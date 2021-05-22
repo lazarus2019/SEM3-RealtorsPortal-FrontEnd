@@ -1,15 +1,12 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NewsAPI } from 'src/app/models/news/news.model';
 import { NewsOrgAPI } from 'src/app/models/news/newsOrg.model';
 import { NewsCategoryAPI } from 'src/app/models/newsCategory/newsCategory.model';
 import { NewsCategoryAPIService } from 'src/app/services/admin/newsCategory/newsCategoryAPI.service';
 import { NewsAPIService } from 'src/app/services/admin/news/newsAPI.service';
 import { ImageService } from 'src/app/services/admin/image/imageService.service';
-import { NewsImageAPI } from 'src/app/models/newsImage/newsImage.model';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { PublicService } from 'src/app/services/publicService.service';
 
 // Declare custom function
 declare var generateUrlFunction: any;
@@ -32,10 +29,6 @@ export class AdminNewsComponent implements OnInit {
 
   successImage: number = 0;
 
-  response: any = { fileName: '' };
-
-  resultUrlImage = new Array<string>();
-
   // Form content
   formAddNewGroup: FormGroup = new FormGroup({});
 
@@ -54,15 +47,12 @@ export class AdminNewsComponent implements OnInit {
     // Declare services
     private newsAPIService: NewsAPIService,
     private newsCategoryAPIService: NewsCategoryAPIService,
-    private imageService: ImageService,
-    private publicService: PublicService
-  ) { }
+    private imageService: ImageService
+  ) {
+    this.loadScripts();
+  }
 
   ngOnInit() {
-
-    // Load Categories
-    this.loadAllNewsCategory();
-
 
     this.formAddNewGroup = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -72,11 +62,12 @@ export class AdminNewsComponent implements OnInit {
       categoryId: new FormControl('1', [Validators.required])
     });
 
-
+    // Load Categories
+    this.loadAllNewsCategory();
   }
 
 
-  ngAfterViewInit() {
+  loadScripts() {
     // This array contains all the files/CDNs
     const dynamicScripts = [
       '../../../../assets/js/modernizr.min.js',
@@ -93,8 +84,8 @@ export class AdminNewsComponent implements OnInit {
 
       '../../../../assets/js/jquery.goToTop.js',
 
-      '../../../../assets/plugins/tinymce/jquery.tinymce.min.js',
       '../../../../assets/plugins/tinymce/tinymce.min.js',
+      '../../../../assets/plugins/tinymce/jquery.tinymce.min.js',
       '../../../../assets/plugins/tinymce/init-tinymce.js',
       '../../../../assets/plugins/sweetalert/sweetalert.min.js',
       '../../../../assets/js/jquery.sweetalert.js',
@@ -110,14 +101,12 @@ export class AdminNewsComponent implements OnInit {
     }
   }
 
-  get title() { return this.formAddNewGroup.get('title') }
-  get categoryId() { return this.formAddNewGroup.get('categoryId') }
-
 
   loadAllNewsCategory() {
     this.newsCategoryAPIService.findAllNewsCategory().then(
       res => {
         this.allNewsCategory = res;
+        this.formAddNewGroup.get("categoryId")?.setValue(this.allNewsCategory[0].newsCategoryId);
       },
       err => {
         alertFunction.error("Connection error, please reset server and refresh this page");
@@ -128,13 +117,11 @@ export class AdminNewsComponent implements OnInit {
   addNews(buttonType: string) {
     var news: NewsOrgAPI = this.formAddNewGroup.value;
     news.description = getTinyMCEContent();
-    // Set status: public for news
+    // Set status: public or draft for news
     news.status = buttonType;
     this.newsAPIService.createNews(news).then(
       res => {
         this.uploadImage(res.toString());
-        alertFunction.success("Add news succeeded!");
-        // this.router.navigate(['/admin/manageNews']);
       },
       err => {
         alertFunction.error("Please try again!")
@@ -184,15 +171,14 @@ export class AdminNewsComponent implements OnInit {
     this.numberImage = this.imageForm.length;
 
     for (var image of this.imageForm) {
-      this.imageService.uploadImageNews(newsId, image).then(
+      this.imageService.uploadImage(newsId, "news", image).then(
         res => {
-          this.response = res;
-          this.resultUrlImage.push(this.publicService.getUrlImage("news", this.response.fileName));
           this.successImage++;
           if (this.successImage === this.numberImage) {
             this.imageForm = [];
             this.urls = [];
-            alertFunction.success("Upload gallery success!")
+            alertFunction.success("Upload gallery success!");
+            this.router.navigate(['/admin/manageNews']);
           }
         },
         err => {

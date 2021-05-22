@@ -42,8 +42,8 @@
                                             class="form-control select2 select2-hidden-accessible" id="example1"
                                             name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
                                             required="required">
-                                            <ng-container *ngFor="let category of allNewsCategory; index as i;">
-                                                <option value="{{category.id}}">{{category.name}}
+                                            <ng-container *ngFor="let category of allNewsCategory;">
+                                                <option value="{{category.newsCategoryId}}">{{category.name}}
                                                 </option>
                                             </ng-container>
                                         </select>
@@ -95,7 +95,6 @@
                         Choose files
                     </button>
                 </span>
-                <h3><i class="fas fa-download"></i> Upload gallery</h3>
                 <input type="file" #file multiple (change)="detectFiles($event)" accept=".jpg, .png, .jpeg"
                     style="display: none;">
             </div>
@@ -120,29 +119,6 @@
                         </button>
                     </div> -->
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="card mb-3">
-            <div class="card-header">
-                <h3><i class="fas fa-download"></i> Result</h3>
-            </div>
-
-            <div class="card-body">
-                <div class="image-box-container">
-                    <div class="row">
-                        <ng-container *ngFor="let url of resultUrlImage; index as indexImage">
-                            <div class="col-md-3 col-sm-6 mb-3 image-box">
-                                <img class="preview-image" [src]="url">
-                            </div>
-                        </ng-container>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

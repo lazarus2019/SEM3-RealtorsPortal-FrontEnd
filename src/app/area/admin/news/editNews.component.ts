@@ -36,6 +36,8 @@ export class AdminEditNewsComponent implements OnInit {
 
   listImageDelete = new Array<Object>();
 
+  // Declare news
+
   currentNews: NewsAPI = new NewsAPI;
 
   newsId: number = 0;
@@ -126,10 +128,10 @@ export class AdminEditNewsComponent implements OnInit {
   updateNews() {
     var news: NewsOrgAPI = this.formEditNewsGroup.value;
     news.description = getTinyMCEContent();
-    news.id = this.newsId;
+    news.newsId = this.newsId;
     this.newsAPIService.updateNews(news).then(
       res => {
-        this.uploadImage(news.id.toString());
+        this.uploadImage(news.newsId.toString());
         // alertFunction.success("Update news succeeded!");
         // this.router.navigate(['/admin/manageNews']);
       },
@@ -138,7 +140,6 @@ export class AdminEditNewsComponent implements OnInit {
       }
     )
   }
-
 
   detectFiles(event: any) {
     let files = event.target.files;

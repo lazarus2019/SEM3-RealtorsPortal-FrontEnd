@@ -36,6 +36,7 @@ import { CategoryComponent } from './area/user/category/category.component';
 import { AdminNewsComponent } from './area/admin/news/addNews.component';
 import { AdminManageNewsComponent } from './area/admin/news/manageNews.component';
 import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
+import { AdminFAQComponent } from './area/admin/faq/faq.component';
 
 const routes: Routes = [
 
@@ -95,6 +96,7 @@ const routes: Routes = [
         { path: 'news', component: AdminNewsComponent },
         { path: 'editNews/:newsId', component: AdminEditNewsComponent },
         { path: 'manageNews', component: AdminManageNewsComponent },
+        { path: 'faq', component: AdminFAQComponent },
       ]
   },
 

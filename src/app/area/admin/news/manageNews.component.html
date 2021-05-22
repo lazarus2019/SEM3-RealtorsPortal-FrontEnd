@@ -102,7 +102,7 @@
                                                         </ng-template>
                                                     </td>
                                                     <td>
-                                                        <a (click)="viewNews(news.id)"
+                                                        <a (click)="viewNews(news.newsId)"
                                                             class="btn btn-success btn-sm btn-block "
                                                             data-toggle="modal" data-target="#viewNews"><i
                                                                 class="fas fa-eye"></i> Views</a>
@@ -138,7 +138,7 @@
 <!-- Modal -->
 <div id="viewNews" class="modal fade bd-example-modal-lg" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content" *ngIf="currentNews.id !== 0">
+        <div class="modal-content" *ngIf="currentNews.newsId !== 0">
             <div class="modal-header">
                 <h5 class="modal-title">{{currentNews.title}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

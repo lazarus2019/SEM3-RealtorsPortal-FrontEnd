@@ -56,6 +56,8 @@ import { NewsCategoryAPIService } from './services/admin/newsCategory/newsCatego
 import { ImageService } from './services/admin/image/imageService.service';
 import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
 import { PublicService } from './services/publicService.service';
+import { AdminFAQComponent } from './area/admin/faq/faq.component';
+import { FAQService } from './services/admin/faq/faqAPI.service';
 
 
 @NgModule({
@@ -84,6 +86,7 @@ import { PublicService } from './services/publicService.service';
     AdminNewsComponent,
     AdminManageNewsComponent,
     AdminEditNewsComponent,
+    AdminFAQComponent,
 
     // Template component
     TemplateComponent,
@@ -125,12 +128,14 @@ import { PublicService } from './services/publicService.service';
     UserRoutingModule
   ],
   providers: [
+    // Admin Services
     AddNewService,
     AdminService,
     NewsAPIService,
     ImageService,
     PublicService,
-    NewsCategoryAPIService
+    NewsCategoryAPIService,
+    FAQService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
 export class NewsCategoryAPI {
-    id: number = 0;
+    newsCategoryId: number = 0;
     name: string = "";
 }

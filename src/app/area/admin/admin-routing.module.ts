@@ -23,6 +23,7 @@ import { ReportComponent } from './reports/reports.component';
 import { SettingComponent } from './setting/setting.component';
 import { TemplateComponent } from './template/template.component';
 import { AdminEditNewsComponent } from './news/editNews.component';
+import { AdminFAQComponent } from './faq/faq.component';
 
 // Admin Services
 
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'news', component: AdminNewsComponent },
   { path: 'editNews/:newsId', component: AdminEditNewsComponent },
   { path: 'manageNews', component: AdminManageNewsComponent },
+  { path: 'faq', component: AdminFAQComponent },
 
 
 
