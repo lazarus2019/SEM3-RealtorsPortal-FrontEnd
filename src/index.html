@@ -1,13 +1,44 @@
-<!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>ProjectSem3User</title>
+  <title>SEM3 Realtors Portal FrontEnd</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="assets/user/images/favicon.ico">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
   <app-root></app-root>
+ 
+  <!-- User Script -->
+  
+  <!-- move top -->
+  <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i
+    class="fas fa-chevron-up"></i></a>
+<script>
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = function () {
+    scrollFunction()
+  };
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      document.getElementById("movetop").style.display = "block";
+    } else {
+      document.getElementById("movetop").style.display = "none";
+    }
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
+<!-- End User Script -->
+  
 </body>
-</html>

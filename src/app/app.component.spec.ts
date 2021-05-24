@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ProjectSem3User'`, () => {
+  it(`should have as title 'SEM3-RealtorsPortal-FrontEnd'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ProjectSem3User');
+    expect(app.title).toEqual('SEM3-RealtorsPortal-FrontEnd');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ProjectSem3User app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('SEM3-RealtorsPortal-FrontEnd app is running!');
   });
 });

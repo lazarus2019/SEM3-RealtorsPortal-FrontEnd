@@ -1,0 +1,352 @@
+<div id="main">
+
+    <!-- top bar navigation -->
+    <div class="headerbar">
+
+        <!-- LOGO -->
+        <div class="headerbar-left">
+            <a [routerLink]="['/admin/dashboard']" class="logo">
+                <img alt="Logo" src="assets/images/logo.png" />
+                <span>Realtor Portal</span>
+            </a>
+        </div>
+
+        <nav class="navbar-custom">
+
+            <ul class="list-inline float-right mb-0">
+                <li class="list-inline-item dropdown notif">
+                    <a href="" class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" aria-haspopup="false"
+                        aria-expanded="false">
+                        <i class="far fa-envelope"></i>
+                        <span class="notif-bullet"></span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-arrow-success dropdown-lg">
+                        <!-- item-->
+                        <div class="dropdown-item noti-title">
+                            <h5>
+                                <small>
+                                    <span class="label label-danger pull-xs-right">12</span>Mailbox</small>
+                            </h5>
+                        </div>
+
+                        <!-- item-->
+                        <a href="mail-all.html" class="dropdown-item notify-item">
+                            <p class="notify-details ml-0">
+                                <b>John Doe</b>
+                                <span>New message received</span>
+                                <small class="text-muted">3 minutes ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="mail-all.html" class="dropdown-item notify-item">
+                            <p class="notify-details ml-0">
+                                <b>Michael Smith</b>
+                                <span>New message received</span>
+                                <small class="text-muted">18 minutes ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="mail-all.html" class="dropdown-item notify-item">
+                            <p class="notify-details ml-0">
+                                <b>John Lenons</b>
+                                <span>New message received</span>
+                                <small class="text-muted">Yesterday, 18:27</small>
+                            </p>
+                        </a>
+
+                        <!-- All-->
+                        <a [routerLink]="['/admin/mailbox']" class="dropdown-item notify-item notify-all">
+                            View All Messages
+                        </a>
+
+                    </div>
+
+                </li>
+
+                <li class="list-inline-item dropdown notif">
+                    <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" aria-haspopup="false"
+                        aria-expanded="false">
+                        <i class="far fa-bell"></i>
+                        <span class="notif-bullet"></span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-arrow-success dropdown-lg">
+                        <!-- item-->
+                        <div class="dropdown-item noti-title">
+                            <h5>
+                                <small>
+                                    <span class="label label-danger pull-xs-right">5</span>Allerts</small>
+                            </h5>
+                        </div>
+
+                        <!-- item-->
+                        <a href="#" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-faded">
+                                <img src="assets/images/avatars/avatar2.png" alt="img" class="rounded-circle img-fluid">
+                            </div>
+                            <p class="notify-details">
+                                <b>John Doe</b>
+                                <span>User registration</span>
+                                <small class="text-muted">3 minutes ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="#" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-faded">
+                                <img src="assets/images/avatars/avatar3.png" alt="img" class="rounded-circle img-fluid">
+                            </div>
+                            <p class="notify-details">
+                                <b>Michael Cox</b>
+                                <span>Task 2 completed</span>
+                                <small class="text-muted">12 minutes ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="#" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-faded">
+                                <img src="assets/images/avatars/avatar4.png" alt="img" class="rounded-circle img-fluid">
+                            </div>
+                            <p class="notify-details">
+                                <b>Michelle Dolores</b>
+                                <span>New job completed</span>
+                                <small class="text-muted">35 minutes ago</small>
+                            </p>
+                        </a>
+
+                        <!-- All-->
+                        <a href="#" class="dropdown-item notify-item notify-all">
+                            View All Allerts
+                        </a>
+
+                    </div>
+                </li>
+
+
+                <li class="list-inline-item dropdown notif">
+                    <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" aria-haspopup="false"
+                        aria-expanded="false">
+                        <img src="assets/images/avatars/admin.png" alt="Profile image" class="avatar-rounded">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                        <!-- item-->
+                        <div class="dropdown-item noti-title">
+                            <h5 class="text-overflow">
+                                <small>Hello, admin</small>
+                            </h5>
+                        </div>
+
+                        <!-- item-->
+                        <a [routerLink]="['/admin/profile']" class="dropdown-item notify-item">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+
+                        <!-- item-->
+                        <a href="#" class="dropdown-item notify-item">
+                            <i class="fas fa-power-off"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+            <ul class="list-inline menu-left mb-0">
+                <li class="float-left">
+                    <button class="button-menu-mobile open-left">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </li>
+            </ul>
+
+        </nav>
+
+    </div>
+    <!-- End Navigation -->
+
+    <!-- Left Sidebar -->
+    <div class="left main-sidebar">
+
+        <div class="sidebar-inner leftscroll">
+
+            <div id="sidebar-menu">
+
+                <ul>
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/dashboard']">
+                            <i class="fas fa-bars"></i>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/manageMember']">
+                            <i class="fas fa-users"></i>
+                            <span> Members </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/mailbox']">
+                            <span class="label radius-circle bg-danger float-right">18</span>
+                            <i class="fas fa-envelope"></i>
+                            <span> Message box </span>
+                        </a>
+                    </li>
+
+
+                    <li class="submenu">
+                        <a>
+                            <i class="fab fa-wpforms"></i>
+                            <span> Admin Invoices </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a [routerLink]="['/admin/adminManageInvoice']">Invoices Property</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/admin/manageInvoiceAdPackage']">Invoice Ads package</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a>
+                            <i class="fas fa-building"></i>
+                            <span> Property </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a [routerLink]="['/admin/adminManage']">Manage Property (Admin)</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/admin/userManage']">Manage Property (User)</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/admin/addNew']">Add New Property</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a>
+                            <i class="fas fa-th-list"></i>
+                            <span> Ads Package </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a [routerLink]="['/admin/manageAdPackage']">Manage</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/admin/adPackage']">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span> Upgrade </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/blogs']">
+                            <i class="fas fa-file-alt"></i>
+                            <span> Blog </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/faq']">
+                            <i class="fas fa-question-circle"></i>
+                            <span> FAQ </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/reports']">
+                            <i class="fas fa-chart-bar"></i>
+                            <span> Reports </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/setting']">
+                            <i class="fas fa-cogs"></i>
+                            <span> Setting </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/template']">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span> Template </span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="clearfix"></div>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+    </div>
+    <!-- End Sidebar -->
+
+    <div class="content-page">
+        <div class="content">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="breadcrumb-holder">
+                            <h1 class="main-title float-left">Dashboard</h1>
+                            <ol class="breadcrumb float-right">
+                                <li class="breadcrumb-item">Home</li>
+                                <li class="breadcrumb-item active">Dashboard</li>
+                            </ol>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                <!-- MAIN CONTENT STAR -->
+                <!-- <a class="btn btn-primary" href="#" role="button" id="example1">Show alert</a> -->
+                <router-outlet></router-outlet>
+                <!-- MAIN CONTENT END -->
+
+            </div>
+            <!-- END container-fluid -->
+
+        </div>
+        <!-- END content -->
+
+    </div>
+    <!-- END content-page -->
+
+    <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i
+            class="fas fa-chevron-up"></i></a>
+
+    <footer class="footer">
+        <span class="text-right">
+            Copyright <a target="_blank" href="#">Company</a>
+        </span>
+        <span class="float-right">
+            <!-- Copyright footer link MUST remain intact if you download free version. -->
+            <!-- You can delete the links only if you purchased the pro or extended version. -->
+            <!-- Purchase the pro or extended version with PHP version of this template: https://bootstrap24.com/template/nura-admin-4-free-bootstrap-admin-template -->
+            Powered by <a target="_blank"><b>Somebody</b></a>
+        </span>
+    </footer>
+
+</div>
+<!-- END main -->
