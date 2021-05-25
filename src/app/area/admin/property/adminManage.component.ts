@@ -1,19 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyService } from 'src/app/services/property.service';
-import { Property } from '../shared/property.model';
+import { Property } from '../../../shared/property.model';
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { RoleService } from 'src/app/services/role.service';
+import { Role } from '../../../shared/role.model';
+import { CategoryService } from 'src/app/services/category.service';
+import { StatusService } from 'src/app/services/status.service';
+import { Category } from '../../../shared/category.model';
+import { Status } from '../../../shared/status.model';
+import { Image } from '../../../shared/image.model';
+import { PublicService } from 'src/app/services/publicService.service';
 
 @Component({
   templateUrl: './adminManage.component.html'
 })
 export class AdminManagePropertyComponent implements OnInit {
 
-  constructor(private propertyService: PropertyService) {
+  constructor(
+    private propertyService: PropertyService, 
+    private formBuilder: FormBuilder, 
+    private roleService: RoleService,
+    private categoryService: CategoryService,
+    private statusService: StatusService,
+    private publicService: PublicService
+    ) {
     this.loadStyle();
     this.loadScripts();
   }
 
   properties: Property[] = [];
+
   property: Property = new Property();
+
+  searchFormGroup: FormGroup;
+
+  roles: Role[] = [];
+
+  categories: Category[] = [];
+
+  statuses: Status[] = [];
+
+  images: Image[] = [];
 
   ngOnInit(): void {
     //get member
@@ -21,15 +48,58 @@ export class AdminManagePropertyComponent implements OnInit {
       this.properties = properties;
     });
 
+    //get role
+    this.roleService.getAllRole().subscribe((roles) => {
+      this.roles = roles;
+    });
+
+    //get status
+    this.statusService.getAllStatus().subscribe((statuses) => {
+      this.statuses = statuses;
+    });
+
+    //get category
+    this.categoryService.getAllCategory().subscribe((categories) => {
+      this.categories = categories;
+    });
+
+    //configure searchFromGroup
+    this.searchFormGroup = this.formBuilder.group({
+      title: new FormControl('', [Validators.required]),
+      roleId: new FormControl('all', [Validators.required]),
+      categoryId: new FormControl('all', [Validators.required]),
+      statusId: new FormControl('all', [Validators.required]),
+    });
+  }
+
+  search(){
+    var title = this.searchFormGroup.get('title').value;
+    var roleId = this.searchFormGroup.get('roleId').value;
+    var categoryId = this.searchFormGroup.get('categoryId').value;
+    var statusId = this.searchFormGroup.get('statusId').value;
+    if(title == ''){
+      title = '.all';
+    }
+    this.propertyService.search(title, roleId, categoryId, statusId).subscribe(properties => {
+      this.properties = properties;
+    });
   }
 
   onDetails(propertyId: number) {
-    console.log(propertyId);
-    this.propertyService.getPropertyById(propertyId).subscribe((data) => {
-      this.property = data;
-      console.table(data);
+    this.propertyService.getPropertyById(propertyId).subscribe((property) => {
+      this.property = property;
+      this.getGallery(propertyId);
     });
+  }
 
+  getGallery(propertyId: number){
+    this.propertyService.getGallery(propertyId).subscribe(images => {
+      this.images = images;
+    })
+  }
+
+  getUrlImage(imageName:string){
+    return this.publicService.getUrlImage("property", imageName);
   }
 
 
@@ -83,7 +153,8 @@ export class AdminManagePropertyComponent implements OnInit {
 
   loadStyle() {
     const dynamicStyles = [
-      '../../../../assets/plugins/owlcarousel/slideimage.css'
+      '../../../../assets/plugins/owlcarousel/slideimage.css',
+      '../../../../assets/css/style.css'
     ];
     for (let i = 0; i < dynamicStyles.length; i++) {
       const node = document.createElement('link');

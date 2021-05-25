@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberService } from 'src/app/services/member.service';
-import { MailRequest } from '../shared/mailrequest.model';
-import { Member } from '../shared/member.model';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { MailRequest } from '../../../shared/mailrequest.model';
+import { Member } from '../../../shared/member.model';
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Role } from '../../../shared/role.model';
+import { RoleService } from 'src/app/services/role.service';
+import Swal from 'sweetalert2';
 declare var alertFunction: any;
 
 @Component({
@@ -10,34 +13,63 @@ declare var alertFunction: any;
 })
 export class AdminManageMemberComponent implements OnInit {
 
-  constructor(private memberService: MemberService, private formBuilder: FormBuilder) {
+  constructor(private memberService: MemberService, private formBuilder: FormBuilder, private roleService: RoleService) {
     this.loadScripts();
   }
 
   members: Member[] = [];
+  roles: Role[] = [];
   mailRequest: MailRequest;
   emailFormGroup: FormGroup;
+  searchFormGroup: FormGroup;
+  member: Member;
 
   ngOnInit(): void {
     //get member
-    this.memberService.getAllMember().subscribe((members) => {
-      this.members = members;
+    this.loadData();
+
+    //get role
+    this.roleService.getAllRole().subscribe((roles) => {
+      this.roles = roles;
     });
 
+    //get emailRequest to sendMail
     this.emailFormGroup = this.formBuilder.group({
       email: '',
       subject: '',
       content: ''
     });
-  }
-  sendAlert(){
-    alertFunction.success();
+
+    //get member to search
+    this.searchFormGroup = this.formBuilder.group({
+      fullName: new FormControl('', [Validators.required]),
+      roleId: new FormControl('all', [Validators.required]),
+      status: new FormControl('all', [Validators.required])
+    });
+  }me
+ 
+  search(){
+    var fullName = this.searchFormGroup.get('fullName').value;
+    var roleId = this.searchFormGroup.get('roleId').value;
+    var status = this.searchFormGroup.get('status').value;
+    if(fullName == ''){
+      fullName = '.all';
+    }
+    this.memberService.search(fullName, roleId, status).subscribe(members => {
+      this.members = members;
+    });
   }
 
-  sendEmail() {
+  sendEmail() { 
     this.mailRequest = this.emailFormGroup.value;
     this.memberService.SendEmail(this.mailRequest).subscribe();
     console.log("subject: " + this.mailRequest.subject);
+  }
+
+  loadData() {
+    this.memberService.getAllMember().subscribe((members) => {
+      this.members = members;
+    });
   }
 
   // Method to dynamically load JavaScript
@@ -82,13 +114,64 @@ export class AdminManageMemberComponent implements OnInit {
     }
   }
 
-  blockAlert() {
-    var title = "Block member!";
-    var content = "Are you sure you want to block member?";
+  blockAlert(member: Member) {
+    console.log("status block: " + member.status);
+
+    Swal.fire({
+      title: 'Block member!',
+      text: 'Are you sure you want to block member?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //update action        
+        this.memberService.updateStatus(member.memberId, member.status).subscribe();
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Block successful!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        //reload page
+        //this.ngOnInit();
+        this.loadData();
+
+      }
+    })
   }
 
-  unblockAlert() {
-    var title = "Unblock member!";
-    var content = "Are you sure you want to unblock member?";
+  unblockAlert(member: Member) {
+    console.log("status unblock: " + member.status);
+    Swal.fire({
+      title: 'Unblock member!',
+      text: 'Are you sure you want to unblock member?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //update action        
+        this.memberService.updateStatus(member.memberId, member.status).subscribe();
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Unblock successful!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        //reload page
+        //this.ngOnInit();
+        this.loadData();
+
+      }
+    })
+  }
+
+  sendAlert(){
+    alertFunction.success();
   }
 }

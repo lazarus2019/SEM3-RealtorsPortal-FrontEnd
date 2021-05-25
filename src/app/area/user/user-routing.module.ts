@@ -10,21 +10,22 @@ import { AboutUsComponent } from './aboutUs/aboutUs.component';
 import { NewsComponent } from './news/news.component';
 import { CategoryComponent } from './category/category.component';
 
+
 // User components
 
 
 const routes: Routes = [
-  { path: '', component:  IndexComponent},
-  { path: 'index', component:  IndexComponent},
-  {path: 'single-property', component: PropertyComponent},
-  {path: 'listing', component: ListingComponent},
-  {path: 'aboutUs', component: AboutUsComponent},
-  {path: 'contact', component: ListingComponent},
-  {path: 'member-details', component: DetailsComponent},
-  {path: 'sellers', component: SellerComponent},
-  {path: 'agents', component: AgentComponent},
-  {path: 'news', component: NewsComponent},
-  {path: 'category', component: CategoryComponent},
+  { path: '', component: IndexComponent },
+  { path: 'index', component: IndexComponent },
+  { path: 'single-property', component: PropertyComponent },
+  { path: 'listing', component: ListingComponent },
+  { path: 'aboutUs', component: AboutUsComponent },
+  { path: 'contact', component: ListingComponent },
+  { path: 'member-details', component: DetailsComponent },
+  { path: 'sellers', component: SellerComponent },
+  { path: 'agents', component: AgentComponent },
+  { path: 'news', component: NewsComponent },
+  { path: 'category', component: CategoryComponent },
 
 
 ];

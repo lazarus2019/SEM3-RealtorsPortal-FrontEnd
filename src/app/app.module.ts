@@ -17,6 +17,7 @@ import { AdminDashboardComponent } from './area/admin/dashboard/dashboard.compon
 import { AdminGalleryComponent } from './area/admin/gallery/gallery.component';
 import { AdminMailBoxComponent } from './area/admin/mailbox/mailbox.component';
 import { AddNewPropertyComponent } from './area/admin/property/addNew.component';
+import { EditPropertyComponent } from './area/admin/property/editProperty.component';
 import { AdminManagePropertyComponent } from './area/admin/property/adminManage.component';
 import { UserManagePropertyComponent } from './area/admin/property/userManage.component';
 import { AdminManageMemberComponent } from './area/admin/member/manageMember.component';
@@ -48,6 +49,11 @@ import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
 import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
 import { ImageService } from './services/imageService.service';
+import { PublicService } from './services/publicService.service';
+import { InvoiceService } from './services/invoice.service';
+import { LoginComponent } from './area/user/login/login.component';
+import { RegistrationComponent } from './area/user/registration/registration.component';
+import { ForgetPasswordComponent } from './area/user/forgetPassword/forgetPassword.component';
 
 
 @NgModule({
@@ -57,6 +63,7 @@ import { ImageService } from './services/imageService.service';
     // Admin area
     AdminComponent,
     AddNewPropertyComponent,
+    EditPropertyComponent,
     AdminDashboardComponent,
     AdminMailBoxComponent,
     AdminGalleryComponent,
@@ -95,6 +102,12 @@ import { ImageService } from './services/imageService.service';
     DetailsComponent,
     NewsComponent,
     CategoryComponent,
+
+    //login-Registration
+    LoginComponent,
+    RegistrationComponent,
+    ForgetPasswordComponent
+
   ],
   imports: [
     BrowserModule,
@@ -114,13 +127,15 @@ import { ImageService } from './services/imageService.service';
 
     HttpClientModule,
     
-    CommonModule
+    CommonModule,
 
   ],
   providers: [
     AddNewService,
     AdminService,
-    ImageService
+    ImageService,
+    PublicService,
+    InvoiceService
   ],
   bootstrap: [AppComponent]
 })

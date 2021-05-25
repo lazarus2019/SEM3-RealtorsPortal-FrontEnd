@@ -1,0 +1,46 @@
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w480">
+        <div class="card card-4">
+            <div class="card-header">
+                <h2>Sign Up</h2>
+            </div>
+            <div class="card-body"> 
+                <form method="POST">
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <label class="label">Subject</label>
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select name="subject">
+                                    <option disabled="disabled" selected="selected">Choose option</option>
+                                    <option>Subject 1</option>
+                                    <option>Subject 2</option>
+                                    <option>Subject 3</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <label class="label">Username</label>
+                            <input class="input--style-4" type="text" name="first_name">
+                        </div>
+                    </div>
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <label class="label">Password</label>
+                            <input class="input--style-4" type="text" name="last_name">
+                        </div>
+                    </div>
+                    <div class="p-t-10 p-b-15">
+                        <button class="btn btn--radius-2 btn--blue" type="submit">Sign Up</button>
+                    </div>
+                    <div class="lgi">
+                        Already have an account? 
+                        <a [routerLink]="['/login']"> Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

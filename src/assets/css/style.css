@@ -1,6 +1,43 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300);
 
+.text {
+    border-style: groove;
+    padding: 0.01em 16px;
+}
+
+.image-box {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    vertical-align: middle;    
+}
+
+.remove-image {
+    font-size: 20px;
+    color: #fb7e6d;
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+.image-box:hover .remove-image{
+    display:block;
+}
+
+.preview-image {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    padding: 5px;
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+    border: solid 1px #b6b6b6;
+}
+
 .widescreen{
     margin: 0 !important;
 }

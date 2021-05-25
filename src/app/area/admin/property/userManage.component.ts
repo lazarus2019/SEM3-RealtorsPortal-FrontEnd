@@ -1,26 +1,84 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyService } from 'src/app/services/property.service';
-import { Property } from '../shared/property.model';
+import { Property } from '../../../shared/property.model';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { CategoryService } from 'src/app/services/category.service';
+import { StatusService } from 'src/app/services/status.service';
+import { Category } from '../../../shared/category.model';
+import { Status } from '../../../shared/status.model';
+import { Image } from '../../../shared/image.model';
+import { PublicService } from 'src/app/services/publicService.service';
+import { ImageService } from 'src/app/services/imageService.service';
 
 @Component({
   templateUrl: './userManage.component.html'
 })
 export class UserManagePropertyComponent implements OnInit {
 
-  constructor(private propertyService: PropertyService, private router: Router) {
+  constructor(
+    private propertyService: PropertyService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService,
+    private statusService: StatusService,
+    private publicService: PublicService,
+    private imageService: ImageService
+    ) {
     this.loadStyle();
     this.loadScripts();
   }
 
   properties: Property[] = [];
+
   property: Property;
+
+  updateProperty: Property;
+
   type: string;
+
+  searchFormGroup: FormGroup;
+
+  categories: Category[] = [];
+
+  statuses: Status[] = [];
+
+  images: Image[] = [];
 
   ngOnInit(): void {
     //get member
     this.propertyService.getAllProperty().subscribe((properties) => {
+      this.properties = properties;
+    });
+
+    //get status
+    this.statusService.getAllStatus().subscribe((statuses) => {
+      this.statuses = statuses;
+    });
+
+    //get category
+    this.categoryService.getAllCategory().subscribe((categories) => {
+      this.categories = categories;
+    });
+
+    //configure searchFromGroup
+    this.searchFormGroup = this.formBuilder.group({
+      title: new FormControl('', [Validators.required]),
+      categoryId: new FormControl('all', [Validators.required]),
+      statusId: new FormControl('all', [Validators.required]),
+    });
+  }
+
+  search() {
+    var title = this.searchFormGroup.get('title').value;
+    var roleId = '1';
+    var categoryId = this.searchFormGroup.get('categoryId').value;
+    var statusId = this.searchFormGroup.get('statusId').value;
+    if(title == ''){
+      title = '.all';
+    }
+    this.propertyService.search(title, roleId, categoryId, statusId).subscribe(properties => {
       this.properties = properties;
     });
   }
@@ -32,10 +90,27 @@ export class UserManagePropertyComponent implements OnInit {
 
   onDetails(propertyId: number) {
     console.log(propertyId);
-    this.propertyService.getPropertyById(propertyId).subscribe((data) => {
-      this.property = data;
+    this.propertyService.getPropertyById(propertyId).subscribe((property) => {
+      this.property = property;
+      this.getGallery(propertyId); 
     });
 
+  }
+
+  getGallery(propertyId: number){
+    this.propertyService.getGallery(propertyId).subscribe(images => {
+      this.images = images;
+    })
+  }
+
+  getUrlImage(imageName:string){
+    return this.publicService.getUrlImage("property", imageName);
+  }
+
+  changeStatus(propertyId: number) {
+    this.propertyService.getPropertyById(propertyId).subscribe((property) => {
+      this.property = property;
+    });
   }
 
   // Method to dynamically load JavaScript
@@ -88,7 +163,8 @@ export class UserManagePropertyComponent implements OnInit {
 
   loadStyle() {
     const dynamicStyles = [
-      '../../../../assets/plugins/owlcarousel/slideimage.css'
+      '../../../../assets/plugins/owlcarousel/slideimage.css',
+      '../../../../assets/css/style.css'
     ];
     for (let i = 0; i < dynamicStyles.length; i++) {
       const node = document.createElement('link');
@@ -109,18 +185,30 @@ export class UserManagePropertyComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.value) {
-        this.propertyService.deleteProperty(propertyId).subscribe();
+        //delete action
+        if(this.imageService.deleteImageByPropertyId(propertyId)){
+          this.propertyService.deleteProperty(propertyId).subscribe();
+        }
+
         Swal.fire({
           icon: 'success',
           title: 'Delete successful!',
           showConfirmButton: false,
           timer: 1500
-        })
+        });
+        //reload page
+        this.ngOnInit();
       }
     })
   }
 
   deactivateAlert(property) {
+    //change status to update
+    if (property != null) {
+      property.statusId = 2;
+      console.log(property.statusId);
+    }
+
     Swal.fire({
       title: 'Deactivate property!',
       text: 'Are you sure you want to deactivate property?',
@@ -128,27 +216,28 @@ export class UserManagePropertyComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'No'
-
     }).then((result) => {
       if (result.isConfirmed) {
-        this.propertyService.updateStatus(property).subscribe((data) => {
-          if (data.statusName === 'Activated') {
-            data.statusId = 2;
-          }
-        }), err => {
-          console.log(err)
-        };
+        //update action   
+        this.propertyService.updateStatus(property).subscribe();
+
         Swal.fire({
           icon: 'success',
-          title: 'Delete successful!',
+          title: 'Deactivate successful!',
           showConfirmButton: false,
           timer: 1500
-        })
+        });
+        //reload page
+        this.ngOnInit();
       }
     })
   }
 
   activateAlert(property: Property) {
+    //change status to update
+    if (property != null) {
+      property.statusId = 1;
+    }
     Swal.fire({
       title: 'Activate property!',
       text: 'Are you sure you want to activate property?',
@@ -156,23 +245,19 @@ export class UserManagePropertyComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'No'
-
     }).then((result) => {
       if (result.isConfirmed) {
-        this.propertyService.updateStatus(property).subscribe((data) => {
-          if (data.statusName === 'Deactivated') {
-            data.statusId = 1;
-            console.log(data.statusName);
-          }
-        }), err => {
-          console.log(err)
-        };
+        //update action        
+        this.propertyService.updateStatus(property).subscribe();
+
         Swal.fire({
           icon: 'success',
-          title: 'Delete successful!',
+          title: 'Activate successful!',
           showConfirmButton: false,
           timer: 1500
-        })
+        });
+        //reload page
+        this.ngOnInit();
       }
     })
   }

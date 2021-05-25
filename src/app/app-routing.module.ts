@@ -11,6 +11,7 @@ import { AdminManageInvoiceAdPackageComponent } from './area/admin/invoice/manag
 import { AdminMailBoxComponent } from './area/admin/mailbox/mailbox.component';
 import { AdminManageMemberComponent } from './area/admin/member/manageMember.component';
 import { AddNewPropertyComponent } from './area/admin/property/addNew.component';
+import { EditPropertyComponent } from './area/admin/property/editProperty.component';
 import { AdminManagePropertyComponent } from './area/admin/property/adminManage.component';
 import { UserManagePropertyComponent } from './area/admin/property/userManage.component';
 import { TemplateComponent } from './area/admin/template/template.component';
@@ -33,10 +34,17 @@ import { AgentComponent } from './area/user/phonebook/agent/agent.component';
 import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
 import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
+import { LoginComponent } from './area/user/login/login.component';
+import { RegistrationComponent } from './area/user/registration/registration.component';
+import { ForgetPasswordComponent } from './area/user/forgetPassword/forgetPassword.component';
+
 
 const routes: Routes = [
 
   // Default Component
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'forgetPassword', component: ForgetPasswordComponent },
   {
     path: '', component: UserComponent,
     children:
@@ -72,8 +80,8 @@ const routes: Routes = [
       [
         { path: '', component: AdminDashboardComponent },
         { path: 'dashboard', component: AdminDashboardComponent },
-        { path: 'addNew', component: AddNewPropertyComponent },
-        { path: 'updateProperty', component: AddNewPropertyComponent },
+        { path: 'addProperty', component: AddNewPropertyComponent },
+        { path: 'editProperty', component: EditPropertyComponent },
         { path: 'mailbox', component: AdminMailBoxComponent },
         { path: 'gallery', component: AdminGalleryComponent },
         { path: 'adPackage', component: AdminAdPackageComponent },

@@ -5,19 +5,21 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { PropertyService } from 'src/app/services/property.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from '../../../shared/category.model';
+import { Image } from '../../../shared/image.model';
+import { PublicService } from 'src/app/services/publicService.service';
 declare var alertFunction: any;
-declare var getTinyMCEContent: any;
 
 @Component({
-  templateUrl: './addNew.component.html'
+  templateUrl: './editProperty.component.html'
 })
-export class AddNewPropertyComponent implements OnInit {
+export class EditPropertyComponent implements OnInit {
 
   constructor(
     private imageService: ImageService,
     private formBuilder: FormBuilder,
     private propertyService: PropertyService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private publicService: PublicService
   ) {
     this.loadScripts();
   }
@@ -25,62 +27,83 @@ export class AddNewPropertyComponent implements OnInit {
 
   imageForm: FormData[] = [];
 
+  categories: Category[] = [];
+
   numberImage: number = 0;
 
   successImage: number = 0;
 
+  updateProperty: Property;
+
   property: Property;
 
-  categories: Category[] = [];
+  editFormGroup: FormGroup;
 
-  addFormGroup: FormGroup;
+  gallery: Image[] = [];
+
+  listImageDelete = new Array<Object>();
 
   public ngOnInit(): void {
+    //get data from userManage component
+    this.property = history.state;
+
     //get category 
     this.categoryService.getAllCategory().subscribe(categories => {
       this.categories = categories;
     });
+
     //configure addFromGroup
-    this.addFormGroup = this.formBuilder.group({
-      title: new FormControl('', [Validators.required]),
-      region: new FormControl('', [Validators.required]),
-      country: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required]),
-      type: new FormControl('', [Validators.required]),
-      categoryId: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required]),
-      area: new FormControl('', [Validators.required]),
-      roomNumber: new FormControl('', [Validators.required]),
-      bedNumber: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
+    this.editFormGroup = this.formBuilder.group({
+      propertyId: new FormControl(this.property.propertyId, [Validators.required]),
+      title: new FormControl(this.property.title, [Validators.required]),
+      region: new FormControl(this.property.cityId, [Validators.required]),
+      country: new FormControl(this.property.cityId, [Validators.required]),
+      city: new FormControl(this.property.cityName, [Validators.required]),
+      address: new FormControl(this.property.address, [Validators.required]),
+      type: new FormControl(this.property.type, [Validators.required]),
+      categoryId: new FormControl(this.property.categoryId, [Validators.required]),
+      price: new FormControl(this.property.price, [Validators.required]),
+      area: new FormControl(this.property.area, [Validators.required]),
+      roomNumber: new FormControl(this.property.roomNumber, [Validators.required]),
+      bedNumber: new FormControl(this.property.bedNumber, [Validators.required]),
+      description: new FormControl(this.property.description, [Validators.required]),
     });
+    //get gallery image
+    this.getGallery(this.property.propertyId);
   }
 
-  createProperty() {
-    this.property = this.addFormGroup.value;
-    console.log("text: " + this.property.description);
-    this.property.memberId = 1;
-    this.property.statusId = 2;
+  editProperty() {
+    this.updateProperty = this.editFormGroup.value;
+    //this.updateProperty.memberId = this.property.memberId;
+    //this.updateProperty.statusId = this.property.statusId;
+    //this.updateProperty.cityId = this.property.cityId;
+    this.updateProperty.memberId = 1;
+    this.updateProperty.statusId = 2;
+    console.log("mdi: " + this.updateProperty.memberId);
+    console.log("sdi: " + this.updateProperty.statusId);
     this.property.cityId = "kr_south_seo";
-    this.property.description = getTinyMCEContent();
-    this.propertyService.createProperty(this.property).subscribe(propertyId => {
-      this.uploadImage(propertyId.toString());
+    this.propertyService.updateProperty(this.updateProperty).subscribe(() => {
+      this.uploadImage();
+      if (this.listImageDelete != null) {
+        this.deleteImage();
+      }
+      alertFunction.success("Update successful!");
     }
     );
   }
 
-  uploadImage(propertyId: string) {
+  uploadImage() {
     this.successImage = 0;
     this.numberImage = this.imageForm.length;
+
     for (var image of this.imageForm) {
-      this.imageService.uploadImage(propertyId, "property", image).then(
+      this.imageService.uploadImage(this.property.propertyId.toString(), "property", image).then(
         res => {
           this.successImage++;
           if (this.successImage === this.numberImage) {
             this.imageForm = [];
             this.urls = [];
-            alertFunction.success("Upload gallery success!")
+            alertFunction.success("Upload gallery success!");
           }
         },
         err => {
@@ -120,9 +143,40 @@ export class AddNewPropertyComponent implements OnInit {
     }
   }
 
-  deleteImage(index: number) {
+  deleteImageStore(index: number) {
     this.urls.splice(index, 1);
     this.imageForm.splice(index, 1);
+  }
+
+  deleteGalleryImage(index: number) {
+    let image = new Image();
+    image = this.gallery[index];
+    this.gallery.splice(index, 1);
+    this.listImageDelete.push(image);
+  }
+
+  deleteImage() {
+    for (var delImage of this.listImageDelete) {
+      let image = Object.values(delImage);
+      console.table(image);
+      this.imageService.deleteImage(image[2], image[5], "property").then(
+        res => {
+        },
+        err => {
+          alertFunction.error("Can not delete file in database and folder wwwroot!");
+        }
+      )
+    }
+  }
+
+  getGallery(propertyId: number) {
+    this.propertyService.getGallery(propertyId).subscribe(images => {
+      this.gallery = images;
+    })
+  }
+
+  getUrlImage(imageName: string) {
+    return this.publicService.getUrlImage("property", imageName);
   }
 
   // Method to dynamically load JavaScript
@@ -157,7 +211,6 @@ export class AddNewPropertyComponent implements OnInit {
       '../../../../assets/plugins/jquery.filer/js/temp.js',
       '../../../../assets/plugins/sweetalert/sweetalert.min.js',
       '../../../../assets/js/jquery.sweetalert.js',
-      '../../../../assets/js/jquery.tinymce.js',
 
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {

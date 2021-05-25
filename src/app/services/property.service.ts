@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, throwError } from 'rxjs';
-import { Property } from '../area/admin/shared/property.model';
+import { retry, catchError } from 'rxjs/operators';
+import { Property } from '../shared/property.model';
+import { Image } from '../shared/image.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,12 +28,26 @@ export class PropertyService {
   getPropertyById(propertyId: number): Observable<Property> {
     const url = `${this.baseUrl}/${propertyId}`;
     return this.http.get<Property>(url);
-
   }
 
-  updateStatus(property: Property): Observable<Property> {
-    return this.http.put<Property>(this.baseUrl + '/updateStatus', property, httpOptions);
+  search(title: string, roleId: string, categoryId: string, status: string): Observable<Property[]> {
+    var url = `${this.baseUrl}/search/${title}/${roleId}/${categoryId}/${status}`; 
+    return this.http.get<Property[]>(url);
+  }
+
+  updateStatus(property: Property): Observable<void> {
+    return this.http.put<void>(this.baseUrl + '/updateStatus/' + property.propertyId, property.statusId, httpOptions).pipe(
+
+      retry(1),
+ 
+      catchError(this.handleError)
+ 
+    );
     
+  }
+
+  updateProperty(property: Property): Observable<void> {
+    return this.http.put<void>(this.baseUrl + '/update', property, httpOptions);
   }
 
   deleteProperty(propertyId: number): Observable<number> {
@@ -39,11 +55,13 @@ export class PropertyService {
     return this.http.delete<number>(url);
   }
 
-  
-  addNewProperty(property: Property): Observable<Property> {
-    //const url = `${this.baseUrl}/${property.propertyId}`;
-    return this.http.post<Property>(this.baseUrl, property, httpOptions);
-    
+  createProperty(property: Property): Observable<number> {
+    return this.http.post<number>(this.baseUrl + '/create', property, httpOptions);
+  }
+
+  getGallery(propertyId: number): Observable<Image[]> {
+    const url = `${this.baseUrl}/getGallery/${propertyId}`;
+    return this.http.get<Image[]>(url);
   }
 
   handleError(error) {

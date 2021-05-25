@@ -3,7 +3,9 @@ export class Property {
     title: string;
     cityId: string;
     cityName: string;
+    cityRegionId: string;
     cityRegionName: string;
+    cityRegionCountryId: string;
     cityRegionCountryName: string;
     address: string;
     price: number;
@@ -22,5 +24,4 @@ export class Property {
     type: string;
     memberRoleName: string;
     memberRoleId: number;
-    propertyImagePath: Array<string>;
 }

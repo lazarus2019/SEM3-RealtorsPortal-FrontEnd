@@ -4,5 +4,7 @@ export class AdsPackage {
     period: number;
     price: number;
     description: string;
-    amount: number;
+    statusBuy: boolean;
+    postNumber: number;
+    isDelete: boolean;
 }

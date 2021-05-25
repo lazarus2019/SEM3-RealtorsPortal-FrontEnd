@@ -7,36 +7,34 @@
 
             <div class="card-body">
                 <!-- Form Search & Filter -->
-                <div class="from-group mb-3">
+                <div class="from-group mb-3  d-flex justify-content-center">
+                    <form [formGroup]="searchFormGroup" (ngSubmit)="search()">
                     <div class="row">
-                        <div class="col-md-3 mb-1">
-                            <input type="text" class="form-control" value="" placeholder="Enter name">
+                            <div class="col-md-4 mb-1 flex-fill">
+                                <input type="text" class="form-control" value="" placeholder="Enter fullName" formControlName="fullName">
+                            </div>
+                            <div class="col-md-3 mb-1 flex-fill">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true" formControlName="roleId"
+                                    required="required">
+                                    <option value="all" selected="selected">All role</option>
+                                    <option *ngFor="let role of roles" value="{{role.roleId}}">{{role.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-1 flex-fill">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true" formControlName="status"
+                                    required="required">
+                                    <option value="all" selected="selected">All Status</option>
+                                    <option value="false">Blocked</option>
+                                    <option value="true">Active</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 flex-fill">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-1">
-                            <input data-parsley-type="text" type="text" class="form-control" required=""
-                                placeholder="Enter email" required="required">
-                        </div>
-                        <div class="col-md-3 mb-1">
-                            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
-                                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
-                                <option value="customer">Customer</option>
-                                <option value="agent">Agent</option>
-                                <option value="seller">Seller</option>
-                                <option value="administration">Administration</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 mb-1">
-                            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
-                                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
-                                <option value="activate">Activate</option>
-                                <option value="deactivate">Deactivate</option>
-                                <option value="pending">Pending</option>
-                            </select>
-                        </div>
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
                 <!--Show Table-->
@@ -44,28 +42,23 @@
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table
-                                    class="table table-bordered table-hover display dataTable no-footer"
+                                <table class="table table-bordered table-hover display dataTable no-footer"
                                     style="width: 100%;" role="grid" aria-describedby="dataTable_info">
                                     <thead>
                                         <tr role="row">
-                                            <th aria-controls="dataTable" rowspan="1"
-                                                colspan="1"
-                                                style="width: 5%;">No.</th>
-                                            <th aria-controls="dataTable" rowspan="1"
-                                                colspan="1" 
-                                                style="width: 30%;">Full Name</th>
-                                            <th tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1"
-                                                style="width: 25%;">Email</th>
-                                            <th tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1"
-                                                style="width: 15%;">Role</th>
-                                            <th tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" 
-                                                style="width: 15%;">Create date</th>
-                                            <th tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1"
+                                            <th aria-controls="dataTable" rowspan="1" colspan="1" style="width: 5%;">No.
+                                            </th>
+                                            <th aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20%;">
+                                                Full Name</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 26%;">Email</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 13%;">Role</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 13%;">Create date</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 13%;">Status</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                                 style="width: 10%;">Action</th>
                                         </tr>
                                     </thead>
@@ -76,16 +69,17 @@
                                                 <td>{{member.fullName}}</td>
                                                 <td>{{member.email}}</td>
                                                 <td>{{member.role.name}}</td>
-                                                <td>{{member.birthday|date:'dd/MM/y'}}</td>
+                                                <td>{{member.createDate|date:'dd/MM/y'}}</td>
+                                                <td>{{member.status ? 'Active' : 'Blocked'}}</td>
                                                 <td>
                                                     <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
                                                         data-target="#sendMail"><i class="fas fa-envelope "></i> Send
                                                         mail</a>
                                                     <a class="btn btn-danger btn-sm btn-block mt-2 "
-                                                        *ngIf="member.status == true" (click)="blockAlert()"><i
+                                                        *ngIf="member.status == true" (click)="blockAlert(member)"><i
                                                             class="fas fa-lock "></i> Block</a>
                                                     <a class="btn btn-danger btn-sm btn-block mt-2 "
-                                                        *ngIf="member.status == false" (click)="unblockAlert()"><i
+                                                        *ngIf="member.status == false" (click)="unblockAlert(member)"><i
                                                             class="fas fa-unlock "></i> Unblock</a>
                                                 </td>
                                             </tr>
@@ -122,19 +116,19 @@
                 <form [formGroup]="emailFormGroup" (ngSubmit)="sendEmail()">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Send to:</label>
-                        <input type="text" class="form-control" value="youremail@gmail.com"  formControlName="email">
+                        <input type="text" class="form-control" value="youremail@gmail.com" formControlName="email">
                     </div>
                     <div class="form-group">
                         <label for="example1">
                             Subject: <span class="text-danger">*</span>
                         </label>
-                        <input data-parsley-type="text" type="text" class="form-control" required="" formControlName="subject"
-                            placeholder="Enter title" required="required">
+                        <input data-parsley-type="text" type="text" class="form-control" required=""
+                            formControlName="subject" placeholder="Enter title" required="required">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Content:</label>
-                        <textarea class="form-control" id="message-text" placeholder="Enter description" formControlName="content"
-                            required></textarea>
+                        <textarea class="form-control" id="message-text" placeholder="Enter description"
+                            formControlName="content" required></textarea>
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>

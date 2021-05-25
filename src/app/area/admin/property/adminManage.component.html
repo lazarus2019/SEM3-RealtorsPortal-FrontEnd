@@ -5,42 +5,52 @@
                 <h3><i class="fas fa-table"></i> Manage Agent/Seller Ads/Posts</h3>
             </div>
             <div class="card-body">
-                <div class="from-group mb-3">
-                    <div class="row">
-                        <div class="col-md-3 mb-1">
-                            <input type="text" class="form-control" value="" placeholder="Enter title">
+                <div class="from-group mb-3 d-flex justify-content-center">
+                    <form method="GET" [formGroup]="searchFormGroup" (ngSubmit)="search()">
+                        <div class="row">
+                            <div class="col-md-4 mb-1 flex-fill">
+                                <input type="text" class="form-control" value="" placeholder="Enter title"
+                                    formControlName="title">
+                            </div>
+                            <div class="col-md-2 mb-1 flex-fill">
+                                <select class="form-control" formControlName="roleId">
+                                    <option value="all">All Role</option>
+                                    <ng-container *ngFor="let role of roles">
+                                        <option value="{{role.roleId}}" [hidden]="role.name == 'Admin'">{{role.name}}
+                                        </option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-1 flex-fill">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    formControlName="categoryId" required="required">
+                                    <option value="all">All Category</option>
+                                    <ng-container *ngFor="let category of categories">
+                                        <option value="{{category.categoryId}}">{{category.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-1 flex-fill">
+                                <select class="form-control" formControlName="statusId">
+                                    <option value="all">All status</option>
+                                    <ng-container *ngFor="let status of statuses">
+                                        <option value="{{status.statusId}}">{{status.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-1 flex-fill">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-1">
-                            <input type="text" class="form-control" value="" placeholder="Enter editor">
-                        </div>
-                        <div class="col-md-3 mb-1">
-                            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
-                                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
-                                <option value="customer">All Category</option>
-                                <option value="customer">office</option>
-                                <option value="agent">Villa</option>
-                                <option value="seller">land</option>
-                                <option value="administration">...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 mb-1">
-                            <select class="form-control">
-                                <option value="all">All status</option>
-                                <option value="activate">Activate</option>
-                                <option value="deactivate">Deactivate</option>
-                            </select>
-                        </div>
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered table-hover display dataTable no-footer" 
+                                <table class="table table-bordered table-hover display dataTable no-footer"
                                     style="width: 100%;" role="grid" aria-describedby="dataTable_info">
                                     <thead>
                                         <tr role="row">
@@ -53,7 +63,7 @@
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                                 style="width: 7%;">Category</th>
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                                style="width: 7%;">Editor</th>
+                                                style="width: 7%;">Role</th>
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                                 style="width: 7%;">Date</th>
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
@@ -76,12 +86,14 @@
                                             <td>{{property.status.name}}</td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#details" (click)="onDetails(property.propertyId)"><i
+                                                    *ngIf="property.statusName !== 'Pending'" data-target="#details"
+                                                    (click)="onDetails(property.propertyId)"><i
                                                         class="fas fa-info-circle "></i>
                                                     Details
                                                 </button>
-                                                <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#details" *ngIf="property.statusName == 'Pending'">
+                                                <a class="btn btn-primary btn-sm btn-block "
+                                                    *ngIf="property.statusName == 'Pending'" data-toggle="modal"
+                                                    data-target="#details">
                                                     <i class="fas fa-check-circle"></i>
                                                     Check
                                                 </a>
@@ -105,8 +117,9 @@
 
 </div>
 <!--Modal of details -->
-<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="details" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade bd-example-modal-lg" id="details" tabindex="-1" role="dialog" aria-labelledby="details"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Property details</h5>
@@ -120,6 +133,30 @@
                         <label for="title" class="col-form-label">Title:</label>
                         <input type="text" class="form-control" id="title" readonly value="{{property?.title}}"
                             style="background-color:white;">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="price">Price: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="price" readonly
+                                    value="${{property?.price}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="area">Area: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="area" readonly
+                                    value="{{property?.area}} m&#178;" style="background-color:white;">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="rooms">Rooms:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="rooms" readonly
+                                    value="{{property?.roomNumber}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="bedrooms">Bedrooms:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="bedrooms" readonly
+                                    value="{{property?.bedNumber}}" style="background-color:white;">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
@@ -143,28 +180,9 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4">
-                                <label for="area">Area: </label>
-                                <input data-parsley-type="text" type="text" class="form-control" id="area" readonly
-                                    value="{{property?.area}}" style="background-color:white;">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="rooms">Rooms:</label>
-                                <input data-parsley-type="text" type="text" class="form-control" id="rooms" readonly
-                                    value="{{property?.roomNumber}}" style="background-color:white;">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="bedrooms">Bedrooms:</label>
-                                <input data-parsley-type="text" type="text" class="form-control" id="bedrooms" readonly
-                                    value="{{property?.bedNumber}}" style="background-color:white;">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="price">Price: </label>
-                                <input data-parsley-type="text" type="text" class="form-control" id="price" readonly
-                                    value="${{property?.price}}" style="background-color:white;">
+                                <label for="type">Type: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="type" readonly
+                                    value="${{property?.type}}" style="background-color:white;">
                             </div>
                             <div class="col-md-4">
                                 <label for="publicday">Public day:</label>
@@ -179,7 +197,25 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="city">City: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="city" readonly
+                                    value="{{property?.cityName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="region">Region:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="region" readonly
+                                    value="{{property?.cityRegionName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="country">Country: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="country" readonly
+                                    value="{{property?.cityRegionCountryName}}" style="background-color:white;">
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="address">Address: </label>
                         <input data-parsley-type="text" type="text" class="form-control" id="address" readonly
@@ -187,40 +223,39 @@
                     </div>
                     <div class="form-group">
                         <label for="image">Image</label>
-                        <div class="slideshow-container" *ngFor="let image of property?.propertyImagePath">
+                        <div class="slider-image">
+                            <div class="slideshow-container">
+                                <ng-container *ngFor="let image of images index as i">
 
-                            <div class="mySlides ">
-                                <img src="https://via.placeholder.com/600x350" style="width:100%">
+                                    <div class="mySlides" *ngIf="i===0" style="display: block;">
+                                        <img [src]="getUrlImage(image.name)" style="width:100%">
+                                    </div>
+                                    <div class="mySlides" *ngIf="i!==0" style="display: none;">
+                                        <img [src]="getUrlImage(image.name)" style="width:100%">
+                                    </div>
+
+                                </ng-container>
                             </div>
 
-                            <div class="mySlides ">
-                                <img src="https://via.placeholder.com/600x350" style="width:100%">
-                            </div>
-
-                            <div class="mySlides ">
-                                <img src="https://via.placeholder.com/600x350" style="width:100%;">
-                            </div>
-
+                            <br>
                             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                             <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                        </div>
-                        <br>
-                        <div style="text-align:center">
-                            <span class="dot" onclick="currentSlide(1)"></span>
-                            <span class="dot" onclick="currentSlide(2)"></span>
-                            <span class="dot" onclick="currentSlide(3)"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Description:</label>
-                        <textarea class="form-control" id="message-text" readonly value="{{property?.description}}"
-                            style="background-color:white; height: 200px;"></textarea>
+                        <div class="text">
+
+                            <span innerHTML="{{property?.description}}"></span>
+                        </div>
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary mr-2" data-toggle="modal"
-                        data-target="#sendMail" *ngIf="property?.statusName == 'Pending'">Public</button>
-                        <button type="button" class="btn btn-primary mr-2" *ngIf="property?.statusName == 'Pending'">Send Mail</button>
+                        <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#sendMail"
+                            *ngIf="property?.statusName == 'Pending'">Public</button>
+                        <button type="button" class="btn btn-primary mr-2"
+                            *ngIf="property?.statusName == 'Pending'">Send
+                            Mail</button>
                     </div>
                 </form>
             </div>
