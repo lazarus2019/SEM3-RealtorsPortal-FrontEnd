@@ -85,6 +85,7 @@ export class AdminManageAdPackageComponent implements OnInit {
       this.editFormGroup.get('description').setValue(adsPackage.description);
       this.editFormGroup.get('postNumber').setValue(adsPackage.postNumber);
       this.editFormGroup.get('period').setValue(adsPackage.period);
+      console.log("testttt newwww");
     })
 
   }
