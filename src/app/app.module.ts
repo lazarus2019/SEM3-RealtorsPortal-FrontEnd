@@ -55,6 +55,8 @@ import { UserService } from './services/user.service';
 import { CategoryService } from './services/user/category.service';
 import { ShareFormService } from './services/user/shareFormSearchData';
 import { ResultComponent } from './area/user/listing/searchResult.component';
+import { MailboxService } from './services/user/mailbox.service';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 @NgModule({
@@ -126,6 +128,9 @@ import { ResultComponent } from './area/user/listing/searchResult.component';
     UserRoutingModule,
 
     HttpClientModule,
+
+    //image 
+    NgImageSliderModule
   ],
   providers: [
     AddNewService,
@@ -135,7 +140,8 @@ import { ResultComponent } from './area/user/listing/searchResult.component';
     ListingService,
     UserService,
     CategoryService,
-    ShareFormService
+    ShareFormService , 
+    MailboxService
     
   ],
   bootstrap: [AppComponent]

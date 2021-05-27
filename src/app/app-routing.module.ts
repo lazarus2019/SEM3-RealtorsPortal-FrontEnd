@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Admin area
-import { AdminComponent } from './area/admin/admin.component';
+
 import { AdminAdPackageComponent } from './area/admin/adpackage/adPackage.component';
 import { AdminManageAdPackageComponent } from './area/admin/adpackage/manageAdPackage.component';
 import { AdminDashboardComponent } from './area/admin/dashboard/dashboard.component';
@@ -35,6 +35,7 @@ import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
 import { LoginComponent } from './area/user/login/login.componet';
 import { ResultComponent } from './area/user/listing/searchResult.component';
+import { AdminComponent } from './area/admin/admin.component';
 
 const routes: Routes = [
 
@@ -56,9 +57,10 @@ const routes: Routes = [
 
         { path: 'index', component: IndexComponent },
         { path: 'single-property', component: PropertyComponent },
-        { path: 'listing', component: ResultComponent },
+        { path: 'listing', component: ListingComponent },
+        { path: 'searchproperty', component: ResultComponent },
         { path: 'aboutUs', component: AboutUsComponent },
-        { path: 'contact', component: ListingComponent },
+        { path: 'contact', component: ContactComponent },
         { path: 'member-details', component: DetailsComponent },
         { path: 'sellers', component: SellerComponent },
         { path: 'agents', component: AgentComponent },
