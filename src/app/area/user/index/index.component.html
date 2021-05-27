@@ -17,7 +17,7 @@
                         <input type="search" name="text" placeholder="Enter keywords" formControlName="keyword" required>
                         <span class="input-group-btn">
                             <select class="btn btn-default" name="ext" required formControlName="category">
-                                <option selected="selected" value="0">Select Category</option>                                
+                                <option disabled selected > Select Category</option>                                
                                 <ng-container *ngFor="let c of categories" >
                                     <option value="{{c.categoryId}}">{{c.name}}</option>
                                 </ng-container>
@@ -26,17 +26,27 @@
                         </span>
                         <span class="input-group-btn">
                             <select class="btn btn-default" name="ext" required  formControlName="country" >
-                                <option selected="selected" >Select Country</option>
+                                <option disabled selected > Select Country</option>
                                 <ng-container *ngFor="let co of countries">
                                     <option value="{{co.countryId}}" >{{co.name}}</option>
                                 </ng-container>
-                                
-                                
                             </select>
                         </span>
-                        <button type="submit" class="btn-primary"
-                         [routerLink]="['/user/searchResult', {keyword : this.formSearch.value.keyword , cate : this.formSearch.value.category , country : this.formSearch.value.country}]"  (click)="save()">
-                           Search</button>
+                        <button
+                         type="submit" class="btn-primary" *ngIf="this.formSearch.value.keyword != '' && this.formSearch.value.category != 'Select Category' && this.formSearch.value.country != 'Select Country' "                   
+                         [routerLink]="['/user/searchproperty', {
+                             keyword : this.formSearch.value.keyword , 
+                             cate : this.formSearch.value.category , 
+                             country : this.formSearch.value.country ,
+                             pg : 'index'
+                            
+                            }]"
+                             (click)="save()">
+                        Search</button>
+
+                        <button                        
+                        type="submit" class="btn-primary" *ngIf="this.formSearch.value.keyword == '' || this.formSearch.value.category == 'Select Category'  || this.formSearch.value.country == 'Select Country' "  >
+                        Search</button>
                     </form>
                     
                 </div>
@@ -57,7 +67,7 @@
                 
                 <ng-container *ngFor="let p  of topproperty">
                     <div class="col-lg-4 col-md-6 mb-4"  >
-                        <a [routerLink]="['/user/single-property']">
+                        <a [routerLink]="['/user/single-property', {propertyId: p.propertyId} ]">
                             <div class="box16">
                                 <div class="rentext-listing-category"><span>{{p.type}}</span></div>
                                 <img class="img-fluid"  src="assets/images/property/{{p.images[0].name}}" alt="{{p.images[0].name}}" >

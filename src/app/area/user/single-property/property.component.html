@@ -19,7 +19,8 @@
         <div class="inner mb-4">
             <ul class="blog-single-author-date align-items-center">
                 <li>
-                    <div class="listing-category "><span style="background-color: lightgreen;" > {{property.type}} </span></div>
+                    <div class="listing-category "><span style="background-color: lightgreen;"> {{property.type}}
+                        </span></div>
                 </li>
                 <li><span class="fa fa-clock-o"></span> Upload : {{property.uploadDate| date: 'dd/MM/yyyy'}} </li>
             </ul>
@@ -37,7 +38,8 @@
                 <li><span class="fa fa-share-square-o"></span> {{property.area}} sqrft</li>
             </ul>
             <ul class="share-post">
-                <a href="#url" class="cost-estate m-o">${{property.price}} {{ (property.type == 'Rent') ? ' / month ' : ''}}</a>
+                <a href="#url" class="cost-estate m-o">${{property.price}} {{ (property.type == 'Rent') ? ' / month ' :
+                    ''}}</a>
             </ul>
         </div>
         <div class="row">
@@ -47,8 +49,10 @@
                         <div class="owl-blog owl-carousel owl-theme">
                             <div class="item">
                                 <div class="card" *ngFor="let pi of property.images">
-                                    <img src="assets/images/property/{{pi.name}}" class="img-fluid radius-image" alt="image">
+                                    <img src="assets/images/property/{{pi.name}}" class="img-fluid radius-image"
+                                        alt="image">
                                 </div>
+
                             </div>
 
                         </div>
@@ -64,10 +68,10 @@
                             <ul class="details-list">
                                 <li><strong>Property id :</strong> {{property.propertyId}} </li>
                                 <li><strong>Property size :</strong> {{property.area}} sqrft </li>
-                                <li><strong>Rooms :</strong> {{property.roomNumber}}  </li>
+                                <li><strong>Rooms :</strong> {{property.roomNumber}} </li>
                                 <li><strong>Bedrooms :</strong> {{property.bedNumber}} </li>
                                 <li><strong>Property Price :</strong>{{property.price }} </li>
-                                <li><strong>Built Year :</strong> {{property.buildYear | date: 'yyyy'}}  </li>
+                                <li><strong>Built Year :</strong> {{property.buildYear | date: 'yyyy'}} </li>
 
                             </ul>
                         </div>
@@ -88,7 +92,8 @@
                     <div class="single-bg-white">
                         <h3 class="post-content-title mb-4">Location</h3>
                         <div class="agent-map">
-                            <iframe [src]="property.googleMap | safe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            <iframe [src]="property.googleMap | safe" width="600" height="450" style="border:0;"
+                                allowfullscreen="" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
@@ -114,10 +119,80 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-style w-100">Call</button>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-style w-100">Send Contact</button>
+                        <div class="btn-contact-property form-group3">
+                            <button type="submit" class="btn btn-primary btn-style w-100" id="btnContactProperty"> Send
+                                Contact</button>
+                        </div>
+                        <!-- popup contact form -->
+                        <div class="w3l-contact-7 popup-contact-form-property hide ">
+                            <div class="map-content-9">
+                                <div class="contact-form max-width-650">
+                                    <span class="btn-close-contact-property fa icon-close fa-times"></span>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h5 class="mb-2">Get in touch</h5>
+                                            <p class="mb-4">We will contact you as soon as possible.</p>
+
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <form novalidate="" action="https://sendmail.w3layouts.com/submitForm"
+                                                method="post" class="ng-untouched ng-pristine ng-valid "
+                                                [formGroup]="formContact">
+                                                <div class="form-group">
+                                                    <div class="form-grid">
+                                                        <div class="input-field">
+                                                            <input type="text" name="w3lName" id="w3lName"
+                                                                placeholder="Your Name" required
+                                                                formControlName="fullName">
+                                                        </div> <br>
+                                                        <div class="input-field">
+                                                            <input
+                                                                [class.is-invalid]="Email.invalid && Email.touched"
+                                                                type="email" placeholder="Email"
+                                                                name="w3lSender" id="w3lSender"
+                                                                formControlName="email" />
+                                                            <div
+                                                                *ngIf="(Email.invalid && Email.touched) || Email.dirty">
+                                                                <small *ngIf="Email.errors?.required"
+                                                                    class="text-danger">Email is
+                                                                    required</small>
+                                                                <!--question mark(?) is a safe navigation operator-->
+                                                                <small *ngIf="Email.errors?.pattern"
+                                                                    class="text-danger">Please provide a valid email
+                                                                    address</small>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="input-field">
+                                                            <input type="text" name="w3lSender"
+                                                                id="w3lSender" placeholder="Phone" required
+                                                                formControlName="phone" >
+                                                            <div *ngIf="Phone.touched && Phone.invalid"
+                                                                class="text-danger">
+                                                                <small *ngIf="Phone.errors.required">Mobile
+                                                                    Number is required.</small>
+                                                                <small *ngIf="Phone.errors.pattern">Please, Enter
+                                                                    10 digit Mobile Number.</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-field mt-4"><textarea name="w3lMessage"
+                                                            id="w3lMessage" placeholder="Message"
+                                                            formControlName="message"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-primary btn-style mt-2"
+                                                        (click)="send()" [disabled]="!formContact.valid">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
 
 
                     <!-- Popular Post Widget-->
@@ -162,16 +237,19 @@
 
                         <ul>
                             <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Office space</a>
+                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Office
+                                    space</a>
                             </li>
                             <li class="mb-2">
                                 <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Shops</a>
                             </li>
                             <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Commercial land</a>
+                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Commercial
+                                    land</a>
                             </li>
                             <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Industrial property</a>
+                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Industrial
+                                    property</a>
                             </li>
                             <li class="mb-2">
                                 <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Apartments</a>
@@ -180,7 +258,8 @@
                                 <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Villas</a>
                             </li>
                             <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Businesses for sale</a>
+                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Businesses for
+                                    sale</a>
                             </li>
 
                         </ul>
@@ -193,3 +272,9 @@
     </div>
 </section>
 <!--//blog-posts-->
+<script>
+    function myFunction() {
+        var popup = document.getElementById("btnContactProperty");
+        popup.classList.toggle("show");
+    }
+</script>
