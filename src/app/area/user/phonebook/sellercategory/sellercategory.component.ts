@@ -3,20 +3,21 @@ import { SellerProfileModel } from 'src/app/models/sellerProfile.models';
 import { SellerService } from 'src/app/services/user/seller.service';
 
 @Component({
-  templateUrl: './agent.component.html'
+  templateUrl: './sellercategory.component.html'
 })
-export class AgentComponent implements OnInit {
+export class SellerCategoryComponent implements OnInit {
 
-  agents: SellerProfileModel[] = [];
+  sellers: SellerProfileModel[] = [];
   constructor(
     private sellerService: SellerService
   ) { }
 
+ 
   ngOnInit(): void {
-    this.sellerService.loadagent().then(
+    this.sellerService.loadseller().then(
       res => {
-        this.agents = res
-        //console.log(this.agents[0].memberId);
+        this.sellers = res
+        console.log(this.sellers[0].memberId) ;
       },
       err => {
         console.log(err)

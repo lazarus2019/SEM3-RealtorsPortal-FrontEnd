@@ -50,7 +50,7 @@
           </li>
         </ul>
         <div class="top-quote mt-lg-0">
-          <a href="" class="text-ahref mr-2"> Login
+          <a [routerLink]="['/login']" class="text-ahref mr-2"> Login
           </a>
           <a href="" class="btn btn-style btn-primary"> Join
           </a>
@@ -91,8 +91,8 @@
             <a href="#url" class="link"><span class="fa fa-phone"></span></a>
             <a href="#url" class="title-small">help desk</a>
             <h4>Do you have questions or want more infomation? Call Now</h4>
-            <a href="tel:+1-2345-678-11">
-              <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span> +1-2345-678-11
+            <a href="tel:+0919801192">
+              <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset">+0919801182</span> 
               </p>
             </a>
           </div>
@@ -149,32 +149,5 @@
       </div>
     </div>
   </div>
-
-
-
-
-  <!-- move top -->
-  <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i
-      class="fas fa-chevron-up"></i></a>
-  <script>
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function () {
-      scrollFunction()
-    };
-
-    function scrollFunction() {
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("movetop").style.display = "block";
-      } else {
-        document.getElementById("movetop").style.display = "none";
-      }
-    }
-
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-  </script>
   <!-- /move top -->
 </section>

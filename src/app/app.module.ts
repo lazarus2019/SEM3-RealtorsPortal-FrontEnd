@@ -24,7 +24,7 @@ import { AdminManageInvoiceAdPackageComponent } from './area/admin/invoice/manag
 import { SettingComponent } from './area/admin/setting/setting.component';
 import { TemplateComponent } from './area/admin/template/template.component';
 import { AddNewService } from './services/addNewService';
-import { TestComponent } from './area/admin/testing/testing.component';
+//import { TestComponent } from './area/admin/testing/testing.component';
 import { AdminService } from './services/adminService.service';
 import { UserManageInvoiceComponent } from './area/admin/invoice/userManageInvoice.component';
 import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInvoice.component';
@@ -45,6 +45,18 @@ import { DetailsComponent } from './area/user/phonebook/detail/detail.component'
 import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
 import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
+import { LoginComponent } from './area/user/login/login.componet';
+import { PropertyService } from './services/property.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HomeService } from './services/user/index.service';
+import { SellerService } from './services/user/seller.service';
+import { NewsService } from './services/user/news.service';
+import { SellerCategoryComponent } from './area/user/phonebook/sellercategory/sellercategory.component';
+import { FindSellerService } from './services/user/findseller.service';
+import { DetailService } from './services/user/detail.service';
+import { NewsPropertyService } from './services/user/newsproperty.service';
+import { AboutUsService } from './services/user/aboutus.service';
+import { PublicService } from './services/publicService.service';
 
 
 @NgModule({
@@ -59,11 +71,11 @@ import { CategoryComponent } from './area/user/category/category.component';
     AdminGalleryComponent,
     AdminAdPackageComponent,
     AdminManagePropertyComponent,
-    UserManagePropertyComponent,
     AdminManageMemberComponent,
     AdminManageAdPackageComponent,
     AdminManageInvoiceAdPackageComponent,
     SettingComponent,
+    UserManagePropertyComponent,
     UserManageInvoiceComponent,
     AdminManageInvoiceComponent,
     AdminManageInvoiceAdPackageComponent,
@@ -75,7 +87,7 @@ import { CategoryComponent } from './area/user/category/category.component';
     TemplateComponent,
 
     // Testing component
-    TestComponent,
+    //TestComponent,
 
     // User area
     UserComponent,
@@ -91,7 +103,9 @@ import { CategoryComponent } from './area/user/category/category.component';
     ContactComponent,
     DetailsComponent,
     NewsComponent,
-    CategoryComponent
+    CategoryComponent,
+    LoginComponent,
+    SellerCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -107,11 +121,25 @@ import { CategoryComponent } from './area/user/category/category.component';
     AdminRoutingModule,
 
     // User module
-    UserRoutingModule
+    UserRoutingModule,
+
+    HttpClientModule
   ],
   providers: [
     AddNewService,
-    AdminService
+    AdminService,
+    PropertyService,
+    HomeService,
+    SellerService,
+    NewsService,
+    FindSellerService,
+    DetailService,
+    NewsPropertyService,
+    AboutUsService,
+    PublicService
+
+
+
   ],
   bootstrap: [AppComponent]
 })

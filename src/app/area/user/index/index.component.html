@@ -1,54 +1,53 @@
-
 <section class="w3l-cover-3">
-		<div class="cover top-bottom">
-			<div class="container">
-				<div class="middle-section text-center">
-					<div class="section-width">
-						<p>It's great to be home!</p>
-						<h2>Find a property today</h2>
-						<div class="most-searches">
-							<h4>Most Searches</h4>
-							<ul>
-								<li><a href="#link">Villa</a></li>
-								<li><a href="#link">Apartment</a></li>
-								<li><a href="#link">Private house</a></li>
-							</ul>
-						</div>
-						<form action="#" class="w3l-cover-3-gd" method="GET">
-							<input type="search" name="text" placeholder="Enter keywords" required>
-							<span class="input-group-btn">
-								<select class="btn btn-default" name="ext" required>
-									<option selected="">Office</option>
-									<option>Villa</option>
-									<option>Apartment</option>
-									<option>Private house</option>
-									<option>Building</option>
-									<option>Shop</option>
-									<option>Social housing</option>
-									<option>Town house</option>
-								</select>
-							</span>
-							<span class="input-group-btn">
-								<select class="btn btn-default" name="ext" required>
-									<option selected="">Select Country</option>
-									<option>Australia</option>
-									<option>London</option>
-									<option>India</option>
-									<option>Bangladesh</option>
-									<option>Saudi Arabia</option>
-									<option>America</option>
-									<option>Srilanka</option>
-								</select>
-							</span>
-							<button type="submit" class="btn-primary">Search</button>
-						</form>
-					</div>
-					<section id="bottom" class="demo">
-						<a href="#bottom"><span></span>Scroll</a>
-					</section>
-				</div>
-			</div>
-		</div>
+    <div class="cover top-bottom">
+        <div class="container">
+            <div class="middle-section text-center">
+                <div class="section-width">
+                    <p>It's great to be home!</p>
+                    <h2>Find a property today</h2>
+                    <div class="most-searches">
+                        <h4>Most Searches</h4>
+                        <ul>
+                            <li><a href="#link">Villa</a></li>
+                            <li><a href="#link">Apartment</a></li>
+                            <li><a href="#link">Private house</a></li>
+                        </ul>
+                    </div>
+                    <form action="#" class="w3l-cover-3-gd" method="GET">
+                        <input type="search" name="text" placeholder="Enter keywords" required>
+                        <span class="input-group-btn">
+                            <select class="btn btn-default" name="ext" required>
+                                <option selected="">Office</option>
+                                <option>Villa</option>
+                                <option>Apartment</option>
+                                <option>Private house</option>
+                                <option>Building</option>
+                                <option>Shop</option>
+                                <option>Social housing</option>
+                                <option>Town house</option>
+                            </select>
+                        </span>
+                        <span class="input-group-btn">
+                            <select class="btn btn-default" name="ext" required>
+                                <option selected="">Select Country</option>
+                                <option>Australia</option>
+                                <option>London</option>
+                                <option>India</option>
+                                <option>Bangladesh</option>
+                                <option>Saudi Arabia</option>
+                                <option>America</option>
+                                <option>Srilanka</option>
+                            </select>
+                        </span>
+                        <button type="submit" class="btn-primary">Search</button>
+                    </form>
+                </div>
+                <section id="bottom" class="demo">
+                    <a href="#bottom"><span></span>Scroll</a>
+                </section>
+            </div>
+        </div>
+    </div>
 </section>
 <section class="locations-1" id="locations">
     <div class="locations py-5">
@@ -57,19 +56,26 @@
                 <h3 class="title-big">Top Properties</h3>
             </div>
             <div class="row pt-md-5 pt-4">
-                <div class="col-lg-4 col-md-6">
-                    <a href="property-single.html">
-                        <div class="box16">
-                            <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
-                            <img class="img-fluid" src="assets/user/images/p1.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title">$25,00,000</h3>
-                                <span class="post">51 Merrick Way, Coral Gables, USA</span>
+                
+                <ng-container *ngFor="let p  of topproperty">
+                    <div class="col-lg-4 col-md-6">
+                        <a [routerLink]="['/user/single-property']">
+                           
+                            <div class="box16">
+                                <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
+                                <img class="img-fluid" src="assets/user/images/p1.jpg" alt="">
+                                <div class="box-content">
+                                    <h3 class="title" > {{p.title}} </h3>
+                                    <h3 class="title" > $ {{p.price}} </h3>
+                                    <span class="post"> {{p.cityId}}</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 mt-md-0 mt-4">
+                        </a>
+                    </div>
+                </ng-container>
+
+
+                <!-- <div class="col-lg-4 col-md-6 mt-md-0 mt-4">
                     <a href="property-single.html">
                         <div class="box16">
                             <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
@@ -132,7 +138,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -179,7 +185,8 @@
                 <div class="area-box no-box-shadow">
                     <span class="fa fa-home"></span>
                     <h4><a href="#feature" class="title-head">Buy a home</a></h4>
-                    <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor amet ipsum primis in faucibus orci.</p>
+                    <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor amet ipsum primis in faucibus orci.
+                    </p>
                     <a href="#more" class="more">Read More <span class="fa fa-long-arrow-right"></span> </a>
                 </div>
             </div>
@@ -187,7 +194,8 @@
                 <div class="area-box no-box-shadow">
                     <span class="fa fa-home"></span>
                     <h4><a href="#feature" class="title-head">Rent a home </a></h4>
-                    <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor amet ipsum primis in faucibus orci.</p>
+                    <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor amet ipsum primis in faucibus orci.
+                    </p>
                     <a href="#more" class="more">Read More <span class="fa fa-long-arrow-right"></span> </a>
                 </div>
             </div>
@@ -195,7 +203,8 @@
                 <div class="area-box no-box-shadow">
                     <span class="fa fa-building-o"></span>
                     <h4><a href="#feature" class="title-head">See neighbourhoods</a></h4>
-                    <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor amet ipsum primis in faucibus orci.</p>
+                    <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor amet ipsum primis in faucibus orci.
+                    </p>
                     <a href="#more" class="more">Read More <span class="fa fa-long-arrow-right"></span> </a>
                 </div>
             </div>
@@ -212,18 +221,19 @@
                 <h3 class="title-big">Popular Locations</h3>
             </div>
             <div class="row pt-5">
-                <div class="col-lg-3 col-md-4 col-6">
+
+                <div class="col-lg-3 col-md-4 col-6" *ngFor="let pl of loadpopularlocation">
                     <a href="#url">
                         <div class="box16">
                             <img class="img-fluid" src="assets/user/images/p1.jpg" alt="">
                             <div class="box-content">
-                                <h3 class="title mb-1">Newyork</h3>
-                                <span class="post">4 listings</span>
+                                <h3 class="title mb-1">{{pl.name}}</h3>
+                                <span class="post">{{pl.numberProperties}} </span>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-4 col-6">
+                <!-- <div class="col-lg-3 col-md-4 col-6">
                     <a href="#url">
                         <div class="box16">
                             <img class="img-fluid" src="assets/user/images/p2.jpg" alt="">
@@ -304,7 +314,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -342,8 +352,10 @@
                                                 </div>
                                             </div>
                                             <blockquote>
-                                                <q>OMG! I cannot believe that I have got a property new private house after
-                                                    getting villa. It was very comfortable. I can't say enough about Real Estate</q>
+                                                <q>OMG! I cannot believe that I have got a property new private house
+                                                    after
+                                                    getting villa. It was very comfortable. I can't say enough about
+                                                    Real Estate</q>
                                             </blockquote>
                                         </div>
                                     </div>
@@ -358,8 +370,10 @@
                                                 </div>
                                             </div>
                                             <blockquote>
-                                                <q>OMG! I cannot believe that I have got a property new private house after
-                                                    getting villa. It was very comfortable. I can't say enough about Real Estate</q>
+                                                <q>OMG! I cannot believe that I have got a property new private house
+                                                    after
+                                                    getting villa. It was very comfortable. I can't say enough about
+                                                    Real Estate</q>
                                             </blockquote>
                                         </div>
                                     </div>
@@ -374,8 +388,10 @@
                                                 </div>
                                             </div>
                                             <blockquote>
-                                                <q>OMG! I cannot believe that I have got a property new private house after
-                                                    getting villa. It was very comfortable. I can't say enough about Real Estate</q>
+                                                <q>OMG! I cannot believe that I have got a property new private house
+                                                    after
+                                                    getting villa. It was very comfortable. I can't say enough about
+                                                    Real Estate</q>
                                             </blockquote>
                                         </div>
                                     </div>
@@ -390,8 +406,10 @@
                                                 </div>
                                             </div>
                                             <blockquote>
-                                                <q>OMG! I cannot believe that I have got a property new private house after
-                                                    getting villa. It was very comfortable. I can't say enough about Real Estate</q>
+                                                <q>OMG! I cannot believe that I have got a property new private house
+                                                    after
+                                                    getting villa. It was very comfortable. I can't say enough about
+                                                    Real Estate</q>
                                             </blockquote>
                                         </div>
                                     </div>
@@ -425,7 +443,7 @@
                     <h5>Connect to an agent</h5>
                     <h4><a href="#feature" class="title-head">Schedule a Free, No-Obligation Appointment</a></h4>
                     <p>Vivamus a ligula quam. Ut blandit eu leo non. Duis sed dolor in orci.</p>
-                     <a href="#more" class="more">Find an agent <span class="fa fa-long-arrow-right"></span> </a>
+                    <a href="#more" class="more">Find an agent <span class="fa fa-long-arrow-right"></span> </a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 grids-feature mt-lg-0 mt-4">
@@ -508,40 +526,46 @@
 <!--  //News section -->
 <section class="w3l-companies-hny-6 py-5">
     <!-- /grids -->
-        <div class="container py-md-3">
-            <div class="row">
-                <div class="col-lg-2 col-md-4 col-6 column">
-                    <div class="company-gd">
-                        <a href="#client"><img class="img-responsive" src="assets/user/images/client1.png" alt="client"> </a>
-                    </div>
+    <div class="container py-md-3">
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-6 column">
+                <div class="company-gd">
+                    <a href="#client"><img class="img-responsive" src="assets/user/images/client1.png" alt="client">
+                    </a>
                 </div>
-                <div class="col-lg-2 col-md-4 col-6 column">
-                    <div class="company-gd">
-                        <a href="#client"><img class="img-responsive" src="assets/user/images/client2.png" alt="client"> </a>
-                    </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6 column">
+                <div class="company-gd">
+                    <a href="#client"><img class="img-responsive" src="assets/user/images/client2.png" alt="client">
+                    </a>
                 </div>
-                <div class="col-lg-2 col-md-4 col-6 column mt-md-0 mt-4">
-                    <div class="company-gd">
-                        <a href="#client"><img class="img-responsive" src="assets/user/images/client3.png" alt="client"> </a>
-                    </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6 column mt-md-0 mt-4">
+                <div class="company-gd">
+                    <a href="#client"><img class="img-responsive" src="assets/user/images/client3.png" alt="client">
+                    </a>
                 </div>
-                <div class="col-lg-2 col-md-4 col-6 column mt-lg-0 mt-4">
-                    <div class="company-gd">
-                        <a href="#client"><img class="img-responsive" src="assets/user/images/client4.png" alt="client"> </a>
-                    </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6 column mt-lg-0 mt-4">
+                <div class="company-gd">
+                    <a href="#client"><img class="img-responsive" src="assets/user/images/client4.png" alt="client">
+                    </a>
                 </div>
-                <div class="col-lg-2 col-md-4 col-6 column mt-lg-0 mt-4">
-                    <div class="company-gd">
-                        <a href="#client"><img class="img-responsive" src="assets/user/images/client5.png" alt="client"> </a>
-                    </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6 column mt-lg-0 mt-4">
+                <div class="company-gd">
+                    <a href="#client"><img class="img-responsive" src="assets/user/images/client5.png" alt="client">
+                    </a>
                 </div>
-                <div class="col-lg-2 col-md-4 col-6 column mt-lg-0 mt-4">
-                    <div class="company-gd">
-                        <a href="#client"><img class="img-responsive" src="assets/user/images/client6.png" alt="client"> </a>
-                    </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6 column mt-lg-0 mt-4">
+                <div class="company-gd">
+                    <a href="#client"><img class="img-responsive" src="assets/user/images/client6.png" alt="client">
+                    </a>
                 </div>
             </div>
         </div>
-        <!-- //grids -->
+    </div>
+    <!-- //grids -->
 </section>
- <!-- footers 20 -->
+<!-- footers 20 -->

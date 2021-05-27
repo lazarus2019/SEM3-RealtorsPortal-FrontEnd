@@ -103,88 +103,34 @@
           <h3 class="title-big text-center mb-lg-5 mb-4">Meet our Agents</h3>
           <!-- block -->
           <div class="row">
-              <div class="col-lg-3 col-sm-6 column-item">
-                  <div class="users_box">
-                      <div class="user-avatar">
-                          <a href="#agent-single" class="avatar">
-                              <img src="assets/user/images/team1.jpg" alt="" class="img-fluid w-100 radius-image">
-                          </a>
-                      </div>
-                      <div class="users_box_info">
-                          <p class="user_position">Selling Agent</p>
-                          <h4 class="user_title agent">
-                              <a href="#agent-single">Laura Antiochus</a>
-                          </h4>
-                          <div class="user_meta user_phone">
-                              <span class="phone-detail"> <a href="tel:+1-2345-678-11">+1-2345-678-11</a></span>
-                          </div>
-                          <a href="#agent-single" class="btn btn-outline-primary btn-style mt-4">
-                              View Profile </a>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 column-item mt-sm-0 mt-5">
-                  <div class="users_box">
-                      <div class="user-avatar">
-                          <a href="#agent-single" class="avatar">
-                              <img src="assets/user/images/team2.jpg" alt="" class="img-fluid w-100 radius-image">
-                          </a>
-                      </div>
-                      <div class="users_box_info">
-                          <p class="user_position">Selling Agent</p>
-                          <h4 class="user_title agent">
-                              <a href="#agent-single">Laura Antiochus</a>
-                          </h4>
-                          <div class="user_meta user_phone">
-                              <span class="phone-detail"> <a href="tel:+1-2345-678-11">+1-2345-678-11</a></span>
-                          </div>
-  
-                          <a href="#agent-single" class="btn btn-outline-primary btn-style mt-4">
-                              View Profile </a>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 column-item mt-lg-0 mt-5">
-                  <div class="users_box">
-                      <div class="user-avatar">
-                          <a href="#agent-single" class="avatar">
-                              <img src="assets/user/images/team3.jpg" alt="" class="img-fluid w-100 radius-image">
-                          </a>
-                      </div>
-                      <div class="users_box_info">
-                          <p class="user_position">Selling Agent</p>
-                          <h4 class="user_title agent">
-                              <a href="#agent-single">Laura Antiochus</a>
-                          </h4>
-                          <div class="user_meta user_phone">
-                              <span class="phone-detail"> <a href="tel:+1-2345-678-11">+1-2345-678-11</a></span>
-                          </div>
-                          <a href="#agent-single" class="btn btn-outline-primary btn-style mt-4">
-                              View Profile </a>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 column-item mt-lg-0 mt-5">
-                  <div class="users_box">
-                      <div class="user-avatar">
-                          <a href="#agent-single" class="avatar">
-                              <img src="assets/user/images/team4.jpg" alt="" class="img-fluid w-100 radius-image">
-                          </a>
-                      </div>
-                      <div class="users_box_info">
-                          <p class="user_position">Selling Agent</p>
-                          <h4 class="user_title agent">
-                              <a href="#agent-single">Laura Antiochus</a>
-                          </h4>
-                          <div class="user_meta user_phone">
-                              <span class="phone-detail"> <a href="tel:+1-2345-678-11">+1-2345-678-11</a></span>
-                          </div>
-  
-                          <a href="#agent-single" class="btn btn-outline-primary btn-style mt-4">
-                              View Profile </a>
-                      </div>
-                  </div>
-              </div>
+            <ng-container *ngFor="let p  of agents">
+                <div class="col-lg-3 col-sm-6 column-item">
+                    <div class="users_box">
+                        <div class="user-avatar">
+                            <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
+                                class="nav-link avatar">
+                                <img src="assets/user/images/{{p.photo}}" alt=""
+                                    class="img-fluid w-100 radius-image">
+                            </a>
+                            
+                        </div>
+                        <div class="users_box_info">
+                            <p class="user_position">Selling Agent</p>
+                            <h4 class="user_title agent">
+                                <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]">{{p.fullName}}</a>
+                            </h4>
+                            <div class="user_meta user_phone">
+                                <span class="phone-detail"> <a
+                                        href="tel:+1-2345-678-11">{{p.phone}}</a></span>
+                            </div>
+                            <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
+                                class=" nav-link btn btn-outline-primary btn-style mt-4">
+                                View Profile </a>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-container>
           </div>
       </div>
   </div>
@@ -247,23 +193,23 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-4 cont-details">
+                    <div class="col-lg-4 cont-details" *ngFor="let l of setting">
+                        
                         <address>
                             <h5 class="">Our Office Address</h5>
-                            <p><span class="fa fa-map-marker"></span>Estate sale office, 32, My Street, Kingston,
-                                New York 12401. </p>
+                            <p><span class="fa fa-map-marker"></span> {{l.address}}</p>
 
                             <h5 class="mt-4 pt-lg-3">Phone informatiom</h5>
-                            <p><span class="fa fa-mobile"></span> <strong>Phone :</strong>
-                                <a href="tel:+1(12) 366 411 4999"> (+1) 366 411 499</a>
+                            <p><span class="fa fa-mobile"></span> <strong>Phone : </strong>
+                                <a href="tel:{{l.phone}}">{{l.phone}}</a>
                             </p>
 
-                            <p><span class="fa fa-phone"></span> <strong>Tel :</strong>
-                                <a href="tel:+1(12) 366 411 4999"> (+1) 366 411 499</a>
+                            <p><span class="fa fa-phone"></span> <strong>Tel : </strong>
+                                <a href="tel:{{l.phone}}">{{l.phone}}</a>
                             </p>
 
-                            <p> <span class="fa fa-envelope"></span> <strong>Email :</strong>
-                                <a href="mailto:mail@example.com"> mail@example.com</a>
+                            <p> <span class="fa fa-envelope"></span> <strong>Email : </strong>
+                                <a href="mailto:{{l.email}}"> {{l.email}}</a>
                             </p>
                         </address>
                     </div>

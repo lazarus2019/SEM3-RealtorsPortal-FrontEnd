@@ -1,7 +1,6 @@
 <section class="w3l-about-breadcrumb">
     <div class="breadcrumb-bg breadcrumb-bg-about pt-5">
         <div class="container pt-lg-5 py-3">
-           
         </div>
     </div>
 </section>
@@ -13,7 +12,7 @@
                 <h4>Search</h4>
             </div>
 
-            <form>
+            <form action="">
                 <div class="form-group">
                     <input type="text" id="nameProperty" class="form-control" placeholder="Keyword">
                 </div>
@@ -69,9 +68,6 @@
                     Value
                     <input type="range">
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Search">
-                </div>
             </form>
 
         </div>
@@ -81,79 +77,7 @@
             <div class="locations py-1">
                 <div class="container py-lg-2 py-md-4 py-2">
                     <div class="row">
-
-                        <div class="container py-lg-5 py-md-4 py-2">
-                            <h3 class="title-big text-center mb-lg-5 mb-4">Meet our Agent</h3>
-                            <!-- block -->
-                            <div class="row">
-                                <ng-container *ngFor="let p  of agents">
-                                    <div class="col-lg-3 col-sm-6 column-item">
-                                        <div class="users_box">
-                                            <div class="user-avatar">
-                                                <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
-                                                    class="nav-link avatar">
-                                                    <img src="assets/user/images/{{p.photo}}" alt=""
-                                                        class="img-fluid w-100 radius-image">
-                                                </a>
-                                            </div>
-                                            <div class="users_box_info">
-                                                <p class="user_position">Selling Agent</p>
-                                                <h4 class="user_title agent">
-                                                    <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]">{{p.fullName}}</a>
-                                                </h4>
-                                                <div class="user_meta user_phone">
-                                                    <span class="phone-detail"> <a
-                                                            href="tel:+1-2345-678-11">{{p.phone}}</a></span>
-                                                </div>
-                                                <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
-                                                    class=" nav-link btn btn-outline-primary btn-style mt-4">
-                                                    View Profile </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </ng-container>
-                            </div>
-
-                        </div>
-
-                        <!--
-                        <div class="col-lg-4 col-md-6 listing-img">
-                            <a [routerLink]="['/user/single-property']">
-                                <div class="box16">
-                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
-                                    <img class="img-fluid" src="assets/user/images/p1.jpg" alt="">
-                                    <div class="box-content">
-                                        <h3 class="title"></h3>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="listing-details blog-details align-self">
-                                 <h4 class="user_title agent">
-                                        <a [routerLink]="['/user/single-property']"></a>
-                                    </h4>
-                                    <p class="user_position">{{p.email}}</p>
-                                    
-                                <div class="author align-items-center mt-4">
-                                    <a href="#img" class="comment-img">
-                                        <img src="assets/user/images/team1.jpg" alt="" class="img-fluid">
-                                    </a>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a [routerLink]="['/user/single-property']">{{p.fullName}} </a>
-                                        </li>
-                                        <li class="meta-item blog-lesson">
-                                            <span class="meta-value"> {{p.email}}</span>
-                                        </li>
-                                        <li class="meta-item blog-lesson">
-                                            <span class="meta-value"> {{p.phone}}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> -->
-
-
+                        <h3>Heheheheh</h3>
                     </div>
 
                     <!-- pagination -->

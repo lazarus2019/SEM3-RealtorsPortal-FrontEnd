@@ -33,6 +33,8 @@ import { AgentComponent } from './area/user/phonebook/agent/agent.component';
 import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
 import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
+import { LoginComponent } from './area/user/login/login.componet';
+import { NewsPropertyComponent } from './area/user/newsproperty/newsproperty.component';
 
 const routes: Routes = [
 
@@ -62,8 +64,13 @@ const routes: Routes = [
         { path: 'agents', component: AgentComponent },
         { path: 'news', component: NewsComponent },
         { path: 'category', component: CategoryComponent },
+        { path: 'detailMember', component: DetailsComponent },
+        { path: 'newPropertyMember', component: NewsPropertyComponent },
+        
+
       ]
-  },
+    },
+    { path: 'login', component: LoginComponent },
 
   // Admin Components
   {
