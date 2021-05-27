@@ -1,35 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryComponent } from 'SEM3-RealtorsPortal-FrontEnd/src/app/area/user/category/category.component';
+import { CategoryComponent } from 'src/app/area/user/category/category.component';
 import { CategoryModel } from 'src/app/models/category.model';
+import { SettingModel } from 'src/app/models/setting.model';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
   templateUrl: './user.component.html',
 })
 export class UserComponent implements OnInit {
-  categories : CategoryModel[] ;
+  categories: CategoryModel[];
+  setting: SettingModel;
 
   constructor(
-    private userService : UserService,
+    private userService: UserService,
   ) {
     this.loadScripts();
     this.loadStyle();
+
+  }
+
+  ngOnInit(): void {
+    this.loadData()
+  }
+
+
+  loadData() {
     this.userService.getAllCategory().then(
       res => {
         this.categories = res
-        },
+      },
       err => {
         console.log(err)
       }
     );
+    this.userService.getSetting().then(
+      res => {
+        this.setting = res
+      },
+      err => {
+        console.log(err)
+      }
+    )
   }
-
-  ngOnInit(): void {    
-
-  }
-
-
-
   // Method to dynamically load JavaScript
   loadScripts() {
 
