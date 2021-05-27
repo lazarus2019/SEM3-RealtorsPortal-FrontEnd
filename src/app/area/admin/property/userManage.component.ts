@@ -72,13 +72,13 @@ export class UserManagePropertyComponent implements OnInit {
 
   search() {
     var title = this.searchFormGroup.get('title').value;
-    var roleId = '1';
+    var partners = 'partners';
     var categoryId = this.searchFormGroup.get('categoryId').value;
     var statusId = this.searchFormGroup.get('statusId').value;
     if(title == ''){
       title = '.all';
     }
-    this.propertyService.search(title, roleId, categoryId, statusId).subscribe(properties => {
+    this.propertyService.search(title, partners, categoryId, statusId).subscribe(properties => {
       this.properties = properties;
     });
   }

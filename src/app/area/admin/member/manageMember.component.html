@@ -18,7 +18,7 @@
                                     name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true" formControlName="roleId"
                                     required="required">
                                     <option value="all" selected="selected">All role</option>
-                                    <option *ngFor="let role of roles" value="{{role.roleId}}">{{role.name}}</option>
+                                    <option *ngFor="let role of roles" value="{{role.roleId}}" [hidden]="role.name == 'Admin'">{{role.name}}</option>
                                 </select>
                             </div>
                             <div class="col-md-3 mb-1 flex-fill">
@@ -68,7 +68,7 @@
                                                 <td class="sorting_1">{{i+1}}</td>
                                                 <td>{{member.fullName}}</td>
                                                 <td>{{member.email}}</td>
-                                                <td>{{member.role.name}}</td>
+                                                <td>{{member.roleId}}</td>
                                                 <td>{{member.createDate|date:'dd/MM/y'}}</td>
                                                 <td>{{member.status ? 'Active' : 'Blocked'}}</td>
                                                 <td>

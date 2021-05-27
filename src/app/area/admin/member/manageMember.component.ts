@@ -31,6 +31,7 @@ export class AdminManageMemberComponent implements OnInit {
     //get role
     this.roleService.getAllRole().subscribe((roles) => {
       this.roles = roles;
+      console.table(roles);
     });
 
     //get emailRequest to sendMail
@@ -55,6 +56,7 @@ export class AdminManageMemberComponent implements OnInit {
     if(fullName == ''){
       fullName = '.all';
     }
+    console.log("id:" + roleId);
     this.memberService.search(fullName, roleId, status).subscribe(members => {
       this.members = members;
     });
@@ -70,6 +72,68 @@ export class AdminManageMemberComponent implements OnInit {
     this.memberService.getAllMember().subscribe((members) => {
       this.members = members;
     });
+  }
+
+  blockAlert(member: Member) {
+    console.log("status block: " + member.status);
+
+    Swal.fire({
+      title: 'Block member!',
+      text: 'Are you sure you want to block member?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //update action        
+        this.memberService.updateStatus(member.memberId, member.status).subscribe();
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Block successful!',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        //reload page
+        this.loadData();
+
+      }
+    })
+  }
+
+  unblockAlert(member: Member) {
+    console.log("status unblock: " + member.status);
+    Swal.fire({
+      title: 'Unblock member!',
+      text: 'Are you sure you want to unblock member?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //update action        
+        this.memberService.updateStatus(member.memberId, member.status).subscribe();
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Unblock successful!',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        //reload page
+        this.loadData();
+
+      }
+    })
+  }
+
+  sendAlert(){
+    this.mailRequest = this.emailFormGroup.value;
+    this.memberService.SendEmail(this.mailRequest).subscribe();
+    alertFunction.success("Send Email", "Email was sent!");
+
   }
 
   // Method to dynamically load JavaScript
@@ -112,69 +176,5 @@ export class AdminManageMemberComponent implements OnInit {
       node.async = false;
       document.body.appendChild(node);
     }
-  }
-
-  blockAlert(member: Member) {
-    console.log("status block: " + member.status);
-
-    Swal.fire({
-      title: 'Block member!',
-      text: 'Are you sure you want to block member?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //update action        
-        this.memberService.updateStatus(member.memberId, member.status).subscribe();
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Block successful!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        //reload page
-        //this.ngOnInit();
-        this.loadData();
-
-      }
-    })
-  }
-
-  unblockAlert(member: Member) {
-    console.log("status unblock: " + member.status);
-    Swal.fire({
-      title: 'Unblock member!',
-      text: 'Are you sure you want to unblock member?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //update action        
-        this.memberService.updateStatus(member.memberId, member.status).subscribe();
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Unblock successful!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        //reload page
-        //this.ngOnInit();
-        this.loadData();
-
-      }
-    })
-  }
-
-  sendAlert(){
-    this.mailRequest = this.emailFormGroup.value;
-    this.memberService.SendEmail(this.mailRequest).subscribe();
-    alertFunction.success("Send Email", "Email was sent!");
-
   }
 }

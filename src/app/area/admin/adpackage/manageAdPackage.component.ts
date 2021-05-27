@@ -111,6 +111,7 @@ export class AdminManageAdPackageComponent implements OnInit {
     this.adsPackage = this.addFormGroup.value;
     this.adsPackageService.createAdsPackage(this.adsPackage).subscribe(() => {
       alertFunction.success("Add New Ads Package", "Successfully added!")
+      this.loadData();
     });
   }
 
@@ -138,9 +139,9 @@ export class AdminManageAdPackageComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
-        //reload page
-        this.ngOnInit();
       }
+      //reload page
+      this.ngOnInit();
     })
   }
   unlockAlert(adsPackage: AdsPackage) {
@@ -167,9 +168,9 @@ export class AdminManageAdPackageComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
-        //reload page
-        this.ngOnInit();
       }
+      //reload page
+      this.ngOnInit();
     })
   }
 
@@ -191,9 +192,9 @@ export class AdminManageAdPackageComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
-        //reload page
-        this.ngOnInit();
       }
+      //reload page
+      this.ngOnInit();
     })
   }
 

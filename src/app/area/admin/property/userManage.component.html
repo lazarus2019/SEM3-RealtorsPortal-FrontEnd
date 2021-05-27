@@ -33,7 +33,7 @@
                                     formControlName="statusId" required="required">
                                     <option value="all">All status</option>
                                     <ng-container *ngFor="let status of statuses">
-                                        <option value="{{status.statusId}}">{{status.name}}</option>
+                                        <option value="{{status.statusId}}" [disable]="status.name == 'Pending'">{{status.name}}</option>
                                     </ng-container>
                                 </select>
                             </div>
@@ -169,9 +169,9 @@
                                     value="{{property?.categoryName}}" style="background-color:white;">
                             </div>
                             <div class="col-md-4">
-                                <label for="editor">Editor: </label>
+                                <label for="editor">Partners: </label>
                                 <input data-parsley-type="text" type="text" class="form-control" id="editor" readonly
-                                    value="{{property?.memberRoleName}}" style="background-color:white;">
+                                    value="{{property?.memberFullName}}" style="background-color:white;">
                             </div>
                             <div class="col-md-4">
                                 <label for="status">Status: </label>

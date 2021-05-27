@@ -30,8 +30,8 @@ export class PropertyService {
     return this.http.get<Property>(url);
   }
 
-  search(title: string, roleId: string, categoryId: string, status: string): Observable<Property[]> {
-    var url = `${this.baseUrl}/search/${title}/${roleId}/${categoryId}/${status}`; 
+  search(title: string, partners: string, categoryId: string, status: string): Observable<Property[]> {
+    var url = `${this.baseUrl}/search/${title}/${partners}/${categoryId}/${status}`; 
     return this.http.get<Property[]>(url);
   }
 

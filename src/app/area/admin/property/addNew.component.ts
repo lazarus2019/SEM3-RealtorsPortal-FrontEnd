@@ -59,12 +59,10 @@ export class AddNewPropertyComponent implements OnInit {
 
   createProperty() {
     this.property = this.addFormGroup.value;
-    console.log("text: " + this.property.description);
-    this.property.memberId = 1;
-    this.property.statusId = 2;
     this.property.cityId = "kr_south_seo";
     this.property.description = getTinyMCEContent();
     this.propertyService.createProperty(this.property).subscribe(propertyId => {
+      console.log("pId: " + propertyId);
       this.uploadImage(propertyId.toString());
       alertFunction.success("Add New Property", "Successfully added!")
     }

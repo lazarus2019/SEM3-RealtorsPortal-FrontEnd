@@ -12,14 +12,9 @@
                                 <input type="text" class="form-control" value="" placeholder="Enter title"
                                     formControlName="title">
                             </div>
-                            <div class="col-md-2 mb-1 flex-fill">
-                                <select class="form-control" formControlName="roleId">
-                                    <option value="all">All Role</option>
-                                    <ng-container *ngFor="let role of roles">
-                                        <option value="{{role.roleId}}" [hidden]="role.name == 'Admin'">{{role.name}}
-                                        </option>
-                                    </ng-container>
-                                </select>
+                            <div class="col-md-3 mb-1 flex-fill">
+                                <input type="text" class="form-control" value="" placeholder="Enter partners"
+                                    formControlName="partners">
                             </div>
                             <div class="col-md-2 mb-1 flex-fill">
                                 <select class="form-control select2 select2-hidden-accessible" id="example1"
@@ -63,7 +58,7 @@
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                                 style="width: 7%;">Category</th>
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                                style="width: 7%;">Role</th>
+                                                style="width: 7%;">Partners</th>
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                                 style="width: 7%;">Date</th>
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
@@ -81,7 +76,7 @@
                                                     style="width: 100%; max-height: 150px;">
                                             </td>
                                             <td>{{property.category.name}}</td>
-                                            <td>{{property.member.role.name}}</td>
+                                            <td>{{property.member.fullName}}</td>
                                             <td>{{property.uploadDate | date: 'dd/MM/y'}}</td>
                                             <td>{{property.status.name}}</td>
                                             <td>
@@ -166,9 +161,9 @@
                                     value="{{property?.categoryName}}" style="background-color:white;">
                             </div>
                             <div class="col-md-4">
-                                <label for="editor">Editor: </label>
+                                <label for="editor">Partners: </label>
                                 <input data-parsley-type="text" type="text" class="form-control" id="editor" readonly
-                                    value="{{property?.memberRoleName}}" style="background-color:white;">
+                                    value="{{property?.memberFullName}}" style="background-color:white;">
                             </div>
                             <div class="col-md-4">
                                 <label for="status">Status: </label>

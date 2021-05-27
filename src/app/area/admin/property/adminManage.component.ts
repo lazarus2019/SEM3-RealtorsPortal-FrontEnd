@@ -34,7 +34,7 @@ export class AdminManagePropertyComponent implements OnInit {
 
   searchFormGroup: FormGroup;
 
-  roles: Role[] = [];
+  //roles: Role[] = [];
 
   categories: Category[] = [];
 
@@ -50,7 +50,7 @@ export class AdminManagePropertyComponent implements OnInit {
 
     //get role
     this.roleService.getAllRole().subscribe((roles) => {
-      this.roles = roles;
+      //this.roles = roles;
     });
 
     //get status
@@ -66,7 +66,7 @@ export class AdminManagePropertyComponent implements OnInit {
     //configure searchFromGroup
     this.searchFormGroup = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
-      roleId: new FormControl('all', [Validators.required]),
+      partners: new FormControl('', [Validators.required]),
       categoryId: new FormControl('all', [Validators.required]),
       statusId: new FormControl('all', [Validators.required]),
     });
@@ -74,13 +74,18 @@ export class AdminManagePropertyComponent implements OnInit {
 
   search(){
     var title = this.searchFormGroup.get('title').value;
-    var roleId = this.searchFormGroup.get('roleId').value;
+    var partners = this.searchFormGroup.get('partners').value;
     var categoryId = this.searchFormGroup.get('categoryId').value;
     var statusId = this.searchFormGroup.get('statusId').value;
+    
     if(title == ''){
       title = '.all';
     }
-    this.propertyService.search(title, roleId, categoryId, statusId).subscribe(properties => {
+    if(partners == ''){
+      partners = '.all';
+
+    }
+    this.propertyService.search(title, partners, categoryId, statusId).subscribe(properties => {
       this.properties = properties;
     });
   }

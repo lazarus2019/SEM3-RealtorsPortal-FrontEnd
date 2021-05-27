@@ -25,8 +25,13 @@ var alertFunction = (function () {
                 button: false
             })
         },
-        error: function () {
-            swal("Query error!", "Please try it again!", "error")
+        error: function (title, content) {
+            swal({
+                title: title,
+                text: content,
+                icon: "error",
+                timer: 2000,
+            })
         },
         payment: function () {
             swal("Good job!", "Payment success!", "success")

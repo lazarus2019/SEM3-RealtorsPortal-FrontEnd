@@ -22,6 +22,4 @@ export class Property {
     memberFullName: string
     description: string;
     type: string;
-    memberRoleName: string;
-    memberRoleId: number;
 }

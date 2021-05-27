@@ -65,8 +65,11 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
 
         if (payment != null) {
           this.invoiceService.createInvoice(this.invoice).subscribe(() => {
-            this.adsPackageService.createAdsPackageDetail(this.adsPackageDetail).subscribe();
-            alertFunction.payment();
+            this.adsPackageService.createAdsPackageDetail(this.adsPackageDetail).subscribe(() => {
+              alertFunction.payment();
+            });
+          }, error => {
+            alertFunction.error("Failed", "Can't pay now, please try again!");
           });
         }
       })
@@ -115,8 +118,17 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
   }
 
   search() {
-    //var price = this.searchFormGroup.get('price').value;
-    //var name = this.searchFormGroup.get('name').value;
+    var price = this.searchFormGroup.get('price').value;
+    var name = this.searchFormGroup.get('name').value;
+    if (price == '') {
+      price = '.all';
+    }
+    if (name == '') {
+      name = '.all';
+    }
+    this.adsPackageService.search(name, price).subscribe(adsPackages => {
+      this.adsPackages = adsPackages;
+    });
   }
 
   loadScripts() {
