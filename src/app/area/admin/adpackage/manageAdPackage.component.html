@@ -100,7 +100,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add new/Edit Ad Package</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add new Ads Package</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -111,7 +111,7 @@
                             <label for="recipient-name" class="col-form-label">Ad Package name: <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" placeholder="Enter name" required
-                                formControlName="name">
+                                formControlName="nameAdPackage">
                         </div>
                         <div class="form-group">
                             <label for="example1">
@@ -130,7 +130,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="recipient-name" class="col-form-label">Ads amount: <span
+                                    <label for="recipient-name" class="col-form-label">Ads post: <span
                                             class="text-danger">*</span></label>
                                     <input type="number" class="form-control" placeholder="Enter number" min="1"
                                         max="50" required formControlName="postNumber">
@@ -144,7 +144,7 @@
                         </div>
                         <div class="form-group d-flex justify-content-end">
                             <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" (ngSubmit)="onSubmitAdd()">Save</button>
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="onSubmitAdd()">Save</button>
                         </div>
                     </form>
                 </div>
@@ -157,18 +157,20 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add new/Edit Ad Package</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Ads Package</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form method="GET" [formGroup]="editFormGroup">
+                        <input type="text" class="form-control" formControlName="packageId" hidden>
+                        <input type="text" class="form-control" formControlName="statusBuy" hidden>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Ad Package name: <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" placeholder="Enter name" required
-                                formControlName="name">
+                                formControlName="nameAdPackage">
                         </div>
                         <div class="form-group">
                             <label for="example1">
@@ -187,10 +189,10 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="recipient-name" class="col-form-label">Ads amount: <span
+                                    <label for="recipient-name" class="col-form-label">Ads post: <span
                                             class="text-danger">*</span></label>
                                     <input type="number" class="form-control" placeholder="Enter number" min="1"
-                                        max="50" required formControlName="amount">
+                                        max="50" required formControlName="postNumber">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="userName">Period (day): <span class="text-danger">*</span></label>
@@ -201,7 +203,7 @@
                         </div>
                         <div class="form-group d-flex justify-content-end">
                             <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" (ngSubmit)="onSubmitEdit()">Save</button>
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="onSubmitEdit()">Save</button>
                         </div>
                     </form>
                 </div>

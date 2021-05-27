@@ -66,6 +66,7 @@ export class AddNewPropertyComponent implements OnInit {
     this.property.description = getTinyMCEContent();
     this.propertyService.createProperty(this.property).subscribe(propertyId => {
       this.uploadImage(propertyId.toString());
+      alertFunction.success("Add New Property", "Successfully added!")
     }
     );
   }

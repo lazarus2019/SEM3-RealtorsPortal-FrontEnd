@@ -133,7 +133,7 @@ export class AdminManageMemberComponent implements OnInit {
           icon: 'success',
           title: 'Block successful!',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         });
         //reload page
         //this.ngOnInit();
@@ -161,7 +161,7 @@ export class AdminManageMemberComponent implements OnInit {
           icon: 'success',
           title: 'Unblock successful!',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         });
         //reload page
         //this.ngOnInit();
@@ -172,6 +172,9 @@ export class AdminManageMemberComponent implements OnInit {
   }
 
   sendAlert(){
-    alertFunction.success();
+    this.mailRequest = this.emailFormGroup.value;
+    this.memberService.SendEmail(this.mailRequest).subscribe();
+    alertFunction.success("Send Email", "Email was sent!");
+
   }
 }

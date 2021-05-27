@@ -4,6 +4,7 @@ import { AdsPackage } from '../../../shared/adsPackage.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { Invoice } from '../../../shared/invoice.model';
+import { AdsPackageDetail } from 'src/app/shared/adsPackageDetail.model';
 declare let paypal: any;
 declare var alertFunction: any;
 
@@ -21,9 +22,11 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
 
   adsPackage: AdsPackage;
 
+  adsPackageDetail: AdsPackageDetail = new AdsPackageDetail();
+
   searchFormGroup: FormGroup;
 
-  invoice: Invoice;
+  invoice: Invoice = new Invoice();
 
   addScript: boolean;
 
@@ -42,7 +45,7 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
       return actions.payment.create({
         payment: {
           transactions: [
-            { amount: { total: this.finalAmount, currency: 'USD' } }
+            { amount: { total: this.adsPackage.price, currency: 'USD' } }
           ]
         }
       });
@@ -50,21 +53,22 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
         console.table(payment);
-        console.log("cart: " + payment.id);
-        console.log("cart: " + payment.create_time);
-        console.log("payerID: " + payment.payer.payer_info.payer_id);
-        console.log("method: " + payment.payer.method);
-        console.log("name: " + payment.payer.payer_info.first_name);
-        console.log("name: " + payment.payer.payer_info.last_name);
-        console.log("name: " + this.finalAmount);
-        this.invoice.name = payment.payer.payer_info.first_name + " " + payment.payer.payer_info.last_name;
+        this.invoice.name = payment.payer.payer_info.first_name + ' ' + payment.payer.payer_info.last_name;
         this.invoice.created = payment.create_time;
-        this.invoice.total = this.finalAmount;
-        this.invoice.paymentMethod = payment.payer.method;
+        this.invoice.paymentMethod = payment.payer.payment_method;
         this.invoice.paymentCard = payment.payer.payer_info.payer_id;
         this.invoice.paymentCode = payment.id;
-        this.invoiceService.createInvoice(this.invoice).subscribe();
-        alertFunction.payment();
+        this.invoice.packageId = this.adsPackage.packageId;
+        this.invoice.total = this.adsPackage.price;
+        console.log("id: " + this.adsPackage.packageId);
+        this.adsPackageDetail.packageId = this.adsPackage.packageId;
+
+        if (payment != null) {
+          this.invoiceService.createInvoice(this.invoice).subscribe(() => {
+            this.adsPackageService.createAdsPackageDetail(this.adsPackageDetail).subscribe();
+            alertFunction.payment();
+          });
+        }
       })
     }
   }
@@ -92,11 +96,10 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
     this.adsPackageService.getAllAdsPackageForSalePage().subscribe(adsPackages => {
       this.adsPackages = adsPackages;
     });
-    
+
     //Get max price
     this.adsPackageService.getMaxPrice().subscribe(maxPrice => {
       this.maxPrice = maxPrice;
-      console.log(maxPrice);
     })
 
     //configure searchFormGroup
@@ -106,14 +109,14 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  buyBow(price: number) {
-    this.finalAmount = price;
+  buyBow(adsPackage: AdsPackage) {
+    //this.finalAmount = adsPackage.price;
+    this.adsPackage = adsPackage;
   }
 
   search() {
     //var price = this.searchFormGroup.get('price').value;
     //var name = this.searchFormGroup.get('name').value;
-
   }
 
   loadScripts() {

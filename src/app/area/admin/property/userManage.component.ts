@@ -194,7 +194,7 @@ export class UserManagePropertyComponent implements OnInit {
           icon: 'success',
           title: 'Delete successful!',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         });
         //reload page
         this.ngOnInit();
@@ -225,7 +225,7 @@ export class UserManagePropertyComponent implements OnInit {
           icon: 'success',
           title: 'Deactivate successful!',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         });
         //reload page
         this.ngOnInit();
@@ -254,7 +254,7 @@ export class UserManagePropertyComponent implements OnInit {
           icon: 'success',
           title: 'Activate successful!',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         });
         //reload page
         this.ngOnInit();

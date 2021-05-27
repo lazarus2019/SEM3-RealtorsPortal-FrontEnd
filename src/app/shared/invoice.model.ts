@@ -7,4 +7,5 @@ export class Invoice {
     paymentCard: string;
     paymentCode: string;
     memberId: number;
+    packageId: number;
 }

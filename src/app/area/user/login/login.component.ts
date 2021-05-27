@@ -1,15 +1,41 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from 'src/app/services/account.service';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
 
-  constructor() {
-    this.loadStyle();
+  formLogin = {
+    username: '',
+    password: ''
   }
 
-  ngOnInit(): void {
+  constructor(private accountService: AccountService, private router: Router) { 
+    this.loadStyle();
+
+  }
+
+  ngOnInit() {
+    if (localStorage.getItem('token') != null)
+      this.router.navigateByUrl('/home');
+  }
+
+  onSubmit(form: NgForm) {
+    this.accountService.login(form.value).subscribe(
+      (res: any) => {
+        localStorage.setItem('token', res.resultToken);
+        this.router.navigateByUrl('/');
+      },
+      err => {
+        if (err.status == 400)
+          console.log('Incorrect username or password.', 'Authentication failed.');
+        else
+          console.log(err);
+      }
+    );
   }
 
   loadStyle() {

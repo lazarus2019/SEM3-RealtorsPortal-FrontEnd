@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './user.component.html',
 })
 export class UserComponent implements OnInit {
-  constructor() {
+  constructor(private router: Router) {
     this.loadScripts();
     this.loadStyle();
   }
@@ -34,6 +35,18 @@ export class UserComponent implements OnInit {
       node.async = false;
       document.body.appendChild(node);
     }
+  }
+
+
+  authenticated(){
+    if (localStorage.getItem('token') != null)
+      return true;
+    return false;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 
   loadStyle() {

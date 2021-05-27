@@ -16,13 +16,19 @@ function successAlert() {
 
 var alertFunction = (function () {
     return {
-        success: function () {
-            swal("Good job!", "All your changes had saved!", "success")
+        success: function (title, content) {
+            swal({
+                title: title,
+                text: content,
+                icon: "success",
+                timer: 2000,
+                button: false
+            })
         },
         error: function () {
             swal("Query error!", "Please try it again!", "error")
         },
-        payment: function(){
+        payment: function () {
             swal("Good job!", "Payment success!", "success")
         }
     }

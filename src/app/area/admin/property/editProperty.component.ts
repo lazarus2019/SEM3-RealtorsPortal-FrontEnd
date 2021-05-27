@@ -74,20 +74,15 @@ export class EditPropertyComponent implements OnInit {
 
   editProperty() {
     this.updateProperty = this.editFormGroup.value;
-    //this.updateProperty.memberId = this.property.memberId;
-    //this.updateProperty.statusId = this.property.statusId;
-    //this.updateProperty.cityId = this.property.cityId;
-    this.updateProperty.memberId = 1;
-    this.updateProperty.statusId = 2;
-    console.log("mdi: " + this.updateProperty.memberId);
-    console.log("sdi: " + this.updateProperty.statusId);
-    this.property.cityId = "kr_south_seo";
+    this.updateProperty.memberId = this.property.memberId;
+    this.updateProperty.statusId = this.property.statusId;
+    this.updateProperty.cityId = this.property.cityId;
     this.propertyService.updateProperty(this.updateProperty).subscribe(() => {
       this.uploadImage();
       if (this.listImageDelete != null) {
         this.deleteImage();
       }
-      alertFunction.success("Update successful!");
+      alertFunction.success("Update Property", "Successfully updated");
     }
     );
   }
