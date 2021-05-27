@@ -117,8 +117,21 @@ body {
   top: 15px;
   right: 15px;
 }
+.btn-close-contact-property {
+  padding: 0;
+  text-align: center;
+  font-size: 25px !important;
+  line-height: 34px;
+  color: var(--primary-color);
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
 
 .popup-contact-form.hide{
+  display: none;
+}
+.popup-contact-form-property.hide{
   display: none;
 }
 
