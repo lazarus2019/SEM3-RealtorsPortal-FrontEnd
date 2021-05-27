@@ -27,39 +27,63 @@
                         placeholder="Keyword">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" formControlName='location' id="exampleInputNumber1"
-                        aria-describedby="numberlHelp" placeholder="Location" required="">
-
-                </div>
-                <div class="form-group">
                     <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
-                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required"
-                        formControlName='region' placeholder="Region">
-                        <option value="" disabled selected>Region</option>
-                        <option value="">USA</option>
-                        <option value="">Thailand</option>
-                        <option value="">Africa</option>
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true"
+                        formControlName='country' placeholder="Country" (change)="loadcity(this.formGroup.value.countryId )" >
+                        <option disabled selected value="all" >Country</option>
+                        <ng-container *ngFor="let co of loadcountries">
+                            <option value="{{co.countryId}}"  >{{co.name}}</option>
+                        </ng-container>
                     </select>
                 </div>
                 <div class="form-group">
                     <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
-                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true"
+                        formControlName='city' placeholder="City" >
+                        <option disabled selected  value="all"> City</option>
+                        <ng-container *ngFor="let co of loadallcities">
+                            <option value="{{co.cityId}}" >{{co.name}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true"
+                        formControlName='category' placeholder="City" >
+                        <option disabled selected  value="0"> Category</option>
+                        <ng-container *ngFor="let co of categories">
+                            <option value="{{co.categoryId}}" >{{co.name}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true"
                         formControlName='type' placeholder="Type">
-                        <option value="" disabled selected>Type</option>
+                        <option value="all" disabled selected>Type</option>
                         <option value="Rent">For Rent</option>
                         <option value="Sell">For Sell</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="areaRange" class="form-label"> Area ( 1 -> 3000)</label> <br>
-                    <input type="range" class="form-range" id="areaRange" formControlName='area' min=1 max=3000>
+                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true" 
+                        formControlName='area' placeholder="Area">
+                        <option value="0" disabled selected>Area</option>
+                        <option value="1">0 - 50 m2</option>
+                        <option value="2">50 - 100 m2</option>
+                        <option value="3">100 - 250 m2</option>
+                        <option value="4">250 - 500 m2</option>
+                        <option value="5"> >500 m2</option>
+                    </select>
 
                 </div>
                 <div class="form-group">
                     <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
-                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true" 
                         formControlName='bed' placeholder="Beds">
-                        <option value="" disabled selected>Beds</option>
+                        <option value="0" disabled selected>Beds</option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
                         <option value="3">3+</option>
@@ -69,9 +93,9 @@
                 </div>
                 <div class="form-group">
                     <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
-                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true"
                         formControlName='room' placeholder="Rooms">
-                        <option value="" disabled selected>Rooms</option>
+                        <option value="0" disabled selected>Rooms</option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
                         <option value="3">3+</option>
@@ -80,12 +104,35 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    Price
-                    <input type="range" formControlName='price' min=1 max=1000>
+                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
+                    data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true" 
+                    formControlName='price' placeholder="Price">
+                    <option value="0" disabled selected>Price</option>
+                    <option value="1"> < 100$ </option>
+                    <option value="2"> 100 - 200$ </option>
+                    <option value="3"> 200 - 300$ </option>
+                    <option value="4"> 300 - 500$</option>
+                    <option value="5"> > 500$ </option>
+                </select>
                 </div>
 
                 <div class="form-group ">
-                    <input type="submit" class="btn btn-style btn-primary" value="Save">
+                    <button type="submit" class="btn btn-style btn-primary" value="Search"
+                        [routerLink]="['/user/searchproperty', 
+                        {
+                            keyword :  (this.formGroup.value.keyword == '') ? 'all' : this.formGroup.value.keyword ,
+                            category : this.formGroup.value.category ,
+                            country : this.formGroup.value.country , 
+                            city : this.formGroup.value.city ,
+                            type : this.formGroup.value.type ,
+                            area : this.formGroup.value.area ,
+                            bed : this.formGroup.value.bed ,
+                            room : this.formGroup.value.room ,
+                            price : this.formGroup.value.price , 
+                            pg : 'listing' 
+                        }]"  >
+                    Search
+                    </button>
                 </div>
             </form>
 

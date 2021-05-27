@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { CategoryModel } from 'src/app/models/category.model';
+import { CityModel } from 'src/app/models/city.model';
+import { CountryModel } from 'src/app/models/country.model';
 import { PropertyModel } from 'src/app/models/property.model';
+import { RegionModel } from 'src/app/models/region.model';
+import { IndexService } from 'src/app/services/user/index.service';
 import { ListingService } from 'src/app/services/user/listing.service';
 import { ShareFormService } from 'src/app/services/user/shareFormSearchData';
 
@@ -11,32 +16,67 @@ import { ShareFormService } from 'src/app/services/user/shareFormSearchData';
 })
 export class ListingComponent implements OnInit {
 
-  private valueFromChildSubscription: Subscription;
   listing: PropertyModel[];
-  formGroup: FormGroup ;
-  keyword : string 
-  categoryId : number 
-  country : string 
+  loadregions: RegionModel[];
+  loadcities: CityModel[]
+  loadcountries: CountryModel[];
+  loadallcities: CityModel[] ;
+  categories: CategoryModel[] = [];
+  formGroup: FormGroup;
 
   constructor(
     private listingService: ListingService,
-    private shareData : ShareFormService ,
+    private indexService: IndexService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
   ) { }
 
- 
+
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       keyword: '',
-      location: '',
-      region: '',
-      type: '',
+      country: 'all',
+      city: 'all',
+      category: 0,
+      type: 'all',
       area: 0,
       bed: 0,
       room: 0,
       price: 0
     });
+    this.loadData() ;
+
+
+  }
+
+  loadcity(countryId: string) {
+    console.log("countryId : " + this.formGroup.value.country);
+    this.listingService.loadcity(this.formGroup.value.country).then(
+      res => {
+        this.loadcities = res
+      },
+      err => {
+        console.log(err)
+      });
+  }
+  search() {
+
+  }
+  loadData() {
+    this.listingService.loadallcity().then(
+      res => {
+        this.loadallcities = res
+      },
+      err => {
+        console.log(err)
+      });
+
+    this.indexService.loadcountries().then(
+      res => {
+        this.loadcountries = res
+      },
+      err => {
+        console.log(err)
+      });
 
     this.listingService.getAllListing().then(
       res => {
@@ -45,29 +85,13 @@ export class ListingComponent implements OnInit {
       err => {
         console.log(err)
       });
-      
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.keyword = params.get('keyword') ; 
-      this.categoryId = Number.parseInt(params.get('cate'));
-      this.country = params.get('country') ; 
-    })
-
-    if(this.keyword != null || this.categoryId != NaN || this.country != null) {
-      this.listingService.searchProperty(this.keyword,this.categoryId,this.country).then(
-      res => {
-        this.listing = res
-      },
-      err => {
-        console.log(err)
-      });
-    }
-    else {
-      
-    }
-    
-  }
-
-  search() {
+      this.indexService.loadcategories().then(
+        res => {
+          this.categories = res
+        },
+        err => {
+          console.log(err)
+        });
     
   }
 
