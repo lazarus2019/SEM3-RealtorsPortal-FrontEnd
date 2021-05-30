@@ -36,7 +36,10 @@ import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
 import { LoginComponent } from './area/user/login/login.component';
 import { RegistrationComponent } from './area/user/registration/registration.component';
-import { ForgetPasswordComponent } from './area/user/forgetPassword/forgetPassword.component';
+import { ForgetPasswordComponent } from './area/user/forgotPassword/forgetPassword.component';
+import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
+import { AuthGuard } from './authenticate/auth.guard';
+import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
 
 
 const routes: Routes = [
@@ -45,6 +48,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'forgetPassword', component: ForgetPasswordComponent },
+  { path: 'resetPassword', component: ResetPasswordComponent },
+  { path: 'confirmEmail', component: ConfirmEmailComponent },
   {
     path: '', component: UserComponent,
     children:

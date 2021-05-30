@@ -40,10 +40,6 @@ export class MemberService {
     );
   }
 
-  SendEmail(mailRequest: MailRequest): Observable<MailRequest> {
-    return this.http.post<MailRequest>(this.baseUrl + '/sendEmail', mailRequest, httpOptions);
-  }
-
   handleError(error) {
 
     let errorMessage = '';

@@ -81,14 +81,14 @@
                                             <td>{{property.status.name}}</td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                                    *ngIf="property.statusName !== 'Pending'" data-target="#details"
+                                                    *ngIf="property.status.name != 'Pending'" data-target="#details"
                                                     (click)="onDetails(property.propertyId)"><i
                                                         class="fas fa-info-circle "></i>
                                                     Details
                                                 </button>
                                                 <a class="btn btn-primary btn-sm btn-block "
-                                                    *ngIf="property.statusName == 'Pending'" data-toggle="modal"
-                                                    data-target="#details">
+                                                    *ngIf="property.status.name == 'Pending'" data-toggle="modal"
+                                                    data-target="#details" (click)="onCheck(property.propertyId)">
                                                     <i class="fas fa-check-circle"></i>
                                                     Check
                                                 </a>
@@ -247,10 +247,10 @@
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#sendMail"
-                            *ngIf="property?.statusName == 'Pending'">Public</button>
-                        <button type="button" class="btn btn-primary mr-2"
-                            *ngIf="property?.statusName == 'Pending'">Send
-                            Mail</button>
+                            *ngIf="property?.statusName == 'Pending'" data-dismiss="modal">Send email</button>
+                        <button type="button" class="btn btn-primary mr-2" data-dismiss="modal"
+                            *ngIf="property?.statusName == 'Pending'" (click)="onPublic(property)">Public
+                        </button>
                     </div>
                 </form>
             </div>
@@ -268,26 +268,26 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form [formGroup]="emailFormGroup">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Send to:</label>
-                        <input type="text" class="form-control" value="youremail@gmail.com" readonly>
+                        <input type="text" class="form-control" value="youremail@gmail.com" formControlName="email">
                     </div>
                     <div class="form-group">
                         <label for="example1">
-                            Title: <span class="text-danger">*</span>
+                            Subject: <span class="text-danger">*</span>
                         </label>
                         <input data-parsley-type="text" type="text" class="form-control" required=""
-                            placeholder="Enter title" required="required">
+                            formControlName="subject" placeholder="Enter title" required="required">
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Description:</label>
+                        <label for="message-text" class="col-form-label">Content:</label>
                         <textarea class="form-control" id="message-text" placeholder="Enter description"
-                            required></textarea>
+                            formControlName="content" required></textarea>
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="sendAlert()">Send</button>
                     </div>
                 </form>
             </div>

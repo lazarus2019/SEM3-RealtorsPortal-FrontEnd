@@ -9,7 +9,7 @@
                 <!-- Form Search & Filter -->
                 <div class="from-group mb-3  d-flex justify-content-center">
                     <form [formGroup]="searchFormGroup" (ngSubmit)="search()">
-                    <div class="row">
+                         <div class="row">
                             <div class="col-md-4 mb-1 flex-fill">
                                 <input type="text" class="form-control" value="" placeholder="Enter fullName" formControlName="fullName">
                             </div>
@@ -18,7 +18,7 @@
                                     name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true" formControlName="roleId"
                                     required="required">
                                     <option value="all" selected="selected">All role</option>
-                                    <option *ngFor="let role of roles" value="{{role.roleId}}" [hidden]="role.name == 'Admin'">{{role.name}}</option>
+                                    <option *ngFor="let role of roles" value="{{role.name}}" [hidden]="role.name == 'Admin'">{{role.name}}</option>
                                 </select>
                             </div>
                             <div class="col-md-3 mb-1 flex-fill">
@@ -113,7 +113,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="emailFormGroup" (ngSubmit)="sendEmail()">
+                <form [formGroup]="emailFormGroup">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Send to:</label>
                         <input type="text" class="form-control" value="youremail@gmail.com" formControlName="email">

@@ -60,15 +60,15 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
         this.invoice.paymentCode = payment.id;
         this.invoice.packageId = this.adsPackage.packageId;
         this.invoice.total = this.adsPackage.price;
-        console.log("id: " + this.adsPackage.packageId);
         this.adsPackageDetail.packageId = this.adsPackage.packageId;
 
         if (payment != null) {
-          this.invoiceService.createInvoice(this.invoice).subscribe(() => {
+          var userId = localStorage.getItem('userId');
+          this.invoiceService.createInvoice(userId, this.invoice).subscribe(() => {
             this.adsPackageService.createAdsPackageDetail(this.adsPackageDetail).subscribe(() => {
               alertFunction.payment();
             });
-          }, error => {
+          }, err => {
             alertFunction.error("Failed", "Can't pay now, please try again!");
           });
         }
@@ -113,7 +113,6 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
   }
 
   buyBow(adsPackage: AdsPackage) {
-    //this.finalAmount = adsPackage.price;
     this.adsPackage = adsPackage;
   }
 
@@ -126,7 +125,8 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
     if (name == '') {
       name = '.all';
     }
-    this.adsPackageService.search(name, price).subscribe(adsPackages => {
+    var status = 'true';
+    this.adsPackageService.search(name, status, price).subscribe(adsPackages => {
       this.adsPackages = adsPackages;
     });
   }

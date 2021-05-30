@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { Role } from '../../../shared/role.model';
 import { RoleService } from 'src/app/services/role.service';
 import Swal from 'sweetalert2';
+import { AccountService } from 'src/app/services/account.service';
 declare var alertFunction: any;
 
 @Component({
@@ -13,15 +14,25 @@ declare var alertFunction: any;
 })
 export class AdminManageMemberComponent implements OnInit {
 
-  constructor(private memberService: MemberService, private formBuilder: FormBuilder, private roleService: RoleService) {
+  constructor(
+    private memberService: MemberService, 
+    private formBuilder: FormBuilder, 
+    private roleService: RoleService,
+    private accountService: AccountService 
+    ) {
     this.loadScripts();
   }
 
   members: Member[] = [];
+
   roles: Role[] = [];
+
   mailRequest: MailRequest;
+
   emailFormGroup: FormGroup;
+
   searchFormGroup: FormGroup;
+
   member: Member;
 
   ngOnInit(): void {
@@ -47,25 +58,19 @@ export class AdminManageMemberComponent implements OnInit {
       roleId: new FormControl('all', [Validators.required]),
       status: new FormControl('all', [Validators.required])
     });
-  }me
- 
-  search(){
+  } 
+
+  search() {
     var fullName = this.searchFormGroup.get('fullName').value;
     var roleId = this.searchFormGroup.get('roleId').value;
     var status = this.searchFormGroup.get('status').value;
-    if(fullName == ''){
+    if (fullName == '') {
       fullName = '.all';
     }
     console.log("id:" + roleId);
     this.memberService.search(fullName, roleId, status).subscribe(members => {
       this.members = members;
     });
-  }
-
-  sendEmail() { 
-    this.mailRequest = this.emailFormGroup.value;
-    this.memberService.SendEmail(this.mailRequest).subscribe();
-    console.log("subject: " + this.mailRequest.subject);
   }
 
   loadData() {
@@ -87,17 +92,16 @@ export class AdminManageMemberComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //update action        
-        this.memberService.updateStatus(member.memberId, member.status).subscribe();
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Block successful!',
-          showConfirmButton: false,
-          timer: 2000
+        this.memberService.updateStatus(member.memberId, member.status).subscribe(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Block successful!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          //reload page
+          this.loadData();
         });
-        //reload page
-        this.loadData();
-
       }
     })
   }
@@ -114,26 +118,25 @@ export class AdminManageMemberComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //update action        
-        this.memberService.updateStatus(member.memberId, member.status).subscribe();
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Unblock successful!',
-          showConfirmButton: false,
-          timer: 2000
+        this.memberService.updateStatus(member.memberId, member.status).subscribe(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Unblock successful!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          //reload page
+          this.loadData();
         });
-        //reload page
-        this.loadData();
-
       }
     })
   }
 
-  sendAlert(){
+  sendAlert() {
     this.mailRequest = this.emailFormGroup.value;
-    this.memberService.SendEmail(this.mailRequest).subscribe();
-    alertFunction.success("Send Email", "Email was sent!");
-
+    this.accountService.SendEmail(this.mailRequest).subscribe(() => {
+      alertFunction.success("Send Email", "Email was sent!");
+    });
   }
 
   // Method to dynamically load JavaScript

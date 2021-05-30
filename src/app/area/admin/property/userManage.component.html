@@ -33,7 +33,8 @@
                                     formControlName="statusId" required="required">
                                     <option value="all">All status</option>
                                     <ng-container *ngFor="let status of statuses">
-                                        <option value="{{status.statusId}}" [disable]="status.name == 'Pending'">{{status.name}}</option>
+                                        <option value="{{status.statusId}}" [disable]="status.name == 'Pending'">
+                                            {{status.name}}</option>
                                     </ng-container>
                                 </select>
                             </div>
@@ -87,14 +88,18 @@
                                                             class="fas fa-info-circle "></i>
                                                         Details</a>
                                                     <a class="btn btn-primary btn-sm btn-block "
-                                                        *ngIf="property.status.name != 'Pending'"
+                                                        *ngIf="property.status.name != 'Pending' && property.status.name != 'Sold'"
                                                         [routerLink]="['/admin/editProperty']" [state]="property"><i
                                                             class="fas fa-pencil-alt "></i> Edit</a>
                                                     <a class="btn btn-primary btn-sm btn-block mt-2 "
-                                                        *ngIf="property.status.name != 'Pending' && property.statusName != 'Sold'"
+                                                        *ngIf="property.status.name != 'Pending' && property.statusName != 'Sold' && property.status.name == 'Activate'"
                                                         (click)="changeStatus(property.propertyId)" data-toggle="modal"
                                                         data-target="#changeStatus"><i class="fas fa-exchange-alt "></i>
                                                         Status</a>
+                                                    <a class="btn btn-primary btn-sm btn-block mt-2" *ngIf="property.status.name == 'Deactivate' || property.status.name == 'Rented'"
+                                                        (click)="activateAlert(property)"><i
+                                                            class="fas fa-trash "></i>
+                                                        Activate</a>
                                                     <a class="btn btn-danger btn-sm btn-block mt-2 "
                                                         (click)="deleteAlert(property.propertyId)"><i
                                                             class="fas fa-trash "></i>
@@ -271,23 +276,18 @@
                 </button>
             </div>
             <div class="modal-body ">
-                <div class="text-center" *ngIf="property?.statusName == 'Deactivate' || property?.statusName == 'Rent'">
-                    <button type="button" (click)="activateAlert(property)" style="width: 70%;"
-                        class="btn btn-primary btn-lg"><i class="fas fa-toggle-on"></i> Activate</button>
-                    <hr>
-                </div>
                 <div class="text-center" *ngIf="property?.statusName == 'Activate'">
                     <button type="button" (click)="deactivateAlert(property)" style="width: 70%;"
                         class="btn btn-primary btn-lg"><i class="fas fa-toggle-off"></i> Deactivate</button>
                     <hr>
                 </div>
                 <div class="text-center" *ngIf="property?.statusName == 'Activate'">
-                    <button type="button" style="width: 70%;" class="btn btn-primary btn-lg"><i
+                    <button type="button" (click)="sellAlert(property)" style="width: 70%;" class="btn btn-primary btn-lg"><i
                             class="fas fa-arrow-right"></i> Sell</button>
                     <hr>
                 </div>
                 <div class="text-center" *ngIf="property?.statusName == 'Activate'">
-                    <button type="button" style="width: 70%;" class="btn btn-primary btn-lg"><i
+                    <button type="button" (click)="rentAlert(property)" style="width: 70%;" class="btn btn-primary btn-lg"><i
                             class="fas fa-arrows-alt-h"></i> Rent</button>
                 </div>
             </div>

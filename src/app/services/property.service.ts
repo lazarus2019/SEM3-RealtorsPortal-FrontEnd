@@ -50,9 +50,9 @@ export class PropertyService {
     return this.http.put<void>(this.baseUrl + '/update', property, httpOptions);
   }
 
-  deleteProperty(propertyId: number): Observable<number> {
+  deleteProperty(propertyId: number): Observable<void> {
     const url = `${this.baseUrl}/${propertyId}`;
-    return this.http.delete<number>(url);
+    return this.http.delete<void>(url);
   }
 
   createProperty(property: Property): Observable<number> {
@@ -62,6 +62,11 @@ export class PropertyService {
   getGallery(propertyId: number): Observable<Image[]> {
     const url = `${this.baseUrl}/getGallery/${propertyId}`;
     return this.http.get<Image[]>(url);
+  }
+
+  checkToAddProperty(userId: string): Observable<boolean> {
+    const url = `${this.baseUrl}/checktoaddnew/${userId}`;
+    return this.http.get<boolean>(url);
   }
 
   handleError(error) {

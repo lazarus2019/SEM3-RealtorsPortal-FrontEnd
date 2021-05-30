@@ -11,5 +11,11 @@
   ],
   "include": [
     "src/**/*.d.ts"
-  ]
+  ],
+  "dependencies": {
+    "@angular/google-maps": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/googlemaps": "3.39.14"
+  }
 }

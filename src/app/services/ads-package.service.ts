@@ -36,6 +36,11 @@ export class AdsPackageService {
     const url = `${this.baseUrl}/${adsPackageId}`;
     return this.http.get<AdsPackage>(url);
   }
+  
+  checkExpiryDate(userId: string): Observable<boolean> {
+    const url = `${this.baseUrl}/checkexpiry/${userId}`;
+    return this.http.get<boolean>(url);
+  }
 
   deleteAdsPackage(adsPackageId: number): Observable<number> {
     const url = `${this.baseUrl}/${adsPackageId}`;
@@ -58,8 +63,8 @@ export class AdsPackageService {
     return this.http.post<void>(this.baseUrl + '/createadsdetail', adsPackageDetail, httpOptions);
   }
 
-  search(name: string, price: string): Observable<AdsPackage[]> {
-    var url = `${this.baseUrl}/search/${name}/${price}`; 
+  search(name: string,status: string, price: string): Observable<AdsPackage[]> {
+    var url = `${this.baseUrl}/search/${name}/${status}/${price}`; 
     return this.http.get<AdsPackage[]>(url).pipe(
 
       retry(1),

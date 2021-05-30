@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { AgmCoreModule } from '@agm/core';
+ 
 import { AppComponent } from './app.component';
 
 // Module
 import { AppRoutingModule } from './app-routing.module';
 import { AdminRoutingModule } from './area/admin/admin-routing.module';
 import { UserRoutingModule } from './area/user/user-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 // Admin area
@@ -53,7 +54,11 @@ import { PublicService } from './services/publicService.service';
 import { InvoiceService } from './services/invoice.service';
 import { LoginComponent } from './area/user/login/login.component';
 import { RegistrationComponent } from './area/user/registration/registration.component';
-import { ForgetPasswordComponent } from './area/user/forgetPassword/forgetPassword.component';
+import { ForgetPasswordComponent } from './area/user/forgotPassword/forgetPassword.component';
+import { AccountService } from './services/account.service';
+import { AuthInterceptor } from './authenticate/auth.interceptor';
+import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
+import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
 
 
 @NgModule({
@@ -106,7 +111,9 @@ import { ForgetPasswordComponent } from './area/user/forgetPassword/forgetPasswo
     //login-Registration
     LoginComponent,
     RegistrationComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    ResetPasswordComponent,
+    ConfirmEmailComponent
 
   ],
   imports: [
@@ -129,13 +136,23 @@ import { ForgetPasswordComponent } from './area/user/forgetPassword/forgetPasswo
     
     CommonModule,
 
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBoyhYKICzyoa19oidptJ79kitFVaPM_Uk',
+      libraries: ['places']
+    })
+
   ],
   providers: [
     AddNewService,
     AdminService,
     ImageService,
     PublicService,
-    InvoiceService
+    InvoiceService,
+    AccountService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

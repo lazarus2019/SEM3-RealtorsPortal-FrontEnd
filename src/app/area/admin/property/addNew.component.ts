@@ -1,23 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+/// <reference path="../../../../../node_modules/@types/googlemaps/index.d.ts"/>
+import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
 import { ImageService } from 'src/app/services/imageService.service';
 import { Property } from '../../../shared/property.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { PropertyService } from 'src/app/services/property.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from '../../../shared/category.model';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { AdsPackageService } from 'src/app/services/ads-package.service';
+import { MapsAPILoader } from '@agm/core';
+//import {} from '@types/googlemaps';
 declare var alertFunction: any;
 declare var getTinyMCEContent: any;
-
 @Component({
   templateUrl: './addNew.component.html'
 })
 export class AddNewPropertyComponent implements OnInit {
 
+  @ViewChild('address') public searchElement: ElementRef;
+
   constructor(
     private imageService: ImageService,
     private formBuilder: FormBuilder,
+    private router: Router,
+    private MapAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
     private propertyService: PropertyService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private adsPackageService: AdsPackageService,
+
   ) {
     this.loadScripts();
   }
@@ -36,10 +48,19 @@ export class AddNewPropertyComponent implements OnInit {
   addFormGroup: FormGroup;
 
   public ngOnInit(): void {
+    //check expiry date
+    this.checkExpiryDate();
+
+    //check to add new property
+    this.checkToAddProperty();
+
+    //this.loadAPI();
+
     //get category 
     this.categoryService.getAllCategory().subscribe(categories => {
       this.categories = categories;
     });
+
     //configure addFromGroup
     this.addFormGroup = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
@@ -55,6 +76,71 @@ export class AddNewPropertyComponent implements OnInit {
       bedNumber: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
     });
+  }
+
+  loadAPI() {
+    this.MapAPILoader.load().then(
+      () => {
+        let autoComplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types: ["address"]});
+
+        autoComplete.addListener("place_changed", () => {
+          this.ngZone.run(() => {
+            let place: google.maps.places.PlaceResult = autoComplete.getPlace();
+
+            if(place.geometry === undefined || place.geometry === null){
+              return;
+            }
+          });
+        });
+      }
+    );
+  }
+
+  checkToAddProperty() {
+    var userId = localStorage.getItem('userId');
+    this.propertyService.checkToAddProperty(userId).subscribe(res => {
+      if (res == false) {
+        Swal.fire({
+          title: 'Post Limit!',
+          text: 'You have enough posts, please upgrade the package to add more posts?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }).then((result) => {
+
+          if (result.isConfirmed) {
+            this.router.navigateByUrl('/admin/adPackage');
+          } else {
+            this.router.navigateByUrl('/admin/userManage');
+          }
+        });
+
+      }
+    })
+  }
+
+  checkExpiryDate() {
+    var userId = localStorage.getItem('userId');
+    this.adsPackageService.checkExpiryDate(userId).subscribe(res => {
+      if (res == false) {
+        Swal.fire({
+          title: 'Expired!',
+          text: 'package has expired, please buy new ad package to add post?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }).then((result) => {
+
+          if (result.isConfirmed) {
+            this.router.navigateByUrl('/admin/adPackage');
+          } else {
+            this.router.navigateByUrl('/admin/userManage');
+          }
+        });
+      }
+    })
   }
 
   createProperty() {

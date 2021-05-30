@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginRequest } from 'src/app/shared/login.model';
 
 @Component({
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
 
-  formLogin = {
-    username: '',
-    password: ''
-  }
+  loginForm = new FormGroup({
+    username: new FormControl("", [Validators.required]),
+    password: new FormControl("", [Validators.required])
+  })
 
-  constructor(private accountService: AccountService, private router: Router) { 
+  loginRequest: LoginRequest;
+
+  constructor(private accountService: AccountService, private router: Router) {
     this.loadStyle();
 
   }
@@ -23,10 +26,28 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/home');
   }
 
-  onSubmit(form: NgForm) {
-    this.accountService.login(form.value).subscribe(
+
+  public validateControl(controlName: string) {
+    return this.loginForm.controls[controlName].invalid && this.loginForm.controls[controlName].touched;
+  }
+
+  public hasError(controlName: string, errorName: string) {
+    return this.loginForm.controls[controlName].hasError(errorName);
+  }
+
+  onSubmit(loginFormValue) {
+    const login = { ...loginFormValue };
+    const loginRequest: LoginRequest = {
+      username: login.username,
+      password: login.password
+    }
+    console.log(loginRequest.username);
+    this.accountService.login(loginRequest).subscribe(
       (res: any) => {
-        localStorage.setItem('token', res.resultToken);
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('username', res.username);
+        localStorage.setItem('userId', res.userId);
+        localStorage.setItem('role', res.role);
         this.router.navigateByUrl('/');
       },
       err => {
@@ -41,6 +62,8 @@ export class LoginComponent implements OnInit {
   loadStyle() {
     const dynamicStyles = [
       '../../../../assets/user/css/main.css',
+      '../../../../assets/user/css/bootstrap.min.css',
+
     ];
     for (let i = 0; i < dynamicStyles.length; i++) {
       const node = document.createElement('link');

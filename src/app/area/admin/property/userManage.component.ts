@@ -25,7 +25,7 @@ export class UserManagePropertyComponent implements OnInit {
     private statusService: StatusService,
     private publicService: PublicService,
     private imageService: ImageService
-    ) {
+  ) {
     this.loadStyle();
     this.loadScripts();
   }
@@ -47,10 +47,8 @@ export class UserManagePropertyComponent implements OnInit {
   images: Image[] = [];
 
   ngOnInit(): void {
-    //get member
-    this.propertyService.getAllProperty().subscribe((properties) => {
-      this.properties = properties;
-    });
+    //get Data
+    this.loadData();
 
     //get status
     this.statusService.getAllStatus().subscribe((statuses) => {
@@ -64,9 +62,15 @@ export class UserManagePropertyComponent implements OnInit {
 
     //configure searchFromGroup
     this.searchFormGroup = this.formBuilder.group({
-      title: new FormControl('', [Validators.required]),
+      position: new FormControl('', [Validators.required]),
       categoryId: new FormControl('all', [Validators.required]),
       statusId: new FormControl('all', [Validators.required]),
+    });
+  }
+
+  loadData() {
+    this.propertyService.getAllProperty().subscribe((properties) => {
+      this.properties = properties;
     });
   }
 
@@ -75,7 +79,7 @@ export class UserManagePropertyComponent implements OnInit {
     var partners = 'partners';
     var categoryId = this.searchFormGroup.get('categoryId').value;
     var statusId = this.searchFormGroup.get('statusId').value;
-    if(title == ''){
+    if (title == '') {
       title = '.all';
     }
     this.propertyService.search(title, partners, categoryId, statusId).subscribe(properties => {
@@ -92,25 +96,171 @@ export class UserManagePropertyComponent implements OnInit {
     console.log(propertyId);
     this.propertyService.getPropertyById(propertyId).subscribe((property) => {
       this.property = property;
-      this.getGallery(propertyId); 
+      this.getGallery(propertyId);
     });
 
   }
 
-  getGallery(propertyId: number){
+  getGallery(propertyId: number) {
     this.propertyService.getGallery(propertyId).subscribe(images => {
       this.images = images;
     })
   }
 
-  getUrlImage(imageName:string){
+  getUrlImage(imageName: string) {
     return this.publicService.getUrlImage("property", imageName);
   }
 
   changeStatus(propertyId: number) {
     this.propertyService.getPropertyById(propertyId).subscribe((property) => {
       this.property = property;
+      console.table(property);
     });
+  }
+
+
+  deleteAlert(propertyId: number) {
+    Swal.fire({
+      title: 'Delete property!',
+      text: 'Are you sure you want to delete property?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //delete action
+        this.imageService.deleteImageByPropertyId(propertyId).subscribe(() => {
+          this.propertyService.deleteProperty(propertyId).subscribe(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Delete successful!',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            //reload page
+            this.loadData();
+          });
+        })
+      }
+    })
+  }
+
+  deactivateAlert(property: Property) {
+    //change status to update
+    if (property != null) {
+      property.statusId = 2;
+    }
+
+    Swal.fire({
+      title: 'Deactivate property!',
+      text: 'Are you sure you want to deactivate property?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //update action   
+        this.propertyService.updateStatus(property).subscribe(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Deactivate successful!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          //reload page
+          this.loadData();
+        });
+      }
+    })
+  }
+
+  sellAlert(property: Property) {
+    //change status to update
+    if (property != null) {
+      property.statusId = 5;
+    }
+    Swal.fire({
+      title: 'Sell property!',
+      text: 'Has your product been sold?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //update action        
+        this.propertyService.updateStatus(property).subscribe(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Congratulations!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          //reload page
+          this.loadData();
+        });
+      }
+    })
+  }
+
+  rentAlert(property: Property) {
+    //change status to update
+    if (property != null) {
+      property.statusId = 7;
+    }
+    Swal.fire({
+      title: 'Rent property!',
+      text: 'Has your product been rented?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //update action        
+        this.propertyService.updateStatus(property).subscribe(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Congratulations!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          //reload page
+          this.loadData();
+        });
+      }
+    })
+  }
+
+  activateAlert(property: Property) {
+    //change status to update
+    if (property != null) {
+      property.statusId = 1;
+    }
+    Swal.fire({
+      title: 'Activate property!',
+      text: 'Are you sure you want to activate property?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //update action        
+        this.propertyService.updateStatus(property).subscribe(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Activate successful!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          //reload page
+          this.loadData();
+        });
+      }
+    })
   }
 
   // Method to dynamically load JavaScript
@@ -174,92 +324,4 @@ export class UserManagePropertyComponent implements OnInit {
       document.getElementsByTagName('head')[0].appendChild(node);
     }
   }
-
-  deleteAlert(propertyId: number) {
-    Swal.fire({
-      title: 'Delete property!',
-      text: 'Are you sure you want to delete property?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.value) {
-        //delete action
-        if(this.imageService.deleteImageByPropertyId(propertyId)){
-          this.propertyService.deleteProperty(propertyId).subscribe();
-        }
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Delete successful!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        //reload page
-        this.ngOnInit();
-      }
-    })
-  }
-
-  deactivateAlert(property) {
-    //change status to update
-    if (property != null) {
-      property.statusId = 2;
-      console.log(property.statusId);
-    }
-
-    Swal.fire({
-      title: 'Deactivate property!',
-      text: 'Are you sure you want to deactivate property?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //update action   
-        this.propertyService.updateStatus(property).subscribe();
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Deactivate successful!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        //reload page
-        this.ngOnInit();
-      }
-    })
-  }
-
-  activateAlert(property: Property) {
-    //change status to update
-    if (property != null) {
-      property.statusId = 1;
-    }
-    Swal.fire({
-      title: 'Activate property!',
-      text: 'Are you sure you want to activate property?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //update action        
-        this.propertyService.updateStatus(property).subscribe();
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Activate successful!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        //reload page
-        this.ngOnInit();
-      }
-    })
-  }
-
 }

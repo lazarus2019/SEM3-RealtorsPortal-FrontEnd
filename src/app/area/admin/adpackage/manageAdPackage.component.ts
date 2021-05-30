@@ -80,7 +80,8 @@ export class AdminManageAdPackageComponent implements OnInit {
     if(name == ''){
       name = '.all';
     }
-    this.adsPackageService.search(name, price).subscribe(adsPackages => {
+    var status = 'all';
+    this.adsPackageService.search(name,status, price).subscribe(adsPackages => {
       this.adsPackages = adsPackages;
     });
   }

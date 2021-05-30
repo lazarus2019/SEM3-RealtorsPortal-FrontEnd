@@ -3,13 +3,16 @@ import { PropertyService } from 'src/app/services/property.service';
 import { Property } from '../../../shared/property.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { RoleService } from 'src/app/services/role.service';
-import { Role } from '../../../shared/role.model';
 import { CategoryService } from 'src/app/services/category.service';
 import { StatusService } from 'src/app/services/status.service';
 import { Category } from '../../../shared/category.model';
 import { Status } from '../../../shared/status.model';
 import { Image } from '../../../shared/image.model';
 import { PublicService } from 'src/app/services/publicService.service';
+import { MailRequest } from 'src/app/shared/mailrequest.model';
+import { AccountService } from 'src/app/services/account.service';
+import Swal from 'sweetalert2';
+declare var alertFunction: any;
 
 @Component({
   templateUrl: './adminManage.component.html'
@@ -17,13 +20,14 @@ import { PublicService } from 'src/app/services/publicService.service';
 export class AdminManagePropertyComponent implements OnInit {
 
   constructor(
-    private propertyService: PropertyService, 
-    private formBuilder: FormBuilder, 
+    private propertyService: PropertyService,
+    private formBuilder: FormBuilder,
     private roleService: RoleService,
     private categoryService: CategoryService,
     private statusService: StatusService,
-    private publicService: PublicService
-    ) {
+    private publicService: PublicService,
+    private accountService: AccountService
+  ) {
     this.loadStyle();
     this.loadScripts();
   }
@@ -34,7 +38,8 @@ export class AdminManagePropertyComponent implements OnInit {
 
   searchFormGroup: FormGroup;
 
-  //roles: Role[] = [];
+  mailRequest: MailRequest;
+
 
   categories: Category[] = [];
 
@@ -42,11 +47,11 @@ export class AdminManagePropertyComponent implements OnInit {
 
   images: Image[] = [];
 
+  emailFormGroup: FormGroup;
+
   ngOnInit(): void {
-    //get member
-    this.propertyService.getAllProperty().subscribe((properties) => {
-      this.properties = properties;
-    });
+    //get data
+    this.loadData();
 
     //get role
     this.roleService.getAllRole().subscribe((roles) => {
@@ -70,23 +75,43 @@ export class AdminManagePropertyComponent implements OnInit {
       categoryId: new FormControl('all', [Validators.required]),
       statusId: new FormControl('all', [Validators.required]),
     });
+
+    //get emailRequest to sendMail
+    this.emailFormGroup = this.formBuilder.group({
+      email: '',
+      subject: '',
+      content: ''
+    });
   }
 
-  search(){
+  loadData() {
+    this.propertyService.getAllProperty().subscribe((properties) => {
+      this.properties = properties;
+    });
+  }
+
+  search() {
     var title = this.searchFormGroup.get('title').value;
     var partners = this.searchFormGroup.get('partners').value;
     var categoryId = this.searchFormGroup.get('categoryId').value;
     var statusId = this.searchFormGroup.get('statusId').value;
-    
-    if(title == ''){
+
+    if (title == '') {
       title = '.all';
     }
-    if(partners == ''){
+    if (partners == '') {
       partners = '.all';
 
     }
     this.propertyService.search(title, partners, categoryId, statusId).subscribe(properties => {
       this.properties = properties;
+    });
+  }
+
+  sendAlert() {
+    this.mailRequest = this.emailFormGroup.value;
+    this.accountService.SendEmail(this.mailRequest).subscribe(() => {
+      alertFunction.success("Send Email", "Email was sent!");
     });
   }
 
@@ -97,13 +122,49 @@ export class AdminManagePropertyComponent implements OnInit {
     });
   }
 
-  getGallery(propertyId: number){
+  onCheck(propertyId: number) {
+    this.propertyService.getPropertyById(propertyId).subscribe((property) => {
+      this.property = property;
+      this.getGallery(propertyId);
+    });
+  }
+
+  onPublic(property: Property) {
+    //change status to update
+    if (property != null) {
+      property.statusId = 1;
+    }
+    Swal.fire({
+      title: 'Public property!',
+      text: 'Are you sure you want to public property?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //update action        
+        this.propertyService.updateStatus(property).subscribe(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Public successful!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          //reload page
+          this.loadData();
+        });
+      }
+    })
+  }
+
+  getGallery(propertyId: number) {
     this.propertyService.getGallery(propertyId).subscribe(images => {
       this.images = images;
     })
   }
 
-  getUrlImage(imageName:string){
+  getUrlImage(imageName: string) {
     return this.publicService.getUrlImage("property", imageName);
   }
 
