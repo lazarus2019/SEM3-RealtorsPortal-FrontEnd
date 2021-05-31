@@ -19,8 +19,11 @@ export class CategoryComponent implements OnInit {
       this.activatedRoute.paramMap.subscribe(params => {
         this.categoryId = Number.parseInt(params.get('Id'));
         console.log("propertyId : " + this.categoryId);
+        this.loadData() ;
       })
-
+      
+    }
+    loadData() {
       this.categoryService.propertybycategory(this.categoryId).then(
         res => {
           this.propertybycategory = res ;

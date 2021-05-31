@@ -110,10 +110,11 @@
                         <article class="post">
                             <figure class="post-thumb"><img src="assets/user/images/l5.jpg" class="radius-image" alt="">
                             </figure>
-                            <div class="text mb-0"><a href="#blog-single">Company realty
+                            <!-- Cho nay se link qua ben page agent detail cua T.Anh-->
+                            <div class="text mb-0"><a href="#blog-single">{{property.memberName}}
                                 </a>
-                                <div class="post-info">+(12) 324 567 89</div>
-                                <div class="post-info">companyrealty@mail.com</div>
+                                <div class="post-info">{{property.memberPhone}}</div>
+                                <div class="post-info">{{property.memberEmail}} </div>
                             </div>
                         </article>
                         <div class="form-group">
@@ -135,8 +136,7 @@
 
                                         </div>
                                         <div class="col-lg-12">
-                                            <form novalidate="" action="https://sendmail.w3layouts.com/submitForm"
-                                                method="post" class="ng-untouched ng-pristine ng-valid "
+                                            <form method="post" class="ng-untouched ng-pristine ng-valid "
                                                 [formGroup]="formContact">
                                                 <div class="form-group">
                                                     <div class="form-grid">
@@ -201,70 +201,18 @@
                             <h4>Popular Post</h4>
                         </div>
 
-                        <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l1.jpg" class="radius-image" alt="">
+                        <article class="post" *ngFor="let pp of popularpost">
+                            <figure class="post-thumb"><img src="assets/images/property/{{pp.images[0].name}}" class="radius-image" alt="">
                             </figure>
-                            <div class="text"><a href="#blog-single">Why we are the best in the business
+                            <div class="text"><a href="#blog-single">{{pp.title}}
                                 </a>
-                                <div class="post-info">Sep 09, 2020</div>
+                                <div class="post-info">{{pp.uploadDate | date : "MMM dd , yyyy"}}</div>
                             </div>
                         </article>
 
-                        <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l2.jpg" class="radius-image" alt="">
-                            </figure>
-                            <div class="text"><a href="#blog-single">Build your next landing page.
-                                </a>
-                                <div class="post-info">Sep 09, 2020</div>
-                            </div>
-                        </article>
-
-                        <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l3.jpg" class="radius-image" alt="">
-                            </figure>
-                            <div class="text"><a href="#blog-single">
-                                    Simply the best. Better than the rest.</a>
-                                <div class="post-info">Sep 10, 2020</div>
-                            </div>
-                        </article>
 
                     </div>
                     <!-- Popular Post Widget-->
-                    <div class="sidebar-widget popular-posts">
-                        <div class="sidebar-title">
-                            <h4>Category</h4>
-                        </div>
-
-                        <ul>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Office
-                                    space</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Shops</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Commercial
-                                    land</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Industrial
-                                    property</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Apartments</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Villas</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Businesses for
-                                    sale</a>
-                            </li>
-
-                        </ul>
-
-                    </div>
 
                 </aside>
             </div>

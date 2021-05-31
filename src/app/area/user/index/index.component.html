@@ -5,19 +5,13 @@
                 <div class="section-width">
                     <p>It's great to be home!</p>
                     <h2>Find a property today</h2>
-                    <div class="most-searches">
-                        <h4>Most Searches</h4>
-                        <ul>
-                            <li><a href="#link">Villa</a></li>
-                            <li><a href="#link">Apartment</a></li>
-                            <li><a href="#link">Private house</a></li>
-                        </ul>
+                    <div class="most-searches">                        
                     </div>
                     <form action="#" class="w3l-cover-3-gd" method="GET" [formGroup]="formSearch"  >
                         <input type="search" name="text" placeholder="Enter keywords" formControlName="keyword" required>
                         <span class="input-group-btn">
                             <select class="btn btn-default" name="ext" required formControlName="category">
-                                <option disabled selected > Select Category</option>                                
+                                <option disabled selected value="0"> Select Category</option>                                
                                 <ng-container *ngFor="let c of categories" >
                                     <option value="{{c.categoryId}}">{{c.name}}</option>
                                 </ng-container>
@@ -26,29 +20,29 @@
                         </span>
                         <span class="input-group-btn">
                             <select class="btn btn-default" name="ext" required  formControlName="country" >
-                                <option disabled selected > Select Country</option>
+                                <option disabled selected value="0"> Select Country</option>
                                 <ng-container *ngFor="let co of countries">
                                     <option value="{{co.countryId}}" >{{co.name}}</option>
                                 </ng-container>
                             </select>
                         </span>
                         <button
-                         type="submit" class="btn-primary" *ngIf="this.formSearch.value.keyword != '' && this.formSearch.value.category != 'Select Category' && this.formSearch.value.country != 'Select Country' "                   
+                         type="submit" class="btn-primary" *ngIf="this.formSearch.value.keyword != '' || this.formSearch.value.category != 0 || this.formSearch.value.country != 0 "                   
                          [routerLink]="['/user/searchproperty', {
-                             keyword : this.formSearch.value.keyword , 
-                             cate : this.formSearch.value.category , 
-                             country : this.formSearch.value.country ,
+                             keyword : ( this.formSearch.value.keyword == '' )? 'all' : this.formSearch.value.keyword , 
+                             categoryId : this.formSearch.value.category , 
+                             countryId : this.formSearch.value.country ,
                              pg : 'index'
                             
                             }]"
-                             (click)="save()">
+                            >
                         Search</button>
 
                         <button                        
-                        type="submit" class="btn-primary" *ngIf="this.formSearch.value.keyword == '' || this.formSearch.value.category == 'Select Category'  || this.formSearch.value.country == 'Select Country' "  >
+                        type="submit" class="btn-primary" *ngIf="this.formSearch.value.keyword == '' && this.formSearch.value.category == 0  && this.formSearch.value.country == 0 "  >
                         Search</button>
                     </form>
-                    
+                   
                 </div>
                 <section id="bottom" class="demo">
                     <a href="#bottom"><span></span>Scroll</a>
@@ -70,9 +64,9 @@
                         <a [routerLink]="['/user/single-property', {propertyId: p.propertyId} ]">
                             <div class="box16">
                                 <div class="rentext-listing-category"><span>{{p.type}}</span></div>
-                                <img class="img-fluid"  src="assets/images/property/{{p.images[0].name}}" alt="{{p.images[0].name}}" >
+                                <img class="img-fluid" width="100%" height="100%" src="assets/images/property/{{p.images[0].name}}" alt="{{p.images[0].name}}" >
                                 <div class="box-content">
-                                    <h3 class="title" > {{p.title}} </h3>
+                                    <h3 class="title" > {{readMoreFunc(p.title)}}  </h3>
                                     <h4 class="post" > $ {{p.price}}  {{ (p.type == 'Rent') ? ' / month ' : ''}}</h4>
                                     <span class="post"> {{p.cityName}}</span>
                                 </div>
@@ -81,71 +75,6 @@
                     </div>
                 </ng-container>
 
-
-                <!-- <div class="col-lg-4 col-md-6 mt-md-0 mt-4">
-                    <a href="property-single.html">
-                        <div class="box16">
-                            <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
-                            <img class="img-fluid" src="assets/user/images/p2.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title">$37,00,000</h3>
-                                <span class="post">51 Merrick Way, Coral Gables, USA</span>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 mt-lg-0 pt-lg-0 mt-4 pt-md-2">
-                    <a href="property-single.html">
-                        <div class="box16">
-                            <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
-                            <img class="img-fluid" src="assets/user/images/p3.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title">$41,00,000</h3>
-                                <span class="post">51 Merrick Way, Coral Gables, USA</span>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 mt-4 pt-md-2">
-                    <a href="property-single.html">
-                        <div class="box16">
-                            <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
-                            <img class="img-fluid" src="assets/user/images/p4.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title">$19,00,000</h3>
-                                <span class="post">51 Merrick Way, Coral Gables, USA</span>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 mt-4 pt-md-2">
-                    <a href="property-single.html">
-                        <div class="box16">
-                            <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
-                            <img class="img-fluid" src="assets/user/images/p5.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title">$26,00,000</h3>
-                                <span class="post">51 Merrick Way, Coral Gables, USA</span>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 mt-4 pt-md-2">
-                    <a href="property-single.html">
-                        <div class="box16">
-                            <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
-                            <img class="img-fluid" src="assets/user/images/p6.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title">$34,00,000</h3>
-                                <span class="post">51 Merrick Way, Coral Gables, USA</span>
-                            </div>
-                        </div>
-                    </a>
-                </div> -->
             </div>
         </div>
     </div>
@@ -230,7 +159,7 @@
             <div class="row pt-5">
 
                 <div class="col-lg-3 col-md-4 col-6" *ngFor="let pl of loadpopularlocation">
-                    <a href="#url">
+                    <a [routerLink]="['/user/searchResult',{cityId : pl.cityId , pg : 'index2'}]">
                         <div class="box16">
                             <img class="img-fluid" src="assets/user/images/p1.jpg" alt="">
                             <div class="box-content">
@@ -240,88 +169,7 @@
                         </div>
                     </a>
                 </div>
-                <!-- <div class="col-lg-3 col-md-4 col-6">
-                    <a href="#url">
-                        <div class="box16">
-                            <img class="img-fluid" src="assets/user/images/p2.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title mb-1">California</h3>
-                                <span class="post">4 listings</span>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6 mt-md-0 pt-md-0 mt-sm-4 mt-3 pt-md-2">
-                    <a href="#url">
-                        <div class="box16">
-                            <img class="img-fluid" src="assets/user/images/p3.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title mb-1">Las vegas</h3>
-                                <span class="post">4 listings</span>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6 mt-lg-0 pt-lg-0 mt-sm-4 mt-3 pt-md-2">
-                    <a href="#url">
-                        <div class="box16">
-                            <img class="img-fluid" src="assets/user/images/p4.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title mb-1">Malaysia</h3>
-                                <span class="post">4 listings</span>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6 mt-sm-4 mt-3 pt-md-2">
-                    <a href="#url">
-                        <div class="box16">
-                            <img class="img-fluid" src="assets/user/images/p5.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title mb-1">Paris</h3>
-                                <span class="post">4 listings</span>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6 mt-sm-4 mt-3 pt-md-2">
-                    <a href="#url">
-                        <div class="box16">
-                            <img class="img-fluid" src="assets/user/images/p6.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title mb-1">New Jersy</h3>
-                                <span class="post">4 listings</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6 mt-sm-4 mt-3 pt-md-2">
-                    <a href="#url">
-                        <div class="box16">
-                            <img class="img-fluid" src="assets/user/images/p7.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title mb-1">France</h3>
-                                <span class="post">4 listings</span>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6 mt-sm-4 mt-3 pt-md-2">
-                    <a href="#url">
-                        <div class="box16">
-                            <img class="img-fluid" src="assets/user/images/p8.jpg" alt="">
-                            <div class="box-content">
-                                <h3 class="title mb-1">Newyork</h3>
-                                <span class="post">4 listings</span>
-                            </div>
-                        </div>
-                    </a>
-                </div> -->
+               
             </div>
         </div>
     </div>

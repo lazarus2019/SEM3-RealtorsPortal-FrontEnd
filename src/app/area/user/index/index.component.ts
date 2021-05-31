@@ -29,8 +29,8 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.formSearch = this.formBuilder.group({
       keyword: ['', [Validators.minLength(3)]],
-      category: ['Select Category'],
-      country: ['Select Country']
+      category: 0,
+      country: 0
     })
 
     this.indexService.loadtopproperty().then(
@@ -63,6 +63,9 @@ export class IndexComponent implements OnInit {
         console.log(err)
       });
   }
+  readMoreFunc(message: string) {
+    return message.substr(0, 165);
+  }
   save() {
     //var data =  this.formSearch.value ;
     console.log("key : " + this.formSearch.value.keyword) ;
@@ -72,7 +75,7 @@ export class IndexComponent implements OnInit {
     console.log( data[0]) ;
     console.log( data[1]) ;
     console.log( data[2]) ;
-    this.shareFormSearchData.sendData(data) ; 
+    //this.shareFormSearchData.sendData(data) ; 
     
   }
 

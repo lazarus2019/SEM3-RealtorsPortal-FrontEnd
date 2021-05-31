@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryComponent } from 'src/app/area/user/category/category.component';
 import { CategoryModel } from 'src/app/models/category.model';
+import { MailboxModel } from 'src/app/models/maibox.model';
 import { SettingModel } from 'src/app/models/setting.model';
 import { UserService } from 'src/app/services/user.service';
+import { MailboxService } from 'src/app/services/user/mailbox.service';
 
 @Component({
   templateUrl: './user.component.html',
@@ -10,29 +13,31 @@ import { UserService } from 'src/app/services/user.service';
 export class UserComponent implements OnInit {
   categories: CategoryModel[];
   setting: SettingModel;
+  formContact: FormGroup
 
   constructor(
     private userService: UserService,
+    private formBuilder: FormBuilder,
+    private mailboxService: MailboxService
   ) {
-    this.loadScripts();
-    this.loadStyle();
 
   }
 
   ngOnInit(): void {
-    this.loadData()
+
+    this.loadScripts();
+    this.loadStyle();
+    this.loadData();
   }
 
-
+  get Email(){
+    return this.formContact.get('email')
+    }
+  get Phone(){
+    return this.formContact.get('phone')
+    }
   loadData() {
-    this.userService.getAllCategory().then(
-      res => {
-        this.categories = res
-      },
-      err => {
-        console.log(err)
-      }
-    );
+
     this.userService.getSetting().then(
       res => {
         this.setting = res
@@ -41,6 +46,15 @@ export class UserComponent implements OnInit {
         console.log(err)
       }
     )
+
+    this.formContact = this.formBuilder.group({
+      fullName: '',
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      phone: ['', [Validators.required, Validators.pattern("^((\\+84-?)|0)?[0-9]{10}$")]],
+      message: ''
+    })
   }
   // Method to dynamically load JavaScript
   loadScripts() {
@@ -65,7 +79,27 @@ export class UserComponent implements OnInit {
       document.body.appendChild(node);
     }
   }
+  send() {
+    var mailbox: MailboxModel = this.formContact.value;
+    mailbox.time = new Date();
+    mailbox.isRead = false
+    this.mailboxService.addMailbox(mailbox).then(
+      res => {
+        if (res == true) {
+          alert("Done");
+        }
+        else {
+          alert("Failed");
+        }
 
+      },
+      err => {
+        console.log(err)
+      }
+    )
+
+  }
+  
   loadStyle() {
     const dynamicStyles = [
       '../../../assets/user/css/style-starter.css',

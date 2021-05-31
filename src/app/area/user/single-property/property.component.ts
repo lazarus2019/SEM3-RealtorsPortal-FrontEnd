@@ -6,6 +6,7 @@ import { PropertyModel } from 'src/app/models/property.model';
 import { ListingService } from 'src/app/services/user/listing.service';
 import { MailboxService } from 'src/app/services/user/mailbox.service';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { PropertyService } from 'src/app/services/property.service';
 
 @Component({
   templateUrl: './property.component.html'
@@ -13,17 +14,19 @@ import { NgImageSliderModule } from 'ng-image-slider';
 export class PropertyComponent implements OnInit {
   propertyId : number
   property : PropertyModel 
+  popularpost : PropertyModel[] 
   formContact : FormGroup  
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private listingService : ListingService ,
-    private mailboxService : MailboxService 
+    private mailboxService : MailboxService ,
+    private propertyService : PropertyService
 
   ) {
     this.loadScripts();
   }
-
+ 
   get Email(){
     return this.formContact.get('email')
     }
@@ -39,12 +42,18 @@ export class PropertyComponent implements OnInit {
     this.listingService.propertyDetail(this.propertyId).then(
       res => { 
         this.property = res
+        this.propertyService.getPopularPost(this.property.memberId).then(
+          res => {
+            this.popularpost = res 
+          },
+          err => {
+            console.log(err) 
+          });
       },
       err => {
         console.log(err)
-      }
-    ); 
-
+      }); 
+    
     this.formContact = this.formBuilder.group({
       fullName : '',
       email : new FormControl('',[
