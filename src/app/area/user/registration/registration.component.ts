@@ -12,11 +12,11 @@ import { PasswordConfirmationValidatorService } from 'src/app/services/PasswordC
 export class RegistrationComponent implements OnInit {
 
   constructor(public accountService: AccountService,
-     private router: Router, 
-     private _route: ActivatedRoute,
-      private formBuilder: FormBuilder,
-      private _passConfValidator: PasswordConfirmationValidatorService) {
-    this.loadStyle();  
+    private router: Router,
+    private _route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private _passConfValidator: PasswordConfirmationValidatorService) {
+    this.loadStyle();
 
 
   }
@@ -39,7 +39,7 @@ export class RegistrationComponent implements OnInit {
 
     //this.registrationForm.reset;
     // this.registrationForm = this.formBuilder.group({
-    //   role: new FormControl('op', [Validators.required]),
+    //   position: new FormControl('op', [Validators.required]),
     //   fullName: new FormControl('', [Validators.required]),
     //   email: new FormControl('', [Validators.required]),
     //   username: new FormControl('', [Validators.required]),
@@ -48,10 +48,10 @@ export class RegistrationComponent implements OnInit {
     // });
 
     this.registrationForm.get('confirm').setValidators([Validators.required,
-      this._passConfValidator.validateConfirmPassword(this.registrationForm.get('password'))]);
- 
- 
- 
+    this._passConfValidator.validateConfirmPassword(this.registrationForm.get('password'))]);
+
+
+
   }
 
 
@@ -66,7 +66,7 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit(form) {
 
-   
+
 
     if (form.invalid)
       return this.showValidationErrors = true;

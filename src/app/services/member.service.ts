@@ -17,7 +17,7 @@ const httpOptions = {
 export class MemberService {
 
   private baseUrl = 'http://localhost:5000/api/member';
-  
+
   constructor(private http: HttpClient) { }
 
   getAllMember(): Observable<number> {
@@ -28,24 +28,18 @@ export class MemberService {
     return this.http.get<Member[]>(this.baseUrl + "/" + page);
   }
 
-  search(fullName: string, roleId: string, status: string): Observable<number> {
-    var url = `${this.baseUrl}/search/${fullName}/${roleId}/${status}`; 
+  search(fullName: string, position: string, status: string): Observable<number> {
+    var url = `${this.baseUrl}/search/${fullName}/${position}/${status}`;
     return this.http.get<number>(url);
   }
 
-  searchPage(fullName: string, roleId: string, status: string, page: number): Observable<Member[]> {
-    var url = `${this.baseUrl}/search/${fullName}/${roleId}/${status}/${page}`; 
+  searchPage(fullName: string, position: string, status: string, page: number): Observable<Member[]> {
+    var url = `${this.baseUrl}/search/${fullName}/${position}/${status}/${page}`;
     return this.http.get<Member[]>(url);
   }
 
-  updateStatus(memberId: number, status: boolean): Observable<void> {
-    return this.http.put<void>(this.baseUrl + '/updateStatus/' + memberId , status, httpOptions).pipe(
-
-      retry(1),
- 
-      catchError(this.handleError)
- 
-    );
+  updateStatus(member: Member): Observable<void> {
+    return this.http.put<void>(this.baseUrl + "/updateStatus", member, httpOptions);
   }
 
   handleError(error) {

@@ -6,7 +6,6 @@ export class Member {
     position: string;
     role: Role;
     username: string;
-    password: string;
     fullName: string;
     email: string;
     status: boolean;

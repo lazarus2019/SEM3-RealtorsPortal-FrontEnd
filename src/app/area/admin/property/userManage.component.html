@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <div class="from-group mb-3 d-flex justify-content-center">
-                    <form method="GET" [formGroup]="searchFormGroup" (ngSubmit)="search()">
+                    <form method="GET" [formGroup]="searchFormGroup" (ngSubmit)="onSearch()">
                         <div class="row">
                             <div class="col-md-5 mb-1 flex-fill">
                                 <input type="text" class="form-control" value="" placeholder="Enter title"
@@ -235,12 +235,12 @@
                             <div class="col-md-4">
                                 <label for="region">Region:</label>
                                 <input data-parsley-type="text" type="text" class="form-control" id="region" readonly
-                                    value="{{property?.cityRegionName}}" style="background-color:white;">
+                                    value="{{property?.cityCountryName}}" style="background-color:white;">
                             </div>
                             <div class="col-md-4">
                                 <label for="country">Country: </label>
                                 <input data-parsley-type="text" type="text" class="form-control" id="country" readonly
-                                    value="{{property?.cityRegionCountryName}}" style="background-color:white;">
+                                    value="{{property?.cityCountryRegionName}}" style="background-color:white;">
                             </div>
                         </div>
                     </div>

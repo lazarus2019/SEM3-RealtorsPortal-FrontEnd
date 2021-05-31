@@ -15,11 +15,11 @@ declare var alertFunction: any;
 export class AdminManageMemberComponent implements OnInit {
 
   constructor(
-    private memberService: MemberService, 
-    private formBuilder: FormBuilder, 
+    private memberService: MemberService,
+    private formBuilder: FormBuilder,
     private roleService: RoleService,
-    private accountService: AccountService 
-    ) {
+    private accountService: AccountService
+  ) {
     this.loadScripts();
   }
 
@@ -50,14 +50,11 @@ export class AdminManageMemberComponent implements OnInit {
 
   member: Member;
 
+  positions: string[];
+
   ngOnInit(): void {
     //get member
     this.loadData();
-
-    //get role
-    this.roleService.getAllRole().subscribe((roles) => {
-      this.roles = roles;
-    });
 
     //get emailRequest to sendMail
     this.emailFormGroup = this.formBuilder.group({
@@ -69,10 +66,10 @@ export class AdminManageMemberComponent implements OnInit {
     //get member to search
     this.searchFormGroup = this.formBuilder.group({
       fullName: new FormControl('', [Validators.required]),
-      roleId: new FormControl('all', [Validators.required]),
+      position: new FormControl('all', [Validators.required]),
       status: new FormControl('all', [Validators.required])
     });
-  } 
+  }
 
   loadData() {
     this.memberService.getAllMember().subscribe((result) => {
@@ -82,21 +79,20 @@ export class AdminManageMemberComponent implements OnInit {
     });
   }
 
-  
   minusPage() {
     this.currentPage--;
-    if(!this.isFilter){
+    if (!this.isFilter) {
       this.getAllMemberPage(this.currentPage);
-    }else{
+    } else {
       this.searchPage(this.currentPage);
     }
   }
 
   plusPage() {
     this.currentPage++;
-    if(!this.isFilter){
+    if (!this.isFilter) {
       this.getAllMemberPage(this.currentPage);
-    }else{
+    } else {
       this.searchPage(this.currentPage);
     }
   }
@@ -107,16 +103,16 @@ export class AdminManageMemberComponent implements OnInit {
     this.searchPage(1);
   }
 
-  executeMemberPerPage(page:number){
+  executeMemberPerPage(page: number) {
     this.currentPage = page;
-    if(!this.isFilter){
+    if (!this.isFilter) {
       this.getAllMemberPage(this.currentPage);
-    }else{
+    } else {
       this.searchPage(this.currentPage);
     }
   }
 
-  getAllMemberPage(page: number){
+  getAllMemberPage(page: number) {
     this.memberService.getAllMemberPage(page).subscribe((adsPackages) => {
       this.members = adsPackages;
     })
@@ -131,13 +127,12 @@ export class AdminManageMemberComponent implements OnInit {
 
   search() {
     var fullName = this.searchFormGroup.get('fullName').value;
-    var roleId = this.searchFormGroup.get('roleId').value;
+    var position = this.searchFormGroup.get('position').value;
     var status = this.searchFormGroup.get('status').value;
     if (fullName == '') {
       fullName = '.all';
     }
-    console.log("id:" + roleId);
-    this.memberService.search(fullName, roleId, status).subscribe(result => {
+    this.memberService.search(fullName, position, status).subscribe(result => {
       this.members.length = result;
       this.setPagination();
     });
@@ -145,20 +140,18 @@ export class AdminManageMemberComponent implements OnInit {
 
   searchPage(page: number) {
     var fullName = this.searchFormGroup.get('fullName').value;
-    var roleId = this.searchFormGroup.get('roleId').value;
+    var position = this.searchFormGroup.get('position').value;
     var status = this.searchFormGroup.get('status').value;
     if (fullName == '') {
       fullName = '.all';
     }
-    console.log("id:" + roleId);
-    this.memberService.searchPage(fullName, roleId, status, page).subscribe(members => {
+    this.memberService.searchPage(fullName, position, status, page).subscribe(members => {
       this.members = members;
     });
   }
 
   blockAlert(member: Member) {
-    console.log("status block: " + member.status);
-
+    console.table( member);
     Swal.fire({
       title: 'Block member!',
       text: 'Are you sure you want to block member?',
@@ -169,7 +162,8 @@ export class AdminManageMemberComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //update action        
-        this.memberService.updateStatus(member.memberId, member.status).subscribe(() => {
+        var userId = localStorage.getItem('userId');
+        this.memberService.updateStatus(member).subscribe(() => {
           Swal.fire({
             icon: 'success',
             title: 'Block successful!',
@@ -184,7 +178,6 @@ export class AdminManageMemberComponent implements OnInit {
   }
 
   unblockAlert(member: Member) {
-    console.log("status unblock: " + member.status);
     Swal.fire({
       title: 'Unblock member!',
       text: 'Are you sure you want to unblock member?',
@@ -195,7 +188,7 @@ export class AdminManageMemberComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //update action        
-        this.memberService.updateStatus(member.memberId, member.status).subscribe(() => {
+        this.memberService.updateStatus(member).subscribe(() => {
           Swal.fire({
             icon: 'success',
             title: 'Unblock successful!',

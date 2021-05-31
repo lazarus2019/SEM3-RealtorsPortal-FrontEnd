@@ -5,10 +5,10 @@ export class Property {
     title: string;
     cityId: number;
     cityName: string;
-    cityRegionId: number;
-    cityRegionName: string;
-    cityRegionCountryId: number;
-    cityRegionCountryName: string;
+    citycountryId: number;
+    cityCountryName: string;
+    cityCountryRegionId: number;
+    cityCountryRegionName: string;
     address: string;
     price: number;
     bedNumber: number;

@@ -1,5 +1,4 @@
 export class Registration{
-    role: string;
     position: string;
     username: string;
     email: string;

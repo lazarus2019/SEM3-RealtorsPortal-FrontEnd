@@ -85,10 +85,11 @@ export class UserManagePropertyComponent implements OnInit {
   }
 
   loadData() {
-    this.propertyService.getAllProperty().subscribe((result) => {
+    var userId = localStorage.getItem('userId');
+    this.propertyService.getAllPropertyByMember(userId).subscribe((result) => {
       this.properties.length = result;
       this.setPagination();
-      this.getAllPropertyPage(1);
+      this.getAllPropertyPageByMember(1);
     });
   }
 
@@ -96,38 +97,39 @@ export class UserManagePropertyComponent implements OnInit {
   minusPage() {
     this.currentPage--;
     if (!this.isFilter) {
-      this.getAllPropertyPage(this.currentPage);
+      this.getAllPropertyPageByMember(this.currentPage);
     } else {
-      this.searchPage(this.currentPage);
+      this.searchPageByMember(this.currentPage);
     }
   }
 
   plusPage() {
     this.currentPage++;
     if (!this.isFilter) {
-      this.getAllPropertyPage(this.currentPage);
+      this.getAllPropertyPageByMember(this.currentPage);
     } else {
-      this.searchPage(this.currentPage);
+      this.searchPageByMember(this.currentPage);
     }
   }
 
   onSearch() {
     this.isFilter = true;
-    this.search();
-    this.searchPage(1);
+    this.searchByMember();
+    this.searchPageByMember(1);
   }
 
   executePropertyPerPage(page: number) {
     this.currentPage = page;
     if (!this.isFilter) {
-      this.getAllPropertyPage(this.currentPage);
+      this.getAllPropertyPageByMember(this.currentPage);
     } else {
-      this.searchPage(this.currentPage);
+      this.searchPageByMember(this.currentPage);
     }
   }
 
-  getAllPropertyPage(page: number) {
-    this.propertyService.getAllPropertyPage(page).subscribe((properties) => {
+  getAllPropertyPageByMember(page: number) {
+    var userId = localStorage.getItem('userId');
+    this.propertyService.getAllPropertyPageByMember(userId, page).subscribe((properties) => {
       this.properties = properties;
     })
   }
@@ -139,11 +141,12 @@ export class UserManagePropertyComponent implements OnInit {
     this.currentPage = 1;
   }
 
-  search() {
+  searchByMember() {
     var title = this.searchFormGroup.get('title').value;
     var partners = this.searchFormGroup.get('partners').value;
     var categoryId = this.searchFormGroup.get('categoryId').value;
     var statusId = this.searchFormGroup.get('statusId').value;
+    var userId = localStorage.getItem('userId');
 
     if (title == '') {
       title = '.all';
@@ -152,17 +155,18 @@ export class UserManagePropertyComponent implements OnInit {
       partners = '.all';
 
     }
-    this.propertyService.search(title, partners, categoryId, statusId).subscribe(result => {
+    this.propertyService.searchByMember(userId, title, partners, categoryId, statusId).subscribe(result => {
       this.properties.length = result;
       this.setPagination();
     });
   }
 
-  searchPage(page: number) {
+  searchPageByMember(page: number) {
     var title = this.searchFormGroup.get('title').value;
     var partners = this.searchFormGroup.get('partners').value;
     var categoryId = this.searchFormGroup.get('categoryId').value;
     var statusId = this.searchFormGroup.get('statusId').value;
+    var userId = localStorage.getItem('userId');
 
     if (title == '') {
       title = '.all';
@@ -171,7 +175,7 @@ export class UserManagePropertyComponent implements OnInit {
       partners = '.all';
 
     }
-    this.propertyService.searchPage(title, partners, categoryId, statusId, page).subscribe(properties => {
+    this.propertyService.searchPageByMember(userId, title, partners, categoryId, statusId, page).subscribe(properties => {
       this.properties = properties;
     });
   }

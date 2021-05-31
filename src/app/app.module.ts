@@ -11,6 +11,10 @@ import { AdminRoutingModule } from './area/admin/admin-routing.module';
 import { UserRoutingModule } from './area/user/user-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 // Admin area
 import { AdminComponent } from './area/admin/admin.component';
@@ -60,6 +64,8 @@ import { AuthInterceptor } from './authenticate/auth.interceptor';
 import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
 import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
 import { SuccessRegistrationComponent } from './area/user/registration/successRegistration.component';
+import { AddressService } from './services/address.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -138,10 +144,18 @@ import { SuccessRegistrationComponent } from './area/user/registration/successRe
     
     CommonModule,
 
+    AutocompleteLibModule,
+
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBoyhYKICzyoa19oidptJ79kitFVaPM_Uk',
       libraries: ['places']
-    })
+    }),
+
+    NoopAnimationsModule
 
   ],
   providers: [
@@ -150,6 +164,7 @@ import { SuccessRegistrationComponent } from './area/user/registration/successRe
     ImageService,
     PublicService,
     InvoiceService,
+    AddressService,
     AccountService, {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

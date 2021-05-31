@@ -74,10 +74,8 @@ export class EditPropertyComponent implements OnInit {
 
   editProperty() {
     this.updateProperty = this.editFormGroup.value;
-    console.log(this.updateProperty);
     this.updateProperty.memberId = this.property.memberId;
     this.updateProperty.statusId = this.property.statusId;
-  //this.updateProperty.cityId = this.property.cityId;
     this.propertyService.updateProperty(this.updateProperty).subscribe(() => {
       this.uploadImage();
       if (this.listImageDelete != null) {
@@ -99,7 +97,7 @@ export class EditPropertyComponent implements OnInit {
           if (this.successImage === this.numberImage) {
             this.imageForm = [];
             this.urls = [];
-            alertFunction.success("Upload gallery success!");
+            //alertFunction.success("Upload gallery success!");
           }
         },
         err => {

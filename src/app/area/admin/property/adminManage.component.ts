@@ -70,11 +70,6 @@ export class AdminManagePropertyComponent implements OnInit {
     //get data
     this.loadData();
 
-    //get role
-    this.roleService.getAllRole().subscribe((roles) => {
-      //this.roles = roles;
-    });
-
     //get status
     this.statusService.getAllStatus().subscribe((statuses) => {
       this.statuses = statuses;

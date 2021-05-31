@@ -1,13 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PropertyService } from 'src/app/services/property.service';
 
 @Component({
   templateUrl: './admin.component.html',
 })
-export class AdminComponent {
-  constructor() {
+export class AdminComponent implements OnInit {
+  constructor(private propertyService: PropertyService) {
     this.loadScripts();
     this.loadStyle();
   }
+
+  count: number;
+
+  ngOnInit(): void {
+    this.propertyService.countPropertyPending().subscribe(count => {
+      this.count = count;
+    })
+  }
+
+
 
   // Method to dynamically load JavaScript
   loadScripts() {

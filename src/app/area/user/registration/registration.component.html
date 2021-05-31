@@ -11,19 +11,27 @@
                 <form [formGroup]="registrationForm" autocomplete="off" novalidate (ngSubmit)="onSubmit(registrationForm.value)">
                     <div class="formGroup">
                         <div class="input-group">
-                            <select class="custom-select" formControlName="role" style="background: #fafafa;">
+                            <select class="custom-select" formControlName="position" style="background: #fafafa;">
                                 <option value="op" selected hidden>Which partner do you want to be?</option>
-                                <option value="Admin">Agent</option>
-                                <option value="Admin">Private Seller</option>
-                                <option value="User">Customer</option>
+                                <option value="Agent">Agent</option>
+                                <option value="Private Seller">Private Seller</option>
+                                <option value="Customer">Customer</option>
                             </select>
                         </div>
                     </div>
                     <div class="formGroup">
                         <div class="input-group">
                             <input class="input--style-4" type="text"
+                            name="fullName"
                             placeholder="FullName" formControlName="fullName" required>
                         </div>
+
+                        <!-- <ng-container *ngIf="showValidationErrors && fullName.invalid">
+                            <p *ngIf="fullName.errors.required">
+                                Please enter a note title
+                            </p>
+                         
+                        </ng-container> -->
                       
                     </div>
                     <div class="formGroup">

@@ -1,5 +1,4 @@
-/// <reference path="../../../../../node_modules/@types/googlemaps/index.d.ts"/>
-import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ImageService } from 'src/app/services/imageService.service';
 import { Property } from '../../../shared/property.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
@@ -10,15 +9,22 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { AdsPackageService } from 'src/app/services/ads-package.service';
 import { MapsAPILoader } from '@agm/core';
-//import {} from '@types/googlemaps';
+import { AddressService } from 'src/app/services/address.service';
+import { Region } from 'src/app/shared/region.model';
+import { Country } from 'src/app/shared/country.model';
+import { City } from 'src/app/shared/city.model';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { startWith, map } from 'rxjs/operators';
+
+
+import { Observable, Subject } from 'rxjs';
 declare var alertFunction: any;
 declare var getTinyMCEContent: any;
+
 @Component({
   templateUrl: './addNew.component.html'
 })
 export class AddNewPropertyComponent implements OnInit {
-
-  @ViewChild('address') public searchElement: ElementRef;
 
   constructor(
     private imageService: ImageService,
@@ -29,7 +35,7 @@ export class AddNewPropertyComponent implements OnInit {
     private propertyService: PropertyService,
     private categoryService: CategoryService,
     private adsPackageService: AdsPackageService,
-
+    private addressService: AddressService
   ) {
     this.loadScripts();
   }
@@ -47,14 +53,31 @@ export class AddNewPropertyComponent implements OnInit {
 
   addFormGroup: FormGroup;
 
+  keyword: "name";
+
+  regions: Region[];
+
+  countries$: Observable<any[]>;
+
+  cities: City[];
+
+
   public ngOnInit(): void {
-    //check expiry date
-    this.checkExpiryDate();
-
     //check to add new property
-    this.checkToAddProperty();
+    if (this.checkBuyPackage() != true) {
+      this.checkBuyPackage();
+    } else {
+      this.checkToAddProperty();
+      this.checkExpiryDate();
+    }
 
-    //this.loadAPI();
+    //get Region
+    this.getAllRegion();
+    //get Country
+    this.getAllCountry();
+
+    //get City
+    this.getAllCity();
 
     //get category 
     this.categoryService.getAllCategory().subscribe(categories => {
@@ -78,22 +101,58 @@ export class AddNewPropertyComponent implements OnInit {
     });
   }
 
-  loadAPI() {
-    this.MapAPILoader.load().then(
-      () => {
-        let autoComplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types: ["address"]});
+  selectEvent(item: any) {
 
-        autoComplete.addListener("place_changed", () => {
-          this.ngZone.run(() => {
-            let place: google.maps.places.PlaceResult = autoComplete.getPlace();
+  }
 
-            if(place.geometry === undefined || place.geometry === null){
-              return;
-            }
-          });
+  onChangeSearch(search: string){
+
+  }
+
+  onFocused(e: any) {
+
+  }
+
+  getAllRegion() {
+    this.addressService.getAllRegion().subscribe(region => {
+      this.regions = region;
+      console.table(this.regions);
+    })
+  }
+
+  getAllCountry() {
+    this.countries$ = this.addressService.getAllCountry();
+  }
+
+  getAllCity() {
+    this.addressService.getAllCity().subscribe(city => {
+      this.cities = city;
+    })
+  }
+
+  checkBuyPackage(): boolean {
+    var userId = localStorage.getItem('userId');
+    this.propertyService.checkBuyPackage(userId).subscribe(res => {
+      if (res == false) {
+        Swal.fire({
+          title: 'Buy Package!',
+          text: 'please buy the package to add posts?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }).then((result) => {
+
+          if (result.isConfirmed) {
+            this.router.navigateByUrl('/admin/adPackage');
+          } else {
+            this.router.navigateByUrl('/admin/userManage');
+          }
         });
       }
-    );
+      return true;
+    })
+    return false;
   }
 
   checkToAddProperty() {

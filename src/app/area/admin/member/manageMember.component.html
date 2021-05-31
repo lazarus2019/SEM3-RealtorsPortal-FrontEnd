@@ -17,10 +17,11 @@
                             <div class="col-md-3 mb-1 flex-fill">
                                 <select class="form-control select2 select2-hidden-accessible" id="example1"
                                     name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                    formControlName="roleId" required="required">
-                                    <option value="all" selected="selected">All role</option>
-                                    <option *ngFor="let role of roles" value="{{role.name}}"
-                                        [hidden]="role.name == 'SuperAdmin'">{{role.name}}</option>
+                                    formControlName="position" required="required">
+                                    <option value="all" selected="selected">All position</option>
+                                    <option value="Agent" selected="selected">Agent</option>
+                                    <option value="Private Seller" selected="selected">Private Seller</option>
+                                    <option value="Customer" selected="selected">Customer</option>
                                 </select>
                             </div>
                             <div class="col-md-3 mb-1 flex-fill">

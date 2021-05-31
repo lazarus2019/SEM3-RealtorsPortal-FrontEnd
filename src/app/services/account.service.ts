@@ -27,17 +27,6 @@ export class AccountService {
         return this.http.post<MailRequest>(this.baseUrl + '/sendEmail', mailRequest, httpOptions);
     }
 
-    comparePasswords(fb: FormGroup) {
-        let confirmPswrdCtrl = fb.get('confirmPassword');
-        if (confirmPswrdCtrl.errors == null || 'passwordMismatch' in confirmPswrdCtrl.errors) {
-            if (fb.get('password').value != confirmPswrdCtrl.value) {
-                confirmPswrdCtrl.setErrors({ passwordMismatch: true });
-            } else {
-                confirmPswrdCtrl.setErrors(null);
-            }
-        }
-    }
-
     register(registration: Registration) {
         return this.http.post<void>(this.baseUrl + '/register', registration, httpOptions);
     }
