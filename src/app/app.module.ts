@@ -57,6 +57,7 @@ import { ShareFormService } from './services/user/shareFormSearchData';
 import { ResultComponent } from './area/user/listing/searchResult.component';
 import { MailboxService } from './services/user/mailbox.service';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { MyCategoryComponent } from './area/user/tagHelper/mycategory.component';
 
 
 @NgModule({
@@ -106,6 +107,9 @@ import { NgImageSliderModule } from 'ng-image-slider';
     CategoryComponent,
     LoginComponent,
     ResultComponent,
+
+    //TagHelper
+    MyCategoryComponent,
 
     //Pipe 
     SafePipe

@@ -1,5 +1,5 @@
 export class SettingModel {
-        SettingId : number
+        settingId : number
         numTopProperty : number
         numPopularLocation : number
         numNews : number

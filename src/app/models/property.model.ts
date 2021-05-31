@@ -3,7 +3,7 @@ import { ImageModel } from "./image.model";
 export class PropertyModel {
     propertyId: number ; 
     title :string ;
-    cityId : string ;
+    cityId : number ;
     cityName : string ;
     address : string ;
     googleMap : string ;  
@@ -22,6 +22,8 @@ export class PropertyModel {
     memberId : number ; 
     memberName : string ; 
     memberType : string ;
+    memberEmail : string ;
+    memberPhone : string ;
     description : string ;
     images : ImageModel[]
 

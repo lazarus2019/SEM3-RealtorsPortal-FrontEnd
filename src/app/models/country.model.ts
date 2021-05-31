@@ -1,7 +1,7 @@
 import { CityModel } from "./city.model"
 
 export class CountryModel{
-    countryId : string 
+    countryId : number 
     name : string 
-    citys : CityModel[] 
+    cities : CityModel[] 
 }

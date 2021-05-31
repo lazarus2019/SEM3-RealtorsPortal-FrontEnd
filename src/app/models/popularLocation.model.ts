@@ -1,5 +1,5 @@
 export class PopularLocations { 
-    categoryId : number ; 
+    cityId : number ; 
     name : string 
     numberProperties : number
 }

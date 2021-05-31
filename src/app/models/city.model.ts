@@ -1,4 +1,5 @@
 export class CityModel{
-    cityId : string 
+    cityId : number 
     name : string 
+   
 }
