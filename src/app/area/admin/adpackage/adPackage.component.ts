@@ -17,6 +17,20 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
     this.loadScripts();
     this.loadStyle();
   }
+  // Pagination 
+  isFilter = false;
+
+  NoNum: number = 10;
+
+  currentPage: number = 0;
+
+  adPackageLength: number = 0;
+
+  adPackageLengthArray = Array<string>();
+
+  adPackagePerPage: number = 10;
+
+  adsPackagePer: number = 0;
 
   adsPackages: AdsPackage[] = [];
 
@@ -52,7 +66,6 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
     },
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
-        console.table(payment);
         this.invoice.name = payment.payer.payer_info.first_name + ' ' + payment.payer.payer_info.last_name;
         this.invoice.created = payment.create_time;
         this.invoice.paymentMethod = payment.payer.payment_method;
@@ -65,7 +78,7 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
         if (payment != null) {
           var userId = localStorage.getItem('userId');
           this.invoiceService.createInvoice(userId, this.invoice).subscribe(() => {
-            this.adsPackageService.createAdsPackageDetail(this.adsPackageDetail).subscribe(() => {
+            this.adsPackageService.createAdsPackageDetail(this.adsPackageDetail, userId).subscribe(() => {
               alertFunction.payment();
             });
           }, err => {
@@ -96,9 +109,7 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     //Get Ad package
-    this.adsPackageService.getAllAdsPackageForSalePage().subscribe(adsPackages => {
-      this.adsPackages = adsPackages;
-    });
+    this.loadData();
 
     //Get max price
     this.adsPackageService.getMaxPrice().subscribe(maxPrice => {
@@ -116,6 +127,62 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
     this.adsPackage = adsPackage;
   }
 
+  
+  loadData() {
+    this.adsPackageService.getAllAdsPackageForSalePage().subscribe((result) => {
+      this.adsPackages.length = result;
+      this.setPagination();
+      this.getAllAdsPackageForSalePagePerPage(1);
+    });
+  }
+
+
+  minusPage() {
+    this.currentPage--;
+    if(!this.isFilter){
+      this.getAllAdsPackageForSalePagePerPage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  plusPage() {
+    this.currentPage++;
+    if(!this.isFilter){
+      this.getAllAdsPackageForSalePagePerPage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  onSearch() {
+    this.isFilter = true;
+    this.search();
+    this.searchPage(1);
+  }
+
+  executeAdPackagePerPage(page:number){
+    this.currentPage = page;
+    if(!this.isFilter){
+      this.getAllAdsPackageForSalePagePerPage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  getAllAdsPackageForSalePagePerPage(page: number){
+    this.adsPackageService.getAllAdsPackageForSalePagePerPage(page).subscribe((adsPackages) => {
+      this.adsPackages = adsPackages;
+    })
+  }
+
+  setPagination() {
+    this.adPackageLength = this.adsPackages.length;
+    this.adsPackagePer = Math.ceil(this.adPackageLength / this.adPackagePerPage);
+    this.adPackageLengthArray = new Array(this.adsPackagePer);
+    this.currentPage = 1;
+  }
+
   search() {
     var price = this.searchFormGroup.get('price').value;
     var name = this.searchFormGroup.get('name').value;
@@ -126,7 +193,23 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
       name = '.all';
     }
     var status = 'true';
-    this.adsPackageService.search(name, status, price).subscribe(adsPackages => {
+    this.adsPackageService.search(name, status, price).subscribe(result => {
+      this.adsPackages.length = result;
+      this.setPagination();
+    });
+  }
+
+  searchPage(page: number) {
+    var price = this.searchFormGroup.get('price').value;
+    var name = this.searchFormGroup.get('name').value;
+    if (price == '') {
+      price = '.all';
+    }
+    if (name == '') {
+      name = '.all';
+    }
+    var status = 'true';
+    this.adsPackageService.searchPage(name, status, price, page).subscribe(adsPackages => {
       this.adsPackages = adsPackages;
     });
   }

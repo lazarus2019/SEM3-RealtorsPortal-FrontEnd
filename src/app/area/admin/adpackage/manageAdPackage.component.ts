@@ -17,6 +17,21 @@ export class AdminManageAdPackageComponent implements OnInit {
     this.loadStyle();
   }
 
+  // Pagination 
+  isFilter = false;
+
+  NoNum: number = 10;
+
+  currentPage: number = 0;
+
+  adPackageLength: number = 0;
+
+  adPackageLengthArray = Array<string>();
+
+  adPackagePerPage: number = 10;
+
+  adsPackagePer: number = 0;
+
   adsPackages: AdsPackage[] = [];
 
   adsPackage: AdsPackage;
@@ -66,22 +81,87 @@ export class AdminManageAdPackageComponent implements OnInit {
   }
 
   loadData() {
-    this.adsPackageService.getAllAdsPackage().subscribe(adsPackages => {
-      this.adsPackages = adsPackages;
+    this.adsPackageService.getAllAdsPackage().subscribe((result) => {
+      this.adsPackages.length = result;
+      this.setPagination();
+      this.getAllAdsPackagePage(1);
     });
+  }
+
+
+  minusPage() {
+    this.currentPage--;
+    if(!this.isFilter){
+      this.getAllAdsPackagePage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  plusPage() {
+    this.currentPage++;
+    if(!this.isFilter){
+      this.getAllAdsPackagePage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  onSearch() {
+    this.isFilter = true;
+    this.search();
+    this.searchPage(1);
+  }
+
+  executeAdPackagePerPage(page:number){
+    this.currentPage = page;
+    if(!this.isFilter){
+      this.getAllAdsPackagePage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  getAllAdsPackagePage(page: number){
+    this.adsPackageService.getAllAdsPackagePage(page).subscribe((adsPackages) => {
+      this.adsPackages = adsPackages;
+    })
+  }
+
+  setPagination() {
+    this.adPackageLength = this.adsPackages.length;
+    this.adsPackagePer = Math.ceil(this.adPackageLength / this.adPackagePerPage);
+    this.adPackageLengthArray = new Array(this.adsPackagePer);
+    this.currentPage = 1;
   }
 
   search() {
     var price = this.searchFormGroup.get('price').value;
     var name = this.searchFormGroup.get('name').value;
-    if(price == ''){
+    if (price == '') {
       price = '.all';
     }
-    if(name == ''){
+    if (name == '') {
       name = '.all';
     }
-    var status = 'all';
-    this.adsPackageService.search(name,status, price).subscribe(adsPackages => {
+    var status = 'true';
+    this.adsPackageService.search(name, status, price).subscribe(result => {
+      this.adsPackages.length = result;
+      this.setPagination();
+    });
+  }
+
+  searchPage(page: number) {
+    var price = this.searchFormGroup.get('price').value;
+    var name = this.searchFormGroup.get('name').value;
+    if (price == '') {
+      price = '.all';
+    }
+    if (name == '') {
+      name = '.all';
+    }
+    var status = 'true';
+    this.adsPackageService.searchPage(name, status, price, page).subscribe(adsPackages => {
       this.adsPackages = adsPackages;
     });
   }
@@ -141,9 +221,9 @@ export class AdminManageAdPackageComponent implements OnInit {
           timer: 1500
         });
       }
-      //reload page
-      this.ngOnInit();
     })
+    //reload page
+    this.ngOnInit();
   }
   unlockAlert(adsPackage: AdsPackage) {
     //change status to update
@@ -170,9 +250,9 @@ export class AdminManageAdPackageComponent implements OnInit {
           timer: 1500
         });
       }
-      //reload page
-      this.ngOnInit();
     })
+    //reload page
+    this.ngOnInit();
   }
 
   deleteAlert(packageId: number) {

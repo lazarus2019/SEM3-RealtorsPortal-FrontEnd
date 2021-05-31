@@ -53,26 +53,26 @@
                                     <tbody>
                                         <ng-container *ngFor="let adsPackage of adsPackages index as i">
                                             <tr>
-                                                <td>{{i+1}}</td>
-                                                <td>{{adsPackage.nameAdPackage}}</td>
-                                                <td>{{adsPackage.period}}</td>
-                                                <td>${{adsPackage.price}}</td>
-                                                <td>{{adsPackage.postNumber}}</td>
-                                                <td>{{adsPackage.description}}</td>
-                                                <td>{{adsPackage.statusBuy ? 'On sale' : 'Stop selling'}}</td>
+                                                <td class="sorting_1">{{NoNum*(currentPage-1)+1 + i}}</td>
+                                                <td>{{adsPackage?.nameAdPackage}}</td>
+                                                <td>{{adsPackage?.period}}</td>
+                                                <td>${{adsPackage?.price}}</td>
+                                                <td>{{adsPackage?.postNumber}}</td>
+                                                <td>{{adsPackage?.description}}</td>
+                                                <td>{{adsPackage?.statusBuy ? 'On sale' : 'Stop selling'}}</td>
                                                 <td>
                                                     <a class="btn btn-primary btn-sm btn-block "
-                                                        *ngIf="adsPackage.statusBuy == true"
+                                                        *ngIf="adsPackage?.statusBuy == true"
                                                         (click)="lockAlert(adsPackage)"><i class="fas fa-lock "></i>
                                                         Lock</a>
                                                     <a class="btn btn-primary btn-sm btn-block "
-                                                        *ngIf="adsPackage.statusBuy == false"
+                                                        *ngIf="adsPackage?.statusBuy == false"
                                                         (click)="unlockAlert(adsPackage)"><i
                                                             class="fas fa-lock-open "></i>
                                                         Unlock</a>
                                                     <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
                                                         data-target="#editAdPackage"
-                                                        (click)="onEdit(adsPackage.packageId)"><i
+                                                        (click)="onEdit(adsPackage?.packageId)"><i
                                                             class="fas fa-pencil-alt "></i>
                                                         Edit</a>
                                                     <a class="btn btn-danger btn-sm btn-block mt-2 "
@@ -90,6 +90,29 @@
                 </div>
             </div>
             <!-- end card-->
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > adPackageLength?
+                        adPackageLength :
+                        currentPage*10}} of {{adPackageLength}} entries
+                    </div>
+                    <div aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <ng-container *ngIf="currentPage!==1">
+                                <li (click)="minusPage()" class="page-item"><a class="page-link">Previous</a></li>
+                            </ng-container>
+                            <ng-container *ngFor="let in of adPackageLengthArray; index as i">
+                                <li (click)="executeAdPackagePerPage(i+1)" class="page-item"><a
+                                        class="page-link">{{i+1}}</a></li>
+                            </ng-container>
+                            <ng-container *ngIf="currentPage !== adsPackagePer">
+                                <li (click)="plusPage()" class="page-item"><a class="page-link">Next</a></li>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

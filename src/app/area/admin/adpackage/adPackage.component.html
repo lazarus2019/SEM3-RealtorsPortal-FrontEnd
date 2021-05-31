@@ -14,8 +14,8 @@
                             <div class="col-md-4 mb-1 flex-fill">
                                 <div class="range-wrap">
                                     <div class="range-value" id="rangeV">Price below: ${{maxPrice}}</div>
-                                    <input id="range" type="range" min="1" max="{{maxPrice}}" value="{{maxPrice}}" step="2"
-                                        formControlName="price">
+                                    <input id="range" type="range" min="1" max="{{maxPrice}}" value="{{maxPrice}}"
+                                        step="2" formControlName="price">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-1 flex-fill">
@@ -23,7 +23,7 @@
                                     formControlName="name">
                             </div>
                             <div class="col-md-2 mb-1 flex-fill">
-                                <button type="submit" (click)="search()" class="btn btn-primary">Search</button>
+                                <button type="submit" (click)="onSearch()" class="btn btn-primary">Search</button>
                             </div>
                         </div>
 
@@ -51,16 +51,17 @@
                                     <tbody>
                                         <ng-container *ngFor="let adsPackage of adsPackages index as i">
                                             <tr>
-                                                <td>{{i+1}}</td>
-                                                <td>{{adsPackage.nameAdPackage}}</td>
-                                                <td>{{adsPackage.period}}</td>
-                                                <td>${{adsPackage.price}}</td>
-                                                <td>{{adsPackage.postNumber}}</td>
-                                                <td>{{adsPackage.description}}</td>
+                                                <td class="sorting_1">{{NoNum*(currentPage-1)+1 + i}}</td>
+
+                                                <td>{{adsPackage?.nameAdPackage}}</td>
+                                                <td>{{adsPackage?.period}}</td>
+                                                <td>${{adsPackage?.price}}</td>
+                                                <td>{{adsPackage?.postNumber}}</td>
+                                                <td>{{adsPackage?.description}}</td>
                                                 <td>
-                                                    <a class="btn btn-danger btn-sm btn-block mt-2" (click)="buyBow(adsPackage)" data-toggle="modal"
-                                                        data-target="#payment"><i
-                                                            class="fas fa-shopping-bag "></i>
+                                                    <a class="btn btn-danger btn-sm btn-block mt-2"
+                                                        (click)="buyBow(adsPackage)" data-toggle="modal"
+                                                        data-target="#payment"><i class="fas fa-shopping-bag "></i>
                                                         Buy Now!</a>
                                                 </td>
                                         </ng-container>
@@ -74,6 +75,29 @@
                 </div>
             </div>
             <!-- end card-->
+        </div>
+        <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <div>
+                    Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > adPackageLength?
+                    adPackageLength :
+                    currentPage*10}} of {{adPackageLength}} entries
+                </div>
+                <div aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <ng-container *ngIf="currentPage!==1">
+                            <li (click)="minusPage()" class="page-item"><a class="page-link">Previous</a></li>
+                        </ng-container>
+                        <ng-container *ngFor="let in of adPackageLengthArray; index as i">
+                            <li (click)="executeAdPackagePerPage(i+1)" class="page-item"><a
+                                    class="page-link">{{i+1}}</a></li>
+                        </ng-container>
+                        <ng-container *ngIf="currentPage !== adsPackagePer">
+                            <li (click)="plusPage()" class="page-item"><a class="page-link">Next</a></li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -89,7 +113,7 @@
             </div>
             <div class="modal-body" style="max-width: 100%;">
                 <div class="text-center" id="paypal-checkout">
-                    
+
                 </div>
             </div>
             <div class="modal-footer">

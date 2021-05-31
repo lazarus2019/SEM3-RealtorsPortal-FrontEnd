@@ -20,12 +20,20 @@ export class AdsPackageService {
 
   constructor(private http: HttpClient) { }
 
-  getAllAdsPackage(): Observable<AdsPackage[]> {
-    return this.http.get<AdsPackage[]>(this.baseUrl + '/getall');
+  getAllAdsPackage(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + '/getall');
   }
 
-  getAllAdsPackageForSalePage(): Observable<AdsPackage[]> {
-    return this.http.get<AdsPackage[]>(this.baseUrl + '/getallforsalepage');
+  getAllAdsPackagePage(page: number): Observable<AdsPackage[]> {
+    return this.http.get<AdsPackage[]>(this.baseUrl + '/getall/' + page);
+  }
+
+  getAllAdsPackageForSalePage(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + '/getallforsalepage');
+  }
+
+  getAllAdsPackageForSalePagePerPage(page: number): Observable<AdsPackage[]> {
+    return this.http.get<AdsPackage[]>(this.baseUrl + '/getallforsalepage/' + page);
   }
 
   getMaxPrice(): Observable<number> {
@@ -59,19 +67,18 @@ export class AdsPackageService {
     return this.http.post<void>(this.baseUrl + '/create', adsPackage, httpOptions);
   }
   
-  createAdsPackageDetail(adsPackageDetail: AdsPackageDetail): Observable<void> {
-    return this.http.post<void>(this.baseUrl + '/createadsdetail', adsPackageDetail, httpOptions);
+  createAdsPackageDetail(adsPackageDetail: AdsPackageDetail, userId: string): Observable<void> {
+    return this.http.post<void>(this.baseUrl + '/createadsdetail/' + userId, adsPackageDetail, httpOptions);
   }
 
-  search(name: string,status: string, price: string): Observable<AdsPackage[]> {
+  search(name: string,status: string, price: string): Observable<number> {
     var url = `${this.baseUrl}/search/${name}/${status}/${price}`; 
-    return this.http.get<AdsPackage[]>(url).pipe(
+    return this.http.get<number>(url);
+  }
 
-      retry(1),
- 
-      catchError(this.handleError)
- 
-    );
+  searchPage(name: string,status: string, price: string, page: number): Observable<AdsPackage[]> {
+    var url = `${this.baseUrl}/search/${name}/${status}/${price}/${page}`; 
+    return this.http.get<AdsPackage[]>(url);
   }
 
   

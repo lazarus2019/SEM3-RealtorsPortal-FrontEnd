@@ -22,10 +22,7 @@ export class AccountService {
     private baseUrl = 'http://localhost:5000/api/account';
 
     constructor(private fb: FormBuilder, private http: HttpClient) { }
-
-   
-
-
+    
     SendEmail(mailRequest: MailRequest): Observable<MailRequest> {
         return this.http.post<MailRequest>(this.baseUrl + '/sendEmail', mailRequest, httpOptions);
     }
@@ -60,9 +57,13 @@ export class AccountService {
     };
 
 
-    public resetPassword = (resetPassword: ResetPassword) => {
+    public resetPassword(resetPassword: ResetPassword) {
         const url = `${this.baseUrl}/resetpassword`;
         return this.http.post(url, resetPassword);
+    }
+
+    resendEmailConfirm(registration: Registration){
+        return this.http.post<void>(this.baseUrl + '/resendemailconfirm', registration, httpOptions);
     }
 
     roleMatch(allowedRoles): boolean {

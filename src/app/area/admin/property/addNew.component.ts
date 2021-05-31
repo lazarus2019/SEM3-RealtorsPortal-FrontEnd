@@ -145,9 +145,9 @@ export class AddNewPropertyComponent implements OnInit {
 
   createProperty() {
     this.property = this.addFormGroup.value;
-    this.property.cityId = "kr_south_seo";
+    var userId = localStorage.getItem('userId');
     this.property.description = getTinyMCEContent();
-    this.propertyService.createProperty(this.property).subscribe(propertyId => {
+    this.propertyService.createProperty(this.property, userId).subscribe(propertyId => {
       console.log("pId: " + propertyId);
       this.uploadImage(propertyId.toString());
       alertFunction.success("Add New Property", "Successfully added!")

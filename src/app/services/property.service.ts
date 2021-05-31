@@ -21,8 +21,12 @@ export class PropertyService {
 
   constructor(private http: HttpClient) { }
 
-  getAllProperty(): Observable<Property[]> {
-    return this.http.get<Property[]>(this.baseUrl);
+  getAllProperty(): Observable<number> {
+    return this.http.get<number>(this.baseUrl);
+  }
+
+  getAllPropertyPage(page: number): Observable<Property[]> {
+    return this.http.get<Property[]>(this.baseUrl + "/getallpage/" + page);
   }
 
   getPropertyById(propertyId: number): Observable<Property> {
@@ -30,8 +34,13 @@ export class PropertyService {
     return this.http.get<Property>(url);
   }
 
-  search(title: string, partners: string, categoryId: string, status: string): Observable<Property[]> {
+  search(title: string, partners: string, categoryId: string, status: string): Observable<number> {
     var url = `${this.baseUrl}/search/${title}/${partners}/${categoryId}/${status}`; 
+    return this.http.get<number>(url);
+  }
+
+  searchPage(title: string, partners: string, categoryId: string, status: string, page: number): Observable<Property[]> {
+    var url = `${this.baseUrl}/search/${title}/${partners}/${categoryId}/${status}/${page}`; 
     return this.http.get<Property[]>(url);
   }
 
@@ -55,8 +64,8 @@ export class PropertyService {
     return this.http.delete<void>(url);
   }
 
-  createProperty(property: Property): Observable<number> {
-    return this.http.post<number>(this.baseUrl + '/create', property, httpOptions);
+  createProperty(property: Property, userId: string): Observable<number> {
+    return this.http.post<number>(this.baseUrl + '/create/' + userId, property, httpOptions);
   }
 
   getGallery(propertyId: number): Observable<Image[]> {

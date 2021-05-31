@@ -59,6 +59,7 @@ import { AccountService } from './services/account.service';
 import { AuthInterceptor } from './authenticate/auth.interceptor';
 import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
 import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
+import { SuccessRegistrationComponent } from './area/user/registration/successRegistration.component';
 
 
 @NgModule({
@@ -111,6 +112,7 @@ import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.com
     //login-Registration
     LoginComponent,
     RegistrationComponent,
+    SuccessRegistrationComponent,
     ForgetPasswordComponent,
     ResetPasswordComponent,
     ConfirmEmailComponent

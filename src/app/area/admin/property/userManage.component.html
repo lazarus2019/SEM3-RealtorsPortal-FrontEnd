@@ -70,43 +70,40 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <ng-container *ngFor="let property of properties index as i">
-                                            <tr role="row" class="odd">
-                                                <td>{{i+1}}</td>
-                                                <td>{{property.title}}</td>
-                                                <td>
-                                                    <img src="https://via.placeholder.com/180x120g" alt=""
-                                                        style="width: 100%; max-height: 150px;">
-                                                </td>
-                                                <td>{{property.category.name}}</td>
-                                                <td>{{property.uploadDate | date: 'dd/MM/y'}}</td>
-                                                <td>{{property.status.name}}</td>
-                                                <td>
-                                                    <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                                        data-target="#details"
-                                                        (click)="onDetails(property.propertyId)"><i
-                                                            class="fas fa-info-circle "></i>
-                                                        Details</a>
-                                                    <a class="btn btn-primary btn-sm btn-block "
-                                                        *ngIf="property.status.name != 'Pending' && property.status.name != 'Sold'"
-                                                        [routerLink]="['/admin/editProperty']" [state]="property"><i
-                                                            class="fas fa-pencil-alt "></i> Edit</a>
-                                                    <a class="btn btn-primary btn-sm btn-block mt-2 "
-                                                        *ngIf="property.status.name != 'Pending' && property.statusName != 'Sold' && property.status.name == 'Activate'"
-                                                        (click)="changeStatus(property.propertyId)" data-toggle="modal"
-                                                        data-target="#changeStatus"><i class="fas fa-exchange-alt "></i>
-                                                        Status</a>
-                                                    <a class="btn btn-primary btn-sm btn-block mt-2" *ngIf="property.status.name == 'Deactivate' || property.status.name == 'Rented'"
-                                                        (click)="activateAlert(property)"><i
-                                                            class="fas fa-trash "></i>
-                                                        Activate</a>
-                                                    <a class="btn btn-danger btn-sm btn-block mt-2 "
-                                                        (click)="deleteAlert(property.propertyId)"><i
-                                                            class="fas fa-trash "></i>
-                                                        Delete</a>
-                                                </td>
-                                            </tr>
-                                        </ng-container>
+                                        <tr role="row" class="odd" *ngFor="let property of properties index as i">
+                                            <td class="sorting_1">{{NoNum*(currentPage-1)+1 + i}}</td>
+                                            <td>{{property?.title}}</td>
+                                            <td>
+                                                <img src="https://via.placeholder.com/180x120g" alt=""
+                                                    style="width: 100%; max-height: 150px;">
+                                            </td>
+                                            <td>{{property?.category.name}}</td>
+                                            <td>{{property?.uploadDate | date: 'dd/MM/y'}}</td>
+                                            <td>{{property?.status.name}}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
+                                                    data-target="#details" (click)="onDetails(property.propertyId)"><i
+                                                        class="fas fa-info-circle "></i>
+                                                    Details</a>
+                                                <a class="btn btn-primary btn-sm btn-block "
+                                                    *ngIf="property?.status.name != 'Pending' && property?.status.name != 'Sold'"
+                                                    [routerLink]="['/admin/editProperty']" [state]="property"><i
+                                                        class="fas fa-pencil-alt "></i> Edit</a>
+                                                <a class="btn btn-primary btn-sm btn-block mt-2 "
+                                                    *ngIf="property?.status.name != 'Pending' && property?.statusName != 'Sold' && property?.status.name == 'Activate'"
+                                                    (click)="changeStatus(property.propertyId)" data-toggle="modal"
+                                                    data-target="#changeStatus"><i class="fas fa-exchange-alt "></i>
+                                                    Status</a>
+                                                <a class="btn btn-primary btn-sm btn-block mt-2"
+                                                    *ngIf="property?.status.name == 'Deactivate' || property?.status.name == 'Rented'"
+                                                    (click)="activateAlert(property)"><i class="fas fa-trash "></i>
+                                                    Activate</a>
+                                                <a class="btn btn-danger btn-sm btn-block mt-2 "
+                                                    (click)="deleteAlert(property.propertyId)"><i
+                                                        class="fas fa-trash "></i>
+                                                    Delete</a>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -122,8 +119,31 @@
         <!-- end card-->
 
     </div>
-
+    <div class="col-12">
+        <div class="d-flex justify-content-between">
+            <div>
+                Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > PropertyLength? PropertyLength
+                :
+                currentPage*10}} of {{PropertyLength}} entries
+            </div>
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <ng-container *ngIf="currentPage!==1">
+                        <li (click)="minusPage()" class="page-item"><a class="page-link">Previous</a></li>
+                    </ng-container>
+                    <ng-container *ngFor="let in of PropertyLengthArray; index as i">
+                        <li (click)="executePropertyPerPage(i+1)" class="page-item"><a class="page-link">{{i+1}}</a>
+                        </li>
+                    </ng-container>
+                    <ng-container *ngIf="currentPage !== PropertyPer">
+                        <li (click)="plusPage()" class="page-item"><a class="page-link">Next</a></li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
 <!--Modal of Details-->
 <div class="modal fade bd-example-modal-lg" id="details" tabindex="-1" role="dialog" aria-labelledby="details"
     aria-hidden="true">
@@ -277,18 +297,18 @@
             </div>
             <div class="modal-body ">
                 <div class="text-center" *ngIf="property?.statusName == 'Activate'">
-                    <button type="button" (click)="deactivateAlert(property)" style="width: 70%;"
+                    <button type="button" (click)="deactivateAlert(property)" style="width: 70%;" data-dismiss="modal"
                         class="btn btn-primary btn-lg"><i class="fas fa-toggle-off"></i> Deactivate</button>
                     <hr>
                 </div>
                 <div class="text-center" *ngIf="property?.statusName == 'Activate'">
-                    <button type="button" (click)="sellAlert(property)" style="width: 70%;" class="btn btn-primary btn-lg"><i
-                            class="fas fa-arrow-right"></i> Sell</button>
+                    <button type="button" (click)="sellAlert(property)" style="width: 70%;" data-dismiss="modal"
+                        class="btn btn-primary btn-lg"><i class="fas fa-arrow-right"></i> Sell</button>
                     <hr>
                 </div>
                 <div class="text-center" *ngIf="property?.statusName == 'Activate'">
-                    <button type="button" (click)="rentAlert(property)" style="width: 70%;" class="btn btn-primary btn-lg"><i
-                            class="fas fa-arrows-alt-h"></i> Rent</button>
+                    <button type="button" (click)="rentAlert(property)" style="width: 70%;" data-dismiss="modal"
+                        class="btn btn-primary btn-lg"><i class="fas fa-arrows-alt-h"></i> Rent</button>
                 </div>
             </div>
             <div class="modal-footer">

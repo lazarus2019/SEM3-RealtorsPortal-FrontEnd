@@ -20,13 +20,21 @@ export class MemberService {
   
   constructor(private http: HttpClient) { }
 
-  getAllMember(): Observable<Member[]> {
-    return this.http.get<Member[]>(this.baseUrl);
+  getAllMember(): Observable<number> {
+    return this.http.get<number>(this.baseUrl);
   }
 
+  getAllMemberPage(page: number): Observable<Member[]> {
+    return this.http.get<Member[]>(this.baseUrl + "/" + page);
+  }
 
-  search(fullName: string, roleId: string, status: string): Observable<Member[]> {
+  search(fullName: string, roleId: string, status: string): Observable<number> {
     var url = `${this.baseUrl}/search/${fullName}/${roleId}/${status}`; 
+    return this.http.get<number>(url);
+  }
+
+  searchPage(fullName: string, roleId: string, status: string, page: number): Observable<Member[]> {
+    var url = `${this.baseUrl}/search/${fullName}/${roleId}/${status}/${page}`; 
     return this.http.get<Member[]>(url);
   }
 

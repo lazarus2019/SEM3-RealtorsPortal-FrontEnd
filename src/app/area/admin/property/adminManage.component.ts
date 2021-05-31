@@ -31,6 +31,23 @@ export class AdminManagePropertyComponent implements OnInit {
     this.loadStyle();
     this.loadScripts();
   }
+  
+  // Pagination 
+  isFilter = false;
+
+  NoNum: number = 10;
+
+  currentPage: number = 0;
+
+  PropertyLength: number = 0;
+
+  PropertyLengthArray = Array<string>();
+
+  PropertyPerPage: number = 10;
+
+  PropertyPer: number = 0;
+
+  //allPropertyLength: number = 0;
 
   properties: Property[] = [];
 
@@ -85,9 +102,58 @@ export class AdminManagePropertyComponent implements OnInit {
   }
 
   loadData() {
-    this.propertyService.getAllProperty().subscribe((properties) => {
-      this.properties = properties;
+    this.propertyService.getAllProperty().subscribe((result) => {
+      this.properties.length = result;
+      this.setPagination();
+      this.getAllPropertyPage(1);
     });
+  }
+
+
+  minusPage() {
+    this.currentPage--;
+    if(!this.isFilter){
+      this.getAllPropertyPage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  plusPage() {
+    this.currentPage++;
+    if(!this.isFilter){
+      this.getAllPropertyPage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  onSearch() {
+    this.isFilter = true;
+    this.search();
+    this.searchPage(1);
+  }
+
+  executePropertyPerPage(page:number){
+    this.currentPage = page;
+    if(!this.isFilter){
+      this.getAllPropertyPage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  getAllPropertyPage(page: number){
+    this.propertyService.getAllPropertyPage(page).subscribe((properties) => {
+      this.properties = properties;
+    })
+  }
+
+  setPagination() {
+    this.PropertyLength = this.properties.length;
+    this.PropertyPer = Math.ceil(this.PropertyLength / this.PropertyPerPage);
+    this.PropertyLengthArray = new Array(this.PropertyPer);
+    this.currentPage = 1;
   }
 
   search() {
@@ -103,7 +169,26 @@ export class AdminManagePropertyComponent implements OnInit {
       partners = '.all';
 
     }
-    this.propertyService.search(title, partners, categoryId, statusId).subscribe(properties => {
+    this.propertyService.search(title, partners, categoryId, statusId).subscribe(result => {
+      this.properties.length = result;
+      this.setPagination();
+    });
+  }
+
+  searchPage(page: number) {
+    var title = this.searchFormGroup.get('title').value;
+    var partners = this.searchFormGroup.get('partners').value;
+    var categoryId = this.searchFormGroup.get('categoryId').value;
+    var statusId = this.searchFormGroup.get('statusId').value;
+
+    if (title == '') {
+      title = '.all';
+    }
+    if (partners == '') {
+      partners = '.all';
+
+    }
+    this.propertyService.searchPage(title, partners, categoryId, statusId, page).subscribe(properties => {
       this.properties = properties;
     });
   }

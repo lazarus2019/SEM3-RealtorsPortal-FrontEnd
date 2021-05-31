@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ForgotPassword } from 'src/app/shared/forgotPassword.model';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './forgetPassword.component.html'
@@ -10,7 +11,7 @@ export class ForgetPasswordComponent implements OnInit {
 
   
 
-  constructor(private accountService: AccountService, private formBuilder: FormBuilder) {
+  constructor(private accountService: AccountService, private formBuilder: FormBuilder, private route: Router) {
     this.loadStyle();
   }
 
@@ -30,6 +31,7 @@ export class ForgetPasswordComponent implements OnInit {
     this.forgotPassword = this.emailForm.value;
     this.forgotPassword.clientURI = "http://localhost:4200/resetPassword"; 
     this.accountService.forgotPassword(this.forgotPassword).subscribe();
+    this.route.navigateByUrl('/login');
   }
 
   loadStyle() {

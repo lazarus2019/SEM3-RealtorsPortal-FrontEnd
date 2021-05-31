@@ -23,6 +23,21 @@ export class AdminManageMemberComponent implements OnInit {
     this.loadScripts();
   }
 
+  // Pagination 
+  isFilter = false;
+
+  NoNum: number = 10;
+
+  currentPage: number = 0;
+
+  memberLength: number = 0;
+
+  memberLengthArray = Array<string>();
+
+  memberPerPage: number = 10;
+
+  memberPer: number = 0;
+
   members: Member[] = [];
 
   roles: Role[] = [];
@@ -42,7 +57,6 @@ export class AdminManageMemberComponent implements OnInit {
     //get role
     this.roleService.getAllRole().subscribe((roles) => {
       this.roles = roles;
-      console.table(roles);
     });
 
     //get emailRequest to sendMail
@@ -60,6 +74,61 @@ export class AdminManageMemberComponent implements OnInit {
     });
   } 
 
+  loadData() {
+    this.memberService.getAllMember().subscribe((result) => {
+      this.members.length = result;
+      this.setPagination();
+      this.getAllMemberPage(1);
+    });
+  }
+
+  
+  minusPage() {
+    this.currentPage--;
+    if(!this.isFilter){
+      this.getAllMemberPage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  plusPage() {
+    this.currentPage++;
+    if(!this.isFilter){
+      this.getAllMemberPage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  onSearch() {
+    this.isFilter = true;
+    this.search();
+    this.searchPage(1);
+  }
+
+  executeMemberPerPage(page:number){
+    this.currentPage = page;
+    if(!this.isFilter){
+      this.getAllMemberPage(this.currentPage);
+    }else{
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  getAllMemberPage(page: number){
+    this.memberService.getAllMemberPage(page).subscribe((adsPackages) => {
+      this.members = adsPackages;
+    })
+  }
+
+  setPagination() {
+    this.memberLength = this.members.length;
+    this.memberPer = Math.ceil(this.memberLength / this.memberPerPage);
+    this.memberLengthArray = new Array(this.memberPer);
+    this.currentPage = 1;
+  }
+
   search() {
     var fullName = this.searchFormGroup.get('fullName').value;
     var roleId = this.searchFormGroup.get('roleId').value;
@@ -68,13 +137,21 @@ export class AdminManageMemberComponent implements OnInit {
       fullName = '.all';
     }
     console.log("id:" + roleId);
-    this.memberService.search(fullName, roleId, status).subscribe(members => {
-      this.members = members;
+    this.memberService.search(fullName, roleId, status).subscribe(result => {
+      this.members.length = result;
+      this.setPagination();
     });
   }
 
-  loadData() {
-    this.memberService.getAllMember().subscribe((members) => {
+  searchPage(page: number) {
+    var fullName = this.searchFormGroup.get('fullName').value;
+    var roleId = this.searchFormGroup.get('roleId').value;
+    var status = this.searchFormGroup.get('status').value;
+    if (fullName == '') {
+      fullName = '.all';
+    }
+    console.log("id:" + roleId);
+    this.memberService.searchPage(fullName, roleId, status, page).subscribe(members => {
       this.members = members;
     });
   }

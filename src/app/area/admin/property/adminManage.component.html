@@ -6,7 +6,7 @@
             </div>
             <div class="card-body">
                 <div class="from-group mb-3 d-flex justify-content-center">
-                    <form method="GET" [formGroup]="searchFormGroup" (ngSubmit)="search()">
+                    <form method="GET" [formGroup]="searchFormGroup" (ngSubmit)="onSearch()">
                         <div class="row">
                             <div class="col-md-4 mb-1 flex-fill">
                                 <input type="text" class="form-control" value="" placeholder="Enter title"
@@ -69,25 +69,25 @@
                                     </thead>
                                     <tbody>
                                         <tr role="row" class="odd" *ngFor="let property of properties index as i">
-                                            <td class="sorting_1">{{i+1}}</td>
-                                            <td class="sorting_1">{{property.title}}</td>
+                                            <td class="sorting_1">{{NoNum*(currentPage-1)+1 + i}}</td>
+                                            <td class="sorting_1">{{property?.title}}</td>
                                             <td>
                                                 <img src="https://via.placeholder.com/180x120g" alt=""
                                                     style="width: 100%; max-height: 150px;">
                                             </td>
-                                            <td>{{property.category.name}}</td>
-                                            <td>{{property.member.fullName}}</td>
-                                            <td>{{property.uploadDate | date: 'dd/MM/y'}}</td>
-                                            <td>{{property.status.name}}</td>
+                                            <td>{{property?.category.name}}</td>
+                                            <td>{{property?.member.fullName}}</td>
+                                            <td>{{property?.uploadDate | date: 'dd/MM/y'}}</td>
+                                            <td>{{property?.status.name}}</td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                                    *ngIf="property.status.name != 'Pending'" data-target="#details"
+                                                    *ngIf="property?.status.name != 'Pending'" data-target="#details"
                                                     (click)="onDetails(property.propertyId)"><i
                                                         class="fas fa-info-circle "></i>
                                                     Details
                                                 </button>
                                                 <a class="btn btn-primary btn-sm btn-block "
-                                                    *ngIf="property.status.name == 'Pending'" data-toggle="modal"
+                                                    *ngIf="property?.status.name == 'Pending'" data-toggle="modal"
                                                     data-target="#details" (click)="onCheck(property.propertyId)">
                                                     <i class="fas fa-check-circle"></i>
                                                     Check
@@ -104,12 +104,31 @@
 
             </div>
             <!-- end card-body-->
-
         </div>
         <!-- end card-->
-
     </div>
-
+    <div class="col-12">
+        <div class="d-flex justify-content-between">
+            <div>
+                Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > PropertyLength? PropertyLength:
+                currentPage*10}} of {{PropertyLength}} entries
+            </div>
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <ng-container *ngIf="currentPage!==1">
+                        <li (click)="minusPage()" class="page-item"><a class="page-link">Previous</a></li>
+                    </ng-container>
+                    <ng-container *ngFor="let in of PropertyLengthArray; index as i">
+                        <li (click)="executePropertyPerPage(i+1)" class="page-item"><a class="page-link">{{i+1}}</a>
+                        </li>
+                    </ng-container>
+                    <ng-container *ngIf="currentPage !== PropertyPer">
+                        <li (click)="plusPage()" class="page-item"><a class="page-link">Next</a></li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 <!--Modal of details -->
 <div class="modal fade bd-example-modal-lg" id="details" tabindex="-1" role="dialog" aria-labelledby="details"
@@ -287,7 +306,8 @@
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="sendAlert()">Send</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal"
+                            (click)="sendAlert()">Send</button>
                     </div>
                 </form>
             </div>

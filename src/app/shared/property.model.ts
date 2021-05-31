@@ -1,11 +1,13 @@
+import { Image } from "./image.model";
+
 export class Property {
     propertyId: number;
     title: string;
-    cityId: string;
+    cityId: number;
     cityName: string;
-    cityRegionId: string;
+    cityRegionId: number;
     cityRegionName: string;
-    cityRegionCountryId: string;
+    cityRegionCountryId: number;
     cityRegionCountryName: string;
     address: string;
     price: number;
@@ -22,4 +24,5 @@ export class Property {
     memberFullName: string
     description: string;
     type: string;
+    image: Image;
 }

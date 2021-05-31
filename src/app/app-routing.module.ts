@@ -40,6 +40,7 @@ import { ForgetPasswordComponent } from './area/user/forgotPassword/forgetPasswo
 import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
 import { AuthGuard } from './authenticate/auth.guard';
 import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
+import { SuccessRegistrationComponent } from './area/user/registration/successRegistration.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
   // Default Component
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'successRegistration', component: SuccessRegistrationComponent },
   { path: 'forgetPassword', component: ForgetPasswordComponent },
   { path: 'resetPassword', component: ResetPasswordComponent },
   { path: 'confirmEmail', component: ConfirmEmailComponent },

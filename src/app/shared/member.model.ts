@@ -3,6 +3,7 @@ import { Role } from "./role.model";
 export class Member {
     memberId: number;
     roleId: number;
+    position: string;
     role: Role;
     username: string;
     password: string;

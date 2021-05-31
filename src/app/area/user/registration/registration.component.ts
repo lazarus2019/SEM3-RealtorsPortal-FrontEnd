@@ -3,45 +3,86 @@ import { AccountService } from 'src/app/services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Registration } from 'src/app/shared/registration.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PasswordConfirmationValidatorService } from 'src/app/services/PasswordConfirmationValidatorService.service';
 
 @Component({
   templateUrl: './registration.component.html'
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor(public accountService: AccountService, private router: Router, private _route: ActivatedRoute, private formBuilder: FormBuilder) {
-    this.loadStyle();
-  }
+  constructor(public accountService: AccountService,
+     private router: Router, 
+     private _route: ActivatedRoute,
+      private formBuilder: FormBuilder,
+      private _passConfValidator: PasswordConfirmationValidatorService) {
+    this.loadStyle();  
 
+
+  }
+  showValidationErrors: boolean;
   registrationForm: FormGroup;
   registration: Registration;
   public errorMessage: string = '';
   public showError: boolean;
 
   ngOnInit(): void {
-    //this.registrationForm.reset;
-    this.registrationForm = this.formBuilder.group({
-      role: new FormControl('', [Validators.required]),
-      fullName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
-      username: new FormControl('', [Validators.required]),
+
+    this.registrationForm = new FormGroup({
+      role: new FormControl(''),
+      fullName: new FormControl(''),
+      username: new FormControl(''),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
-      confirm: new FormControl('', [Validators.required]),
+      confirm: new FormControl('')
     });
+
+    //this.registrationForm.reset;
+    // this.registrationForm = this.formBuilder.group({
+    //   role: new FormControl('op', [Validators.required]),
+    //   fullName: new FormControl('', [Validators.required]),
+    //   email: new FormControl('', [Validators.required]),
+    //   username: new FormControl('', [Validators.required]),
+    //   password: new FormControl('', [Validators.required]),
+    //   confirm: new FormControl('', [Validators.required]),
+    // });
+
+    this.registrationForm.get('confirm').setValidators([Validators.required,
+      this._passConfValidator.validateConfirmPassword(this.registrationForm.get('password'))]);
+ 
+ 
+ 
   }
 
-  onSubmit() {
+
+  public hasError = (controlName: string, errorName: string) => {
+    return this.registrationForm.controls[controlName].hasError(errorName)
+  }
+
+  public validateControl = (controlName: string) => {
+    return this.registrationForm.controls[controlName].invalid && this.registrationForm.controls[controlName].touched
+  }
+
+
+  onSubmit(form) {
+
+   
+
+    if (form.invalid)
+      return this.showValidationErrors = true;
+
+    this.showError = false;
     this.registration = this.registrationForm.value;
     this.registration.clientURI = 'http://localhost:4200/confirmEmail';
-    console.log(this.registration.clientURI);
-    console.log("email: " + this.registration.email);
     this.accountService.register(this.registration).subscribe(() => {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/successRegistration', { state: this.registration });
     },
-      error => {
+      (error) => {
         this.errorMessage = error;
+        console.table(error[0]);
+        console.log(error.value);
         this.showError = true;
-      })
+      });
   }
 
   loadScripts() {

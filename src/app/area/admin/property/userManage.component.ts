@@ -30,6 +30,23 @@ export class UserManagePropertyComponent implements OnInit {
     this.loadScripts();
   }
 
+  // Pagination 
+  isFilter = false;
+
+  NoNum: number = 10;
+
+  currentPage: number = 0;
+
+  PropertyLength: number = 0;
+
+  PropertyLengthArray = Array<string>();
+
+  PropertyPerPage: number = 10;
+
+  PropertyPer: number = 0;
+
+  //allNewsLength: number = 0;
+
   properties: Property[] = [];
 
   property: Property;
@@ -49,7 +66,6 @@ export class UserManagePropertyComponent implements OnInit {
   ngOnInit(): void {
     //get Data
     this.loadData();
-
     //get status
     this.statusService.getAllStatus().subscribe((statuses) => {
       this.statuses = statuses;
@@ -62,27 +78,100 @@ export class UserManagePropertyComponent implements OnInit {
 
     //configure searchFromGroup
     this.searchFormGroup = this.formBuilder.group({
-      position: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required]),
       categoryId: new FormControl('all', [Validators.required]),
       statusId: new FormControl('all', [Validators.required]),
     });
   }
 
   loadData() {
-    this.propertyService.getAllProperty().subscribe((properties) => {
-      this.properties = properties;
+    this.propertyService.getAllProperty().subscribe((result) => {
+      this.properties.length = result;
+      this.setPagination();
+      this.getAllPropertyPage(1);
     });
+  }
+
+
+  minusPage() {
+    this.currentPage--;
+    if (!this.isFilter) {
+      this.getAllPropertyPage(this.currentPage);
+    } else {
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  plusPage() {
+    this.currentPage++;
+    if (!this.isFilter) {
+      this.getAllPropertyPage(this.currentPage);
+    } else {
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  onSearch() {
+    this.isFilter = true;
+    this.search();
+    this.searchPage(1);
+  }
+
+  executePropertyPerPage(page: number) {
+    this.currentPage = page;
+    if (!this.isFilter) {
+      this.getAllPropertyPage(this.currentPage);
+    } else {
+      this.searchPage(this.currentPage);
+    }
+  }
+
+  getAllPropertyPage(page: number) {
+    this.propertyService.getAllPropertyPage(page).subscribe((properties) => {
+      this.properties = properties;
+    })
+  }
+
+  setPagination() {
+    this.PropertyLength = this.properties.length;
+    this.PropertyPer = Math.ceil(this.PropertyLength / this.PropertyPerPage);
+    this.PropertyLengthArray = new Array(this.PropertyPer);
+    this.currentPage = 1;
   }
 
   search() {
     var title = this.searchFormGroup.get('title').value;
-    var partners = 'partners';
+    var partners = this.searchFormGroup.get('partners').value;
     var categoryId = this.searchFormGroup.get('categoryId').value;
     var statusId = this.searchFormGroup.get('statusId').value;
+
     if (title == '') {
       title = '.all';
     }
-    this.propertyService.search(title, partners, categoryId, statusId).subscribe(properties => {
+    if (partners == '') {
+      partners = '.all';
+
+    }
+    this.propertyService.search(title, partners, categoryId, statusId).subscribe(result => {
+      this.properties.length = result;
+      this.setPagination();
+    });
+  }
+
+  searchPage(page: number) {
+    var title = this.searchFormGroup.get('title').value;
+    var partners = this.searchFormGroup.get('partners').value;
+    var categoryId = this.searchFormGroup.get('categoryId').value;
+    var statusId = this.searchFormGroup.get('statusId').value;
+
+    if (title == '') {
+      title = '.all';
+    }
+    if (partners == '') {
+      partners = '.all';
+
+    }
+    this.propertyService.searchPage(title, partners, categoryId, statusId, page).subscribe(properties => {
       this.properties = properties;
     });
   }
@@ -93,7 +182,6 @@ export class UserManagePropertyComponent implements OnInit {
   }
 
   onDetails(propertyId: number) {
-    console.log(propertyId);
     this.propertyService.getPropertyById(propertyId).subscribe((property) => {
       this.property = property;
       this.getGallery(propertyId);
@@ -114,7 +202,6 @@ export class UserManagePropertyComponent implements OnInit {
   changeStatus(propertyId: number) {
     this.propertyService.getPropertyById(propertyId).subscribe((property) => {
       this.property = property;
-      console.table(property);
     });
   }
 
@@ -169,10 +256,10 @@ export class UserManagePropertyComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          //reload page
-          this.loadData();
         });
       }
+      //reload page
+      this.loadData();
     })
   }
 
@@ -198,10 +285,10 @@ export class UserManagePropertyComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          //reload page
-          this.loadData();
         });
       }
+      //reload page
+      this.loadData();
     })
   }
 
@@ -227,10 +314,10 @@ export class UserManagePropertyComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          //reload page
-          this.loadData();
         });
       }
+      //reload page
+      this.loadData();
     })
   }
 
@@ -256,10 +343,10 @@ export class UserManagePropertyComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          //reload page
-          this.loadData();
         });
       }
+      //reload page
+      this.loadData();
     })
   }
 

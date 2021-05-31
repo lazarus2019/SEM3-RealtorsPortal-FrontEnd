@@ -8,23 +8,25 @@
             <div class="card-body">
                 <!-- Form Search & Filter -->
                 <div class="from-group mb-3  d-flex justify-content-center">
-                    <form [formGroup]="searchFormGroup" (ngSubmit)="search()">
-                         <div class="row">
+                    <form [formGroup]="searchFormGroup" (ngSubmit)="onSearch()">
+                        <div class="row">
                             <div class="col-md-4 mb-1 flex-fill">
-                                <input type="text" class="form-control" value="" placeholder="Enter fullName" formControlName="fullName">
+                                <input type="text" class="form-control" value="" placeholder="Enter fullName"
+                                    formControlName="fullName">
                             </div>
                             <div class="col-md-3 mb-1 flex-fill">
                                 <select class="form-control select2 select2-hidden-accessible" id="example1"
-                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true" formControlName="roleId"
-                                    required="required">
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    formControlName="roleId" required="required">
                                     <option value="all" selected="selected">All role</option>
-                                    <option *ngFor="let role of roles" value="{{role.name}}" [hidden]="role.name == 'Admin'">{{role.name}}</option>
+                                    <option *ngFor="let role of roles" value="{{role.name}}"
+                                        [hidden]="role.name == 'SuperAdmin'">{{role.name}}</option>
                                 </select>
                             </div>
                             <div class="col-md-3 mb-1 flex-fill">
                                 <select class="form-control select2 select2-hidden-accessible" id="example1"
-                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true" formControlName="status"
-                                    required="required">
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    formControlName="status" required="required">
                                     <option value="all" selected="selected">All Status</option>
                                     <option value="false">Blocked</option>
                                     <option value="true">Active</option>
@@ -53,7 +55,7 @@
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                                 style="width: 26%;">Email</th>
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                                style="width: 13%;">Role</th>
+                                                style="width: 13%;">Position</th>
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                                 style="width: 13%;">Day in</th>
                                             <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
@@ -66,21 +68,22 @@
                                         <ng-container *ngFor="let member of members index as i">
                                             <tr role="row" class="odd">
                                                 <td class="sorting_1">{{i+1}}</td>
-                                                <td>{{member.fullName}}</td>
-                                                <td>{{member.email}}</td>
-                                                <td>{{member.roleId}}</td>
-                                                <td>{{member.createDate|date:'dd/MM/y'}}</td>
-                                                <td>{{member.status ? 'Active' : 'Blocked'}}</td>
+                                                <td>{{member?.fullName}}</td>
+                                                <td>{{member?.email}}</td>
+                                                <td>{{member?.position}}</td>
+                                                <td>{{member?.createDate|date:'dd/MM/y'}}</td>
+                                                <td>{{member?.status ? 'Active' : 'Blocked'}}</td>
                                                 <td>
                                                     <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
                                                         data-target="#sendMail"><i class="fas fa-envelope "></i> Send
                                                         mail</a>
                                                     <a class="btn btn-danger btn-sm btn-block mt-2 "
-                                                        *ngIf="member.status == true" (click)="blockAlert(member)"><i
+                                                        *ngIf="member?.status == true" (click)="blockAlert(member)"><i
                                                             class="fas fa-lock "></i> Block</a>
                                                     <a class="btn btn-danger btn-sm btn-block mt-2 "
-                                                        *ngIf="member.status == false" (click)="unblockAlert(member)"><i
-                                                            class="fas fa-unlock "></i> Unblock</a>
+                                                        *ngIf="member?.status == false"
+                                                        (click)="unblockAlert(member)"><i class="fas fa-unlock "></i>
+                                                        Unblock</a>
                                                 </td>
                                             </tr>
                                         </ng-container>
@@ -97,7 +100,29 @@
 
         </div>
         <!-- end card-->
-
+        <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <div>
+                    Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > memberLength?
+                        memberLength :
+                    currentPage*10}} of {{memberLength}} entries
+                </div>
+                <div aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <ng-container *ngIf="currentPage!==1">
+                            <li (click)="minusPage()" class="page-item"><a class="page-link">Previous</a></li>
+                        </ng-container>
+                        <ng-container *ngFor="let in of memberLengthArray; index as i">
+                            <li (click)="executeMemberPerPage(i+1)" class="page-item"><a
+                                    class="page-link">{{i+1}}</a></li>
+                        </ng-container>
+                        <ng-container *ngIf="currentPage !== memberPer">
+                            <li (click)="plusPage()" class="page-item"><a class="page-link">Next</a></li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -132,7 +157,8 @@
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="sendAlert()">Send</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal"
+                            (click)="sendAlert()">Send</button>
                     </div>
                 </form>
             </div>
