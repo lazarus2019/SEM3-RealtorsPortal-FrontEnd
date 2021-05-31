@@ -11,5 +11,10 @@ export class PropertyService {
         private httpClient: HttpClient
     ) { }
 
+    getPopularPost(memberId : number) {
+        return this.httpClient.get(this.BASE_URL + 'getpopularpost/' + memberId )
+                        .toPromise()
+                        .then( res => res as PropertyModel[] ) ;
+    }
     
 }

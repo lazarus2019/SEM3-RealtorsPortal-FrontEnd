@@ -14,7 +14,7 @@ export class UserService {
     ) { }
 
     getAllCategory() {
-        return this.httpClient.get(this.BASE_URL + 'getallcategory' )
+        return this.httpClient.get(this.BASE_URL + 'loadcategories')
                         .toPromise()
                         .then( res => res as CategoryModel[] ) ;
     }
