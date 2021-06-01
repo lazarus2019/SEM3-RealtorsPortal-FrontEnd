@@ -7,6 +7,7 @@ import { SettingModel } from 'src/app/models/setting.model';
 import { UserService } from 'src/app/services/user.service';
 import { MailboxService } from 'src/app/services/user/mailbox.service';
 
+declare var alertFunction : any 
 @Component({
   templateUrl: './user.component.html',
 })
@@ -28,6 +29,7 @@ export class UserComponent implements OnInit {
     this.loadScripts();
     this.loadStyle();
     this.loadData();
+    
   }
 
   get Email(){
@@ -69,6 +71,8 @@ export class UserComponent implements OnInit {
       '../../../assets/user/js/bootstrap.min.js',
       '../../../assets/user/js/jquery.start.js',
       '../../../assets/user/js/jquery.goToTop.js',
+      '../../../assets/user/js/jquery.sweetalert.js',
+      '../../../assets/user/js/sweetalert.min.js'
 
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {
@@ -86,10 +90,10 @@ export class UserComponent implements OnInit {
     this.mailboxService.addMailbox(mailbox).then(
       res => {
         if (res == true) {
-          alert("Done");
+          alertFunction.success("We will contact you soon !") ; 
         }
         else {
-          alert("Failed");
+          alertFunction.error("Maybe something wrong .Please try again !") ; 
         }
 
       },
@@ -103,6 +107,7 @@ export class UserComponent implements OnInit {
   loadStyle() {
     const dynamicStyles = [
       '../../../assets/user/css/style-starter.css',
+      '../../../assets/user/css/sweetalert.css',
 
     ];
     for (let i = 0; i < dynamicStyles.length; i++) {

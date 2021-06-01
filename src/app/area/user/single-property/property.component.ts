@@ -8,6 +8,7 @@ import { MailboxService } from 'src/app/services/user/mailbox.service';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { PropertyService } from 'src/app/services/property.service';
 
+declare var alertFunction : any 
 @Component({
   templateUrl: './property.component.html'
 })
@@ -35,6 +36,8 @@ export class PropertyComponent implements OnInit {
     }
   
   ngOnInit(): void {
+    this.loadScripts() ;
+    this.loadStyle() ;
     this.activatedRoute.paramMap.subscribe(params => {
       this.propertyId = Number.parseInt(params.get('propertyId'));
       console.log("propertyId : " + this.propertyId);
@@ -69,6 +72,7 @@ export class PropertyComponent implements OnInit {
     // This array contains all the files/CDNs
     const dynamicScripts = [
       '../../../../assets/user/js/jquery.start.js',
+      '../../../assets/user/js/sweetalert.min.js'
 
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {
@@ -79,6 +83,13 @@ export class PropertyComponent implements OnInit {
       document.body.appendChild(node);
     }
   }
+  loadStyle() {
+    const dynamicStyles = [
+      '../../../assets/user/css/style-starter.css',
+      '../../../assets/user/css/sweetalert.css',
+
+    ];
+  }
   // send Email
   send() {
     var mailbox : MailboxModel = this.formContact.value ;
@@ -88,10 +99,10 @@ export class PropertyComponent implements OnInit {
     this.mailboxService.addMailbox(mailbox).then(
       res => {
         if( res == true) {
-          alert("Done") ; 
+          alertFunction.success("We will contact you as soon as possible.") ; 
         }
         else {
-          alert("Failed") ;
+          alertFunction.error("Maybe something went wrong .Please try again !") ; 
         }
            
       },
