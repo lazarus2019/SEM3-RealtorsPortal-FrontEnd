@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { FAQAPI } from 'src/app/models/faq/faq.model';
-import { FAQService } from 'src/app/services/admin/faq/faqAPI.service';
+import { FAQAPIService } from 'src/app/services/admin/faq/faqAPI.service';
 
 // Declare custom function
 declare var alertFunction: any;
@@ -22,7 +22,7 @@ export class AdminFAQComponent implements OnInit {
     // Declare form builder
     private formBuilder: FormBuilder,
     // Services
-    private faqService: FAQService
+    private faqService: FAQAPIService
   ) {
     // this.loadScripts();
   }

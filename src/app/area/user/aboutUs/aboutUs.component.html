@@ -14,43 +14,56 @@
     </div>
 </section>
 <section class="w3l-index3" id="about">
-    <div class="midd-w3 py-5">
-        <div class="container py-lg-5 py-md-4 py-2">
-            <div class="row">
-                <div class="col-lg-5 pr-lg-0">
-                    <div class="w3l-left-img2">
-                    </div>
-                </div>
-                <div class="col-lg-7 pl-lg-0">
-                    <div class="w3l-right-info">
-                        <h6 class="title-small">About us</h6>
-                        <h3 class="title-big">Our long-standing experience</h3>
-                        <h5 class="mt-4">We have over 15 year experience, Over 20,000 people work for us in more than 70
-                            countries all over the world.
-                            Lorem ipsum viverra feugiat dolor sit amet.
-                        </h5>
-                        <p class="mt-4">Viverra feugiat. Pellen tesque libero ut justo,
-                            ultrices in ligula. Semper at tempufddfel lorem ipsum. Lorem ipsum viverra feugiat dolor sit
-                            amet primis in faucibus orci.</p>
-                        <a href="#small-dialog1" class="popup-with-zoom-anim play-view d-block mt-md-5 mt-4">
-                            <span class="video-play-icon">
-                                <span class="fa fa-play"></span>
-                            </span>
-                            See Our Story
-                        </a>
-                        <!-- dialog itself, mfp-hide class is required to make dialog hidden -->
-                        <div id="small-dialog1" class="zoom-anim-dialog mfp-hide">
-                            <iframe src="https://www.youtube.com/embed/jqP3m3ElcxA" frameborder="0"
-                                allowfullscreen=""></iframe>
+    <div class="container-fluid">
+        <!-- Row -->
+        <div class="row">
+            <div class="container mt-sm-30 mt-30 mb-5">
+                <div class="col-xl-12">
+                    <div class="card card-lg">
+                        <h3 class="card-header border-bottom-0">
+                            <b>FAQ</b>
+                        </h3>
+                        <div class="accordion accordion-type-2 accordion-flush" id="accordion_2">
+                            <ng-container *ngFor="let faq of listFAQ; index as i">
+                                <ng-container *ngIf="i === 0; else elseFAQ">
+                                    <div class="card">
+                                        <div class="h5 card-header d-flex justify-content-between">
+                                            <a role="button" data-toggle="collapse" href="#collapse_{{faq.faqId}}"
+                                                aria-expanded="true">{{faq.title}}</a>
+                                        </div>
+                                        <div id="collapse_{{faq.faqId}}" class="collapse show" data-parent="#accordion_2"
+                                            role="tabpanel">
+                                            <div class="card-body pa-15 h6">{{faq.description}}</div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-template #elseFAQ>
+                                    <div class="card">
+                                        <div class="h5 card-header d-flex justify-content-between"><a role="button"
+                                                data-toggle="collapse" aria-expanded="false" href="#collapse_{{faq.faqId}}"
+                                                class="collapsed">{{faq.title}}</a>
+                                        </div>
+                                        <div id="collapse_{{faq.faqId}}" class="collapse" data-parent="#accordion_2"
+                                            role="tabpanel">
+                                            <div class="card-body pa-15 h6">{{faq.description}}</div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="grids-area-hny main-cont-wthree-fea row mt-5 pt-lg-5 pt-5">
+        </div>
+        <!-- /Row -->
+    </div>
+    <div class="midd-w3 py-5">
+        <div class="container py-lg-5 py-md-4 py-2">
+            <div class="grids-area-hny row mt-5 pt-lg-5 pt-5">
                 <div class="col-lg-4 col-md-6 grids-feature">
                     <div class="area-box">
                         <span class="fa fa-home"></span>
-                        <h4><a href="#feature" class="title-head">Guidance you need</a></h4>
+                        <h4><a  class="title-head">Guidance you need</a></h4>
                         <p>Vivamus a ligula quam tesque et libero ut justo, ultrices in. Ut eu leo non. Duis sed et
                             dolor amet.</p>
                     </div>
@@ -58,7 +71,7 @@
                 <div class="col-lg-4 col-md-6 grids-feature mt-md-0 mt-4">
                     <div class="area-box">
                         <span class="fa fa-search-plus"></span>
-                        <h4><a href="#feature" class="title-head">Search that feels familiar</a></h4>
+                        <h4><a  class="title-head">Search that feels familiar</a></h4>
                         <p>Vivamus a ligula quam tesque et libero ut justo, ultrices in. Ut eu leo non. Duis sed dolor
                             et amet.</p>
                     </div>
@@ -66,7 +79,7 @@
                 <div class="col-lg-4 col-md-6 grids-feature mt-lg-0 mt-4">
                     <div class="area-box">
                         <span class="fa fa-dollar"></span>
-                        <h4><a href="#feature" class="title-head">Premium values</a></h4>
+                        <h4><a  class="title-head">Premium values</a></h4>
                         <p>Vivamus a ligula quam tesque et libero ut justo, ultrices in. Ut eu leo non. Duis sed dolor
                             et amet.</p>
                     </div>
@@ -79,17 +92,14 @@
 <section class="w3l-aboutblock2" id="why">
     <div class="midd-w3 py-5">
         <div class="container py-lg-5 py-md-4 py-2">
-            <div class="row">
+            <div class="row" *ngFor="let aboutus of setting">
                 <div class="col-lg-6 left-wthree-img">
-                    <img src="assets/user/images/about.jpg" alt="" class="img-fluid radius-image" />
+                    <img [src]="getUrlImage('setting',aboutus.thumbnailAboutUs)" alt="" class="img-fluid radius-image" />
                 </div>
-                <div class="col-lg-6 mt-lg-0 mt-5 align-self">
+                <div class="col-lg-6 mt-lg-0 mt-5 align-self" >
                     <h6 class="title-small">Why us</h6>
-                    <h3 class="title-big">To help members become more profitable and successful</h3>
-                    <p class="mt-4">We have over 15 year experience in business consulting arena. Learn more about our
-                        work!
-                        Lorem ipsum viverra feugiat. Pellen tesque libero ut justo,
-                        ultrices in ligula. Semper at tempufddfel
+                    <h3 class="title-big">{{aboutus.aboutUsTitle}}</h3>
+                    <p class="mt-4">{{aboutus.description}}
                     </p>
                     <ul class="w3l-right-book mt-lg-5 mt-4">
                         <li><span class="fa fa-check" aria-hidden="true"></span>Help sellers get the most for their
@@ -112,186 +122,50 @@
         <h3 class="title-big text-center mb-lg-5 mb-4">Meet our Agents</h3>
         <!-- block -->
         <div class="row">
-            <div class="col-lg-3 col-sm-6 column-item">
-                <div class="users_box">
-                    <div class="user-avatar">
-                        <a href="#agent-single" class="avatar">
-                            <img src="assets/user/images/team1.jpg" alt="" class="img-fluid w-100 radius-image">
-                        </a>
-                    </div>
-                    <div class="users_box_info">
-                        <p class="user_position">Selling Agent</p>
-                        <h4 class="user_title agent">
-                            <a href="#agent-single">Laura Antiochus</a>
-                        </h4>
-                        <div class="user_meta user_phone">
-                            <span class="phone-detail"> <a href="tel:+1-2345-678-11">+1-2345-678-11</a></span>
-                        </div>
-                        <a href="#agent-single" class="btn btn-outline-primary btn-style mt-4">
-                            View Profile </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 column-item mt-sm-0 mt-5">
-                <div class="users_box">
-                    <div class="user-avatar">
-                        <a href="#agent-single" class="avatar">
-                            <img src="assets/user/images/team2.jpg" alt="" class="img-fluid w-100 radius-image">
-                        </a>
-                    </div>
-                    <div class="users_box_info">
-                        <p class="user_position">Selling Agent</p>
-                        <h4 class="user_title agent">
-                            <a href="#agent-single">Laura Antiochus</a>
-                        </h4>
-                        <div class="user_meta user_phone">
-                            <span class="phone-detail"> <a href="tel:+1-2345-678-11">+1-2345-678-11</a></span>
-                        </div>
+            <ng-container *ngFor="let p  of agents">
+                <div class="col-lg-3 col-sm-6 column-item">
+                    <div class="users_box">
+                        <div class="user-avatar">
+                            <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]" class="nav-link avatar">
+                                <img [src]="getUrlImage('member',p.photo)" alt="" class="img-fluid w-100 radius-image">
+                            </a>
 
-                        <a href="#agent-single" class="btn btn-outline-primary btn-style mt-4">
-                            View Profile </a>
+                        </div>
+                        <div class="users_box_info">
+                            <p class="user_position">Selling Agent</p>
+                            <h4 class="user_title agent">
+                                <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]">{{p.fullName}}</a>
+                            </h4>
+                            <div class="user_meta user_phone">
+                                <span class="phone-detail"> <a href="tel:+1-2345-678-11">{{p.phone}}</a></span>
+                            </div>
+                            <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
+                                class=" nav-link btn btn-outline-primary btn-style mt-4">
+                                View Profile </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 column-item mt-lg-0 mt-5">
-                <div class="users_box">
-                    <div class="user-avatar">
-                        <a href="#agent-single" class="avatar">
-                            <img src="assets/user/images/team3.jpg" alt="" class="img-fluid w-100 radius-image">
-                        </a>
-                    </div>
-                    <div class="users_box_info">
-                        <p class="user_position">Selling Agent</p>
-                        <h4 class="user_title agent">
-                            <a href="#agent-single">Laura Antiochus</a>
-                        </h4>
-                        <div class="user_meta user_phone">
-                            <span class="phone-detail"> <a href="tel:+1-2345-678-11">+1-2345-678-11</a></span>
-                        </div>
-                        <a href="#agent-single" class="btn btn-outline-primary btn-style mt-4">
-                            View Profile </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 column-item mt-lg-0 mt-5">
-                <div class="users_box">
-                    <div class="user-avatar">
-                        <a href="#agent-single" class="avatar">
-                            <img src="assets/user/images/team4.jpg" alt="" class="img-fluid w-100 radius-image">
-                        </a>
-                    </div>
-                    <div class="users_box_info">
-                        <p class="user_position">Selling Agent</p>
-                        <h4 class="user_title agent">
-                            <a href="#agent-single">Laura Antiochus</a>
-                        </h4>
-                        <div class="user_meta user_phone">
-                            <span class="phone-detail"> <a href="tel:+1-2345-678-11">+1-2345-678-11</a></span>
-                        </div>
 
-                        <a href="#agent-single" class="btn btn-outline-primary btn-style mt-4">
-                            View Profile </a>
-                    </div>
-                </div>
-            </div>
+            </ng-container>
         </div>
     </div>
 </div>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.2.0/css/ionicons.min.css"
-    integrity="sha256-F3Xeb7IIFr1QsWD113kV2JXaEbjhsfpgrKkwZFGIA4E=" crossorigin="anonymous" />
-
-<div class="container-fluid">
-    <!-- Row -->
-    <div class="row">
-        <div class="container mt-sm-60 mt-30 mb-5">
-            <div class="col-xl-12">
-                <div class="card card-lg">
-                    <h3 class="card-header border-bottom-0">
-                        FAQ
-                    </h3>
-                    <div class="accordion accordion-type-2 accordion-flush" id="accordion_2">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between activestate">
-                                <a role="button" data-toggle="collapse" href="#collapse_1i" aria-expanded="true">The
-                                    Intellectual Property</a>
-                            </div>
-                            <div id="collapse_1i" class="collapse show" data-parent="#accordion_2" role="tabpanel">
-                                <div class="card-body pa-15">The Intellectual Property disclosure will inform users that
-                                    the contents, logo and other visual media you created is your property and is
-                                    protected by copyright laws.</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_2i"
-                                    aria-expanded="false">Termination clause</a>
-                            </div>
-                            <div id="collapse_2i" class="collapse" data-parent="#accordion_2">
-                                <div class="card-body pa-15">A Termination clause will inform that users’ accounts on
-                                    your website and mobile app or users’ access to your website and mobile (if users
-                                    can’t have an account with you) can be terminated in case of abuses or at your sole
-                                    discretion.</div>
-                            </div>
-                        </div>                        
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_3i"
-                                    aria-expanded="false">Governing Law</a>
-                            </div>
-                            <div id="collapse_3i" class="collapse" data-parent="#accordion_2">
-                                <div class="card-body pa-15">A Governing Law will inform users which laws govern the
-                                    agreement. This should the country in which your company is headquartered or the
-                                    country from which you operate your website and mobile app.</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_4i"
-                                    aria-expanded="false">Limit what users can do</a>
-                            </div>
-                            <div id="collapse_4i" class="collapse" data-parent="#accordion_2">
-                                <div class="card-body pa-15">A Limit What Users Can Do clause can inform users that by
-                                    agreeing to use your service, they’re also agreeing to not do certain things. This
-                                    can be part of a very long and thorough list in your Terms and Conditions agreements
-                                    so as to encompass the most amount of negative uses.</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_5i"
-                                    aria-expanded="false">Limitation of liability of your products</a>
-                            </div>
-                            <div id="collapse_5i" class="collapse" data-parent="#accordion_2">
-                                <div class="card-body pa-15">No matter what kind of goods you sell, best practices
-                                    direct you to present any warranties you are disclaiming and liabilities you are
-                                    limiting in a way that your customers will notice.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Row -->
-</div>
-
 <!-- stats -->
 <section class="w3l-stats py-5" id="stats">
     <div class="gallery-inner container py-lg-5 py-md-4 py-2">
-        <div class="row stats-con">
+        <div class="row stats-con" >
             <div class="col-md-3 col-6 stats_info counter_grid">
-                <p class="counter">5012</p>
+                <p class="counter">{{saleCount}}</p>
                 <span class="plus">+</span><br>
                 <h3>Homes for sale</h3>
             </div>
             <div class="col-md-3 col-6 stats_info counter_grid1">
-                <p class="counter">256</p>
+                <p class="counter">{{rentCount}}</p>
                 <span class="plus">+</span><br>
                 <h3>Homes for rent</h3>
             </div>
-            <div class="col-md-3 col-6 stats_info counter_grid mt-md-0 mt-4">
-                <p class="counter">1300</p>
+            <div class="col-md-3 col-6 stats_info counter_grid mt-md-0 mt-4" *ngFor="let set of setting">
+                <p class="counter">{{set.numProperty}}</p>
                 <span class="plus">+</span><br>
                 <h3>Recently sold</h3>
             </div>
@@ -314,55 +188,63 @@
                     <div class="col-lg-8">
                         <div class="contact-form">
                             <h5 class="mb-2">Get in touch</h5>
-                            <p class="mb-4">Your email address will not be published. Required fields are marked *</p>
-                            <form action="https://sendmail.w3layouts.com/submitForm" method="post" class="">
-                                <div class="form-grid">
-                                    <div class="input-field">
-                                        <input type="text" name="w3lName" id="w3lName" placeholder="Your Name"
-                                            required="">
+                            <p class="mb-4"></p>
+                        
+                            <form novalidate="" action="https://sendmail.w3layouts.com/submitForm" method="post"
+                                class="ng-untouched ng-pristine ng-valid " [formGroup]="formContact">
+                                <div class="form-group">
+                                    <div class="form-grid">
+                                        <div class="input-field">
+                                            <input type="text" name="w3lName" id="w3lName" placeholder="Your Name"
+                                                required formControlName="fullName">
+                                        </div>
+                                        <div class="input-field">
+                                            <input type="text" name="w3lSender" id="w3lSender" placeholder="Phone"
+                                                required formControlName="phone">
+                                            <div *ngIf="Phone.touched && Phone.invalid" class="text-danger">
+                                                <small *ngIf="Phone.errors.required">Mobile
+                                                    Number is required.</small>
+                                                <small *ngIf="Phone.errors.pattern">Please, Enter
+                                                    10 digit Mobile Number.</small>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="input-field">
-                                        <input type="email" name="w3lSender" id="w3lSender" placeholder="Email"
-                                            required="">
+                                    <div class="input-field mt-4"><textarea name="w3lMessage" id="w3lMessage"
+                                            placeholder="Message" formControlName="message"></textarea>
                                     </div>
                                 </div>
-                                <div class="input-field mt-4">
-                                    <textarea name="w3lMessage" id="w3lMessage" placeholder="Message"></textarea>
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary btn-style mt-2" (click)="send()"
+                                        [disabled]="!formContact.valid">Submit</button>
                                 </div>
-                                <input type="checkbox"> <label>Save my name, email, and website in this
-                                    browser for the next time I comment</label>
-                                <button type="submit" class="btn btn-primary btn-style mt-3">Submit</button>
                             </form>
+
                         </div>
                     </div>
-                    <div class="col-lg-4 cont-details">
+                    <div class="col-lg-4 cont-details" *ngFor="let l of setting">
+
                         <address>
                             <h5 class="">Our Office Address</h5>
-                            <p><span class="fa fa-map-marker"></span>Estate sale office, 32, My Street, Kingston,
-                                New York 12401. </p>
+                            <p><span class="fa fa-map-marker"></span> {{l.address}}</p>
 
                             <h5 class="mt-4 pt-lg-3">Phone informatiom</h5>
-                            <p><span class="fa fa-mobile"></span> <strong>Phone :</strong>
-                                <a href="tel:+1(12) 366 411 4999"> (+1) 366 411 499</a>
+                            <p><span class="fa fa-mobile"></span> <strong>Phone : </strong>
+                                <a href="tel:{{l.phone[0]}}">{{l.phone}}</a>
                             </p>
 
-                            <p><span class="fa fa-phone"></span> <strong>Tel :</strong>
-                                <a href="tel:+1(12) 366 411 4999"> (+1) 366 411 499</a>
-                            </p>
+                            <!-- <p><span class="fa fa-phone"></span> <strong>Tel : </strong>
+                                <a href="tel:{{l.phone}}">{{l.phone}}</a>
+                            </p> -->
 
-                            <p> <span class="fa fa-envelope"></span> <strong>Email :</strong>
-                                <a href="mailto:mail@example.com"> mail@example.com</a>
+                            <p> <span class="fa fa-envelope"></span> <strong>Email : </strong>
+                                <a href="mailto:{{l.email}}"> {{l.email}}</a>
                             </p>
                         </address>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="map mt-5">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.2895687731!2d-74.26055986835598!3d40.697668402590374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sin!4v1562582305883!5m2!1sen!2sin"
-                frameborder="0" style="border:0" allowfullscreen=""></iframe>
-        </div>
+        <br>
     </div>
 </section>
 <!-- //contacts -->

@@ -17,62 +17,82 @@
     <section id="grids5-block" class="py-2">
         <div class="container py-lg-5 py-md-4 py-2">
             <h3 class="title-big text-center">News And Tips</h3>
+            <br>
+            <section class="w3l-cover-3">
+                <div class="cover ">
+                    <div class="container">
+                        <div class="middle text-center">
+                            <!-- Search -->
+                            <form action="#" class="w3l-cover-3-gd" method="GET" [formGroup]="formSearchNews">
+                                <input type="search" name="text" placeholder="Enter keywords" formControlName="keyword"
+                                    required>
+                                <span class="input-group-btn">
+                                    <select class="btn btn-default" name="ext" required formControlName="category">
+                                        <option disabled selected> Select Category</option>
+                                        <ng-container *ngFor="let c of categoryIds">
+                                            <option value="{{c.newsCategoryId}}">{{c.name}}</option>
+                                        </ng-container>
+                                    </select>
+                                </span>
+
+                                <button type="submit" class="btn-primary"
+                                    (click)="searchBtn()">Search</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <div class="row mt-lg-5 mt-4 pt-3">
-                <div class="col-lg-4 col-md-6 mt-md-0 mt-sm-4">
-                    <div class="grids5-info">
-                        <span class="posted-date">
-                            <a href="#blog-single">
-                                <span class="small">2020</span>
-                                <span class="big">16</span>
-                                <span class="small">October</span>
-                            </a>
-                        </span>
-                        <a href="#blog-single" class="d-block zoom"><img src="assets/user/images/p1.jpg" alt=""
-                                class="img-fluid news-image" /></a>
-                        <div class="blog-info">
-                            <a href="#category" class="category">Uncategorized</a>
-                            <h4><a href="#blog-single">Retail banks wake up to digital lending this year</a></h4>
-                            <p>Lorem ipsum dolor sit amet ad minus libero ullam ipsam quas earum!</p>
+                <ng-container *ngFor="let m of newcategory">
+                    <div class="col-lg-4 col-md-6 mt-md-0 mt-sm-4 mb-4">
+                        <div class="grids5-info">
+                            <span class="posted-date">
+                                <a href="#blog-single">
+                                    <span class="small">{{m.createdDate|date:'dd/MM/y'}}
+                                    </span>
+                                </a>
+                            </span>
+                            <a class="d-block zoom"><img style="width: 370px; height: 200px;"
+                                    [src]="getUrlImage(m.thumbailName)" alt="" class="img-fluid news-image" /></a>
+                            <div class="blog-info">
+                                <a [routerLink]="[ '/user/newPropertyMember', { Id: m.newsId } ]"
+                                    class="category">{{m.title}}</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mt-md-0 mt-5">
-                    <div class="grids5-info">
-                        <span class="posted-date">
-                            <a href="#blog-single">
-                                <span class="small">2020</span>
-                                <span class="big">19</span>
-                                <span class="small">October</span>
-                            </a>
-                        </span>
-                        <a href="#blog-single" class="d-block zoom"><img src="assets/user/images/p2.jpg" alt=""
-                                class="img-fluid news-image" /></a>
-                        <div class="blog-info">
-                            <a href="#category" class="category">Uncategorized</a>
-                            <h4><a href="#blog-single">A digital prescription for the pharma industry</a></h4>
-                            <p>Lorem ipsum dolor sit amet ad minus libero ullam ipsam quas earum!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mt-lg-0 mt-5">
-                    <div class="grids5-info">
-                        <span class="posted-date">
-                            <a href="#blog-single">
-                                <span class="small">2020</span>
-                                <span class="big">20</span>
-                                <span class="small">October</span>
-                            </a>
-                        </span>
-                        <a href="#blog-single" class="d-block zoom"><img src="assets/user/images/p3.jpg" alt=""
-                                class="img-fluid news-image" /></a>
-                        <div class="blog-info">
-                            <a href="#category" class="category">Uncategorized</a>
-                            <h4><a href="#blog-single">Harvest great ideas from your company’s best assets</a></h4>
-                            <p>Lorem ipsum dolor sit amet ad minus libero ullam ipsam quas earum!</p>
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
             </div>
         </div>
     </section>
 </div>
+
+<!-- pagination -->
+<div class="pagination-wrapper mt-5 pt-lg-3 text-center">
+    <ul class="page-pagination">
+        <ng-container *ngIf="currentPage!==1">
+            <li (click)="minusPage()"><a class="next">Previous</a></li>
+        </ng-container>
+        <ng-container *ngFor="let in of newsLengthArray; index as i">
+            <li (click)="executeNewsPerPage(i+1)"><a class="page-numbers">{{i+1}}</a></li>
+        </ng-container>
+        <ng-container *ngIf="currentPage!==newsPer">
+            <li (click)="plusPage()"><a class="next">Next <span class="fa fa-angle-right"></span></a></li>
+        </ng-container>
+    </ul>
+</div>
+<!-- //pagination -->
+
+<!-- <div class="col-12">
+    <div class="d-flex justify-content-between">
+        <div>
+            Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > newsLength? newsLength :
+            currentPage*10}} of {{newsLength}} entries
+        </div>
+        <div aria-label="Page navigation example">
+            <ul class="pagination">
+
+            </ul>
+        </div>
+    </div>
+</div> -->

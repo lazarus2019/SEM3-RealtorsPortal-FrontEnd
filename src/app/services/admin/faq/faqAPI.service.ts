@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 @Injectable()
-export class FAQService {
+export class FAQAPIService {
 
     private BASE_URL = 'http://localhost:5000/api/admin/faq/';
 

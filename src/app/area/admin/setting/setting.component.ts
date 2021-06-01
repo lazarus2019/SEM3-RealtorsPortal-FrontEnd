@@ -6,9 +6,9 @@ import { ImageService } from 'src/app/services/admin/image/imageService.service'
 import { PublicService } from 'src/app/services/publicService.service';
 import { NewsCategoryAPI } from 'src/app/models/newsCategory/newsCategory.model';
 import { NewsCategoryAPIService } from 'src/app/services/admin/newsCategory/newsCategoryAPI.service';
-import { Category } from 'src/app/shared/category.model';
 import { CategoryService } from 'src/app/services/category.service';
 import Swal from 'sweetalert2';
+import { Category } from 'src/app/shared/category.model';
 
 // Declare custom function
 declare var alertFunction: any;

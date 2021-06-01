@@ -1,14 +1,89 @@
 <section class="w3l-about-breadcrumb">
     <div class="breadcrumb-bg breadcrumb-bg-about pt-5">
         <div class="container pt-lg-5 py-3">
+
         </div>
     </div>
 </section>
-<section class="w3l-breadcrumb">
-    <div class="container">
-        <ul class="breadcrumbs-custom-path">
-            <li><a href="index.html">Home</a></li>
-            <li class="active"><span class="fa fa-angle-right mx-2" aria-hidden="true"></span> Agents</li>
+
+
+<section class="locations-1" id="locations">
+
+    <!-- Load Agent -->
+
+    <div class="container py-lg-4 py-md-4 py-2">
+        <br>
+        <h3 class="title-big text-center mb-lg-5 mb-4">Meet our Agent</h3>
+        <section class="w3l-cover-3">
+            <div class="cover ">
+                <div class="container">
+                    <div class="middle text-center">
+                        <!-- Search -->
+                        <!-- <form action="#" class="w3l-cover-3-gd" method="GET" [formGroup]="formSearchAgent">
+                            <input type="search" name="text" placeholder="Enter keywords" formControlName="keyword"
+                                required>
+                            <span class="input-group-btn">
+                                <select class="btn btn-default" name="ext" required formControlName="category">
+                                    <option disabled selected> Select Category</option>
+                                    <ng-container *ngFor="let c of categoryIds">
+                                        <option value="{{c.newsCategoryId}}">{{c.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </span>
+
+                            <button type="submit" class="btn-primary"
+                                (click)="searchBtn()">Search</button>
+
+                        </form> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br>
+        <!-- block -->
+        <div class="row">
+            <ng-container *ngFor="let p  of agents">
+                <div class="col-lg-3 col-sm-6 column-item">
+                    <div class="users_box">
+                        <div class="user-avatar">
+                            <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]" class="nav-link avatar">
+                                <img [src]="getUrlImage(p.photo)" alt="" class="img-fluid w-100 radius-image">
+                            </a>
+                        </div>
+                        <div class="users_box_info">
+                            <p class="user_position">Selling Agent</p>
+                            <h4 class="user_title agent">
+                                <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]">{{p.fullName}}</a>
+                            </h4>
+                            <div class="user_meta user_phone">
+                                <span class="phone-detail"> <a href="tel:+1-2345-678-11">{{p.phone}}</a></span>
+                            </div>
+                            <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
+                                class=" nav-link btn btn-outline-primary btn-style mt-4">
+                                View Profile </a>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+
+    </div>
+
+    <!-- pagination -->
+    <div class="pagination-wrapper mt-5 pt-lg-3 text-center">
+        <ul class="page-pagination">
+            <ng-container *ngIf="currentPage!==1">
+                <li (click)="minusPage()"><a class="next">Previous</a></li>
+            </ng-container>
+            <ng-container *ngFor="let in of newsLengthArray; index as i">
+                <li (click)="executeNewsPerPage(i+1)"><a class="page-numbers">{{i+1}}</a></li>
+            </ng-container>
+            <ng-container *ngIf="currentPage!==newsPer">
+                <li (click)="plusPage()"><a class="next">Next <span class="fa fa-angle-right"></span></a></li>
+            </ng-container>
         </ul>
     </div>
+    <!-- //pagination -->
+
 </section>

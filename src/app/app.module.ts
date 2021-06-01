@@ -53,7 +53,7 @@ import { ImageService } from './services/admin/image/imageService.service';
 import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
 import { PublicService } from './services/publicService.service';
 import { AdminFAQComponent } from './area/admin/faq/faq.component';
-import { FAQService } from './services/admin/faq/faqAPI.service';
+import { FAQAPIService } from './services/admin/faq/faqAPI.service';
 import { InvoiceService } from './services/invoice.service';
 import { LoginComponent } from './area/user/login/login.component';
 import { RegistrationComponent } from './area/user/registration/registration.component';
@@ -71,6 +71,19 @@ import { MailBoxAPIService } from './services/admin/mailbox/mailboxAPI.service';
 import { SettingAPIService } from './services/admin/setting/settingAPI.service';
 import { CategoryService } from './services/category.service';
 import { ReportsService } from './services/reports.service';
+import { PropertyService } from './services/property.service';
+import { HomeService } from './services/user/index.service';
+import { SellerService } from './services/user/seller.service';
+import { FindSellerService } from './services/user/findseller.service';
+import { DetailService } from './services/user/detail.service';
+import { NewsPropertyService } from './services/user/newsproperty.service';
+import { AboutUsService } from './services/user/aboutus.service';
+import { ShareFormService } from './services/user/shareFormSearchData';
+import { SettingUserService } from './services/user/setting.service';
+import { NewsUserService } from './services/user/news.service';
+import { MailboxUserService } from './services/user/mailbox.service';
+import { ListingService } from './services/user/listing.service';
+import { FAQUserService } from './services/user/faqapi.service';
 
 
 @NgModule({
@@ -150,7 +163,7 @@ import { ReportsService } from './services/reports.service';
     ImageService,
     PublicService,
     NewsCategoryAPIService,
-    FAQService,
+    FAQAPIService,
     InvoiceService,
     AddressService,
     AccountService,
@@ -160,6 +173,24 @@ import { ReportsService } from './services/reports.service';
     SettingAPIService,
     CategoryService,
     InvoiceService,
+
+    // T.Anh
+    AddNewService,
+    AdminService,
+    PropertyService,
+    HomeService,
+    SellerService,
+    FindSellerService,
+    DetailService,
+    NewsPropertyService,
+    AboutUsService,
+    PublicService,
+    ShareFormService,
+    SettingUserService,
+    NewsUserService,
+    MailboxUserService,
+    ListingService,
+    FAQUserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
