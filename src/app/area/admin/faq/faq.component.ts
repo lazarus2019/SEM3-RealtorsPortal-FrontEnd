@@ -134,7 +134,6 @@ export class AdminFAQComponent implements OnInit {
   updateFAQ(faqId:number){
     let faq:FAQAPI = this.formFAQGroup.value;
     faq.faqId = faqId;
-console.log(faq);
     this.faqService.updateFAQ(faq).then(
       res=>{
         alertFunction.success("Your FAQ had been updated!");
