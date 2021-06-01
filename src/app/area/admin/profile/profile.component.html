@@ -45,7 +45,7 @@
                                 Please enter at least 3 characters.
                             </div>
                             <div class="text-danger" *ngIf="formMemberGroup.hasError('maxlength', ['fullName'])">
-                                Please enter no more than 10 characters.
+                                Please enter no more than 15 characters.
                             </div>
                         </div>
                     </div>
@@ -53,11 +53,21 @@
                         <label for="exampleInputEmail1">Phone</label>
                         <input formControlName="phone" type="text" class="form-control" aria-describedby="fullName"
                             placeholder="Enter phone" required="">
+                            <em class="text-danger"
+                                *ngIf="validateControl('phone') && hasError('phone', 'required')">Phone is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('phone') && hasError('phone', 'pattern')">Phone must be number, 8-12 characters</em>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Description</label>
                         <textarea formControlName="description" name="" id="" cols="30" rows="10"
                             class="form-control"></textarea>
+                            <em class="text-danger"
+                                *ngIf="validateControl('description') && hasError('description', 'required')">Description is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('description') && hasError('description', 'maxLength')">Maximum 2000 characters</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('description') && hasError('description', 'minLength')">At least 10 characters</em>
                     </div>
 
                     <div class="d-flex justify-content-between">
@@ -106,47 +116,6 @@
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" (click)="changePassword()">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Change Password Send Mail-->
-<div class="modal fade" id="changePasswordSendMail" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Change Password Send Mail</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="formEmailPasswordGroup">
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Old Password</label>
-                        <input formControlName="oldPassword" type="password" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">New Password</label>
-                        <input formControlName="newPassword" type="password" class="form-control" required
-                            aria-describedby="newPassword">
-                        <small id="newPassword" class="form-text text-muted">Must be different than current
-                            password.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Confirm Password</label>
-                        <input formControlName="confirmPassword" type="password" class="form-control" required
-                            aria-describedby="confirmPassword">
-                        <small id="confirmPassword" class="form-text text-muted">Confirm password must be equal to
-                            password.</small>
-                    </div>
-                    <div class="form-group d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" >Save changes</button>
                     </div>
                 </form>
             </div>

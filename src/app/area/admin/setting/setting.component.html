@@ -12,11 +12,26 @@
                             <label for="title">Top Property<span class="text-danger">*</span></label>
                             <input formControlName="numTopProperty" type="number" placeholder="Enter number"
                                 class="form-control" min="1">
+                            <em class="text-danger"
+                                *ngIf="validateControl('numTopProperty') && hasError('numTopProperty', 'required')">Top
+                                property is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numTopProperty') && hasError('numTopProperty', 'pattern')">Top
+                                property must be number</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numTopProperty') && hasError('numTopProperty', 'max')">Top
+                                property no more than 10</em>
                         </div>
                         <div class="col-lg-6">
                             <label for="title">Popular Location<span class="text-danger">*</span></label>
                             <input formControlName="numPopularLocation" type="number" placeholder="Enter number"
                                 class="form-control" min="1">
+                                <em class="text-danger"
+                                *ngIf="validateControl('numPopularLocation') && hasError('numPopularLocation', 'required')">Popular Location is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numPopularLocation') && hasError('numPopularLocation', 'pattern')">Popular Location must be number</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numPopularLocation') && hasError('numPopularLocation', 'max')">Popular Location no more than 10</em>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -24,11 +39,21 @@
                             <label for="title">Popular Agent<span class="text-danger">*</span></label>
                             <input formControlName="numPopularAgent" type="number" placeholder="Enter number"
                                 class="form-control" min="1">
+                                <em class="text-danger"
+                                *ngIf="validateControl('numPopularAgent') && hasError('numPopularAgent', 'required')">Popular Agent is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numPopularAgent') && hasError('numPopularAgent', 'pattern')">Popular Agent must be number</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numPopularAgent') && hasError('numPopularAgent', 'max')">Popular Agent no more than 10</em>
                         </div>
                         <div class="col-lg-6">
                             <label for="title">Satisfied Customer<span class="text-danger">*</span></label>
                             <input formControlName="numSatisfiedCustomer" type="number" placeholder="Enter number"
                                 class="form-control" min="1">
+                                <em class="text-danger"
+                                *ngIf="validateControl('numSatisfiedCustomer') && hasError('numSatisfiedCustomer', 'required')">Satisfied Customer is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numSatisfiedCustomer') && hasError('numSatisfiedCustomer', 'pattern')">Satisfied Customer must be number</em>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -36,11 +61,23 @@
                             <label for="title">News/page<span class="text-danger">*</span></label>
                             <input formControlName="numNews" type="number" placeholder="Enter number"
                                 class="form-control" min="1">
+                                <em class="text-danger"
+                                *ngIf="validateControl('numNews') && hasError('numNews', 'required')">News/page is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numNews') && hasError('numNews', 'pattern')">News/page must be number</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numNews') && hasError('numNews', 'max')">News/page no more than 10</em>
                         </div>
                         <div class="col-lg-6">
                             <label for="title">Property/page<span class="text-danger">*</span></label>
                             <input formControlName="numProperty" type="number" placeholder="Enter number"
                                 class="form-control" min="1">
+                                <em class="text-danger"
+                                *ngIf="validateControl('numProperty') && hasError('numProperty', 'required')">Property/page is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numProperty') && hasError('numProperty', 'pattern')">Property/page must be number</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numProperty') && hasError('numProperty', 'max')">Property/page no more than 10</em>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -132,7 +169,7 @@
                             <label for="title">Phone<span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input type="text" class="form-control" [(ngModel)]="tempPhone"
-                                    [ngModelOptions]="{standalone: true}" placeholder="Enter phone">
+                                    [ngModelOptions]="{standalone: true}" placeholder="Enter phone" maxlength="12" minlength="8">
                                 <div class="input-group-append">
                                     <span (click)="addPhone()" class="input-group-text bg-primary"
                                         style="color:#fff">Add</span>
@@ -155,7 +192,7 @@
                             <label for="title">Email<span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input type="email" class="form-control" [(ngModel)]="tempEmail"
-                                    [ngModelOptions]="{standalone: true}" placeholder="Enter email">
+                                    [ngModelOptions]="{standalone: true}" placeholder="Enter email" maxlength="50" minlength="8">
                                 <div class="input-group-append">
                                     <span (click)="addEmail()" class="input-group-text bg-primary"
                                         style="color:#fff">Add</span>
@@ -182,6 +219,12 @@
                             <label for="title">Address<span class="text-danger">*</span></label>
                             <textarea formControlName="address" class="form-control" name="" id="" cols="30"
                                 rows="10"></textarea>
+                                <em class="text-danger"
+                                *ngIf="validateControl('address') && hasError('address', 'required')">Address is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('address') && hasError('address', 'maxLength')">Maximum 200 characters</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('address') && hasError('address', 'minLength')">At least 10 characters</em>
                         </div>
                         <!-- Phone Setting End -->
 
@@ -190,6 +233,12 @@
                             <label for="title">Description<span class="text-danger">*</span></label>
                             <textarea formControlName="description" class="form-control" name="" id="" cols="30"
                                 rows="10"></textarea>
+                                <em class="text-danger"
+                                *ngIf="validateControl('description') && hasError('description', 'required')">Description is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('description') && hasError('description', 'maxLength')">Maximum 2000 characters</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('description') && hasError('description', 'minLength')">At least 10 characters</em>
                         </div>
                         <!-- Email Setting End -->
 
@@ -221,11 +270,19 @@
                             <label for="title">Max Image Property<span class="text-danger">*</span></label>
                             <input formControlName="numMaxImageProperty" type="number" placeholder="Enter number"
                                 class="form-control" min="1">
+                                <em class="text-danger"
+                                *ngIf="validateControl('numMaxImageProperty') && hasError('numMaxImageProperty', 'required')">Max Image Property is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numMaxImageProperty') && hasError('numMaxImageProperty', 'pattern')">Max Image Property must be number</em>
                         </div>
                         <div class="col-lg-6">
                             <label for="title">Max Image News<span class="text-danger">*</span></label>
                             <input formControlName="numMaxImageNews" type="number" placeholder="Enter number"
                                 class="form-control" min="1">
+                                <em class="text-danger"
+                                *ngIf="validateControl('numMaxImageNews') && hasError('numMaxImageNews', 'required')">Max Image News is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('numMaxImageNews') && hasError('numMaxImageNews', 'pattern')">Max Image News must be number</em>
                         </div>
                     </div>
 
