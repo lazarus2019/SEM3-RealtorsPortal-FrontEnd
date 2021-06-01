@@ -59,9 +59,6 @@ export class ResultComponent implements OnInit {
   pg: string
   isIndex: boolean;
 
-  // test
-  test: CountryModel
-
 
   constructor(
     private listingService: ListingService,

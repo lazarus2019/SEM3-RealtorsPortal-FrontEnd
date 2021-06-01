@@ -12,8 +12,13 @@ export class CategoryService {
         private httpClient: HttpClient
     ) { }
 
-    propertybycategory(categoryId: number) {
-        return this.httpClient.get(this.BASE_URL + 'propertybycategory/' +  categoryId)
+    propertybycategorycount(categoryId: number) {
+        return this.httpClient.get(this.BASE_URL + 'propertybycategorycount/' +  categoryId)
+                        .toPromise()
+                        .then( res => res as  number) ;
+    }
+    propertybycategory(categoryId: number , page : number ) {
+        return this.httpClient.get(this.BASE_URL + 'propertybycategory/' +  categoryId + '/' +page)
                         .toPromise()
                         .then( res => res as PropertyModel[] ) ;
     }
