@@ -53,14 +53,11 @@ export class AddNewPropertyComponent implements OnInit {
 
   addFormGroup: FormGroup;
 
-  keyword: "name";
-
   regions: Region[];
 
-  countries$: Observable<any[]>;
+  countries: Country[];
 
   cities: City[];
-
 
   public ngOnInit(): void {
     //check to add new property
@@ -71,13 +68,8 @@ export class AddNewPropertyComponent implements OnInit {
       this.checkExpiryDate();
     }
 
-    //get Region
+    //get region
     this.getAllRegion();
-    //get Country
-    this.getAllCountry();
-
-    //get City
-    this.getAllCity();
 
     //get category 
     this.categoryService.getAllCategory().subscribe(categories => {
@@ -89,7 +81,7 @@ export class AddNewPropertyComponent implements OnInit {
       title: new FormControl('', [Validators.required]),
       region: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
+      cityId: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       type: new FormControl('', [Validators.required]),
       categoryId: new FormControl('', [Validators.required]),
@@ -101,32 +93,21 @@ export class AddNewPropertyComponent implements OnInit {
     });
   }
 
-  selectEvent(item: any) {
-
+  onChangeRegion(regionId: any) {
+    this.addressService.getAllCountry(regionId.target.value).subscribe(countries => {
+      this.countries = countries;
+    })
   }
 
-  onChangeSearch(search: string){
-
-  }
-
-  onFocused(e: any) {
-
+  onChangeCountry(countryId: any) {
+    this.addressService.getAllCity(countryId.target.value).subscribe(cities => {
+      this.cities = cities;
+    })
   }
 
   getAllRegion() {
     this.addressService.getAllRegion().subscribe(region => {
       this.regions = region;
-      console.table(this.regions);
-    })
-  }
-
-  getAllCountry() {
-    this.countries$ = this.addressService.getAllCountry();
-  }
-
-  getAllCity() {
-    this.addressService.getAllCity().subscribe(city => {
-      this.cities = city;
     })
   }
 
@@ -206,12 +187,13 @@ export class AddNewPropertyComponent implements OnInit {
     this.property = this.addFormGroup.value;
     var userId = localStorage.getItem('userId');
     this.property.description = getTinyMCEContent();
+    console.log(this.property.cityId);
     this.propertyService.createProperty(this.property, userId).subscribe(propertyId => {
-      console.log("pId: " + propertyId);
       this.uploadImage(propertyId.toString());
       alertFunction.success("Add New Property", "Successfully added!")
     }
     );
+    this.router.navigateByUrl('/admin/userManage')
   }
 
   uploadImage(propertyId: string) {
@@ -224,7 +206,7 @@ export class AddNewPropertyComponent implements OnInit {
           if (this.successImage === this.numberImage) {
             this.imageForm = [];
             this.urls = [];
-            alertFunction.success("Upload gallery success!")
+            //alertFunction.success("Upload gallery success!")
           }
         },
         err => {

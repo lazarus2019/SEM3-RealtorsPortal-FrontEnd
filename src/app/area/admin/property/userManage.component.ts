@@ -181,23 +181,19 @@ export class UserManagePropertyComponent implements OnInit {
   }
 
   onEdit(property: Property) {
+    console.log(property.cityId);
     this.router.navigateByUrl('/admin/updateProperty', { state: this.property });
-
   }
 
   onDetails(propertyId: number) {
-    this.propertyService.getPropertyById(propertyId).subscribe((property) => {
-      this.property = property;
-      this.getGallery(propertyId);
-    });
-
+    if (propertyId > 0) {
+      this.propertyService.getPropertyById(propertyId).subscribe((property) => {
+        this.property = property;
+        this.images = property.images;
+      });
+    }
   }
 
-  getGallery(propertyId: number) {
-    this.propertyService.getGallery(propertyId).subscribe(images => {
-      this.images = images;
-    })
-  }
 
   getUrlImage(imageName: string) {
     return this.publicService.getUrlImage("property", imageName);

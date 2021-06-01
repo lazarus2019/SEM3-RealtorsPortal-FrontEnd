@@ -16,4 +16,10 @@ export class CategoryService {
   getAllCategory(): Observable<Category[]> {
     return this.http.get<Category[]>(this.baseUrl);
   }
+
+  createCategory(Category: Category) {
+    return this.http.post(this.baseUrl + 'createCategory', Category)
+      .toPromise()
+      .then(res => res as number);
+  }
 }

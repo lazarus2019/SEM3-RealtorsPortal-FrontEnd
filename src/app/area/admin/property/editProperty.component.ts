@@ -7,6 +7,11 @@ import { CategoryService } from 'src/app/services/category.service';
 import { Category } from '../../../shared/category.model';
 import { Image } from '../../../shared/image.model';
 import { PublicService } from 'src/app/services/publicService.service';
+import { Region } from 'src/app/shared/region.model';
+import { Country } from 'src/app/shared/country.model';
+import { City } from 'src/app/shared/city.model';
+import { AddressService } from 'src/app/services/address.service';
+import { Router } from '@angular/router';
 declare var alertFunction: any;
 
 @Component({
@@ -17,9 +22,11 @@ export class EditPropertyComponent implements OnInit {
   constructor(
     private imageService: ImageService,
     private formBuilder: FormBuilder,
+    private router: Router,
     private propertyService: PropertyService,
     private categoryService: CategoryService,
-    private publicService: PublicService
+    private publicService: PublicService,
+    private addressService: AddressService
   ) {
     this.loadScripts();
   }
@@ -43,9 +50,18 @@ export class EditPropertyComponent implements OnInit {
 
   listImageDelete = new Array<Object>();
 
+  regions: Region[];
+
+  countries: Country[];
+
+  cities: City[];
+
   public ngOnInit(): void {
     //get data from userManage component
     this.property = history.state;
+
+    //get region
+    this.getAllRegion();
 
     //get category 
     this.categoryService.getAllCategory().subscribe(categories => {
@@ -56,9 +72,9 @@ export class EditPropertyComponent implements OnInit {
     this.editFormGroup = this.formBuilder.group({
       propertyId: new FormControl(this.property.propertyId, [Validators.required]),
       title: new FormControl(this.property.title, [Validators.required]),
-      region: new FormControl(this.property.cityId, [Validators.required]),
-      country: new FormControl(this.property.cityId, [Validators.required]),
-      city: new FormControl(this.property.cityName, [Validators.required]),
+      regionId: new FormControl(this.property.cityCountryRegionId, [Validators.required]),
+      countryId: new FormControl(this.property.citycountryId, [Validators.required]),
+      cityId: new FormControl(this.property.cityId, [Validators.required]),
       address: new FormControl(this.property.address, [Validators.required]),
       type: new FormControl(this.property.type, [Validators.required]),
       categoryId: new FormControl(this.property.categoryId, [Validators.required]),
@@ -72,8 +88,27 @@ export class EditPropertyComponent implements OnInit {
     this.getGallery(this.property.propertyId);
   }
 
+  onChangeRegion(regionId: any) {
+    this.addressService.getAllCountry(regionId.target.value).subscribe(countries => {
+      this.countries = countries;
+    })
+  }
+
+  onChangeCountry(countryId: any) {
+    this.addressService.getAllCity(countryId.target.value).subscribe(cities => {
+      this.cities = cities;
+    })
+  }
+
+  getAllRegion() {
+    this.addressService.getAllRegion().subscribe(region => {
+      this.regions = region;
+    })
+  }
+
   editProperty() {
     this.updateProperty = this.editFormGroup.value;
+    console.log(this.editFormGroup.get('cityId').value);
     this.updateProperty.memberId = this.property.memberId;
     this.updateProperty.statusId = this.property.statusId;
     this.propertyService.updateProperty(this.updateProperty).subscribe(() => {
@@ -84,6 +119,7 @@ export class EditPropertyComponent implements OnInit {
       alertFunction.success("Update Property", "Successfully updated");
     }
     );
+    this.router.navigateByUrl('/admin/userManage')
   }
 
   uploadImage() {

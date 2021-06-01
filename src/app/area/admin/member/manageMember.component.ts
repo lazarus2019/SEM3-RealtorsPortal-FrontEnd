@@ -24,6 +24,9 @@ export class AdminManageMemberComponent implements OnInit {
   }
 
   // Pagination 
+
+  sendEmail: string;
+
   isFilter = false;
 
   NoNum: number = 10;
@@ -52,15 +55,17 @@ export class AdminManageMemberComponent implements OnInit {
 
   positions: string[];
 
+ 
+
   ngOnInit(): void {
     //get member
     this.loadData();
 
     //get emailRequest to sendMail
     this.emailFormGroup = this.formBuilder.group({
-      email: '',
-      subject: '',
-      content: ''
+      email:  new FormControl('sendEmail', [Validators.required]),
+      subject: new FormControl('', [Validators.required]),
+      content: new FormControl('', [Validators.required])
     });
 
     //get member to search
@@ -150,6 +155,11 @@ export class AdminManageMemberComponent implements OnInit {
     });
   }
 
+  onEmail(email: string){
+    this.sendEmail = email;
+    console.log(email);
+  }
+
   blockAlert(member: Member) {
     console.table( member);
     Swal.fire({
@@ -162,8 +172,7 @@ export class AdminManageMemberComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //update action        
-        var userId = localStorage.getItem('userId');
-        this.memberService.updateStatus(member).subscribe(() => {
+        this.memberService.updateStatus(member.memberId, member.email, member.status).subscribe(() => {
           Swal.fire({
             icon: 'success',
             title: 'Block successful!',
@@ -188,7 +197,7 @@ export class AdminManageMemberComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //update action        
-        this.memberService.updateStatus(member).subscribe(() => {
+        this.memberService.updateStatus(member.memberId, member.email, member.status).subscribe(() => {
           Swal.fire({
             icon: 'success',
             title: 'Unblock successful!',

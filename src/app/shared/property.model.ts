@@ -24,5 +24,6 @@ export class Property {
     memberFullName: string
     description: string;
     type: string;
-    image: Image;
+    imageName: Image;
+    images: Image[];
 }

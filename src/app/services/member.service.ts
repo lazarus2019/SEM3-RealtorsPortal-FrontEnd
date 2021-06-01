@@ -38,8 +38,9 @@ export class MemberService {
     return this.http.get<Member[]>(url);
   }
 
-  updateStatus(member: Member): Observable<void> {
-    return this.http.put<void>(this.baseUrl + "/updateStatus", member, httpOptions);
+  updateStatus(memberId: number, email: string, status: boolean): Observable<void> {
+    var url = `${this.baseUrl}/updateStatus/${memberId}/${email}`;
+    return this.http.put<void>(url, status, httpOptions);
   }
 
   handleError(error) {

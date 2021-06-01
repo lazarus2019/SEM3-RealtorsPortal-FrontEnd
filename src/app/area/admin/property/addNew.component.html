@@ -25,27 +25,43 @@
                                             Select Region: <span class="text-danger">*</span>
                                         </label>
                                         <div>
-                                            <input data-parsley-type="number" type="text" class="form-control"
-                                                required="" id="region" formControlName="region"
-                                                placeholder="Enter region" required="required">
+                                            <select class="form-control select2 select2-hidden-accessible" id="region"
+                                                name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                                formControlName="region" required="required"
+                                                (change)="onChangeRegion($event)">
+                                                <option value="" disabled hidden>Choose region</option>
+                                                <option value="{{region.regionId}}" *ngFor="let region of regions">
+                                                    {{region.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="country">
                                             Select Country: <span class="text-danger">*</span>
                                         </label>
-                                        <input data-parsley-type="number" type="text" class="form-control" required=""
-                                            id="country" formControlName="country" placeholder="Enter country"
-                                            required="required">
+                                        <div>
+                                            <select class="form-control select2 select2-hidden-accessible" id="country"
+                                                name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                                formControlName="country" required="required"
+                                                (change)="onChangeCountry($event)">
+                                                <option value="" disabled hidden>Choose country</option>
+                                                <option value="{{country.countryId}}" *ngFor="let country of countries">
+                                                    {{country.name}}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="city">
                                             Select City: <span class="text-danger">*</span>
                                         </label>
                                         <div>
-                                            <input data-parsley-type="number" type="text" class="form-control"
-                                                required="" id="city" formControlName="city" placeholder="Enter city"
-                                                required="required">
+                                            <select class="form-control select2 select2-hidden-accessible" id="city"
+                                                name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                                formControlName="cityId" required="required">
+                                                <option value="" disabled hidden>Choose city</option>
+                                                <option value="{{city.cityId}}" *ngFor="let city of cities">
+                                                    {{city.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +180,7 @@
 
                             <div class="form-group text-right m-b-0">
                                 <button class="btn btn-primary" type="submit" (click)="createProperty()"
-                                    disable="!check">
+                                    [disabled]="addFormGroup.invalid">
                                     Save
                                 </button>
                             </div>

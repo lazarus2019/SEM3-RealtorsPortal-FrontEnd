@@ -74,8 +74,8 @@
                                             <td class="sorting_1">{{NoNum*(currentPage-1)+1 + i}}</td>
                                             <td>{{property?.title}}</td>
                                             <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt=""
-                                                    style="width: 100%; max-height: 150px;">
+                                                <img [src]="getUrlImage(property?.images[0].name)"
+                                                style="width: 100%; max-height: 150px;">
                                             </td>
                                             <td>{{property?.category.name}}</td>
                                             <td>{{property?.uploadDate | date: 'dd/MM/y'}}</td>
@@ -210,7 +210,7 @@
                             <div class="col-md-4">
                                 <label for="type">Type: </label>
                                 <input data-parsley-type="text" type="text" class="form-control" id="type" readonly
-                                    value="${{property?.type}}" style="background-color:white;">
+                                    value="{{property?.type}}" style="background-color:white;">
                             </div>
                             <div class="col-md-4">
                                 <label for="publicday">Public day:</label>

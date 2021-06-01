@@ -57,6 +57,7 @@ export class AdminManagePropertyComponent implements OnInit {
 
   mailRequest: MailRequest;
 
+  thumbnail: string;
 
   categories: Category[] = [];
 
@@ -198,14 +199,15 @@ export class AdminManagePropertyComponent implements OnInit {
   onDetails(propertyId: number) {
     this.propertyService.getPropertyById(propertyId).subscribe((property) => {
       this.property = property;
-      this.getGallery(propertyId);
+      this.images = property.images;
+      console.table(this.images);
     });
   }
 
   onCheck(propertyId: number) {
     this.propertyService.getPropertyById(propertyId).subscribe((property) => {
       this.property = property;
-      this.getGallery(propertyId);
+      this.images = property.images;
     });
   }
 
@@ -235,12 +237,6 @@ export class AdminManagePropertyComponent implements OnInit {
           this.loadData();
         });
       }
-    })
-  }
-
-  getGallery(propertyId: number) {
-    this.propertyService.getGallery(propertyId).subscribe(images => {
-      this.images = images;
     })
   }
 
