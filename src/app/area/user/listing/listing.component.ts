@@ -67,7 +67,12 @@ export class ListingComponent implements OnInit {
       price: 0
     });
   }
-
+  readMoreFunc(message: string) {
+    if(message.length > 25) {
+      return message.substr(0, 25) + '...';
+    }
+    else return message
+  }
   loadcity(event: any) {
     console.log("countryId : " + event.target.value);
     this.listingService.loadcity(event.target.value).then(

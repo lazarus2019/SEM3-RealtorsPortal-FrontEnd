@@ -58,6 +58,7 @@ import { ResultComponent } from './area/user/listing/searchResult.component';
 import { MailboxService } from './services/user/mailbox.service';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { MyCategoryComponent } from './area/user/tagHelper/mycategory.component';
+import { PublicService } from './services/publicService.service';
 
 
 @NgModule({
@@ -145,7 +146,8 @@ import { MyCategoryComponent } from './area/user/tagHelper/mycategory.component'
     UserService,
     CategoryService,
     ShareFormService , 
-    MailboxService
+    MailboxService,
+    PublicService
     
   ],
   bootstrap: [AppComponent]

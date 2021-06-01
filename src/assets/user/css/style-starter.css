@@ -13903,7 +13903,11 @@ a.title-small {
 
 /*-- //footer --*/
 
-.locations-1 .box16 {
+.box16-edit{
+  height: 100%;
+}
+
+.locations-1 .box16 {  
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -14049,6 +14053,13 @@ a.title-small {
     padding: 15px;
   }
 }
+
+@media only screen and (min-width: 768px) {
+  .box16{
+    height: 248px;
+  }
+}
+
 
 .rentext-listing-category {
   position: absolute;

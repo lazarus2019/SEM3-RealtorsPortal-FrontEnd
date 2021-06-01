@@ -62,7 +62,7 @@
                 <ng-container *ngFor="let p  of topproperty">
                     <div class="col-lg-4 col-md-6 mb-4"  >
                         <a [routerLink]="['/user/single-property', {propertyId: p.propertyId} ]">
-                            <div class="box16">
+                            <div class="box16 box16-edit">
                                 <div class="rentext-listing-category"><span>{{p.type}}</span></div>
                                 <img class="img-fluid" width="100%" height="100%" src="http://localhost:65320/images/property/{{p.images[0].name}} " alt="{{p.images[0].name}}" >
                                 <div class="box-content">

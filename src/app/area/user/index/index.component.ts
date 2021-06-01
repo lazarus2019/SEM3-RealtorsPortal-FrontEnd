@@ -64,7 +64,7 @@ export class IndexComponent implements OnInit {
       });
   }
   readMoreFunc(message: string) {
-    return message.substr(0, 165);
+    return message.substr(0, 25);
   }
   save() {
     //var data =  this.formSearch.value ;

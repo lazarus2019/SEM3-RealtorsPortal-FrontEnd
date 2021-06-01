@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CityModel } from "src/app/models/city.model";
+import { ImageModel } from "src/app/models/image.model";
 import { PopularLocations } from "src/app/models/popularLocation.model";
 import { PropertyModel } from "src/app/models/property.model";
 import { RegionModel } from "src/app/models/region.model";
@@ -29,6 +30,11 @@ export class ListingService {
         return this.httpClient.get(this.BASE_URL + 'getlistingcount' )
                         .toPromise()
                         .then( res => res as number ) ;
+    }
+    getGallery(propertyId : number) {
+        return this.httpClient.get(this.BASE_URL + 'getGallery/'+ propertyId)
+                        .toPromise()
+                        .then( res => res as ImageModel[] ) ;
     }
     getSetting() {
         return this.httpClient.get(this.BASE_URL + 'getsetting' )

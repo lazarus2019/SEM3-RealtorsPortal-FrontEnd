@@ -47,29 +47,38 @@
                 <div class="blog-single-post">
                     <div class="single-post-image mb-5">
                         <div class="owl-blog owl-carousel owl-theme">
-                            <!-- <div class="item">
+                            <div class="item">
                                 <ng-image-slider 
                                     [images]="imageObject" class="card"
                                     [autoSlide]="1" 
-                                    [imageSize]="{width: 580 , height: 650}"
+                                    [imageSize]="{width: 768 , height: 650}"
                                     [animationSpeed] = 0.5 
                                 ></ng-image-slider>                                
 
-                            </div> -->
-                            <div class="slider-image">
+                            </div>
+                            <!-- <div class="slider-image">
                                 <div class="slideshow-container">
-                                    <ng-container *ngFor="let image of property.images; index as i">
-                                        <div class="mySlides" *ngIf="i===0" style="display: block;">
-                                            <img src="http://localhost:65320/images/property/{{image.name}}" style="width:100%">
-                                        </div>
-                                        <div class="mySlides" *ngIf="i!==0" style="display: none;">
-                                            <img src="http://localhost:65320/images/property/{{image.name}}" style="width:100%">
+                                    <ng-container *ngFor="let image of imagesList; index as i">
+
+                                        <div class="mySlides" >
+                                            <img [src]="getUrlImage(image.name)" style="width:100%">
                                         </div>
                                     </ng-container>
-
+            
+                                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
                                 </div>
                                 <br>  
-                            </div>
+                            </div> -->
+                            <!-- <div class="single-post-image mb-5">
+                                <div class="owl-blog owl-carousel owl-theme" *ngFor="let image of imagesList">
+                                    <div class="item" >
+                                        <div class="card">
+                                            <img  [src]="getUrlImage(image.name)" class="img-fluid radius-image" alt="image">
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div> -->
 
                         </div>
                     </div>
