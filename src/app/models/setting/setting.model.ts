@@ -1,0 +1,21 @@
+export class SettingAPI {
+    settingId: number = 0;
+    numTopProperty: number = 0;
+    numPopularLocation: number = 0;
+    numNews: number = 0;
+    numPopularAgent: number = 0;
+    numProperty: number = 0;
+    numSatisfiedCustomer: number = 0;
+    numMaxImageProperty: number = 0;
+    numMaxImageNews: number = 0;
+    phone: string = "";
+    email: string = "";
+    address: string = "";
+    description: string = "";
+    services: string = "";
+    aboutUsTitle: string = "";
+    thumbnailWebsite: string = "";
+    thumbnailAboutUs: string = "";
+    thumbnailHome: string = "";
+    reviews: string = "";
+}

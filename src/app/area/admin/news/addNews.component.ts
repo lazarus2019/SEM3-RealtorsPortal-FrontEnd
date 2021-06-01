@@ -7,6 +7,7 @@ import { NewsCategoryAPIService } from 'src/app/services/admin/newsCategory/news
 import { NewsAPIService } from 'src/app/services/admin/news/newsAPI.service';
 import { ImageService } from 'src/app/services/admin/image/imageService.service';
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { SettingAPIService } from 'src/app/services/admin/setting/settingAPI.service';
 
 // Declare custom function
 declare var generateUrlFunction: any;
@@ -29,12 +30,17 @@ export class AdminNewsComponent implements OnInit {
 
   successImage: number = 0;
 
+   // Setting
+
+   maxImage:number = 0;
+
   // Form content
   formAddNewGroup: FormGroup = new FormGroup({});
 
   // Category
   allNewsCategory: NewsCategoryAPI[] = [];
 
+  newCategoryId:number = 0;
 
   constructor(
     // Declare form builder
@@ -47,12 +53,18 @@ export class AdminNewsComponent implements OnInit {
     // Declare services
     private newsAPIService: NewsAPIService,
     private newsCategoryAPIService: NewsCategoryAPIService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private settingAPIService: SettingAPIService,
   ) {
     this.loadScripts();
   }
 
   ngOnInit() {
+
+    // Load Categories
+    this.loadAllNewsCategory();
+    // Load setting
+    this.getMaxNewsImage();
 
     this.formAddNewGroup = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -61,9 +73,6 @@ export class AdminNewsComponent implements OnInit {
       status: "",
       categoryId: new FormControl('1', [Validators.required])
     });
-
-    // Load Categories
-    this.loadAllNewsCategory();
   }
 
 
@@ -101,12 +110,27 @@ export class AdminNewsComponent implements OnInit {
     }
   }
 
+  getMaxNewsImage(){
+    this.settingAPIService.getMaxNewsImage().then(
+      res=>{
+        this.maxImage = res;
+      },
+      err=>{
+        alertFunction.error("Can not get max image setting!")
+      }
+    )
+  }
+
 
   loadAllNewsCategory() {
     this.newsCategoryAPIService.findAllNewsCategory().then(
       res => {
         this.allNewsCategory = res;
-        this.formAddNewGroup.get("categoryId")?.setValue(this.allNewsCategory[0].newsCategoryId);
+        if(this.newCategoryId != 0){
+          this.formAddNewGroup.get("categoryId")?.setValue(this.newCategoryId.toString());
+        }else{
+          this.formAddNewGroup.get("categoryId")?.setValue(this.allNewsCategory[0].newsCategoryId);
+        }
       },
       err => {
         alertFunction.error("Connection error, please reset server and refresh this page");
@@ -115,16 +139,37 @@ export class AdminNewsComponent implements OnInit {
   }
 
   addNews(buttonType: string) {
-    var news: NewsOrgAPI = this.formAddNewGroup.value;
-    news.description = getTinyMCEContent();
-    // Set status: public or draft for news
-    news.status = buttonType;
-    this.newsAPIService.createNews(news).then(
+    if(this.imageForm.length > 0){
+      var news: NewsOrgAPI = this.formAddNewGroup.value;
+      news.description = getTinyMCEContent();
+      // Set status: public or draft for news
+      news.status = buttonType;
+      this.newsAPIService.createNews(news).then(
+        res => {
+          this.uploadImage(res.toString());
+        },
+        err => {
+          alertFunction.error("Please try again!")
+        }
+      )
+    }else{
+      alertFunction.error("You have to upload at least 1 photo!");
+    }
+
+  }
+
+  addNewsCategory(categoryName: string) {
+    var myCategory: NewsCategoryAPI = new NewsCategoryAPI;
+    myCategory.name = categoryName;
+    myCategory.isShow = true;
+    this.newsCategoryAPIService.createNewsCategory(myCategory).then(
       res => {
-        this.uploadImage(res.toString());
+        this.newCategoryId = res;
+        this.loadAllNewsCategory();        
+        alertFunction.success("Your new category had saved!")
       },
       err => {
-        alertFunction.error("Please try again!")
+        alertFunction.error("Can not create new category!")
       }
     )
   }
@@ -134,12 +179,12 @@ export class AdminNewsComponent implements OnInit {
   detectFiles(event: any) {
     let files = event.target.files;
     // Maximum 5 file each news/post
-    if (this.urls.length + files.length > 5) {
-      alertFunction.error("You are only allowed to upload a maximum of 5 files!");
+    if (this.urls.length + files.length > this.maxImage) {
+     alertFunction.error(`You are only allowed to upload a maximum of ${this.maxImage} files!`);
     } else {
       if (files) {
-        if (files.length > 5) {
-          alertFunction.error("You are only allowed to upload a maximum of 5 files at a time!");
+        if (files.length > this.maxImage) {
+          alertFunction.error(`You are only allowed to upload a maximum of ${this.maxImage} files at a time!`);
         } else {
           for (let file of files) {
             let status = this.imageService.validate(file);
@@ -177,7 +222,7 @@ export class AdminNewsComponent implements OnInit {
           if (this.successImage === this.numberImage) {
             this.imageForm = [];
             this.urls = [];
-            alertFunction.success("Upload gallery success!");
+            alertFunction.success("Add news success!");
             this.router.navigate(['/admin/manageNews']);
           }
         },
@@ -189,11 +234,6 @@ export class AdminNewsComponent implements OnInit {
   }
 
   // FUNCTION UPLOAD GALLERY END
-
-  // Generate title to url when title change
-  generateUrl(e: any) {
-    this.url = generateUrlFunction.convertToSlug(e.target.value);
-  }
 
   // Alert
   test_success_alert() {

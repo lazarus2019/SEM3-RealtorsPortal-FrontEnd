@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 @Injectable()
 export class FAQService {
 
-    private BASE_URL = 'http://localhost:65320/api/admin/faq/';
+    private BASE_URL = 'http://localhost:5000/api/admin/faq/';
 
     constructor(
         private http: HttpClient

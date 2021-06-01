@@ -45,6 +45,7 @@ import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword
 import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
 import { AdminFAQComponent } from './area/admin/faq/faq.component';
 
+
 const routes: Routes = [
 
   // Default Component

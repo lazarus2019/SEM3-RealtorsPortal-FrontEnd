@@ -8,7 +8,7 @@ import { NewsImageAPI } from 'src/app/models/newsImage/newsImage.model';
 @Injectable()
 export class NewsAPIService {
 
-    private BASE_URL = 'http://localhost:65320/api/admin/news/';
+    private BASE_URL = 'http://localhost:5000/api/admin/news/';
 
     constructor(
         private http: HttpClient
@@ -21,6 +21,12 @@ export class NewsAPIService {
 
     findAllNews() {
         return this.http.get(this.BASE_URL + 'getAllNews')
+            .toPromise()
+            .then(res => res as number);
+    }
+
+    getNewsPerPage(page:number){
+        return this.http.get(this.BASE_URL + 'getNewsPerPage/' + page)
             .toPromise()
             .then(res => res as NewsAPI[]);
     }
@@ -38,16 +44,21 @@ export class NewsAPIService {
     }
 
     createNews(news: NewsOrgAPI) {
-        console.table(news);
         return this.http.post(this.BASE_URL + 'createNews', news)
             .toPromise()
             .then(res => res);
     }
 
-    sortFilterNews(title: string, category: string, status: string) {
-        return this.http.get(this.BASE_URL + 'sortFilterNews/' + title + '/' + category + '/' + status)
+    filterNewsPerPage(page: number, title: string, category: string, status: string, sortDate:string) {
+        return this.http.get(`${this.BASE_URL}filterNewsPerPage/${page}/${title}/${category}/${status}/${sortDate}`)
             .toPromise()
             .then(res => res as NewsAPI[]);
+    }
+
+    getAllFilterNews(title: string, category: string, status: string, sortDate:string){
+        return this.http.get(`${this.BASE_URL}getAllFilterNews/${title}/${category}/${status}/${sortDate}`)
+        .toPromise()
+        .then(res => res as number);
     }
 
     findNews(newsId: number) {
@@ -60,6 +71,12 @@ export class NewsAPIService {
         return this.http.get(this.BASE_URL + "getGallery/" + newsId)
             .toPromise()
             .then(res => res as NewsImageAPI[])
+    }
+
+    updateStatus(news:NewsOrgAPI){
+        return this.http.put(this.BASE_URL + "updateStatus", news)
+            .toPromise()
+            .then(res => res);
     }
 
 }

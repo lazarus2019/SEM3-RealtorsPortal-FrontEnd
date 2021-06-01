@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <span class="pull-right"><button (click)="resetCurrentFAQ()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFAQ"><i class="fas fa-plus" aria-hidden="true"></i> Add new
+                    FAQ</button></span>
+                <h3><i class="far fa-file"></i> FAQ - Frequently Asked Question(s)</h3>
+            </div>
+
+            <div class="card-body">
+                <div id="accordion" role="tablist">
+                    <ng-container *ngFor="let faq of listFAQ; index as i">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between" role="tab" id="headingOne">
+                                <h5 class="mb-0">
+                                    <a data-toggle="collapse" href="#name{{faq.faqId}}" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                        {{faq.title}}
+                                    </a>
+                                </h5>
+                                <div class="btn-group">
+                                    <button class="btn btn-danger mr-2" (click)="deleteFAQ(faq.faqId)">Delete</button>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#editFAQ" (click)="viewToEditFAQ(faq.faqId)">Edit</button>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="i === 0; else elseFAQ">
+                                <div id="name{{faq.faqId}}" class="collapse show" role="tabpanel"
+                                    aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body h5">
+                                        {{faq.description}}
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-template #elseFAQ>
+                                <div id="name{{faq.faqId}}" class="collapse" role="tabpanel"
+                                    aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body h5">
+                                        {{faq.description}}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
+        </div><!-- end card-->
+    </div>
+</div>
+
+<!-- FAQ - Modal Start -->
+<!-- Edit FAQ Start -->
+<div class="modal fade bd-example-modal-lg" id="editFAQ" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit FAQ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formFAQGroup">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Title:</label>
+                        <input formControlName="title" type="text" class="form-control" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <textarea formControlName="description" class="form-control" id="message-text" placeholder="Enter description"
+                            required rows="8"></textarea>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="updateFAQ(currentFAQ.faqId)">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit FAQ End -->
+
+<!-- Add FAQ Start -->
+<div class="modal fade bd-example-modal-lg" id="addFAQ" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add FAQ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formFAQGroup">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Title:</label>
+                        <input formControlName="title" type="text" class="form-control" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <textarea formControlName="description" class="form-control" id="message-text" placeholder="Enter description"
+                            required rows="8"></textarea>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="addFAQ()">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add FAQ End -->
+<!-- FAQ - Modal End -->

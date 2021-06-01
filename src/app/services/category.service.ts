@@ -11,15 +11,34 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  private baseUrl = 'http://localhost:5000/api/category';
+  private BASE_URL = 'http://localhost:5000/api/admin/category/';
 
   getAllCategory(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.baseUrl);
+    return this.http.get<Category[]>(this.BASE_URL + 'GetAllCategory');
   }
 
   createCategory(Category: Category) {
-    return this.http.post(this.baseUrl + 'createCategory', Category)
+    return this.http.post(this.BASE_URL + 'createCategory', Category)
       .toPromise()
       .then(res => res as number);
   }
+
+  deleteCategory(CategoryId: number) {
+    return this.http.delete(this.BASE_URL + 'deleteCategory/' + CategoryId)
+      .toPromise()
+      .then(res => res);
+  }
+
+  updateCategory(Category: Category) {
+    return this.http.put(this.BASE_URL + 'updateCategory', Category)
+      .toPromise()
+      .then(res => res);
+  }
+
+  findCategory(CategoryId: number) {
+    return this.http.get(this.BASE_URL + 'findCategory/' + CategoryId)
+      .toPromise()
+      .then(res => res as Category);
+  }
+
 }

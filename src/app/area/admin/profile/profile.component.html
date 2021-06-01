@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
                 <h3><i class="far fa-address-card"></i> Setting Account</h3>
@@ -7,35 +7,65 @@
 
             <div class="card-body">
 
-                <form>
+                <form [formGroup]="formMemberGroup" (ngSubmit)="updateMember()">
                     <div class="form-group d-flex justify-content-center">
-                        <input type="file" accept=".png,.jpg,.jpeg" hidden #file>
-                        <img src="../../../../assets/images/avatars/admin.png" alt="" (click)="file.click()"
-                            class="avatar">
+                        <input type="file" accept=".png,.jpg,.jpeg" hidden #file (change)="detectFiles($event)">
+                        <!-- <img [src]="getUrlImage(currentMember.photo)" alt="" (click)="file.click()"
+                            class="avatar"> -->
+                        <ng-container *ngIf="urlAvatar != ''; else elseAvatar">
+                            <img [src]="urlAvatar" alt="" (click)="file.click()" class="avatar avatar-circle"
+                                width="100" height="100">
+                        </ng-container>
+                        <ng-template #elseAvatar>
+                            <img [src]="getUrlImage(currentMember.photo)" alt="" (click)="file.click()"
+                                class="avatar avatar-circle" width="100" height="100">
+                        </ng-template>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email" required="" readonly>
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your
-                            email with anyone else.</small>
+                        <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="Enter email" required="" readonly>
+                    </div>
+                    <div class="form-check">
+                        <input formControlName="isShowMail" class="form-check-input" type="checkbox" value=""
+                            id="flexCheckChecked">
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Show Email
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Full Name</label>
-                        <input type="text" class="form-control" id="exampleInputNumber1" aria-describedby="fullName"
+                        <input formControlName="fullName" type="text" class="form-control" aria-describedby="fullName"
                             placeholder="Enter Full Name" required="">
-                        <small id="fullName" class="form-text text-muted">We'll never share your
-                            email with anyone else.</small>
+                        <div *ngIf="formMemberGroup.get('fullName')?.touched">
+                            <div class="text-danger" *ngIf="formMemberGroup.hasError('required', ['fullName'])">
+                                This field is required.
+                            </div>
+                            <div class="text-danger" *ngIf="formMemberGroup.hasError('minlength', ['fullName'])">
+                                Please enter at least 3 characters.
+                            </div>
+                            <div class="text-danger" *ngIf="formMemberGroup.hasError('maxlength', ['fullName'])">
+                                Please enter no more than 10 characters.
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Date of birth</label>
-                        <input type="text" class="form-control" name="singledatepicker">
+                        <label for="exampleInputEmail1">Phone</label>
+                        <input formControlName="phone" type="text" class="form-control" aria-describedby="fullName"
+                            placeholder="Enter phone" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Description</label>
+                        <textarea formControlName="description" name="" id="" cols="30" rows="10"
+                            class="form-control"></textarea>
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#changePasswordSendMail">Email Password</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="formMemberGroup.invalid">Update</button>
+                        <!-- <ng-container *ngIf="currentMember.roleId==1;">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#changePasswordSendMail">Email Password</button>
+                        </ng-container> -->
                         <button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#changePassword">Change Password</button>
                     </div>
@@ -44,47 +74,7 @@
             </div>
         </div><!-- end card-->
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-        <div class="card mb-3">
-            <div class="card-header">
-                <h3><i class="fas fa-money-check-alt"></i> Setting Payment</h3>
-            </div>
-
-            <div class="card-body">
-                <form>
-
-                    <div class="form-group">
-                        <label for="name">Card Holder's Name</label>
-                        <input class="form-control" id="name" type="text" placeholder="Enter name">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="payment">Payment</label>
-                        <select class="form-control" id="payment">
-                            <option value="paypal">Paypal</option>
-                            <option value="creditCart" disabled>Credit card</option>
-                            <option value="stripe" disabled>Stripe</option>
-                            <option value="payUMoney" disabled>PayUMoney</option>
-                            <option value="alipay" disabled>Alipay</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="cardNumber">Card Number</label>
-                        <input class="form-control" id="cardNumber" type="text" placeholder="Enter card number">
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div><!-- end card-->
-    </div>
 </div>
-
-<!-- Button Success and Error -->
-<a class="btn btn-success" role="button" (click)="test_success_alert()">Show alert</a>
-<a class="btn btn-danger" role="button" (click)="test_error_alert()">Show alert</a>
 
 <!-- Modal Change Password-->
 <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -98,26 +88,24 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form [formGroup]="formPasswordGroup">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Old Password</label>
-                        <input type="text" class="form-control" required>
+                        <input formControlName="oldPassword" type="password" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">New Password</label>
-                        <input type="text" class="form-control" required aria-describedby="newPassword">
-                        <small id="newPassword" class="form-text text-muted">Must be different than current
-                            password.</small>
+                        <input formControlName="newPassword" type="password" class="form-control" required
+                            aria-describedby="newPassword">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Confirm Password</label>
-                        <input type="text" class="form-control" required aria-describedby="confirmPassword">
-                        <small id="confirmPassword" class="form-text text-muted">Confirm password must be equal to
-                            password.</small>
+                        <input formControlName="confirmPassword" type="password" class="form-control" required
+                            aria-describedby="confirmPassword">
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" (click)="changePassword()">Save changes</button>
                     </div>
                 </form>
             </div>
@@ -126,8 +114,8 @@
 </div>
 
 <!-- Modal Change Password Send Mail-->
-<div class="modal fade" id="changePasswordSendMail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
+<div class="modal fade" id="changePasswordSendMail" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -137,26 +125,28 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form [formGroup]="formEmailPasswordGroup">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Old Password</label>
-                        <input type="text" class="form-control" required>
+                        <input formControlName="oldPassword" type="password" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">New Password</label>
-                        <input type="text" class="form-control" required aria-describedby="newPassword">
+                        <input formControlName="newPassword" type="password" class="form-control" required
+                            aria-describedby="newPassword">
                         <small id="newPassword" class="form-text text-muted">Must be different than current
                             password.</small>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Confirm Password</label>
-                        <input type="text" class="form-control" required aria-describedby="confirmPassword">
+                        <input formControlName="confirmPassword" type="password" class="form-control" required
+                            aria-describedby="confirmPassword">
                         <small id="confirmPassword" class="form-text text-muted">Confirm password must be equal to
                             password.</small>
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" >Save changes</button>
                     </div>
                 </form>
             </div>

@@ -70,6 +70,10 @@ import { SuccessRegistrationComponent } from './area/user/registration/successRe
 import { AddressService } from './services/address.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { MemberAPIService } from './services/member/memberAPI.service';
+import { MailBoxAPIService } from './services/admin/mailbox/mailboxAPI.service';
+import { SettingAPIService } from './services/admin/setting/settingAPI.service';
+import { CategoryService } from './services/category.service';
 
 
 @NgModule({
@@ -119,7 +123,7 @@ import { CommonModule } from '@angular/common';
     DetailsComponent,
     NewsComponent,
     CategoryComponent,
-        //login-Registration
+    //login-Registration
     LoginComponent,
     RegistrationComponent,
     SuccessRegistrationComponent,
@@ -158,7 +162,12 @@ import { CommonModule } from '@angular/common';
     FAQService,
     InvoiceService,
     AddressService,
-    AccountService, {
+    AccountService,
+    MailBoxAPIService,
+    MemberAPIService,
+    SettingAPIService,
+    CategoryService,
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
