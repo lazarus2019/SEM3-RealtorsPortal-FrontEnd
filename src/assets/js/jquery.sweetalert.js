@@ -20,7 +20,7 @@ var alertFunction = (function () {
       swal("Good job!", string, "success")
     },
     error: function (string) {
-      swal("Query error!", string, "error")
+      swal("Error!", string, "error")
     },
     yesNo: function () {
       swal({
@@ -29,15 +29,18 @@ var alertFunction = (function () {
         icon: "warning",
         buttons: true,
         dangerMode: true,
-      }),
-        function callBackFunc() {
+      }).then((result) => {
+        if (result.isConfirmed) {
           return true;
+        }else{
+          return false;
         }
+      })
     }
   }
 })(alertFunction || {})
 
 
-function myFunc(param) {
-  return param;
+function myFunc() {
+  return alertFunction.yesNo();
 }

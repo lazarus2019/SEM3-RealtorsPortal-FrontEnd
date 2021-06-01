@@ -1,12 +1,72 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MemberAPI } from 'src/app/models/member/member.model';
+import { MailBoxAPIService } from 'src/app/services/admin/mailbox/mailboxAPI.service';
+import { MemberAPIService } from 'src/app/services/member/memberAPI.service';
+
+// Declare custom function
+declare var alertFunction: any;
 
 @Component({
   templateUrl: './admin.component.html',
 })
-export class AdminComponent {
-  constructor() {
+export class AdminComponent implements OnInit {
+
+  unReadMailBox:number = 0;
+
+  currentMember: MemberAPI = new MemberAPI;
+
+  resultMemberAPI: MemberAPI[] = [];
+
+  constructor(
+    // Declare services
+    private mailboxAPIService: MailBoxAPIService,
+    private memberAPIService: MemberAPIService
+  ) {
     this.loadScripts();
     this.loadStyle();
+  }
+
+  ngOnInit() {
+    // this.findMember();
+    this.findUser();
+    this.getAmountMailboxUnread();
+  }
+
+  // findMember() {
+  //   this.memberAPIService.findMember(1).then(
+  //     res => {
+  //       this.resultMemberAPI = res;
+  //       this.currentMember = this.resultMemberAPI[0];
+  //     },
+  //     err => {
+  //       alertFunction.error("Cant not get your profile!");
+  //     }
+  //   )
+  // }
+
+  findUser(){
+    var userId = localStorage.getItem('userId');
+    
+    this.memberAPIService.findUser(userId).then(
+      res => {
+        this.resultMemberAPI = res;
+        this.currentMember = this.resultMemberAPI[0];
+      },
+      err => {
+        alertFunction.error("Cant not get your profile!");
+      }
+    )
+  }
+
+  getAmountMailboxUnread() {
+    this.mailboxAPIService.getAmountMailboxUnread(1).then(
+      res => {
+        this.unReadMailBox = res;
+      },
+      err => {
+        alertFunction.error("Can not get mailbox!");
+      }
+    )
   }
 
   // Method to dynamically load JavaScript
@@ -27,7 +87,6 @@ export class AdminComponent {
       '../../../assets/js/jquery.nicescroll.js',
 
       '../../../assets/js/admin.js',
-      '../../../assets/js/jquery.dataTable.js',
       '../../../assets/js/jquery.goToTop.js',
       '../../../assets/js/jquery.lightBox.js',
 

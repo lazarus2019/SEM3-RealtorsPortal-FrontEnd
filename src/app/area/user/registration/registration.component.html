@@ -1,0 +1,82 @@
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w480">
+        <div class="card card-4">
+            <div class="card-header">
+                <h2>Sign Up</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="registrationForm" autocomplete="off" (ngSubmit)="onSubmit()">
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <select class="custom-select" formControlName="role" style="background: #fafafa;">
+                                <option value="op" selected disabled hidden>Which partner do you want to be?</option>
+                                <option value="Admin">Agent</option>
+                                <option value="Admin">Private Seller</option>
+                                <option value="User">Customer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <input class="input--style-4" type="text" placeholder="FullName" formControlName="fullName">
+                        </div>
+                    </div>
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <input class="input--style-4" type="text" placeholder="Email" formControlName="email">
+                            <!--<label class="text-danger"
+                                *ngIf="accountService.formModel.get('Email').touched && accountService.formModel.get('Email').errors?.email">Invalid
+                                email address.</label>-->
+                        </div>
+                    </div>
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <input class="input--style-4" type="text" placeholder="Username" formControlName="username">
+                            <!--
+                            <label class="text-danger"
+                                *ngIf="accountService.formModel.get('username').touched && accountService.formModel.get('username').errors?.required ">This
+                                field is mandatory.</label>-->
+                        </div>
+                    </div>
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <input class="input--style-4" type="password" placeholder="Password"
+                                formControlName="password">
+                            <!--
+                                <label class="text-danger"
+                                    *ngIf="accountService.formModel.get('passwords.password').touched && accountService.formModel.get('passwords.password').errors?.required">This
+                                    field is mandatory.</label>
+                                <label class="text-danger"
+                                    *ngIf="accountService.formModel.get('passwords.password').touched && accountService.formModel.get(passwords.password').errors?.minlength">Minimum
+                                    4 characters required.</label>-->
+                        </div>
+                    </div>
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <input class="input--style-4" type="password" placeholder="Confirm your password"
+                                formControlName="confirm">
+                            <!--
+                                <label class="text-danger"
+                                    *ngIf="accountService.formModel.get('passwords.confirmPassword').touched && accountService.formModel.get('passwords.confirmPassword').errors?.required">This
+                                    field is mandatory.</label>
+                                <label class="text-danger"
+                                    *ngIf="accountService.formModel.get('passwords.confirmPassword').touched && accountService.formModel.get('passwords.confirmPassword').errors?.passwordMismatch">Confirm
+                                    Password does not match.</label>
+                                <label class="text-danger"
+                                    *ngIf="accountService.formModel.get('Passwords.ConfirmPassword').touched && accountService.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm
+                                    Password does not match.</label>-->
+                        </div>
+                    </div>
+                    <div class="p-t-10 p-b-15 text-center">
+                        <button class="my-btn btn--radius-2 btn--blue" type="submit">Sign
+                            Up</button>
+                    </div>
+                    <div class="lgi">
+                        Already have an account?
+                        <a [routerLink]="['/login']"> Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

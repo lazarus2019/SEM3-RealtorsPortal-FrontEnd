@@ -1,4 +1,3 @@
-
 tinymce.init({
     selector: 'textarea#format-custom',
     height: 500,

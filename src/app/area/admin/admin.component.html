@@ -14,118 +14,6 @@
         <nav class="navbar-custom">
 
             <ul class="list-inline float-right mb-0">
-                <li class="list-inline-item dropdown notif">
-                    <a href="" class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" aria-haspopup="false"
-                        aria-expanded="false">
-                        <i class="far fa-envelope"></i>
-                        <span class="notif-bullet"></span>
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-arrow-success dropdown-lg">
-                        <!-- item-->
-                        <div class="dropdown-item noti-title">
-                            <h5>
-                                <small>
-                                    <span class="label label-danger pull-xs-right">12</span>Mailbox</small>
-                            </h5>
-                        </div>
-
-                        <!-- item-->
-                        <a href="mail-all.html" class="dropdown-item notify-item">
-                            <p class="notify-details ml-0">
-                                <b>John Doe</b>
-                                <span>New message received</span>
-                                <small class="text-muted">3 minutes ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="mail-all.html" class="dropdown-item notify-item">
-                            <p class="notify-details ml-0">
-                                <b>Michael Smith</b>
-                                <span>New message received</span>
-                                <small class="text-muted">18 minutes ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="mail-all.html" class="dropdown-item notify-item">
-                            <p class="notify-details ml-0">
-                                <b>John Lenons</b>
-                                <span>New message received</span>
-                                <small class="text-muted">Yesterday, 18:27</small>
-                            </p>
-                        </a>
-
-                        <!-- All-->
-                        <a [routerLink]="['/admin/mailbox']" class="dropdown-item notify-item notify-all">
-                            View All Messages
-                        </a>
-
-                    </div>
-
-                </li>
-
-                <li class="list-inline-item dropdown notif">
-                    <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" aria-haspopup="false"
-                        aria-expanded="false">
-                        <i class="far fa-bell"></i>
-                        <span class="notif-bullet"></span>
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-arrow-success dropdown-lg">
-                        <!-- item-->
-                        <div class="dropdown-item noti-title">
-                            <h5>
-                                <small>
-                                    <span class="label label-danger pull-xs-right">5</span>Allerts</small>
-                            </h5>
-                        </div>
-
-                        <!-- item-->
-                        <a href="#" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-faded">
-                                <img src="assets/images/avatars/avatar2.png" alt="img" class="rounded-circle img-fluid">
-                            </div>
-                            <p class="notify-details">
-                                <b>John Doe</b>
-                                <span>User registration</span>
-                                <small class="text-muted">3 minutes ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="#" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-faded">
-                                <img src="assets/images/avatars/avatar3.png" alt="img" class="rounded-circle img-fluid">
-                            </div>
-                            <p class="notify-details">
-                                <b>Michael Cox</b>
-                                <span>Task 2 completed</span>
-                                <small class="text-muted">12 minutes ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="#" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-faded">
-                                <img src="assets/images/avatars/avatar4.png" alt="img" class="rounded-circle img-fluid">
-                            </div>
-                            <p class="notify-details">
-                                <b>Michelle Dolores</b>
-                                <span>New job completed</span>
-                                <small class="text-muted">35 minutes ago</small>
-                            </p>
-                        </a>
-
-                        <!-- All-->
-                        <a href="#" class="dropdown-item notify-item notify-all">
-                            View All Allerts
-                        </a>
-
-                    </div>
-                </li>
-
 
                 <li class="list-inline-item dropdown notif">
                     <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" aria-haspopup="false"
@@ -136,7 +24,7 @@
                         <!-- item-->
                         <div class="dropdown-item noti-title">
                             <h5 class="text-overflow">
-                                <small>Hello, admin</small>
+                                <small>Hello, {{currentMember.username}}</small>
                             </h5>
                         </div>
 
@@ -193,9 +81,11 @@
 
                     <li class="submenu">
                         <a [routerLink]="['/admin/mailbox']">
-                            <span class="label radius-circle bg-danger float-right">18</span>
+                            <ng-container *ngIf="unReadMailBox !== 0">
+                                <span class="label radius-circle bg-danger float-right">{{unReadMailBox}}</span>
+                            </ng-container>
                             <i class="fas fa-envelope"></i>
-                            <span> Message box </span>
+                            <span> Mail box </span>
                         </a>
                     </li>
 
@@ -255,21 +145,10 @@
                     </li>
 
                     <li class="submenu">
-                        <a >
+                        <a [routerLink]="['/admin/manageNews']">
                             <i class="fas fa-file-alt"></i>
-                            <span> News </span>
-                            <span class="menu-arrow"></span>
+                            <span>Manage News </span>
                         </a>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a [routerLink]="['/admin/manageNews']">Manage</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="['/admin/news']">
-                                    <span> Add new </span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
                     <li class="submenu">

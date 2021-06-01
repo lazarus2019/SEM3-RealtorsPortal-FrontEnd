@@ -1,0 +1,340 @@
+<form [formGroup]="formSettingGroup">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3>Setting Template User</h3>
+                </div>
+                <!-- end card-header -->
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label for="title">Top Property<span class="text-danger">*</span></label>
+                            <input formControlName="numTopProperty" type="number" placeholder="Enter number"
+                                class="form-control" min="1">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="title">Popular Location<span class="text-danger">*</span></label>
+                            <input formControlName="numPopularLocation" type="number" placeholder="Enter number"
+                                class="form-control" min="1">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label for="title">Popular Agent<span class="text-danger">*</span></label>
+                            <input formControlName="numPopularAgent" type="number" placeholder="Enter number"
+                                class="form-control" min="1">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="title">Satisfied Customer<span class="text-danger">*</span></label>
+                            <input formControlName="numSatisfiedCustomer" type="number" placeholder="Enter number"
+                                class="form-control" min="1">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label for="title">News/page<span class="text-danger">*</span></label>
+                            <input formControlName="numNews" type="number" placeholder="Enter number"
+                                class="form-control" min="1">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="title">Property/page<span class="text-danger">*</span></label>
+                            <input formControlName="numProperty" type="number" placeholder="Enter number"
+                                class="form-control" min="1">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-4">
+                            <label class="d-block" for="title">Thumbnail Website<span
+                                    class="text-danger">*</span></label>
+                            <input formControlName="thumbnailWebsite" type="file" accept=".png,.jpg,.jpeg"
+                                (change)="detectFiles($event, 'thumbnailWebsite')" class="form-control"
+                                #thumbnailWebsite hidden>
+
+                            <ng-container *ngIf="urlThumbnailWebsite !=''; else elseThumbnailWebsite">
+                                <img [src]="urlThumbnailWebsite" class="img-fluid img-thumbnail"
+                                    style="width: 100%; overflow: hidden; max-height: 350px;"
+                                    (click)="thumbnailWebsite.click()">
+                            </ng-container>
+
+                            <ng-template #elseThumbnailWebsite>
+                                <img [src]="getUrlImage(mySetting.thumbnailWebsite)" class="img-fluid img-thumbnail"
+                                    style="width: 100%; overflow: hidden; max-height: 350px;"
+                                    (click)="thumbnailWebsite.click()">
+                            </ng-template>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="d-block" for="title">Thumbnail About Us<span
+                                    class="text-danger">*</span></label>
+                            <input formControlName="thumbnailAboutUs" type="file" accept=".png,.jpg,.jpeg"
+                                (change)="detectFiles($event, 'thumbnailAboutUs')" class="form-control"
+                                #thumbnailAboutUs hidden>
+
+                            <ng-container *ngIf="urlThumbnailAboutUs != ''; else elseThumbnailAboutUs">
+                                <img [src]="urlThumbnailAboutUs" class="img-fluid img-thumbnail"
+                                    style="width: 100%; overflow: hidden; max-height: 350px;"
+                                    (click)="thumbnailAboutUs.click()">
+                            </ng-container>
+                            <ng-template #elseThumbnailAboutUs>
+                                <img [src]="getUrlImage(mySetting.thumbnailAboutUs)" class="img-fluid img-thumbnail"
+                                    style="width: 100%; overflow: hidden; max-height: 350px;"
+                                    (click)="thumbnailAboutUs.click()">
+                            </ng-template>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="d-block" for="title">Thumbnail Home<span class="text-danger">*</span></label>
+                            <input formControlName="thumbnailHome" type="file" accept=".png,.jpg,.jpeg"
+                                (change)="detectFiles($event, 'thumbnailHome')" class="form-control" #thumbnailHome
+                                hidden>
+
+                            <ng-container *ngIf="urlThumbnailHome != ''; else elseThumbnailHome">
+                                <img [src]="urlThumbnailHome" class="img-fluid img-thumbnail"
+                                    style="width: 100%; overflow: hidden; max-height: 350px;"
+                                    (click)="thumbnailHome.click()">
+                            </ng-container>
+                            <ng-template #elseThumbnailHome>
+                                <img [src]="getUrlImage(mySetting.thumbnailHome)" class="img-fluid img-thumbnail"
+                                    style="width: 100%; overflow: hidden; max-height: 350px;"
+                                    (click)="thumbnailHome.click()">
+                            </ng-template>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group text-right">
+                        <button (click)="updateUserSetting()" class="btn btn-primary" type="submit">
+                            Save
+                        </button>
+                    </div>
+                </div>
+                <!-- end card-body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3>Setting Website Information</h3>
+                </div>
+                <!-- end card-header -->
+                <div class="card-body">
+
+                    <div class="row mb-3">
+
+                        <!-- Phone Setting Start -->
+                        <div class="col-lg-6">
+                            <label for="title">Phone<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" [(ngModel)]="tempPhone"
+                                    [ngModelOptions]="{standalone: true}" placeholder="Enter phone">
+                                <div class="input-group-append">
+                                    <span (click)="addPhone()" class="input-group-text bg-primary"
+                                        style="color:#fff">Add</span>
+                                </div>
+                            </div>
+                            <ng-container *ngFor="let phone of listPhone; index as i">
+                                <div class="input-group mt-3">
+                                    <input [value]="phone" type="text" class="form-control" readonly>
+                                    <div class="input-group-append">
+                                        <span (click)="deletePhone(i)" class="input-group-text bg-danger"
+                                            style="color:#fff">X</span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <!-- Phone Setting End -->
+
+                        <!-- Email Setting Start -->
+                        <div class="col-lg-6">
+                            <label for="title">Email<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="email" class="form-control" [(ngModel)]="tempEmail"
+                                    [ngModelOptions]="{standalone: true}" placeholder="Enter email">
+                                <div class="input-group-append">
+                                    <span (click)="addEmail()" class="input-group-text bg-primary"
+                                        style="color:#fff">Add</span>
+                                </div>
+                            </div>
+                            <ng-container *ngFor="let phone of listEmail; index as i">
+                                <div class="input-group mt-3">
+                                    <input [value]="phone" type="text" class="form-control" readonly>
+                                    <div class="input-group-append">
+                                        <span (click)="deleteEmail(i)" class="input-group-text bg-danger"
+                                            style="color:#fff">X</span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <!-- Email Setting End -->
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <!-- Phone Setting Start -->
+                        <div class="col-lg-6">
+                            <label for="title">Address<span class="text-danger">*</span></label>
+                            <textarea formControlName="address" class="form-control" name="" id="" cols="30"
+                                rows="10"></textarea>
+                        </div>
+                        <!-- Phone Setting End -->
+
+                        <!-- Email Setting Start -->
+                        <div class="col-lg-6">
+                            <label for="title">Description<span class="text-danger">*</span></label>
+                            <textarea formControlName="description" class="form-control" name="" id="" cols="30"
+                                rows="10"></textarea>
+                        </div>
+                        <!-- Email Setting End -->
+
+                    </div>
+
+                    <div class="form-group text-right">
+                        <button (click)="updateWebsiteSetting()" class="btn btn-primary" type="submit">
+                            Save
+                        </button>
+                    </div>
+                </div>
+                <!-- end card-body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3>Setting Template Admin</h3>
+                </div>
+                <!-- end card-header -->
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label for="title">Max Image Property<span class="text-danger">*</span></label>
+                            <input formControlName="numMaxImageProperty" type="number" placeholder="Enter number"
+                                class="form-control" min="1">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="title">Max Image News<span class="text-danger">*</span></label>
+                            <input formControlName="numMaxImageNews" type="number" placeholder="Enter number"
+                                class="form-control" min="1">
+                        </div>
+                    </div>
+
+                    <div class="form-group text-right">
+                        <button (click)="updateAdminSetting()" class="btn btn-primary" type="submit">
+                            Save
+                        </button>
+                    </div>
+                </div>
+                <!-- end card-body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3>Category setting</h3>
+                </div>
+                <!-- end card-header -->
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <label>News Category</label>
+                                    <select (change)="sendNewsCategoryId($event)"
+                                        class="form-control select2 select2-hidden-accessible" id="example1"
+                                        name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                        required="required">
+                                        <ng-container *ngFor="let category of allNewsCategory;">
+                                            <option value="{{category.newsCategoryId}}">{{category.name}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>News Category</label>
+                                    <input type="text" class="form-control mb-3" #newCategoryInput
+                                        placeholder="Enter new category">
+                                    <button (click)="addNewsCategory(newCategoryInput.value)" type="button"
+                                        class="btn btn-primary" data-dismiss="modal">Create</button>
+                                </div>
+                                <div class="col-6">
+                                    <label>Edit category</label>
+                                    <input type="text" class="form-control mb-3" #editCategoryInput
+                                        placeholder="Enter new category" [(ngModel)]="oldCategoryName"
+                                        [ngModelOptions]="{standalone: true}">
+                                    <div class="d-flex justify-content-between">
+                                        <button (click)="deleteNewsCategory(newsCategoryId)" type="button"
+                                            class="btn btn-danger" data-dismiss="modal"
+                                            [disabled]="newsCategoryId==0">Delete</button>
+                                        <button (click)="updateNewsCategory(editCategoryInput.value)" type="button"
+                                            class="btn btn-primary" data-dismiss="modal"
+                                            [disabled]="newsCategoryId==0">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <label>Property Category</label>
+                                    <select (change)="sendPropertyCategoryId($event)"
+                                        class="form-control select2 select2-hidden-accessible" id="example1"
+                                        name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                        required="required">
+                                        <ng-container *ngFor="let propertyCategory of allPropertyCategory;">
+                                            <option value="{{propertyCategory.categoryId}}">{{propertyCategory.name}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Property Category</label>
+                                    <input type="text" class="form-control mb-3" #propertyCategoryInput
+                                        placeholder="Enter property category">
+                                    <button (click)="addPropertyCategory(propertyCategoryInput.value)" type="button"
+                                        class="btn btn-primary" data-dismiss="modal">Create</button>
+                                </div>
+                                <div class="col-6">
+                                    <label>Property category</label>
+                                    <input type="text" class="form-control mb-3" #editPropertyCategoryInput
+                                        placeholder="Enter property category" [(ngModel)]="oldPropertyName"
+                                        [ngModelOptions]="{standalone: true}">
+                                    <div class="d-flex justify-content-between">
+                                        <button (click)="deletePropertyCategory(propertyCategoryId)" type="button"
+                                            class="btn btn-danger" data-dismiss="modal"
+                                            [disabled]="propertyCategoryId==0">Delete</button>
+                                        <button (click)="updatePropertyCategory(editPropertyCategoryInput.value)"
+                                            type="button" class="btn btn-primary" data-dismiss="modal"
+                                            [disabled]="propertyCategoryId==0">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end card-body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+</form>

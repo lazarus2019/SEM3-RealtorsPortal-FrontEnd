@@ -34,6 +34,17 @@ a {
     font-style: italic;
 }
 
+.underline{
+    text-decoration: underline;
+}
+
+.input-group-text{
+    cursor: pointer;
+}
+
+.page-item{
+    cursor: pointer;
+}
 /* Preview Image */
 
 .image-box {

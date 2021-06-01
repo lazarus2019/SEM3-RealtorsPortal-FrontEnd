@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminRoutingModule } from './area/admin/admin-routing.module';
 import { UserRoutingModule } from './area/user/user-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Admin area
 import { AdminComponent } from './area/admin/admin.component';
@@ -32,10 +32,20 @@ import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInv
 import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.component';
 import { ReportComponent } from './area/admin/reports/reports.component';
 import { ProfileComponent } from './area/admin/profile/profile.component';
+import { AdminFAQComponent } from './area/admin/faq/faq.component';
+import { AdminNewsComponent } from './area/admin/news/addNews.component';
+import { AdminManageNewsComponent } from './area/admin/news/manageNews.component';
+import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
 
 // Admin Services
 import { NewsAPIService } from './services/admin/news/newsAPI.service';
-
+import { FAQService } from './services/admin/faq/faqAPI.service';
+import { MailBoxAPIService } from './services/admin/mailbox/mailboxAPI.service';
+import { MemberAPIService } from './services/member/memberAPI.service';
+import { SettingAPIService } from './services/admin/setting/settingAPI.service';
+import { PublicService } from './services/publicService.service';
+import { NewsCategoryAPIService } from './services/admin/newsCategory/newsCategoryAPI.service';
+import { ImageService } from './services/admin/image/imageService.service';
 
 // User area
 import { ContactComponent } from './area/user/contact/contact.component';
@@ -50,14 +60,15 @@ import { DetailsComponent } from './area/user/phonebook/detail/detail.component'
 import { AboutUsComponent } from './area/user/aboutUs/aboutUs.component';
 import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
-import { AdminNewsComponent } from './area/admin/news/addNews.component';
-import { AdminManageNewsComponent } from './area/admin/news/manageNews.component';
-import { NewsCategoryAPIService } from './services/admin/newsCategory/newsCategoryAPI.service';
-import { ImageService } from './services/admin/image/imageService.service';
-import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
-import { PublicService } from './services/publicService.service';
-import { AdminFAQComponent } from './area/admin/faq/faq.component';
-import { FAQService } from './services/admin/faq/faqAPI.service';
+import { LoginComponent } from './area/user/login/login.component';
+import { RegistrationComponent } from './area/user/registration/registration.component';
+import { ForgetPasswordComponent } from './area/user/forgotPassword/forgetPassword.component';
+import { AccountService } from './services/account.service';
+import { AuthInterceptor } from './authenticate/auth.interceptor';
+import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
+import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
+import { InvoiceService } from './services/invoice.service';
+import { CategoryService } from './services/category.service';
 
 
 @NgModule({
@@ -108,7 +119,14 @@ import { FAQService } from './services/admin/faq/faqAPI.service';
     ContactComponent,
     DetailsComponent,
     NewsComponent,
-    CategoryComponent
+    CategoryComponent,
+
+    //login-Registration
+    LoginComponent,
+    RegistrationComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -136,6 +154,15 @@ import { FAQService } from './services/admin/faq/faqAPI.service';
     PublicService,
     NewsCategoryAPIService,
     FAQService,
+    MailBoxAPIService,
+    MemberAPIService,
+    SettingAPIService,
+    CategoryService,
+    AccountService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

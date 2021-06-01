@@ -208,66 +208,38 @@
             <div class="col-xl-12">
                 <div class="card card-lg">
                     <h3 class="card-header border-bottom-0">
-                        FAQ
+                        <b>FAQ</b>
                     </h3>
                     <div class="accordion accordion-type-2 accordion-flush" id="accordion_2">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between activestate">
-                                <a role="button" data-toggle="collapse" href="#collapse_1i" aria-expanded="true">The
-                                    Intellectual Property</a>
-                            </div>
-                            <div id="collapse_1i" class="collapse show" data-parent="#accordion_2" role="tabpanel">
-                                <div class="card-body pa-15">The Intellectual Property disclosure will inform users that
-                                    the contents, logo and other visual media you created is your property and is
-                                    protected by copyright laws.</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_2i"
-                                    aria-expanded="false">Termination clause</a>
-                            </div>
-                            <div id="collapse_2i" class="collapse" data-parent="#accordion_2">
-                                <div class="card-body pa-15">A Termination clause will inform that users’ accounts on
-                                    your website and mobile app or users’ access to your website and mobile (if users
-                                    can’t have an account with you) can be terminated in case of abuses or at your sole
-                                    discretion.</div>
-                            </div>
-                        </div>                        
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_3i"
-                                    aria-expanded="false">Governing Law</a>
-                            </div>
-                            <div id="collapse_3i" class="collapse" data-parent="#accordion_2">
-                                <div class="card-body pa-15">A Governing Law will inform users which laws govern the
-                                    agreement. This should the country in which your company is headquartered or the
-                                    country from which you operate your website and mobile app.</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_4i"
-                                    aria-expanded="false">Limit what users can do</a>
-                            </div>
-                            <div id="collapse_4i" class="collapse" data-parent="#accordion_2">
-                                <div class="card-body pa-15">A Limit What Users Can Do clause can inform users that by
-                                    agreeing to use your service, they’re also agreeing to not do certain things. This
-                                    can be part of a very long and thorough list in your Terms and Conditions agreements
-                                    so as to encompass the most amount of negative uses.</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_5i"
-                                    aria-expanded="false">Limitation of liability of your products</a>
-                            </div>
-                            <div id="collapse_5i" class="collapse" data-parent="#accordion_2">
-                                <div class="card-body pa-15">No matter what kind of goods you sell, best practices
-                                    direct you to present any warranties you are disclaiming and liabilities you are
-                                    limiting in a way that your customers will notice.</div>
-                            </div>
-                        </div>
+                        <ng-container *ngFor="let faq of listFAQ; index as i">
+                            <ng-container *ngIf="i === 0; else elseFAQ">
+                                <div class="card">
+                                    <div class="h5 card-header d-flex justify-content-between">
+                                        <a role="button" data-toggle="collapse" href="#collapse_{{faq.faqId}}"
+                                            aria-expanded="true">{{faq.title}}</a>
+                                    </div>
+                                    <div id="collapse_{{faq.faqId}}" class="collapse show" data-parent="#accordion_2"
+                                        role="tabpanel">
+                                        <div class="card-body pa-15 h6">{{faq.description}}</div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-template #elseFAQ>
+                                <div class="card">
+                                    <div class="h5 card-header d-flex justify-content-between"><a role="button"
+                                            data-toggle="collapse" aria-expanded="false" href="#collapse_{{faq.faqId}}"
+                                            class="collapsed">{{faq.title}}</a>
+                                    </div>
+                                    <div id="collapse_{{faq.faqId}}" class="collapse" data-parent="#accordion_2"
+                                        role="tabpanel">
+                                        <div class="card-body pa-15 h6">{{faq.description}}</div>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+
+                        </ng-container>
+
                     </div>
                 </div>
             </div>

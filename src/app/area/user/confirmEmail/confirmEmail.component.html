@@ -1,0 +1,19 @@
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w480">
+        <div class="card card-4">
+            <div class="card-header">
+                <h1 class="card-title">Email Confirmation</h1>
+            </div>
+            <div class="card-body">
+                <div *ngIf="showError" class="alert alert-danger" role="alert">
+                    {{errorMessage}}
+                </div>
+
+                <div class="alert alert-success" role="alert">
+                    Your email has been successfully confirmed. Please <a [routerLink]="['/login']">
+                        click here to Login. </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

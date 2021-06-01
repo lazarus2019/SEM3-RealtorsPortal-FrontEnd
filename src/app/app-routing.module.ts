@@ -37,10 +37,21 @@ import { AdminNewsComponent } from './area/admin/news/addNews.component';
 import { AdminManageNewsComponent } from './area/admin/news/manageNews.component';
 import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
 import { AdminFAQComponent } from './area/admin/faq/faq.component';
+import { LoginComponent } from './area/user/login/login.component';
+import { RegistrationComponent } from './area/user/registration/registration.component';
+import { ForgetPasswordComponent } from './area/user/forgotPassword/forgetPassword.component';
+import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
+import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
+import { AuthGuard } from './authenticate/auth.guard';
 
 const routes: Routes = [
 
   // Default Component
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'forgetPassword', component: ForgetPasswordComponent },
+  { path: 'resetPassword', component: ResetPasswordComponent },
+  { path: 'confirmEmail', component: ConfirmEmailComponent },
   {
     path: '', component: AdminComponent,
     children:

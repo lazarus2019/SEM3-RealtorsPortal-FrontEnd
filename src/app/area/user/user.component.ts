@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+// Declare Func custom
+declare var alertFunction: any;
 
 @Component({
   templateUrl: './user.component.html',
 })
 export class UserComponent implements OnInit {
-  constructor() {
-    this.loadScripts();
+  constructor(private router: Router) {
     this.loadStyle();
+    this.loadScripts();
   }
 
   ngOnInit(): void {
+  }
+  a(){
+    alertFunction.success("Hello");
   }
 
   // Method to dynamically load JavaScript
@@ -25,6 +32,8 @@ export class UserComponent implements OnInit {
       '../../../assets/user/js/bootstrap.min.js',
       '../../../assets/user/js/jquery.start.js',
       '../../../assets/user/js/jquery.goToTop.js',
+      '../../../assets/user/js/sweetalert.min.js',
+      '../../../assets/user/js/jquery.sweetalert.js',
 
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {
@@ -36,8 +45,24 @@ export class UserComponent implements OnInit {
     }
   }
 
+
+  authenticated(){
+    if (localStorage.getItem('token') != null)
+      return true;
+    return false;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('role');
+    this.router.navigate(['/login']);
+  }
+
   loadStyle() {
     const dynamicStyles = [
+      '../../../assets/user/css/sweetalert.css',
       '../../../assets/user/css/style-starter.css',
 
     ];

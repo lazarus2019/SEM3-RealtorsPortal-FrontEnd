@@ -1,149 +1,76 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="card mb-3">
-            <div class="card-header">
-                <h3><i class="far fa-envelope"></i> 5 messages (3 unread)</h3>
+            <div class="card-header d-flex justify-content-between">
+                <h3><i class="far fa-envelope"></i> {{listMailbox.length}} mail ({{unReadMailBox}}) unread</h3>
             </div>
             <!-- end card-header -->
             <div class="card-body">
+
+                <!-- Form Search & Filter -->
+                <div class="from-group mb-3">
+                    <div class="container-fluid">
+                        <form [formGroup]="formSearchMailbox" (ngSubmit)="filterMail()">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <select formControlName="sortDate"
+                                        class="form-control select2 select2-hidden-accessible" name="status"
+                                        tabindex="-1" aria-hidden="true" required="required">
+                                        <option value="all" selected="selected">All</option>
+                                        <option value="asc">Latest</option>
+                                        <option value="desc">Earlier</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select formControlName="status"
+                                        class="form-control select2 select2-hidden-accessible" name="status"
+                                        tabindex="-1" aria-hidden="true" required="required">
+                                        <option value="all" selected="selected">All</option>
+                                        <option value="True">Read</option>
+                                        <option value="False">Unread</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn btn-primary" style="width: 100%;">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
                 <div class="table-responsible">
                     <table class="table table-condensed table-hover table-bordered table-responsive-md">
                         <thead>
                             <tr>
-                                <th style="min-width:320px">Message</th>
-                                <th style="min-width:180px">Sender</th>
-                                <th style="min-width:100px">Actions</th>
+                                <th style="min-width:320px">Your message</th>
+                                <th style="max-width:100px">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <h5><span class="text-danger"><b>[Unread]</b></span> <a data-toggle="modal"
-                                            data-target="#showMailDetails"><b>I want your help
-                                                please</b></a></h5>
-                                    <p>June 04 2018, 13:15</p>
-                                    <p>Lorem ipsum dolor sit amet, probo omnis fugit vis in. Tale summo quaeque vim eu,
-                                        pro sumo omnium at. Ad illud facilisi vix, nostrud dolores expetenda id vim. Et
-                                        affert constituto percipitur qui...</p>
-                                </td>
+                            <ng-container *ngFor="let mailbox of listMailbox; index as i">
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            <ng-container *ngIf="!mailbox.isRead">
+                                                <span class="text-danger"><b>[Unread]</b></span>
+                                            </ng-container>
+                                            <b>From: {{mailbox.fullName}}</b>
+                                        </h5>
+                                        <p>{{mailbox.time | date:'dd/MM/y, h:mm a'}}</p>
+                                        <p class="h6">{{readMoreFunc(mailbox.message)}}...</p>
+                                    </td>
 
-                                <td>
-                                    <div class="mail_list">
-                                        <img alt="image " class="img-fluid d-none d-lg-block "
-                                            src="assets/images/avatars/avatar_small.png ">
-                                    </div>
-                                    <p>John Elvis Doe</p>
-                                </td>
-
-                                <td>
-                                    <a class="btn btn-primary btn-sm btn-block" data-toggle="modal"
-                                        data-target="#showMailDetails"><i class="fas fa-search"></i>
-                                        Read</a>
-                                    <a class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i>
-                                        Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5><span class="text-danger"><b>[Unread]</b></span> <a><b>I want your help
-                                                please</b></a></h5>
-                                    <p>June 04 2018, 13:15</p>
-                                    <p>Lorem ipsum dolor sit amet, probo omnis fugit vis in. Tale summo quaeque vim eu,
-                                        pro sumo omnium at. Ad illud facilisi vix, nostrud dolores expetenda id vim. Et
-                                        affert constituto percipitur qui...</p>
-                                </td>
-
-                                <td>
-                                    <div class="mail_list">
-                                        <img alt="image " class="img-fluid d-none d-lg-block "
-                                            src="assets/images/avatars/avatar_small.png ">
-                                    </div>
-                                    <p>John Elvis Doe</p>
-                                </td>
-
-                                <td>
-                                    <a class="btn btn-primary btn-sm btn-block" data-toggle="modal"
-                                        data-target="#showMailDetails"><i class="fas fa-search "></i> Read</a>
-                                    <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
-                                        Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5><span class="text-danger "><b>[Unread]</b></span> <a href="# "><b>I want your
-                                                help please</b></a></h5>
-                                    <p>June 04 2018, 13:15</p>
-                                    <p>Lorem ipsum dolor sit amet, probo omnis fugit vis in. Tale summo quaeque vim eu,
-                                        pro sumo omnium at. Ad illud facilisi vix, nostrud dolores expetenda id vim. Et
-                                        affert constituto percipitur qui...</p>
-                                </td>
-
-                                <td>
-                                    <div class="mail_list">
-                                        <img alt="image " class="img-fluid d-none d-lg-block "
-                                            src="assets/images/avatars/avatar_small.png ">
-                                    </div>
-                                    <p>John Elvis Doe</p>
-                                </td>
-
-                                <td>
-                                    <a class="btn btn-primary btn-sm btn-block" data-toggle="modal"
-                                        data-target="#showMailDetails"><i class="fas fa-search "></i> Read</a>
-                                    <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
-                                        Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>
-                                    <h5><a href="# ">Test message subject</a></h5>
-                                    <p>June 04 2018, 13:15</p>
-                                    <p>Lorem ipsum dolor sit amet, probo omnis fugit vis in. Tale summo quaeque vim eu,
-                                        pro sumo omnium at. Ad illud facilisi vix, nostrud dolores expetenda id vim. Et
-                                        affert constituto percipitur qui...</p>
-                                </td>
-
-                                <td>
-                                    <div class="mail_list">
-                                        <img alt="image " class="img-fluid d-none d-lg-block "
-                                            src="assets/images/avatars/avatar_small.png ">
-                                    </div>
-                                    <p>John Elvis Doe</p>
-                                </td>
-
-                                <td>
-                                    <a class="btn btn-primary btn-sm btn-block" data-toggle="modal"
-                                        data-target="#showMailDetails"><i class="fas fa-search "></i> Read</a>
-                                    <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
-                                        Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>
-                                    <h5><a href="# ">Test message subject</a></h5>
-                                    <p>June 04 2018, 13:15</p>
-                                    <p>Lorem ipsum dolor sit amet, probo omnis fugit vis in. Tale summo quaeque vim eu,
-                                        pro sumo omnium at. Ad illud facilisi vix, nostrud dolores expetenda id vim. Et
-                                        affert constituto percipitur qui...</p>
-                                </td>
-
-                                <td>
-                                    <div class="mail_list">
-                                        <img alt="image " class="img-fluid d-none d-lg-block "
-                                            src="assets/images/avatars/avatar_small.png ">
-                                    </div>
-                                    <p>John Elvis Doe</p>
-                                </td>
-
-                                <td>
-                                    <a class="btn btn-primary btn-sm btn-block" data-toggle="modal"
-                                        data-target="#showMailDetails"><i class="fas fa-search "></i> Read</a>
-                                    <a class="btn btn-danger btn-sm btn-block mt-2 "><i class="fas fa-trash "></i>
-                                        Delete</a>
-                                </td>
-                            </tr>
+                                    <td>
+                                        <a (click)="viewMailbox(mailbox.mailId, i)"
+                                            class="btn btn-primary btn-sm btn-block" data-toggle="modal"
+                                            data-target="#showMailDetails"><i class="fas fa-search"></i>
+                                            Read</a>
+                                        <a (click)="deleteMailbox(mailbox.mailId)"
+                                            class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i>
+                                            Delete</a>
+                                    </td>
+                                </tr>
+                            </ng-container>
                         </tbody>
                     </table>
                 </div>
@@ -155,34 +82,53 @@
     </div>
     <!-- end col -->
 </div>
-
+ 
 
 <!-- Modal -->
-<div class="modal fade" id="showMailDetails" tabindex="-1" role="dialog" aria-labelledby="showMailDetailsTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade bd-example-modal-lg" id="showMailDetails" tabindex="-1" role="dialog"
+    aria-labelledby="showMailDetailsTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">I want your help please</h5>
+                <h5><span class="text-danger"><b>From: </b></span><b>{{currentMailbox?.fullName}}</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h5><span class="text-danger"><b>From: </b></span><b>John Elvis Doe</b></h5>
-                <p>June 04 2018, 13:15</p>
-                <p>Lorem ipsum dolor sit amet, probo omnis fugit vis in. Tale summo quaeque vim eu, pro sumo omnium
-                    at. Ad illud facilisi vix, nostrud dolores expetenda id vim. Et affert constituto percipitur
-                    qui...
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat commodi consequuntur ex deserunt,
-                    possimus magni odio dignissimos soluta necessitatibus aliquid a at eveniet excepturi quod quas eius
-                    molestias ipsam sed!</p>
-
-                <p>Email contact: youremail@gmail.com</p>
+                <p>{{currentMailbox?.time | date:'dd/MM/y, h:mm a'}}</p>
+                <p class="h5">{{currentMailbox?.message}}</p>
+                <p class="mt-1"><b>Contact Info:</b></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" [value]="currentMailbox?.email" readonly #emailContact>
+                            <div class="input-group-append">
+                                <span (click)="copyContact(emailContact)" class="input-group-text bg-primary" style="color:#fff">Copy</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" [value]="currentMailbox?.phone" readonly #phoneContact>
+                            <div class="input-group-append">
+                                <span (click)="copyContact(phoneContact)" class="input-group-text bg-primary" style="color:#fff">Copy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <div class="form-group d-flex justify-content-end">
-                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+            <div class="modal-footer d-flex justify-content-between">
+                <div class="form-group">
+                    <!-- <button class="btn btn-primary" [routerLink]="['/user/single-property', {propertyId: currentMailbox?.propertyId}]">
+                            View Property
+                        </button> -->
+                    <button class="btn btn-primary">
+                            View Property
+                        </button>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
