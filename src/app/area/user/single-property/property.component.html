@@ -49,7 +49,7 @@
                         <div class="owl-blog owl-carousel owl-theme">
                             <div class="item">
                                 <div class="card" *ngFor="let pi of property.images">
-                                    <img src="assets/images/property/{{pi.name}}" class="img-fluid radius-image"
+                                    <img src="http://localhost:65320/images/property/{{pi.name}}" class="img-fluid radius-image"
                                         alt="image">
                                 </div>
 
@@ -191,7 +191,7 @@
                         </div>
 
                         <article class="post" *ngFor="let pp of popularpost">
-                            <figure class="post-thumb"><img src="assets/images/property/{{pp.images[0].name}}" class="radius-image" alt="">
+                            <figure class="post-thumb"><img src="http://localhost:65320/images/property/{{pp.images[0].name}}" class="radius-image" alt="">
                             </figure>
                             <div class="text"><a href="#blog-single">{{pp.title}}
                                 </a>

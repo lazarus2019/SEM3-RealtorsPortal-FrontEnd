@@ -64,7 +64,7 @@
                         <a [routerLink]="['/user/single-property', {propertyId: p.propertyId} ]">
                             <div class="box16">
                                 <div class="rentext-listing-category"><span>{{p.type}}</span></div>
-                                <img class="img-fluid" width="100%" height="100%" src="assets/images/property/{{p.images[0].name}}" alt="{{p.images[0].name}}" >
+                                <img class="img-fluid" width="100%" height="100%" src="http://localhost:65320/images/property/{{p.images[0].name}} " alt="{{p.images[0].name}}" >
                                 <div class="box-content">
                                     <h3 class="title" > {{readMoreFunc(p.title)}}  </h3>
                                     <h4 class="post" > $ {{p.price}}  {{ (p.type == 'Rent') ? ' / month ' : ''}}</h4>
