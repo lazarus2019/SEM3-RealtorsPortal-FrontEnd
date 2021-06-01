@@ -23,7 +23,6 @@ import { AdminAdPackageComponent } from './area/admin/adpackage/adPackage.compon
 import { AdminManageAdPackageComponent } from './area/admin/adpackage/manageAdPackage.component';
 import { AdminManageInvoiceAdPackageComponent } from './area/admin/invoice/manageInvoiceAdPackage.component';
 import { SettingComponent } from './area/admin/setting/setting.component';
-import { TemplateComponent } from './area/admin/template/template.component';
 import { EditPropertyComponent } from './area/admin/property/editProperty.component';
 import { AddNewService } from './services/addNewService';
 import { AdminService } from './services/adminService.service';
@@ -99,9 +98,6 @@ import { ReportsService } from './services/reports.service';
     AdminManageNewsComponent,
     AdminEditNewsComponent,
     AdminFAQComponent,
-
-    // Template component
-    TemplateComponent,
 
     // User area
     UserComponent,

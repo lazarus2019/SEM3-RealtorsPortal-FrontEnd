@@ -13,7 +13,6 @@ import { AdminManageMemberComponent } from './area/admin/member/manageMember.com
 import { AddNewPropertyComponent } from './area/admin/property/addNew.component';
 import { AdminManagePropertyComponent } from './area/admin/property/adminManage.component';
 import { UserManagePropertyComponent } from './area/admin/property/userManage.component';
-import { TemplateComponent } from './area/admin/template/template.component';
 import { SettingComponent } from './area/admin/setting/setting.component';
 import { ReportComponent } from './area/admin/reports/reports.component';
 import { IndexComponent } from './area/user/index/index.component';
@@ -97,7 +96,6 @@ const routes: Routes = [
         { path: 'manageAdPackage', component: AdminManageAdPackageComponent },
         { path: 'manageInvoice', component: AdminManageInvoiceAdPackageComponent },
         { path: 'setting', component: SettingComponent },
-        { path: 'template', component: TemplateComponent },
         { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent },
         { path: 'reports', component: ReportComponent },
         { path: 'profile', component: ProfileComponent },
