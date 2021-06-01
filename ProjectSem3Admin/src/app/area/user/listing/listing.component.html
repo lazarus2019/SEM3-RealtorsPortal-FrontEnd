@@ -1,0 +1,392 @@
+<section class="w3l-about-breadcrumb">
+    <div class="breadcrumb-bg breadcrumb-bg-about pt-5">
+        <div class="container pt-lg-5 py-3">
+        </div>
+    </div>
+</section>
+<section class="w3l-breadcrumb">
+    <div class="container">
+        <ul class="breadcrumbs-custom-path">
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><span class="fa fa-angle-right mx-2" aria-hidden="true"></span> Listing</li>
+        </ul>
+    </div>
+</section>
+
+<div class="row py-3">
+    <div class="col-lg-3 col-md-12">
+        <!-- Popular Post Widget-->
+        <div class="sidebar-widget popular-posts">
+            <div class="sidebar-title">
+                <h4>Search</h4>
+            </div>
+
+            <form action="">
+                <div class="form-group">
+                    <input type="text" id="nameProperty" class="form-control" placeholder="Keyword">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="exampleInputNumber1" aria-describedby="numberlHelp"
+                        placeholder="Location" required="">
+
+                </div>
+                <div class="form-group">
+                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                        <option value="" disabled selected>Region</option>
+                        <option value="">USA</option>
+                        <option value="">Thailand</option>
+                        <option value="">Africa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                        <option value="" disabled selected>Type</option>
+                        <option value="">For Rent</option>
+                        <option value="">For Sell</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Area
+                    <input type="range">
+                </div>
+                <div class="form-group">
+                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                        <option value="" disabled selected>Beds</option>
+                        <option value="">1+</option>
+                        <option value="">2+</option>
+                        <option value="">3+</option>
+                        <option value="">4+</option>
+                        <option value="">5+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
+                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                        <option value="" disabled selected>Baths</option>
+                        <option value="">1+</option>
+                        <option value="">2+</option>
+                        <option value="">3+</option>
+                        <option value="">4+</option>
+                        <option value="">5+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Value
+                    <input type="range">
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-12">
+        <section class="locations-1" id="locations">
+            <div class="locations py-1">
+                <div class="container py-lg-2 py-md-4 py-2">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 listing-img">
+                            <a [routerLink]="['/user/single-property']">
+                                <div class="box16">
+                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
+                                    <img class="img-fluid" src="assets/user/images/p1.jpg" alt="">
+                                    <div class="box-content">
+                                        <h3 class="title">$25,00,000</h3>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="listing-details blog-details align-self">
+                                <h4 class="user_title agent">
+                                    <a [routerLink]="['/user/single-property']">Cottage villa</a>
+                                </h4>
+                                <p class="user_position">Unnamed Road, Vegas, NV 89103.</p>
+                                <ul class="mt-3 estate-info">
+                                    <li><span class="fa fa-bed"></span> 1 Bed</li>
+                                    <li><span class="fa fa-shower"></span> 2 Baths</li>
+                                    <li><span class="fa fa-share-square-o"></span> 1760 Sqft</li>
+                                </ul>
+                                <div class="author align-items-center mt-4">
+                                    <a href="#img" class="comment-img">
+                                        <img src="assets/user/images/team1.jpg" alt="" class="img-fluid">
+                                    </a>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <a [routerLink]="['/user/single-property']">Laura Antiochus </a>
+                                        </li>
+                                        <li class="meta-item blog-lesson">
+                                            <span class="meta-value"> Selling agent</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 listing-img mt-md-0 mt-5">
+                            <a [routerLink]="['/user/single-property']">
+                                <div class="box16">
+                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
+                                    <img class="img-fluid" src="assets/user/images/p2.jpg" alt="">
+                                    <div class="box-content">
+                                        <h3 class="title">$32,00,000</h3>
+
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="listing-details blog-details align-self">
+                                <h4 class="user_title agent">
+                                    <a [routerLink]="['/user/single-property']">Sand house</a>
+                                </h4>
+                                <p class="user_position">Unnamed Road, Vegas, NV 89103.</p>
+                                <ul class="mt-3 estate-info">
+                                    <li><span class="fa fa-bed"></span> 1 Bed</li>
+                                    <li><span class="fa fa-shower"></span> 2 Baths</li>
+                                    <li><span class="fa fa-share-square-o"></span> 1760 Sqft</li>
+                                </ul>
+                                <div class="author align-items-center mt-4">
+                                    <a href="#img" class="comment-img">
+                                        <img src="assets/user/images/team2.jpg" alt="" class="img-fluid">
+                                    </a>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <a [routerLink]="['/user/single-property']">Laura Antiochus </a>
+                                        </li>
+                                        <li class="meta-item blog-lesson">
+                                            <span class="meta-value"> Selling agent</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 listing-img mt-lg-0 pt-lg-0 mt-5 pt-md-2">
+                            <a [routerLink]="['/user/single-property']">
+                                <div class="box16">
+                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
+                                    <img class="img-fluid" src="assets/user/images/p3.jpg" alt="">
+                                    <div class="box-content">
+                                        <h3 class="title">$47,00,000</h3>
+
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="listing-details blog-details align-self">
+                                <h4 class="user_title agent">
+                                    <a [routerLink]="['/user/single-property']">Extension villa</a>
+                                </h4>
+                                <p class="user_position">Unnamed Road, Vegas, NV 89103.</p>
+                                <ul class="mt-3 estate-info">
+                                    <li><span class="fa fa-bed"></span> 1 Bed</li>
+                                    <li><span class="fa fa-shower"></span> 2 Baths</li>
+                                    <li><span class="fa fa-share-square-o"></span> 1760 Sqft</li>
+                                </ul>
+                                <div class="author align-items-center mt-4">
+                                    <a href="#img" class="comment-img">
+                                        <img src="assets/user/images/team3.jpg" alt="" class="img-fluid">
+                                    </a>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <a [routerLink]="['/user/single-property']">Laura Antiochus </a>
+                                        </li>
+                                        <li class="meta-item blog-lesson">
+                                            <span class="meta-value"> Selling agent</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 listing-img mt-5 pt-md-2">
+                            <a [routerLink]="['/user/single-property']">
+                                <div class="box16">
+                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
+                                    <img class="img-fluid" src="assets/user/images/p4.jpg" alt="">
+                                    <div class="box-content">
+                                        <h3 class="title">$19,00,000</h3>
+
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="listing-details blog-details align-self">
+                                <h4 class="user_title agent">
+                                    <a [routerLink]="['/user/single-property']">Corner house</a>
+                                </h4>
+                                <p class="user_position">Unnamed Road, Vegas, NV 89103.</p>
+                                <ul class="mt-3 estate-info">
+                                    <li><span class="fa fa-bed"></span> 1 Bed</li>
+                                    <li><span class="fa fa-shower"></span> 2 Baths</li>
+                                    <li><span class="fa fa-share-square-o"></span> 1760 Sqft</li>
+                                </ul>
+                                <div class="author align-items-center mt-4">
+                                    <a href="#img" class="comment-img">
+                                        <img src="assets/user/images/team4.jpg" alt="" class="img-fluid">
+                                    </a>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <a [routerLink]="['/user/single-property']">Laura Antiochus </a>
+                                        </li>
+                                        <li class="meta-item blog-lesson">
+                                            <span class="meta-value"> Selling agent</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 listing-img mt-5 pt-md-2">
+                            <a [routerLink]="['/user/single-property']">
+                                <div class="box16">
+                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
+                                    <img class="img-fluid" src="assets/user/images/p5.jpg" alt="">
+                                    <div class="box-content">
+                                        <h3 class="title">$34,00,000</h3>
+
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="listing-details blog-details align-self">
+                                <h4 class="user_title agent">
+                                    <a [routerLink]="['/user/single-property']">Beach House</a>
+                                </h4>
+                                <p class="user_position">Unnamed Road, Vegas, NV 89103.</p>
+                                <ul class="mt-3 estate-info">
+                                    <li><span class="fa fa-bed"></span> 1 Bed</li>
+                                    <li><span class="fa fa-shower"></span> 2 Baths</li>
+                                    <li><span class="fa fa-share-square-o"></span> 1760 Sqft</li>
+                                </ul>
+                                <div class="author align-items-center mt-4">
+                                    <a href="#img" class="comment-img">
+                                        <img src="assets/user/images/team5.jpg" alt="" class="img-fluid">
+                                    </a>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <a [routerLink]="['/user/single-property']">Laura Antiochus </a>
+                                        </li>
+                                        <li class="meta-item blog-lesson">
+                                            <span class="meta-value"> Selling agent</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 listing-img mt-5 pt-md-2">
+                            <a [routerLink]="['/user/single-property']">
+                                <div class="box16">
+                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
+                                    <img class="img-fluid" src="assets/user/images/p6.jpg" alt="">
+                                    <div class="box-content">
+                                        <h3 class="title">$29,00,000</h3>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="listing-details blog-details align-self">
+                                <h4 class="user_title agent">
+                                    <a [routerLink]="['/user/single-property']">Cottage villa</a>
+                                </h4>
+                                <p class="user_position">Unnamed Road, Vegas, NV 89103.</p>
+                                <ul class="mt-3 estate-info">
+                                    <li><span class="fa fa-bed"></span> 1 Bed</li>
+                                    <li><span class="fa fa-shower"></span> 2 Baths</li>
+                                    <li><span class="fa fa-share-square-o"></span> 1760 Sqft</li>
+                                </ul>
+                                <div class="author align-items-center mt-4">
+                                    <a href="#img" class="comment-img">
+                                        <img src="assets/user/images/team6.jpg" alt="" class="img-fluid">
+                                    </a>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <a [routerLink]="['/user/single-property']">Laura Antiochus </a>
+                                        </li>
+                                        <li class="meta-item blog-lesson">
+                                            <span class="meta-value"> Selling agent</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 listing-img mt-5 pt-md-2">
+                            <a [routerLink]="['/user/single-property']">
+                                <div class="box16">
+                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
+                                    <img class="img-fluid" src="assets/user/images/p7.jpg" alt="">
+                                    <div class="box-content">
+                                        <h3 class="title">$38,00,000</h3>
+
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="listing-details blog-details align-self">
+                                <h4 class="user_title agent">
+                                    <a [routerLink]="['/user/single-property']">Beach House</a>
+                                </h4>
+                                <p class="user_position">Unnamed Road, Vegas, NV 89103.</p>
+                                <ul class="mt-3 estate-info">
+                                    <li><span class="fa fa-bed"></span> 1 Bed</li>
+                                    <li><span class="fa fa-shower"></span> 2 Baths</li>
+                                    <li><span class="fa fa-share-square-o"></span> 1760 Sqft</li>
+                                </ul>
+                                <div class="author align-items-center mt-4">
+                                    <a href="#img" class="comment-img">
+                                        <img src="assets/user/images/team1.jpg" alt="" class="img-fluid">
+                                    </a>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <a [routerLink]="['/user/single-property']">Laura Antiochus </a>
+                                        </li>
+                                        <li class="meta-item blog-lesson">
+                                            <span class="meta-value"> Selling agent</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 listing-img mt-5 pt-md-2">
+                            <a [routerLink]="['/user/single-property']">
+                                <div class="box16">
+                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
+                                    <img class="img-fluid" src="assets/user/images/p8.jpg" alt="">
+                                    <div class="box-content">
+                                        <h3 class="title">$51,00,000</h3>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="listing-details blog-details align-self">
+                                <h4 class="user_title agent">
+                                    <a [routerLink]="['/user/single-property']">Cottage villa</a>
+                                </h4>
+                                <p class="user_position">Unnamed Road, Vegas, NV 89103.</p>
+                                <ul class="mt-3 estate-info">
+                                    <li><span class="fa fa-bed"></span> 1 Bed</li>
+                                    <li><span class="fa fa-shower"></span> 2 Baths</li>
+                                    <li><span class="fa fa-share-square-o"></span> 1760 Sqft</li>
+                                </ul>
+                                <div class="author align-items-center mt-4">
+                                    <a href="#img" class="comment-img">
+                                        <img src="assets/user/images/team2.jpg" alt="" class="img-fluid">
+                                    </a>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <a [routerLink]="['/user/single-property']">Laura Antiochus </a>
+                                        </li>
+                                        <li class="meta-item blog-lesson">
+                                            <span class="meta-value"> Selling agent</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- pagination -->
+                    <div class="pagination-wrapper mt-5 pt-lg-3 text-center">
+                        <ul class="page-pagination">
+                            <li><span aria-current="page" class="page-numbers current">1</span></li>
+                            <li><a class="page-numbers" [routerLink]="['/user/single-property']">2</a></li>
+                            <li><a class="page-numbers" [routerLink]="['/user/single-property']">3</a></li>
+                            <li><a class="page-numbers" [routerLink]="['/user/single-property']">...</a></li>
+                            <li><a class="page-numbers" [routerLink]="['/user/single-property']">15</a></li>
+                            <li><a class="next" [routerLink]="['/user/single-property']">Next <span class="fa fa-angle-right"></span></a></li>
+                        </ul>
+                    </div>
+                    <!-- //pagination -->
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

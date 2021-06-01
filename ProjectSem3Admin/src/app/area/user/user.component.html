@@ -1,0 +1,182 @@
+<header id="site-header" class="fixed-top bg-dark-color">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg stroke px-0">
+      <h1> <a class="navbar-brand" [routerLink]="[ '/user/index' ]">
+          <span class="fa fa-home"></span> Realtor Portal
+        </a></h1>
+      <!-- if logo is image enable this   
+    <a class="navbar-brand" href="#index.html">
+        <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+    </a> -->
+      <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+        data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+        <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav ml-lg-5 mr-auto">
+
+          <li class="nav-item bg-before-80 active">
+            <a [routerLink]="[ '/user/index' ]" class="nav-link">Home <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item bg-before-80 @@listing__active">
+            <a [routerLink]="[ '/user/listing' ]" class="nav-link">Property</a>
+          </li>
+
+          <li class="nav-item bg-before-80 @@listing__active">
+            <a class="nav-link" [routerLink]="['/user/category']">Category</a>
+          </li>
+
+          <li class="nav-item bg-before-80 dropdown @@pages__active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Phonebook <span class="fa fa-angle-down"></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item @@about__active" [routerLink]="['/user/sellers']">Seller</a>
+              <a class="dropdown-item @@contact__active" [routerLink]="['/user/agents']">Agent</a>
+            </div>
+          </li>
+
+          <li class="nav-item bg-before-80 @@listing__active">
+            <a class="nav-link" [routerLink]="['/user/news']">News</a>
+          </li>
+
+          <li class="nav-item bg-before-80 @@listing__active">
+            <a class="nav-link" [routerLink]="['/user/aboutUs']">About us</a>
+          </li>
+        </ul>
+        <div class="top-quote mt-lg-0">
+          <a *ngIf="authenticated()" class="text-ahref mr-2" [routerLink]="" (click)="logout()"> <b>Logout</b>
+          </a>
+          <a *ngIf="!authenticated()" class="text-ahref mr-2" [routerLink]="['/login']"> <b>Login</b>
+          </a>
+          <a class="btn btn-style btn-primary" [routerLink]="['/registration']"> Sign Up
+          </a>
+        </div>
+        <!--/search-right-->
+        <!-- <div class="search mx-3">
+          <input class="search_box" type="checkbox" id="search_box">
+          <label class="fa fa-search" for="search_box"></label>
+          <div class="search_form">
+            <form action="error.html" method="GET">
+              <input type="text" placeholder="Search"><input type="submit" value="search">
+            </form>
+          </div>
+        </div> -->
+        <!--//search-right-->
+      </div>
+
+    </nav>
+  </div>
+</header>
+
+
+<router-outlet></router-outlet>
+
+<section class="w3l-footers-20 bg-dark-color">
+  <div class="footers20">
+    <div class="container">
+      <div class="footers20-content">
+        <div class="d-grid grid-col-4 grids-content">
+          <div class="column">
+            <a href="#url" class="link"><span class="fa fa-comments"></span></a>
+            <a href="#url" class="title-small">Free consultation</a>
+            <h4>Schedule a free consultation with our specialist.</h4>
+            <a href="#buytheme" class="btn btn-style btn-primary"> Schedule now
+              <span class="fa fa-long-arrow-right ml-2"></span> </a>
+          </div>
+          <div class="column">
+            <a href="#url" class="link"><span class="fa fa-phone"></span></a>
+            <a href="#url" class="title-small">help desk</a>
+            <h4>Do you have questions or want more infomation? Call Now</h4>
+            <a href="tel:+1-2345-678-11">
+              <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span> +1-2345-678-11
+              </p>
+            </a>
+          </div>
+          <div class="column mt-lg-0 mt-md-5">
+            <h4 class="mb-1">Contact us for help</h4>
+            <p>and get more information of our properties</p>
+            <button class="btn-contact btn btn-primary btn-style btn-primary mt-3">Contact <span
+                class="fa fa-envelope"></span></button>
+            <ul class="footers-17_social">
+              <h4 class="d-inline mr-4">Follow us</h4>
+              <li><a href="#url" class="twitter"><span class="fa fa-twitter"></span></a></li>
+              <li><a href="#url" class="facebook"><span class="fa fa-facebook"></span></a></li>
+              <li><a href="#url" class="linkedin"><span class="fa fa-linkedin"></span></a></li>
+              <li><a href="#url" class="instagram"><span class="fa fa-instagram"></span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3l-contact-7 popup-contact-form hide">
+    <div class="map-content-9">
+      <div class="contact-form max-width-650">
+        <span class="btn-close-contact fa icon-close fa-times"></span>
+        <div class="row">
+          <div class="col-lg-12">
+            <h5 class="mb-2">Get in touch</h5>
+            <p class="mb-4">Your email address will not be published.</p>
+
+          </div>
+          <div class="col-lg-12">
+            <form novalidate="" action="https://sendmail.w3layouts.com/submitForm" method="post"
+              class="ng-untouched ng-pristine ng-valid">
+              <div class="form-group">
+                <div class="form-grid">
+                  <div class="input-field"><input type="text" name="w3lName" id="w3lName" placeholder="Your Name"
+                      required="">
+                  </div>
+                  <div class="input-field"><input type="email" name="w3lSender" id="w3lSender" placeholder="Email"
+                      required="">
+                  </div>
+                </div>
+                <div class="input-field mt-4"><textarea name="w3lMessage" id="w3lMessage"
+                    placeholder="Message"></textarea>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn-style mt-2">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- move top -->
+  <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i
+      class="fas fa-chevron-up"></i></a>
+  <script>
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+      scrollFunction()
+    };
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("movetop").style.display = "block";
+      } else {
+        document.getElementById("movetop").style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
+  <!-- /move top -->
+</section>
