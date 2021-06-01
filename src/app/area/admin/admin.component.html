@@ -217,6 +217,14 @@
                     </li>
 
                     <li class="submenu">
+                        <a [routerLink]="['/admin/adminManage']">
+                            <span class="label radius-circle bg-danger float-right">{{count}} new</span>
+                            <i class="fas fa-envelope"></i>
+                            <span> Manage Property (Admin) </span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
                         <a>
                             <i class="fas fa-building"></i>
                             <span> Property </span>
@@ -224,52 +232,33 @@
                         </a>
                         <ul class="list-unstyled">
                             <li>
-                                <a [routerLink]="['/admin/adminManage']">Manage Property (Admin)</a>
-                            </li>
-                            <li>
                                 <a [routerLink]="['/admin/userManage']">Manage Property (User)</a>
                             </li>
                             <li>
-                                <a [routerLink]="['/admin/addNew']">Add New Property</a>
+                                <a [routerLink]="['/admin/addProperty']">Add New Property</a>
                             </li>
                         </ul>
                     </li>
 
                     <li class="submenu">
-                        <a>
-                            <i class="fas fa-th-list"></i>
-                            <span> Ads Package </span>
-                            <span class="menu-arrow"></span>
+                        <a [routerLink]="['/admin/manageAdPackage']">
+                            <i class="fas fa-envelope"></i>
+                            <span> Manage Ad Package</span>
                         </a>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a [routerLink]="['/admin/manageAdPackage']">Manage</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="['/admin/adPackage']">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    <span> Upgrade </span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
                     <li class="submenu">
-                        <a >
+                        <a [routerLink]="['/admin/adPackage']">
+                            <i class="fas fa-envelope"></i>
+                            <span> Ad Package</span>
+                        </a>
+                    </li>
+
+                    <li class="submenu">
+                        <a [routerLink]="['/admin/blogs']">
                             <i class="fas fa-file-alt"></i>
-                            <span> News </span>
-                            <span class="menu-arrow"></span>
+                            <span> Blog </span>
                         </a>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a [routerLink]="['/admin/manageNews']">Manage</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="['/admin/news']">
-                                    <span> Add new </span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
                     <li class="submenu">
@@ -323,7 +312,7 @@
                             <h1 class="main-title float-left">Dashboard</h1>
                             <ol class="breadcrumb float-right">
                                 <li class="breadcrumb-item">Home</li>
-                                <li class="breadcrumb-item active">Dashboard</li>
+                                <li class="breadcrumb-item ">Dashboard</li>
                             </ol>
                             <div class="clearfix"></div>
                         </div>

@@ -1,13 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PropertyService } from 'src/app/services/property.service';
 
 @Component({
   templateUrl: './admin.component.html',
 })
-export class AdminComponent {
-  constructor() {
+export class AdminComponent implements OnInit {
+  constructor(private propertyService: PropertyService) {
     this.loadScripts();
     this.loadStyle();
   }
+
+  count: number;
+
+  ngOnInit(): void {
+    this.propertyService.countPropertyPending().subscribe(count => {
+      this.count = count;
+    })
+  }
+
+
 
   // Method to dynamically load JavaScript
   loadScripts() {
@@ -34,8 +45,11 @@ export class AdminComponent {
       '../../../assets/plugins/waypoints/lib/jquery.waypoints.min.js',
       '../../../assets/plugins/counterup/jquery.counterup.min.js',
 
-      '../../../assets/plugins/tinymce/tinymce.min.js',
+      '../../../assets/data/data_datatables.js',
+
+      '../../../assets/data/data_charts_dashboard.js',
       '../../../assets/plugins/tinymce/jquery.tinymce.min.js',
+      '../../../assets/plugins/tinymce/tinymce.min.js',
       '../../../assets/plugins/tinymce/init-tinymce.js',
       '../../../assets/plugins/sweetalert/sweetalert.min.js',
       '../../../assets/js/jquery.sweetalert.js',

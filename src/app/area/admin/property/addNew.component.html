@@ -2,17 +2,77 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <h3><i class="far fa-file"></i> Basic Information</h3>
+                <h3><i class="far fa-file"></i> Property Information</h3>
             </div>
 
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <form>
+                        <form method="GET" enctype="multipart/form-data" [formGroup]="addFormGroup">
+                            <span>
+                                <h3>Property Information</h3>
+                            </span>
                             <div class="form-group">
-                                <label for="userName">Title<span class="text-danger">*</span></label>
+                                <label for="userName">Title: <span class="text-danger">*</span></label>
                                 <input type="text" name="title" data-parsley-trigger="change" required="required"
-                                    placeholder="Enter title" class="form-control" minlength="6">
+                                    placeholder="Enter title" class="form-control" formControlName="title"
+                                    minlength="6">
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="region">
+                                            Select Region: <span class="text-danger">*</span>
+                                        </label>
+                                        <div>
+                                            <select class="form-control select2 select2-hidden-accessible" id="region"
+                                                name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                                formControlName="region" required="required"
+                                                (change)="onChangeRegion($event)">
+                                                <option value="" disabled hidden>Choose region</option>
+                                                <option value="{{region.regionId}}" *ngFor="let region of regions">
+                                                    {{region.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="country">
+                                            Select Country: <span class="text-danger">*</span>
+                                        </label>
+                                        <div>
+                                            <select class="form-control select2 select2-hidden-accessible" id="country"
+                                                name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                                formControlName="country" required="required"
+                                                (change)="onChangeCountry($event)">
+                                                <option value="" disabled hidden>Choose country</option>
+                                                <option value="{{country.countryId}}" *ngFor="let country of countries">
+                                                    {{country.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="city">
+                                            Select City: <span class="text-danger">*</span>
+                                        </label>
+                                        <div>
+                                            <select class="form-control select2 select2-hidden-accessible" id="city"
+                                                name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                                formControlName="cityId" required="required">
+                                                <option value="" disabled hidden>Choose city</option>
+                                                <option value="{{city.cityId}}" *ngFor="let city of cities">
+                                                    {{city.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="addresss">Address: <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="text" class="form-control" autocorrect="off" autocapitalize="off"
+                                        spellcheck="off" id="address" placeholder="Enter address"
+                                        formControlName="address" required="required" #address>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -23,26 +83,22 @@
                                         <div class="mb-1"></div>
                                         <select class="form-control select2 select2-hidden-accessible" id="example1"
                                             name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                            required="required">
-                                            <option value="sell">Sell</option>
-                                            <option value="rent">Rent</option>
+                                            formControlName="type" required="required">
+                                            <option value="Rent/Sale">Rent/Sale</option>
+                                            <option value="Sale">Sale</option>
+                                            <option value="Rent">Rent</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="example1">
+                                        <label for="category">
                                             Select category: <span class="text-danger">*</span>
                                         </label>
                                         <div class="mb-1"></div>
-                                        <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                        <select class="form-control select2 select2-hidden-accessible" id="category"
                                             name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                            required="required">
-                                            <option value="sell">Office space</option>
-                                            <option value="rent">Shops</option>
-                                            <option value="rent">Commercial land</option>
-                                            <option value="rent">Industrial property</option>
-                                            <option value="rent">Apartments</option>
-                                            <option value="rent">Villas</option>
-                                            <option value="rent">Businesses for sale</option>
+                                            formControlName="categoryId" required="required">
+                                            <option *ngFor="let category of categories" value="{{category.categoryId}}">
+                                                {{category.name}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -50,102 +106,82 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="example1">
-                                            Select regions: <span class="text-danger">*</span>
+                                        <label for="price">
+                                            Price($): <span class="text-danger">*</span>
                                         </label>
-                                        <div class="mb-1"></div>
-                                        <select class="form-control select2 select2-hidden-accessible" id="example1"
-                                            name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                            required="required">
-                                            <option value="sell">Western Europe</option>
-                                            <option value="rent">Americas</option>
-                                            <option value="rent">Central and Eastern Europe</option>
-                                            <option value="rent">Asia</option>
-                                            <option value="rent">Africa</option>
-                                            <option value="rent">Mediterranean & Middle East</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="example1">
-                                            Select country: <span class="text-danger">*</span>
-                                        </label>
-                                        <div class="mb-1"></div>
-                                        <select class="form-control select2 select2-hidden-accessible" id="example1"
-                                            name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                            required="required">
-                                            <option value="sell">Vietnam</option>
-                                            <option value="rent">Laos</option>
-                                            <option value="rent">Thailand</option>
-                                            <option value="rent">Korea</option>
-                                            <option value="rent">Philippines</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="example1">
-                                            Select city: <span class="text-danger">*</span>
-                                        </label>
-                                        <div class="mb-1"></div>
-                                        <select class="form-control select2 select2-hidden-accessible" id="example1"
-                                            name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                            required="required">
-                                            <option value="sell">Ha noi</option>
-                                            <option value="rent">HCM</option>
-                                            <option value="rent">Da Nang</option>
-                                            <option value="rent">Nha Trang</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="userName">Area (m2)<span class="text-danger">*</span></label>
                                         <input data-parsley-type="number" type="number" class="form-control" required=""
-                                            placeholder="Enter area" required="required">
+                                            id="price" placeholder="Enter price" formControlName="price"
+                                            required="required">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="userName">Area (m&#178;): <span class="text-danger">*</span></label>
+                                        <input data-parsley-type="number" type="number" class="form-control" required=""
+                                            formControlName="area" placeholder="Enter area" required="required">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="example1">
-                                            Value: <span class="text-danger">*</span>
-                                        </label>
-                                        <input data-parsley-type="number" type="number" min="1" max="5000000000000"
-                                            class="form-control" required="" placeholder="Enter value"
-                                            required="required">
+                                        <label for="room">Number of rooms: <span class="text-danger">*</span></label>
+                                        <input type="number" name="title" data-parsley-trigger="change"
+                                            required="required" id="room" formControlName="roomNumber"
+                                            placeholder="Enter number" class="form-control">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="userName">Unit<span class="text-danger">*</span></label>
-                                        <div class="mb-1"></div>
-                                        <select class="form-control select2 select2-hidden-accessible" id="example1"
-                                            name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                            required="required">
-                                            <option value="rent">/week</option>
-                                            <option value="sell">/month</option>
-                                            <option value="rent">/year</option>
-                                            <option value="rent">Composition</option>
-                                        </select>
+                                        <label for="bedroom">Number of bedrooms: <span
+                                                class="text-danger">*</span></label>
+                                        <input type="number" name="title" data-parsley-trigger="change"
+                                            class="form-control" required="required" formControlName="bedNumber"
+                                            id="bedroom" placeholder="Enter number">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Address<span class="text-danger">*</span></label>
-                                <div>
-                                    <input data-parsley-type="number" type="text" class="form-control" required=""
-                                        placeholder="Enter address" required="required">
-                                </div>
+                                <label>
+                                    <h3>Ad/Post content</h3>
+                                </label>
+                                <textarea id="format-custom" class="form-control"
+                                    formControlName="description"></textarea>
                             </div>
                             <div class="form-group">
-                                <div class="checkbox">
-                                    <input id="remember-1" type="checkbox" data-parsley-multiple="remember-1">
-                                    <label for="remember-1"> Is Featured? </label>
+                                <label>
+                                    <h3>Upload Image</h3>
+                                </label>
+                                <br>
+
+                                <span class="pull-right">
+                                    <button class="btn btn-primary" (click)="file.click()">
+                                        Choose files
+                                    </button>
+                                </span>
+                                <input type="file" #file multiple (change)="detectFiles($event)"
+                                    accept=".jpg, .png, .jpeg, .gif" style="display: none;">
+                                <div class="image-box-container">
+                                    <div class="row">
+                                        <ng-container *ngFor="let url of urls; index as indexImage">
+                                            <div class="col-md-3 col-sm-6 mb-3 image-box">
+                                                <img class="preview-image" [src]="url">
+                                                <span class="remove-image" (click)="deleteImage(indexImage)"><i
+                                                        class="fas fa-times-circle"></i></span>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="upload-box">
+                                    <p>{{successImage}} / {{numberImage}} files uploaded</p>
+                                    <button class="btn btn-primary" type="button">
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        Uploading...
+                                    </button>
                                 </div>
                             </div>
 
                             <div class="form-group text-right m-b-0">
-                                <button class="btn btn-primary click-success" type="submit">
-                                    Save change
+                                <button class="btn btn-primary" type="submit" (click)="createProperty()"
+                                    [disabled]="addFormGroup.invalid">
+                                    Save
                                 </button>
                             </div>
 
@@ -154,104 +190,7 @@
                     </div>
                 </div>
             </div>
-        </div><!-- end card-->
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="card mb-3">
-            <div class="card-header">
-                <h3><i class="far fa-file"></i> Description Information</h3>
-            </div>
-
-            <div class="card-body">
-                <form action="">
-                    <div class="form-group">
-                        <label>Ad/Post content</label>
-                        <textarea id="format-custom"></textarea>
-                    </div>
-                    <div class="form-group text-right m-b-0">
-                        <button class="btn btn-primary click-success" type="submit">
-                            Save change
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div><!-- end card-->
-    </div>
-</div>
-
-<div class="row">
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-        <div class="card mb-3">
-            <div class="card-header">
-                <h3><i class="fas fa-download"></i> Upload gallery</h3>
-            </div>
-
-            <div class="card-body">
-                <form action="">
-                    <div class="jFiler jFiler-theme-dragdropbox"><input type="file" name="files[]" id="filer_example1"
-                            multiple="multiple"
-                            style="position: absolute; left: -9999px; top: -9999px; z-index: -9999;">
-                    </div>
-                    <div class="form-group text-right m-b-0">
-                        <button class="btn btn-primary click-success" type="submit">
-                            Upload Gallery
-                        </button>
-                    </div>
-                </form>
-            </div>
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-        <div class="card mb-3">
-            <div class="card-header">
-                <h3><i class="fa fa-info"></i> Another Information</h3>
-            </div>
-
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="userName">Số lầu</label>
-                                <input type="number" name="title" data-parsley-trigger="change" required="required"
-                                    placeholder="Enter number" class="form-control" min="0">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="userName">Số phòng ngủ</label>
-                                <input type="number" name="title" data-parsley-trigger="change" required="required"
-                                    placeholder="Enter number" class="form-control" min="0" max="5">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="userName">Số nhà toilet</label>
-                                <input type="number" name="title" data-parsley-trigger="change" required="required"
-                                    placeholder="Enter number" class="form-control" min="0" max="5">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="userName">Nội thất</label>
-                        <textarea required="" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="userName">Pháp lý</label>
-                        <textarea required="" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="userName">Add video (Youtube)</label>
-                        <input type="url" name="title" data-parsley-trigger="change" required="required"
-                            placeholder="Enter URL" class="form-control" minlength="6">
-                    </div>
-                    <div class="form-group text-right m-b-0">
-                        <button class="btn btn-primary click-success" type="submit">
-                            Save change
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <!-- end card-->
     </div>
 </div>

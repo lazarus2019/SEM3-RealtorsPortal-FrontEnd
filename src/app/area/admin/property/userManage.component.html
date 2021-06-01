@@ -1,224 +1,107 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <div class="row">
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
+                <span class="pull-right"><button type="button" class="btn btn-primary"
+                        [routerLink]="['/admin/addProperty']">
+                        <i class="fas fa-plus"></i> Add new property</button></span>
                 <h3><i class="fas fa-table"></i> Manage Agent/Seller Ads/Posts</h3>
             </div>
             <div class="card-body">
+                <div class="from-group mb-3 d-flex justify-content-center">
+                    <form method="GET" [formGroup]="searchFormGroup" (ngSubmit)="onSearch()">
+                        <div class="row">
+                            <div class="col-md-5 mb-1 flex-fill">
+                                <input type="text" class="form-control" value="" placeholder="Enter title"
+                                    formControlName="title">
+                            </div>
+                            <div class="col-md-3 mb-1 flex-fill">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    formControlName="categoryId" required="required">
+                                    <option value="all">All Category</option>
+                                    <ng-container *ngFor="let category of categories">
+                                        <option value="{{category.categoryId}}">{{category.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-1 flex-fill">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    formControlName="statusId" required="required">
+                                    <option value="all">All status</option>
+                                    <ng-container *ngFor="let status of statuses">
+                                        <option value="{{status.statusId}}" [disabled]="status.name == 'Pending'">
+                                            {{status.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-1 flex-fill">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table id="dataTable"
-                                    class="table table-bordered table-hover display dataTable no-footer"
+                                <table class="table table-bordered table-hover display dataTable no-footer"
                                     style="width: 100%;" role="grid" aria-describedby="dataTable_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                                style="width: 159px;">No.</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                                style="width: 159px;">Name/Title</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Position: activate to sort column ascending"
-                                                style="width: 180px;">Thumbnail</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Office: activate to sort column ascending"
-                                                style="width: 115px;">Category</th>                                            
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Date: activate to sort column ascending"
-                                                style="width: 98px;">Created Date</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Date: activate to sort column ascending"
-                                                style="width: 98px;">Status</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Salary: activate to sort column ascending"
-                                                style="width: 92px;">Action</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 5%;">No.</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 35%;">Name/Title</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 20%;">Thumbnail</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 10%;">Category</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 10%;">Created Date</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 10%;">Status</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 10%;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">1</td>
-                                            <td class="sorting_1">Airi Satou</td>
+                                        <tr role="row" class="odd" *ngFor="let property of properties index as i">
+                                            <td class="sorting_1">{{NoNum*(currentPage-1)+1 + i}}</td>
+                                            <td>{{property?.title}}</td>
                                             <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
+                                                <img [src]="getUrlImage(property?.images[0].name)"
+                                                style="width: 100%; max-height: 150px;">
                                             </td>
-                                            <td>Tokyo</td>
-                                            <td>2008/11/28</td>
-                                            <td><i class="fas fa-dot-circle text-warning"></i> Pending</td>
+                                            <td>{{property?.categoryName}}</td>
+                                            <td>{{property?.uploadDate | date: 'dd/MM/y'}}</td>
+                                            <td>{{property?.statusName}}</td>
                                             <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
+                                                <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
+                                                    data-target="#details" (click)="onDetails(property.propertyId)"><i
+                                                        class="fas fa-info-circle "></i>
+                                                    Details</a>
+                                                <a class="btn btn-primary btn-sm btn-block "
+                                                    *ngIf="property?.statusName != 'Pending' && property?.statusName != 'Sold'"
+                                                    (click)="onEdit(property)"><i
                                                         class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">2</td>
-                                            <td class="sorting_1">Angelica Ramos</td>
-                                            <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
-                                            </td>
-                                            <td>London</td>
-                                            <td>2009/10/09</td>
-                                            <td><i class="fas fa-dot-circle text-success"></i> Public</td>
-                                            <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">Ashton Cox</td>
-                                            <td class="sorting_1">Ashton Cox</td>
-                                            <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
-                                            </td>
-                                            <td>San Francisco</td>
-                                            <td>2009/01/12</td>
-                                            <td><i class="fas fa-dot-circle text-danger"></i> Cancel</td>
-                                            <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">Bradley Greer</td>
-                                            <td class="sorting_1">Bradley Greer</td>
-                                            <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
-                                            </td>
-                                            <td>London</td>
-                                            <td>2012/10/13</td>
-                                            <td><i class="fas fa-dot-circle text-danger"></i> Cancel</td>
-                                            <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">Brenden Wagner</td>
-                                            <td class="sorting_1">Brenden Wagner</td>
-                                            <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
-                                            </td>
-                                            <td>San Francisco</td>
-                                            <td>2011/06/07</td>
-                                            <td><i class="fas fa-dot-circle text-success"></i> Public</td>
-                                            <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">Brielle Williamson</td>
-                                            <td class="sorting_1">Brielle Williamson</td>
-                                            <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
-                                            </td>
-                                            <td>New York</td>
-                                            <td>2012/12/02</td>
-                                            <td><i class="fas fa-dot-circle text-success"></i> Public</td>
-                                            <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">Caesar Vance</td>
-                                            <td class="sorting_1">Caesar Vance</td>
-                                            <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
-                                            </td>
-                                            <td>New York</td>
-                                            <td>2011/12/12</td>
-                                            <td><i class="fas fa-dot-circle text-success"></i> Public</td>
-                                            <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">Cedric Kelly</td>
-                                            <td class="sorting_1">Cedric Kelly</td>
-                                            <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
-                                            </td>
-                                            <td>Edinburgh</td>
-                                            <td>2012/03/29</td>
-                                            <td><i class="fas fa-dot-circle text-danger"></i> Cancel</td>
-                                            <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">Charde Marshall</td>
-                                            <td class="sorting_1">Charde Marshall</td>
-                                            <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
-                                            </td>
-                                            <td>San Francisco</td>
-                                            <td>2008/10/16</td>
-                                            <td><i class="fas fa-dot-circle text-success"></i> Public</td>
-                                            <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">Colleen Hurst</td>
-                                            <td class="sorting_1">Colleen Hurst</td>
-                                            <td>
-                                                <img src="https://via.placeholder.com/180x120g" alt="">
-                                            </td>
-                                            <td>San Francisco</td>
-                                            <td>2009/09/15</td>
-                                            <td><i class="fas fa-dot-circle text-success"></i> Public</td>
-                                            <td>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Details</a>
-                                                <a href="# " class="btn btn-primary btn-sm btn-block "><i
-                                                        class="fas fa-pencil-alt "></i> Edit</a>
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Delete</a>
+                                                <a class="btn btn-primary btn-sm btn-block mt-2 "
+                                                    *ngIf="property?.statusName != 'Pending' && property?.statusName != 'Sold' && property?.statusName == 'Activate'"
+                                                    (click)="changeStatus(property.propertyId)" data-toggle="modal"
+                                                    data-target="#changeStatus"><i class="fas fa-exchange-alt "></i>
+                                                    Status</a>
+                                                <a class="btn btn-primary btn-sm btn-block mt-2"
+                                                    *ngIf="property?.statusName == 'Deactivate' || property?.statusName == 'Rented'"
+                                                    (click)="activateAlert(property)"><i class="fas fa-trash "></i>
+                                                    Activate</a>
+                                                <a class="btn btn-danger btn-sm btn-block mt-2 "
+                                                    (click)="deleteAlert(property.propertyId)"><i
+                                                        class="fas fa-trash "></i>
+                                                    Delete</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -236,5 +119,203 @@
         <!-- end card-->
 
     </div>
+    <div class="col-12">
+        <div class="d-flex justify-content-between">
+            <div>
+                Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > PropertyLength? PropertyLength
+                :
+                currentPage*10}} of {{PropertyLength}} entries
+            </div>
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <ng-container *ngIf="currentPage!==1">
+                        <li (click)="minusPage()" class="page-item"><a class="page-link">Previous</a></li>
+                    </ng-container>
+                    <ng-container *ngFor="let in of PropertyLengthArray; index as i">
+                        <li (click)="executePropertyPerPage(i+1)" class="page-item"><a class="page-link">{{i+1}}</a>
+                        </li>
+                    </ng-container>
+                    <ng-container *ngIf="currentPage !== PropertyPer">
+                        <li (click)="plusPage()" class="page-item"><a class="page-link">Next</a></li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!--Modal of Details-->
+<div class="modal fade bd-example-modal-lg" id="details" tabindex="-1" role="dialog" aria-labelledby="details"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Property details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="title" class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="title" readonly value="{{property?.title}}"
+                            style="background-color:white;">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="price">Price: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="price" readonly
+                                    value="${{property?.price}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="area">Area: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="area" readonly
+                                    value="{{property?.area}} m&#178;" style="background-color:white;">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="rooms">Rooms:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="rooms" readonly
+                                    value="{{property?.roomNumber}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="bedrooms">Bedrooms:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="bedrooms" readonly
+                                    value="{{property?.bedNumber}}" style="background-color:white;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="category">Category: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="category" readonly
+                                    value="{{property?.categoryName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="editor">Partners: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="editor" readonly
+                                    value="{{property?.memberFullName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="status">Status: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="status" readonly
+                                    value="{{property?.statusName}}" style="background-color:white;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="type">Type: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="type" readonly
+                                    value="{{property?.type}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="publicday">Public day:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="publicday" readonly
+                                    value="{{property?.uploadDate | date:'dd/MM/y'}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="dayofsale">Day of Rent/Sale: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="dayofsale" readonly
+                                    value="{{property?.soldDate ? (property?.soldDate | date:'dd/MM/y') : 'still for Rent/Sale'}}"
+                                    style="background-color:white;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="city">City: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="city" readonly
+                                    value="{{property?.cityName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="region">Region:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="region" readonly
+                                    value="{{property?.cityCountryName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="country">Country: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="country" readonly
+                                    value="{{property?.cityCountryRegionName}}" style="background-color:white;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address: </label>
+                        <input data-parsley-type="text" type="text" class="form-control" id="address" readonly
+                            value="{{property?.address}}" style="background-color:white;">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <div class="slider-image">
+                            <div class="slideshow-container">
+                                <ng-container *ngFor="let image of images index as i">
+
+                                    <div class="mySlides" *ngIf="i===0" style="display: block;">
+                                        <img [src]="getUrlImage(image.name)" style="width:100%; height: 500px;">
+                                    </div>
+                                    <div class="mySlides" *ngIf="i!==0" style="display: none;">
+                                        <img [src]="getUrlImage(image.name)" style="width:100%; height: 500px;">
+                                    </div>
+
+                                </ng-container>
+                            </div>
+
+                            <br>
+                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <div class="text">
+
+                            <span innerHTML="{{property?.description}}"></span>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal of Status-->
+<div class="modal fade" id="changeStatus" tabindex="-1" role="dialog" aria-labelledby="changeStatus" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Change Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="text-center" *ngIf="property?.statusName == 'Activate'">
+                    <button type="button" (click)="deactivateAlert(property)" style="width: 70%;" data-dismiss="modal"
+                        class="btn btn-primary btn-lg"><i class="fas fa-toggle-off"></i> Deactivate</button>
+                    <hr>
+                </div>
+                <div class="text-center" *ngIf="property?.statusName == 'Activate'">
+                    <button type="button" (click)="sellAlert(property)" style="width: 70%;" data-dismiss="modal"
+                        class="btn btn-primary btn-lg"><i class="fas fa-arrow-right"></i> Sell</button>
+                    <hr>
+                </div>
+                <div class="text-center" *ngIf="property?.statusName == 'Activate'">
+                    <button type="button" (click)="rentAlert(property)" style="width: 70%;" data-dismiss="modal"
+                        class="btn btn-primary btn-lg"><i class="fas fa-arrows-alt-h"></i> Rent</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group d-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

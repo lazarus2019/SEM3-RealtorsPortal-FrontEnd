@@ -36,11 +36,24 @@ import { CategoryComponent } from './area/user/category/category.component';
 import { AdminNewsComponent } from './area/admin/news/addNews.component';
 import { AdminManageNewsComponent } from './area/admin/news/manageNews.component';
 import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
+import { EditPropertyComponent } from './area/admin/property/editProperty.component';
+import { LoginComponent } from './area/user/login/login.component';
+import { RegistrationComponent } from './area/user/registration/registration.component';
+import { SuccessRegistrationComponent } from './area/user/registration/successRegistration.component';
+import { ForgetPasswordComponent } from './area/user/forgotPassword/forgetPassword.component';
+import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
+import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
 import { AdminFAQComponent } from './area/admin/faq/faq.component';
 
 const routes: Routes = [
 
   // Default Component
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'successRegistration', component: SuccessRegistrationComponent },
+  { path: 'forgetPassword', component: ForgetPasswordComponent },
+  { path: 'resetPassword', component: ResetPasswordComponent },
+  { path: 'confirmEmail', component: ConfirmEmailComponent },
   {
     path: '', component: AdminComponent,
     children:
@@ -97,6 +110,8 @@ const routes: Routes = [
         { path: 'editNews/:newsId', component: AdminEditNewsComponent },
         { path: 'manageNews', component: AdminManageNewsComponent },
         { path: 'faq', component: AdminFAQComponent },
+        { path: 'addProperty', component: AddNewPropertyComponent },
+        { path: 'editProperty', component: EditPropertyComponent },
       ]
   },
 

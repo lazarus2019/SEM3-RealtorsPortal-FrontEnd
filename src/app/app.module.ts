@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminRoutingModule } from './area/admin/admin-routing.module';
 import { UserRoutingModule } from './area/user/user-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Admin area
 import { AdminComponent } from './area/admin/admin.component';
@@ -24,8 +24,8 @@ import { AdminManageAdPackageComponent } from './area/admin/adpackage/manageAdPa
 import { AdminManageInvoiceAdPackageComponent } from './area/admin/invoice/manageInvoiceAdPackage.component';
 import { SettingComponent } from './area/admin/setting/setting.component';
 import { TemplateComponent } from './area/admin/template/template.component';
+import { EditPropertyComponent } from './area/admin/property/editProperty.component';
 import { AddNewService } from './services/addNewService';
-import { TestComponent } from './area/admin/testing/testing.component';
 import { AdminService } from './services/adminService.service';
 import { UserManageInvoiceComponent } from './area/admin/invoice/userManageInvoice.component';
 import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInvoice.component';
@@ -58,6 +58,18 @@ import { AdminEditNewsComponent } from './area/admin/news/editNews.component';
 import { PublicService } from './services/publicService.service';
 import { AdminFAQComponent } from './area/admin/faq/faq.component';
 import { FAQService } from './services/admin/faq/faqAPI.service';
+import { InvoiceService } from './services/invoice.service';
+import { LoginComponent } from './area/user/login/login.component';
+import { RegistrationComponent } from './area/user/registration/registration.component';
+import { ForgetPasswordComponent } from './area/user/forgotPassword/forgetPassword.component';
+import { AccountService } from './services/account.service';
+import { AuthInterceptor } from './authenticate/auth.interceptor';
+import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
+import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
+import { SuccessRegistrationComponent } from './area/user/registration/successRegistration.component';
+import { AddressService } from './services/address.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -83,6 +95,7 @@ import { FAQService } from './services/admin/faq/faqAPI.service';
     InvoiceTemplateComponent,
     ReportComponent,
     ProfileComponent,
+    EditPropertyComponent,
     AdminNewsComponent,
     AdminManageNewsComponent,
     AdminEditNewsComponent,
@@ -90,9 +103,6 @@ import { FAQService } from './services/admin/faq/faqAPI.service';
 
     // Template component
     TemplateComponent,
-
-    // Testing component
-    TestComponent,
 
     // User area
     UserComponent,
@@ -108,14 +118,21 @@ import { FAQService } from './services/admin/faq/faqAPI.service';
     ContactComponent,
     DetailsComponent,
     NewsComponent,
-    CategoryComponent
+    CategoryComponent,
+        //login-Registration
+    LoginComponent,
+    RegistrationComponent,
+    SuccessRegistrationComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     BrowserModule,
     // Load form module để truyền dữ liệu
-    FormsModule,
     // Http Client module
     ReactiveFormsModule,
+    FormsModule,
     // 
     HttpClientModule,
     // Add routing module
@@ -125,7 +142,10 @@ import { FAQService } from './services/admin/faq/faqAPI.service';
     AdminRoutingModule,
 
     // User module
-    UserRoutingModule
+    UserRoutingModule,
+    CommonModule,
+
+    NoopAnimationsModule
   ],
   providers: [
     // Admin Services
@@ -136,6 +156,13 @@ import { FAQService } from './services/admin/faq/faqAPI.service';
     PublicService,
     NewsCategoryAPIService,
     FAQService,
+    InvoiceService,
+    AddressService,
+    AccountService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

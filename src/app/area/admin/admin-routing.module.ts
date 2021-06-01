@@ -1,3 +1,4 @@
+import { AuthGuard } from 'src/app/authenticate/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddNewService } from 'src/app/services/addNewService';
@@ -13,8 +14,6 @@ import { AdminManageInvoiceAdPackageComponent } from './invoice/manageInvoiceAdP
 import { UserManageInvoiceComponent } from './invoice/userManageInvoice.component';
 import { AdminMailBoxComponent } from './mailbox/mailbox.component';
 import { AdminManageMemberComponent } from './member/manageMember.component';
-import { AdminManageNewsComponent } from './news/manageNews.component';
-import { AdminNewsComponent } from './news/addNews.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddNewPropertyComponent } from './property/addNew.component';
 import { AdminManagePropertyComponent } from './property/adminManage.component';
@@ -22,35 +21,29 @@ import { UserManagePropertyComponent } from './property/userManage.component';
 import { ReportComponent } from './reports/reports.component';
 import { SettingComponent } from './setting/setting.component';
 import { TemplateComponent } from './template/template.component';
-import { AdminEditNewsComponent } from './news/editNews.component';
-import { AdminFAQComponent } from './faq/faq.component';
 
 // Admin Services
 
 const routes: Routes = [
   { path: '', component: AdminDashboardComponent },
-  { path: 'dashboard', component: AdminDashboardComponent },
-  { path: 'mailbox', component: AdminMailBoxComponent },
-  { path: 'addNew', component: AddNewPropertyComponent, canActivate: [AddNewService] },
-  { path: 'gallery', component: AdminGalleryComponent },
-  { path: 'adPackage', component: AdminAdPackageComponent },
-  { path: 'adminManage', component: AdminManagePropertyComponent },
-  { path: 'userManage', component: UserManagePropertyComponent },
-  { path: 'manageMember', component: AdminManageMemberComponent },
-  { path: 'manageAdPackage', component: AdminManageAdPackageComponent },
-  { path: 'manageInvoice', component: AdminManageInvoiceAdPackageComponent },
-  { path: 'setting', component: SettingComponent },
+  { path: 'dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'mailbox', component: AdminMailBoxComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'addNew', component: AddNewPropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Agent.'] } },
+  { path: 'gallery', component: AdminGalleryComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'adPackage', component: AdminAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'adminManage', component: AdminManagePropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'userManage', component: UserManagePropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'manageMember', component: AdminManageMemberComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'manageAdPackage', component: AdminManageAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'manageInvoice', component: AdminManageInvoiceAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'setting', component: SettingComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'template', component: TemplateComponent },
-  { path: 'userManageInvoice', component: UserManageInvoiceComponent },
-  { path: 'adminManageInvoice', component: AdminManageInvoiceComponent },
-  { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent },
-  { path: 'invoiceTemplate', component: InvoiceTemplateComponent },
-  { path: 'reports', component: ReportComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'news', component: AdminNewsComponent },
-  { path: 'editNews/:newsId', component: AdminEditNewsComponent },
-  { path: 'manageNews', component: AdminManageNewsComponent },
-  { path: 'faq', component: AdminFAQComponent },
+  { path: 'userManageInvoice', component: UserManageInvoiceComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'adminManageInvoice', component: AdminManageInvoiceComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'invoiceTemplate', component: InvoiceTemplateComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'reports', component: ReportComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
 
 
 

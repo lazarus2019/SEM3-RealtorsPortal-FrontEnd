@@ -1,0 +1,44 @@
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w480">
+        <div class="card card-4">
+            <div class="card-header">
+                <h2>Login</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="loginForm" class="mb-4" autocomplete="off" (ngSubmit)="onSubmit(loginForm.value)">
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <label class="username">Username</label>
+                            <input class="input--style-4" type="text" placeholder="Enter username"
+                                formControlName="username" id="username">
+                            <em class="text-danger"
+                                *ngIf="validateControl('username') && hasError('username', 'required')">Username is
+                                required</em>
+                        </div>
+                    </div>
+                    <div class="formGroup">
+                        <div class="input-group">
+                            <label class="password">Password</label>
+                            <input class="input--style-4" type="password" placeholder="Enter password"
+                                formControlName="password" id="password">
+                            <em class="text-danger"
+                                *ngIf="validateControl('password') && hasError('password', 'required')">Password is
+                                required</em>
+
+                        </div>
+                    </div>
+                    <div class="p-t-10 p-b-15 text-center">
+                        <button class="my-btn btn--radius-2 btn--blue" type="submit" [disabled]="loginForm.invalid">Login</button>
+                    </div>
+                    <div class="fp ">
+                        <a [routerLink]="['/forgetPassword']">or Forgot Password?</a>
+                    </div>
+                    <div class="sp p-t-30">
+                        <span>Don't have an account? </span>
+                        <a [routerLink]="['/registration']"> Sign Up</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

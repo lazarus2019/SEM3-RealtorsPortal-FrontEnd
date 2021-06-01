@@ -1,217 +1,93 @@
 <div class="row">
-
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
                 <h3><i class="fas fa-table"></i> Members</h3>
             </div>
 
-
             <div class="card-body">
                 <!-- Form Search & Filter -->
-                <div class="from-group mb-3">
-                    <div class="row">
-                        <div class="col-md-3 mb-1">
-                            <input type="text" class="form-control" value="" placeholder="Enter name">
+                <div class="from-group mb-3  d-flex justify-content-center">
+                    <form [formGroup]="searchFormGroup" (ngSubmit)="onSearch()">
+                        <div class="row">
+                            <div class="col-md-4 mb-1 flex-fill">
+                                <input type="text" class="form-control" value="" placeholder="Enter fullName"
+                                    formControlName="fullName">
+                            </div>
+                            <div class="col-md-3 mb-1 flex-fill">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    formControlName="position" required="required">
+                                    <option value="all" selected="selected">All position</option>
+                                    <option value="Agent" selected="selected">Agent</option>
+                                    <option value="Private Seller" selected="selected">Private Seller</option>
+                                    <option value="Customer" selected="selected">Customer</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-1 flex-fill">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    formControlName="status" required="required">
+                                    <option value="all" selected="selected">All Status</option>
+                                    <option value="false">Blocked</option>
+                                    <option value="true">Active</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 flex-fill">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-1">
-                            <input data-parsley-type="text" type="text" class="form-control" required=""
-                                placeholder="Enter email" required="required">
-                        </div>
-                        <div class="col-md-3 mb-1">
-                            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
-                                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
-                                <option value="customer">Customer</option>
-                                <option value="agent">Agent</option>
-                                <option value="seller">Seller</option>
-                                <option value="administration">Administration</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 mb-1">
-                            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
-                                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
-                                <option value="activate">Activate</option>
-                                <option value="deactivate">Deactivate</option>
-                                <option value="pending">Pending</option>
-                            </select>
-                        </div>
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
+                <!--Show Table-->
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table id="dataTable"
-                                    class="table table-bordered table-hover display dataTable no-footer"
+                                <table class="table table-bordered table-hover display dataTable no-footer"
                                     style="width: 100%;" role="grid" aria-describedby="dataTable_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                                style="width: 159px;">No.</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Position: activate to sort column ascending"
-                                                style="width: 245px;">Full Name</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Office: activate to sort column ascending"
-                                                style="width: 115px;">Email</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                                style="width: 56px;">Role</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Salary: activate to sort column ascending"
-                                                style="width: 92px;">Create date</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Salary: activate to sort column ascending"
-                                                style="width: 92px;">Action</th>
+                                            <th aria-controls="dataTable" rowspan="1" colspan="1" style="width: 5%;">No.
+                                            </th>
+                                            <th aria-controls="dataTable" rowspan="1" colspan="1" style="width: 20%;">
+                                                Full Name</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 26%;">Email</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 13%;">Position</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 13%;">Day in</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 13%;">Status</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 10%;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Customer</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">Angelica Ramos</td>
-                                            <td>Chief Executive Officer (CEO)</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Customer</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Customer</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Agent</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">Brenden Wagner</td>
-                                            <td>Software Engineer</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Administration</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">Brielle Williamson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Agent</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Agent</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Customer</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">Charde Marshall</td>
-                                            <td>Regional Director</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Private Seller</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">Colleen Hurst</td>
-                                            <td>Javascript Developer</td>
-                                            <td>youremail@gmail.com</td>
-                                            <td>Private Seller</td>
-                                            <td>10/10/2021</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                    data-target="#sendMail"><i class="fas fa-envelope "></i> Send
-                                                    mail</a>                                                
-                                                <a href="# " class="btn btn-danger btn-sm btn-block mt-2 "><i
-                                                        class="fas fa-trash "></i> Block</a>
-                                            </td>
-                                        </tr>
+                                        <ng-container *ngFor="let member of members index as i">
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">{{i+1}}</td>
+                                                <td>{{member?.fullName}}</td>
+                                                <td>{{member?.email}}</td>
+                                                <td>{{member?.position}}</td>
+                                                <td>{{member?.createDate|date:'dd/MM/y'}}</td>
+                                                <td>{{member?.status ? 'Active' : 'Blocked'}}</td>
+                                                <td>
+                                                    <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
+                                                        data-target="#sendMail"><i class="fas fa-envelope " (click)="onEmail(member?.email)"></i> Send
+                                                        mail</a>
+                                                    <a class="btn btn-danger btn-sm btn-block mt-2 "
+                                                        *ngIf="member?.status == true" (click)="blockAlert(member)"><i
+                                                            class="fas fa-lock "></i> Block</a>
+                                                    <a class="btn btn-danger btn-sm btn-block mt-2 "
+                                                        *ngIf="member?.status == false"
+                                                        (click)="unblockAlert(member)"><i class="fas fa-unlock "></i>
+                                                        Unblock</a>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
                                     </tbody>
                                 </table>
                             </div>
@@ -225,7 +101,29 @@
 
         </div>
         <!-- end card-->
-
+        <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <div>
+                    Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > memberLength?
+                        memberLength :
+                    currentPage*10}} of {{memberLength}} entries
+                </div>
+                <div aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <ng-container *ngIf="currentPage!==1">
+                            <li (click)="minusPage()" class="page-item"><a class="page-link">Previous</a></li>
+                        </ng-container>
+                        <ng-container *ngFor="let in of memberLengthArray; index as i">
+                            <li (click)="executeMemberPerPage(i+1)" class="page-item"><a
+                                    class="page-link">{{i+1}}</a></li>
+                        </ng-container>
+                        <ng-container *ngIf="currentPage !== memberPer">
+                            <li (click)="plusPage()" class="page-item"><a class="page-link">Next</a></li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -241,26 +139,27 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form [formGroup]="emailFormGroup">
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Mail to:</label>
-                        <input type="text" class="form-control" value="youremail@gmail.com" readonly>
+                        <label for="recipient-name" class="col-form-label">Send to:</label>
+                        <input type="text" class="form-control" formControlName="email" readonly>
                     </div>
                     <div class="form-group">
                         <label for="example1">
-                            Title: <span class="text-danger">*</span>
+                            Subject: <span class="text-danger">*</span>
                         </label>
                         <input data-parsley-type="text" type="text" class="form-control" required=""
-                            placeholder="Enter title" required="required">
+                            formControlName="subject" placeholder="Enter title" required="required">
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Description:</label>
+                        <label for="message-text" class="col-form-label">Content:</label>
                         <textarea class="form-control" id="message-text" placeholder="Enter description"
-                            required></textarea>
+                            formControlName="content" required></textarea>
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal"
+                            (click)="sendAlert()">Send</button>
                     </div>
                 </form>
             </div>

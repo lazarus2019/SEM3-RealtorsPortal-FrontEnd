@@ -1,169 +1,126 @@
 <div class="row">
-
-    <div class="col-12">
-
+    <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="card mb-3">
             <div class="card-header">
-                <h3>
-                    <i class="fas fa-table"></i> Ads Package
-                </h3>
+                <!-- Button trigger modal -->
+                <h3><i class="fas fa-table"></i> Ads Package</h3>
             </div>
 
             <div class="card-body">
+                <!-- Form Search & Filter -->
+                <form [formGroup]="searchFormGroup">
+                    <div class="from-group mb-3 d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col-md-4 mb-1 flex-fill">
+                                <div class="range-wrap">
+                                    <div class="range-value" id="rangeV">Price below: ${{maxPrice}}</div>
+                                    <input id="range" type="range" min="1" max="{{maxPrice}}" value="{{maxPrice}}"
+                                        step="2" formControlName="price">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-1 flex-fill">
+                                <input type="text" class="form-control " placeholder="Enter name"
+                                    formControlName="name">
+                            </div>
+                            <div class="col-md-2 mb-1 flex-fill">
+                                <button type="submit" (click)="onSearch()" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
 
                 <div class="table-responsive">
-                    <table class="table table-condensed table-hover table-bordered table-responsive-sm">
-                        <thead>
-                            <tr>
-                                <th class="tabco1" style="min-width:200px">PLAN</th>
-                                <th class="tabco2" style="min-width:200px">Starter</th>
-                                <th class="tabco3" style="min-width:200px">Plus</th>
-                                <th class="tabco4" style="min-width:200px">Pro</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="tabco1">100% Uniqueness</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco4">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1">Proof Checking</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco4">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1">Keyword Optimization</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco4">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1">LSI Keyword Optimization</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco4">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1">Grammarly Premium Checking</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco4">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1"> Copyscape Premium Checking</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco4">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1">On-Page Optimization</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco4">
-                                    <i class="fas fa-check rightSign" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1">Bonus Content</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco4">500 Word Content Free</td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1">Modification After Submission</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">1 Times</td>
-                                <td class="tabco4">2 Times</td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1">Delivery Time</td>
-                                <td class="tabco2">3-4 Working Days</td>
-                                <td class="tabco3">2-3 Working Days</td>
-                                <td class="tabco4">1-2 Working Days</td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1">WordPress Posting</td>
-                                <td class="tabco2">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco3">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                                <td class="tabco4">
-                                    <i class="fas fa-times crossSign" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tabco1" style="background-color: transparent;">&nbsp;</td>
-                                <td class="tabco2" style="background-color: transparent;">
-                                    <a class="btn btn-lg btn-success" href="#"><strong>BUY NOW!</strong></a>
-                                </td>
-                                <td class="tabco3" style="background-color: transparent;">
-                                    <a class="btn btn-lg btn-info" href="#"><strong>BUY NOW!</strong></a>
-                                </td>
-                                <td class="tabco4" style="background-color: transparent;">
-                                    <a class="btn btn-lg btn-danger" href="#"><strong>BUY NOW!</strong></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table
+                                    class="table table-bordered table-hover table-striped display dataTable no-footer"
+                                    style="width: 100%;" role="grid" aria-describedby="dataTable_info">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 5%;">No.</th>
+                                            <th scope="col" style="width: 17%;">Name</th>
+                                            <th scope="col" style="width: 9%;">Period (day)</th>
+                                            <th scope="col" style="width: 9%;">Price</th>
+                                            <th scope="col" style="width: 9%;">Ads post</th>
+                                            <th scope="col" style="width: 41%;">Description</th>
+                                            <th scope="col" style="width: 10%;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let adsPackage of adsPackages index as i">
+                                            <tr>
+                                                <td class="sorting_1">{{NoNum*(currentPage-1)+1 + i}}</td>
+
+                                                <td>{{adsPackage?.nameAdPackage}}</td>
+                                                <td>{{adsPackage?.period}}</td>
+                                                <td>${{adsPackage?.price}}</td>
+                                                <td>{{adsPackage?.postNumber}}</td>
+                                                <td>{{adsPackage?.description}}</td>
+                                                <td>
+                                                    <a class="btn btn-danger btn-sm btn-block mt-2"
+                                                        (click)="buyBow(adsPackage)" data-toggle="modal"
+                                                        data-target="#payment"><i class="fas fa-shopping-bag "></i>
+                                                        Buy Now!</a>
+                                                </td>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-
             </div>
-            <!-- end card body -->
-
+            <!-- end card-->
         </div>
-        <!-- end card-->
-
+        <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <div>
+                    Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > adPackageLength?
+                    adPackageLength :
+                    currentPage*10}} of {{adPackageLength}} entries
+                </div>
+                <div aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <ng-container *ngIf="currentPage!==1">
+                            <li (click)="minusPage()" class="page-item"><a class="page-link">Previous</a></li>
+                        </ng-container>
+                        <ng-container *ngFor="let in of adPackageLengthArray; index as i">
+                            <li (click)="executeAdPackagePerPage(i+1)" class="page-item"><a
+                                    class="page-link">{{i+1}}</a></li>
+                        </ng-container>
+                        <ng-container *ngIf="currentPage !== adsPackagePer">
+                            <li (click)="plusPage()" class="page-item"><a class="page-link">Next</a></li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- end col-->
+</div>
+<!--Modal of Payment method-->
+<div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="payment" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Choose Payment method</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-width: 100%;">
+                <div class="text-center" id="paypal-checkout">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group d-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
