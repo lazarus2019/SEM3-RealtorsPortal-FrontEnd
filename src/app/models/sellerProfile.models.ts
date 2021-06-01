@@ -11,4 +11,5 @@ export class SellerProfileModel {
      createDate : Date;
      verifyCode : string;
      description : string;
+
 }
