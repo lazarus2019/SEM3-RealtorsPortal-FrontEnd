@@ -45,6 +45,7 @@ export class ResultComponent implements OnInit {
 
   allNewsLength: number = 0;
 
+
   // search 
   keyword: string
   categoryId: number
@@ -72,17 +73,6 @@ export class ResultComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.formGroup = this.formBuilder.group({
-      keyword: '',
-      country: 'all',
-      city: 'all',
-      category: 'all',
-      type: 'all',
-      area: 1,
-      bed: 0,
-      room: 0,
-      price: 1
-    });
     this.activatedRoute.paramMap.subscribe(params => {
       this.pg = params.get('pg');
       console.log(this.pg)
@@ -101,41 +91,56 @@ export class ResultComponent implements OnInit {
   getData() {
     if (this.pg == 'index') {
       this.activatedRoute.paramMap.subscribe(params => {
-        this.formGroup.value.keyword = params.get('keyword');
-        this.formGroup.value.country = params.get('countryId');
-        this.formGroup.value.category = params.get('categoryId');
-        this.keyword = params.get('keyword');
-        this.countryId = params.get('countryId') as any as number;
+        this.keyword = params.get('keyword') ; 
+        this.countryId =  params.get('countryId') as any as number;
         this.categoryId = params.get('categoryId') as any as number;
-        console.log('key 1 : ' + this.formGroup.value.keyword + ' | ' + params.get('keyword'))
+        console.log('key 1 : ' + this.formGroup.value.keyword + ' | ' + this.categoryId) ;
       })
     }
     if (this.pg == 'listing') {
       this.activatedRoute.paramMap.subscribe(params => {
 
-        this.formGroup.value.keyword = params.get('keyword');
-        this.formGroup.value.country = params.get('country');
-        this.formGroup.value.category = params.get('category');
-        this.formGroup.value.city = params.get('city');
-        this.formGroup.value.type = params.get('type');
-        this.formGroup.value.area = params.get('area');
-        this.formGroup.value.bed = params.get('bed');
-        this.formGroup.value.room = params.get('room');
-        this.formGroup.value.price = params.get('price');
-        this.keyword = params.get('keyword');
-        this.countryId = params.get('countryId') as any as number;
-        this.categoryId = params.get('categoryId') as any as number;
+        this.keyword = params.get('keyword') ;
+        this.countryId = params.get('country') as any as number;
+        this.categoryId = params.get('category') as any as number;
         this.city = params.get('city') as any as number;
         this.type = params.get('type') as any as string;
         this.area = params.get('area') as any as number;
         this.bed = params.get('bed') as any as number;
         this.room = params.get('room') as any as number;
         this.price = params.get('price') as any as number;
-
-
-      })
+      })  
     }
-    this.searchListing(1);
+    this.setDataFormSearch()
+    this.searchListing(this.currentPage);
+  }
+  setDataFormSearch(){
+    if( this.isIndex ) {
+      this.formGroup = this.formBuilder.group({
+        keyword: (this.keyword == 'all' ) ? '' : this.keyword,
+        country: this.countryId,
+        city: 0,
+        category: this.categoryId,
+        type: 'all',
+        area: 1,
+        bed: 0,
+        room: 0,
+        price: 1
+      });   
+    }
+    else {
+      this.formGroup = this.formBuilder.group({
+        keyword:  (this.keyword == 'all' ) ? '' : this.keyword,
+        country:  this.countryId,
+        city: this.city,
+        category: this.categoryId,
+        type: this.type,
+        area:  this.area,
+        bed: this.bed ,
+        room: this.room,
+        price: this.price
+      }); 
+    }
   }
 
   searchListing(page: number) {
@@ -198,10 +203,15 @@ export class ResultComponent implements OnInit {
   }
   loadcity(event: any) {
     console.log("countryId : " + event.target.value);
-    // var countryId = event.target.value as number
-
-    // var temp = this.loadcountries.filter( c => c.countryId == countryId)[0] ;
-    // this.loadallcities = temp.cities
+    var countryId = event.target.value as number ;     
+    this.listingService.loadcity(countryId).then( 
+      res => {
+        this.loadallcities = res
+      },
+      err => {
+        console.log(err)
+      }); 
+      this.setDataFormSearch() ;
   }
   loadData() {
     this.listingService.getSetting().then(

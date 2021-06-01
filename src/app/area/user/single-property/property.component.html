@@ -47,12 +47,28 @@
                 <div class="blog-single-post">
                     <div class="single-post-image mb-5">
                         <div class="owl-blog owl-carousel owl-theme">
-                            <div class="item">
-                                <div class="card" *ngFor="let pi of property.images">
-                                    <img src="http://localhost:65320/images/property/{{pi.name}}" class="img-fluid radius-image"
-                                        alt="image">
-                                </div>
+                            <!-- <div class="item">
+                                <ng-image-slider 
+                                    [images]="imageObject" class="card"
+                                    [autoSlide]="1" 
+                                    [imageSize]="{width: 580 , height: 650}"
+                                    [animationSpeed] = 0.5 
+                                ></ng-image-slider>                                
 
+                            </div> -->
+                            <div class="slider-image">
+                                <div class="slideshow-container">
+                                    <ng-container *ngFor="let image of property.images; index as i">
+                                        <div class="mySlides" *ngIf="i===0" style="display: block;">
+                                            <img src="http://localhost:65320/images/property/{{image.name}}" style="width:100%">
+                                        </div>
+                                        <div class="mySlides" *ngIf="i!==0" style="display: none;">
+                                            <img src="http://localhost:65320/images/property/{{image.name}}" style="width:100%">
+                                        </div>
+                                    </ng-container>
+
+                                </div>
+                                <br>  
                             </div>
 
                         </div>
@@ -97,7 +113,7 @@
                         </div>
 
                         <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l5.jpg" class="radius-image" alt="">
+                            <figure class="post-thumb"><img src="http://localhost:65320/images/member/{{property.memberPhoto}}" class="radius-image" alt="">
                             </figure>
                             <!-- Cho nay se link qua ben page agent detail cua T.Anh-->
                             <div class="text mb-0"><a href="#blog-single">{{property.memberName}}

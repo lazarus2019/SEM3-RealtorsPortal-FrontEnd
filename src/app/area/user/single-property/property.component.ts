@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MailboxModel } from 'src/app/models/maibox.model';
 import { PropertyModel } from 'src/app/models/property.model';
 import { ListingService } from 'src/app/services/user/listing.service';
 import { MailboxService } from 'src/app/services/user/mailbox.service';
-import { NgImageSliderModule } from 'ng-image-slider';
+import { NgImageSliderComponent, NgImageSliderModule } from 'ng-image-slider';
 import { PropertyService } from 'src/app/services/property.service';
 
 declare var alertFunction : any 
@@ -13,10 +13,13 @@ declare var alertFunction : any
   templateUrl: './property.component.html'
 })
 export class PropertyComponent implements OnInit {
+  
+
   propertyId : number
   property : PropertyModel 
   popularpost : PropertyModel[] 
   formContact : FormGroup  
+  imageObject: Array<object> = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -45,6 +48,12 @@ export class PropertyComponent implements OnInit {
     this.listingService.propertyDetail(this.propertyId).then(
       res => { 
         this.property = res
+        res.images.forEach(i => {
+          this.imageObject.push( {
+              image:  'http://localhost:65320/images/property/' + i.name ,
+              thumbImage: 'http://localhost:65320/images/property/' + i.name 
+          });
+        });
         this.propertyService.getPopularPost(this.property.memberId).then(
           res => {
             this.popularpost = res 

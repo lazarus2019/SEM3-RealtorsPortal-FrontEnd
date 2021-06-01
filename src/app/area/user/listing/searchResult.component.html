@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
                         data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true"
-                        formControlName='country' placeholder="Country" (click)="loadcity($event)" >
+                        formControlName='country' placeholder="Country" (change)="loadcity($event)" >
                         <option disabled selected value="0" >Country</option>
                         <ng-container *ngFor="let co of loadcountries">
                             <option value="{{co.countryId}}"  >{{co.name}}</option>
@@ -117,7 +117,7 @@
                 </div>
 
                 <div class="form-group ">
-                    <button type="submit" class="btn btn-style btn-primary" value="Search"
+                    <button type="submit" class="btn btn-style btn-primary" value="Search" (click)="loadData()"
                         [routerLink]="['/user/searchproperty', 
                         {
                             keyword :  (this.formGroup.value.keyword == '') ? 'all' : this.formGroup.value.keyword ,
@@ -180,7 +180,7 @@
                                 </ul>
                                 <div class="author align-items-center mt-4">
                                     <a href="#img" class="comment-img">
-                                        <img src="assets/user/images/team1.jpg" alt="" class="img-fluid">
+                                        <img src="http://localhost:65320/images/member/{{p.memberPhoto}}" alt="" class="img-fluid">
                                     </a>
                                     <ul class="blog-meta">
                                         <li>

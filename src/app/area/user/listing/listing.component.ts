@@ -72,7 +72,7 @@ export class ListingComponent implements OnInit {
     console.log("countryId : " + event.target.value);
     this.listingService.loadcity(event.target.value).then(
       res => {
-        this.loadcities = res
+        this.loadallcities = res
       },
       err => {
         console.log(err)
