@@ -55,7 +55,6 @@ export class ListingComponent implements OnInit {
   ngOnInit(): void {
 
     this.loadData();
-
     this.formGroup = this.formBuilder.group({
       keyword: '',
       country: 0,
@@ -163,7 +162,12 @@ export class ListingComponent implements OnInit {
       // this.filterNewsPerPage(this.currentPage);
     }
   }
-
+  setPagination() {    
+    this.listingPer = Math.ceil(this.listingLength / this.listingPerPage);
+    console.log( "listingPer : " + this.listingPer);
+    this.listingLengthArray = new Array(this.listingPer);
+    this.currentPage = 1;
+  }
   getAllListing(page: number) {
     this.listingService.getAllListing(page).then(
       res => {
@@ -174,11 +178,6 @@ export class ListingComponent implements OnInit {
       });
   }
 
-  setPagination() {    
-    this.listingPer = Math.ceil(this.listingLength / this.listingPerPage);
-    console.log( "listingPer : " + this.listingPer);
-    this.listingLengthArray = new Array(this.listingPer);
-    this.currentPage = 1;
-  }
+ 
 
 }
