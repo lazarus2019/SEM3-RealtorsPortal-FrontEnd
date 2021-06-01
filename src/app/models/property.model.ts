@@ -1,4 +1,5 @@
 import { ImageModel } from "./image.model";
+import { MemberModel } from "./member.model";
 
 export class PropertyModel {
     propertyId: number ; 
@@ -24,7 +25,9 @@ export class PropertyModel {
     memberType : string ;
     memberEmail : string ;
     memberPhone : string ;
+    memberPhoto :string ;
+    
     description : string ;
-    images : ImageModel[]
+    images : ImageModel[] ;
 
 }

@@ -20,6 +20,11 @@ export class ListingService {
                         .toPromise()
                         .then( res => res as PropertyModel[] ) ;
     }
+    //   onChangeCountry(countryId: any) {
+    //     this.addressService.getAllCity(countryId.target.value).subscribe(cities => {
+    //       this.cities = cities;
+    //     })
+    //   }
     getListingCount() {
         return this.httpClient.get(this.BASE_URL + 'getlistingcount' )
                         .toPromise()
