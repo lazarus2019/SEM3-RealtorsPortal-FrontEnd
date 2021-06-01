@@ -57,6 +57,11 @@ import { DetailService } from './services/user/detail.service';
 import { NewsPropertyService } from './services/user/newsproperty.service';
 import { AboutUsService } from './services/user/aboutus.service';
 import { PublicService } from './services/publicService.service';
+import { MailboxService } from './services/user/mailbox.service';
+import { SettingService } from './services/user/setting.service';
+import { ShareFormService } from './services/user/shareFormSearchData';
+import { NewsPropertyComponent } from './area/user/newsproperty/newsproperty.component';
+import { FAQService } from './services/user/faqapi.service';
 
 
 @NgModule({
@@ -105,7 +110,8 @@ import { PublicService } from './services/publicService.service';
     NewsComponent,
     CategoryComponent,
     LoginComponent,
-    SellerCategoryComponent
+    SellerCategoryComponent,
+    NewsPropertyComponent
   ],
   imports: [
     BrowserModule,
@@ -136,7 +142,11 @@ import { PublicService } from './services/publicService.service';
     DetailService,
     NewsPropertyService,
     AboutUsService,
-    PublicService
+    PublicService,
+    MailboxService,
+    SettingService,
+    ShareFormService,
+    FAQService
 
 
 
