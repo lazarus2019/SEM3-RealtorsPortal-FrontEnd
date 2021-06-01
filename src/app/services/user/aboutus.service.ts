@@ -22,5 +22,17 @@ export class AboutUsService {
                         .then( res => res as SettingModel[] ) ;
     }
 
+    loadRent(){
+        return this.httpClient.get(this.BASE_URL + 'loadrentcount' )
+                        .toPromise()
+                        .then( res => res as number ) ;
+    }
+
+    loadSale(){
+        return this.httpClient.get(this.BASE_URL + 'loadsalecount' )
+                        .toPromise()
+                        .then( res => res as number ) ;
+    }
+
 
 }

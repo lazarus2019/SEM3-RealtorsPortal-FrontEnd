@@ -13,14 +13,24 @@ export class SellerService {
         private httpClient: HttpClient
     ) { }
 
-    loadseller(){
-        return this.httpClient.get(this.BASE_URL + 'loadseller' )
+    getSellertId(){
+        return this.httpClient.get(this.BASE_URL + 'getsellerId' )
+                        .toPromise()
+                        .then( res => res as number ) ;
+    }
+    getAllSeller(page : number){
+        return this.httpClient.get(this.BASE_URL + 'getallseller/' + page )
                         .toPromise()
                         .then( res => res as SellerProfileModel[] ) ;
     }
 
-    loadagent(){
-        return this.httpClient.get(this.BASE_URL + 'loadagent' )
+    getAgentId(){
+        return this.httpClient.get(this.BASE_URL + 'getagentId' )
+                        .toPromise()
+                        .then( res => res as number ) ;
+    }
+    getAllAgent(page : number){
+        return this.httpClient.get(this.BASE_URL + 'getallagent/' + page )
                         .toPromise()
                         .then( res => res as SellerProfileModel[] ) ;
     }

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ImageModel } from "src/app/models/image.model";
 import { NewCategoryModel } from "src/app/models/newcategory.model";
+import { PropertyModel } from "src/app/models/property.model";
 
 @Injectable()
 export class NewsPropertyService {
@@ -12,9 +13,15 @@ export class NewsPropertyService {
     ) { }
 
     loadPropertyId(newpropertiesID : number){
-        return this.httpClient.get(this.BASE_URL + 'newpropertyID/' + newpropertiesID )
+        return this.httpClient.get(this.BASE_URL + 'getallnewsid/' + newpropertiesID )
                     .toPromise()
                     .then(res => res as NewCategoryModel);
+    }
+
+    getAllProperty(propertyId : number){
+        return this.httpClient.get(this.BASE_URL + 'getallpropertys/' + propertyId )
+                        .toPromise()
+                        .then( res => res as PropertyModel[] ) ;
     }
 
     getGalleryNews(newsId: number) {
@@ -22,4 +29,6 @@ export class NewsPropertyService {
             .toPromise()
             .then(res => res as ImageModel[])
     }
+
+
 }
