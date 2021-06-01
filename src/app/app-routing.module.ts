@@ -15,9 +15,6 @@ import { AdminManagePropertyComponent } from './area/admin/property/adminManage.
 import { UserManagePropertyComponent } from './area/admin/property/userManage.component';
 import { TemplateComponent } from './area/admin/template/template.component';
 import { SettingComponent } from './area/admin/setting/setting.component';
-import { UserManageInvoiceComponent } from './area/admin/invoice/userManageInvoice.component';
-import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInvoice.component';
-import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.component';
 import { ReportComponent } from './area/admin/reports/reports.component';
 import { IndexComponent } from './area/user/index/index.component';
 import { ProfileComponent } from './area/admin/profile/profile.component';
@@ -101,9 +98,6 @@ const routes: Routes = [
         { path: 'manageInvoice', component: AdminManageInvoiceAdPackageComponent },
         { path: 'setting', component: SettingComponent },
         { path: 'template', component: TemplateComponent },
-        { path: 'userManageInvoice', component: UserManageInvoiceComponent },
-        { path: 'adminManageInvoice', component: AdminManageInvoiceComponent },
-        { path: 'invoiceTemplate', component: InvoiceTemplateComponent },
         { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent },
         { path: 'reports', component: ReportComponent },
         { path: 'profile', component: ProfileComponent },

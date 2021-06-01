@@ -8,10 +8,7 @@ import { AdminAdPackageComponent } from './adpackage/adPackage.component';
 import { AdminManageAdPackageComponent } from './adpackage/manageAdPackage.component';
 import { AdminDashboardComponent } from './dashboard/dashboard.component';
 import { AdminGalleryComponent } from './gallery/gallery.component';
-import { AdminManageInvoiceComponent } from './invoice/adminManageInvoice.component';
-import { InvoiceTemplateComponent } from './invoice/invoiceTemplate.component';
 import { AdminManageInvoiceAdPackageComponent } from './invoice/manageInvoiceAdPackage.component';
-import { UserManageInvoiceComponent } from './invoice/userManageInvoice.component';
 import { AdminMailBoxComponent } from './mailbox/mailbox.component';
 import { AdminManageMemberComponent } from './member/manageMember.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -38,10 +35,7 @@ const routes: Routes = [
   { path: 'manageInvoice', component: AdminManageInvoiceAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'setting', component: SettingComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'template', component: TemplateComponent },
-  { path: 'userManageInvoice', component: UserManageInvoiceComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
-  { path: 'adminManageInvoice', component: AdminManageInvoiceComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
-  { path: 'invoiceTemplate', component: InvoiceTemplateComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'reports', component: ReportComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
 

@@ -1,14 +1,73 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ReportsService } from 'src/app/services/reports.service';
+import { Invoice } from 'src/app/shared/invoice.model';
+import { ReportModel } from 'src/app/shared/report.model';
+
 declare var alertFunction: any;
 
 @Component({
   templateUrl: './reports.component.html'
 })
 export class ReportComponent {
-  constructor() {
-    this.loadScripts();
+
+  report: ReportModel;
+  invoicelist : Invoice[]
+  invoiceDetail: Invoice;
+  searchForm: FormGroup ;
+  fromDate : string ; 
+  toDate : string ; 
+  durationInput : ''
+
+  
+  constructor(private reportService: ReportsService, private formBuilder: FormBuilder
+  ) {
+
+  }
+  ngOnInit(): void {
+    this.loadData() ; 
+    this.searchForm = this.formBuilder.group({
+      fromDate: new FormControl('', [Validators.required]),
+      toDate: new FormControl('', [Validators.required]),
+      duration: new FormControl('select', [Validators.required])
+    })
+
+    this.loadScripts(); 
+  }
+  showData() {
+    this.fromDate =  (<HTMLInputElement>document.getElementById('fromDateInput')).value  as any as string
+    console.log( "From Date : " + this.fromDate )
+    this.toDate =  (<HTMLInputElement>document.getElementById('toDateInput')).value  as any as string
+    console.log( "To Date : " + this.fromDate ) 
   }
 
+  invoiceDetailModal(i: Invoice) {
+    this.invoiceDetail = i;
+    console.log(this.invoiceDetail.invoiceId);
+  }
+  searchByDate() {
+     this.toDate =  (<HTMLInputElement>document.getElementById('toDateInput')).value  as any as string
+     this.fromDate =  (<HTMLInputElement>document.getElementById('fromDateInput')).value  as any as string
+     this.reportService.getReportByDate(this.fromDate,this.toDate).subscribe( res => {
+        this.report = res ; 
+        this.loadScripts()
+     })
+     this.reportService.getPaymentByDate(this.fromDate,this.toDate).subscribe( res => {
+      this.invoicelist = res ; 
+      this.invoiceDetail = this.invoicelist[0];
+      })
+    }
+   searchByDuration() {
+    this.reportService.getReportByDuration(this.durationInput).subscribe( res => {
+      this.report = res ; 
+      this.loadScripts() 
+   })
+   this.reportService.getPaymentByDuration(this.durationInput).subscribe( res => {
+    this.invoicelist = res ; 
+    this.invoiceDetail = this.invoicelist[0];
+    })
+   }
+ 
   // Method to dynamically load JavaScript
   loadScripts() {
 
@@ -51,12 +110,20 @@ export class ReportComponent {
       document.body.appendChild(node);
     }
   }
-
-  test_success_alert(){
+  loadData() {
+    this.reportService.getReport().subscribe(res => {
+      this.report = res;
+    })
+    this.reportService.getPayment().subscribe( res => {
+      this.invoicelist = res ;
+      this.invoiceDetail = this.invoicelist[0];
+    })
+  }
+  test_success_alert() {
     alertFunction.success();
   }
-  
-  test_error_alert(){
+
+  test_error_alert() {
     alertFunction.error();
   }
 }

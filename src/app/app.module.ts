@@ -27,9 +27,6 @@ import { TemplateComponent } from './area/admin/template/template.component';
 import { EditPropertyComponent } from './area/admin/property/editProperty.component';
 import { AddNewService } from './services/addNewService';
 import { AdminService } from './services/adminService.service';
-import { UserManageInvoiceComponent } from './area/admin/invoice/userManageInvoice.component';
-import { AdminManageInvoiceComponent } from './area/admin/invoice/adminManageInvoice.component';
-import { InvoiceTemplateComponent } from './area/admin/invoice/invoiceTemplate.component';
 import { ReportComponent } from './area/admin/reports/reports.component';
 import { ProfileComponent } from './area/admin/profile/profile.component';
 
@@ -74,6 +71,7 @@ import { MemberAPIService } from './services/member/memberAPI.service';
 import { MailBoxAPIService } from './services/admin/mailbox/mailboxAPI.service';
 import { SettingAPIService } from './services/admin/setting/settingAPI.service';
 import { CategoryService } from './services/category.service';
+import { ReportsService } from './services/reports.service';
 
 
 @NgModule({
@@ -93,10 +91,7 @@ import { CategoryService } from './services/category.service';
     AdminManageAdPackageComponent,
     AdminManageInvoiceAdPackageComponent,
     SettingComponent,
-    UserManageInvoiceComponent,
-    AdminManageInvoiceComponent,
     AdminManageInvoiceAdPackageComponent,
-    InvoiceTemplateComponent,
     ReportComponent,
     ProfileComponent,
     EditPropertyComponent,
@@ -165,8 +160,10 @@ import { CategoryService } from './services/category.service';
     AccountService,
     MailBoxAPIService,
     MemberAPIService,
+    ReportsService,
     SettingAPIService,
     CategoryService,
+    InvoiceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

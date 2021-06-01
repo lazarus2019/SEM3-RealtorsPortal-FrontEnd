@@ -11,4 +11,7 @@ export class Member {
     status: boolean;
     photo: string;
     createDate: Date;
-}
+    roleName: string;
+    password: string;
+} 
+

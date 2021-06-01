@@ -49,5 +49,16 @@ export class InvoiceService {
     return throwError(errorMessage);
 
   }
-
+  getAllInvoice(page : number) : Observable<Invoice[]> {
+    return this.http.get<Invoice[]>(this.baseUrl + 'getallinvoice/' + page) ; 
+  }
+  getAllInvoiceCount() : Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'getallinvoicecount') ; 
+  }
+  searchInvoice(keyword : string , page : number ) : Observable<Invoice[]> {
+    return this.http.get<Invoice[]>(this.baseUrl + 'searchinvoice/'+keyword+'/' + page) ; 
+  }
+  searchInvoiceCount(keyword : string) : Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'searchinvoicecount/' + keyword) ; 
+  }
 }
