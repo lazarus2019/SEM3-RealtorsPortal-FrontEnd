@@ -3,6 +3,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/shared/login.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   templateUrl: './login.component.html'
@@ -15,6 +16,10 @@ export class LoginComponent implements OnInit {
   })
 
   loginRequest: LoginRequest;
+
+  public errorMessage: string = '';
+
+  public showError: boolean;
 
   constructor(private accountService: AccountService, private router: Router) {
     this.loadStyle();
@@ -41,22 +46,23 @@ export class LoginComponent implements OnInit {
       username: login.username,
       password: login.password
     }
-    console.log(loginRequest.username);
     this.accountService.login(loginRequest).subscribe(
       (res: any) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('username', res.username);
         localStorage.setItem('userId', res.userId);
         localStorage.setItem('role', res.role);
-        this.router.navigateByUrl('/');
+        var userRole = res.role;
+        if(userRole == "SuperAdmin" || userRole == "Admin"){
+          this.router.navigateByUrl('/admin');
+        } else if(userRole == "User"){
+          this.router.navigateByUrl('/');
+        }
       },
-      err => {
-        if (err.status == 400)
-          console.log('Incorrect username or password.', 'Authentication failed.');
-        else
-          console.log(err);
-      }
-    );
+      (error: HttpErrorResponse) => {
+        this.errorMessage = error.error;
+        this.showError = true;
+      });
   }
 
   loadStyle() {

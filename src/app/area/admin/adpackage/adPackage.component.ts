@@ -1,9 +1,9 @@
-import { InvoiceService } from 'src/app/services/invoice.service';
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { Invoice } from '../../../shared/invoice.model';
 import { AdsPackageService } from 'src/app/services/ads-package.service';
-import { AdsPackage } from 'src/app/shared/adsPackage.model';
+import { AdsPackage } from '../../../shared/adsPackage.model';
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { InvoiceService } from 'src/app/services/invoice.service';
+import { Invoice } from '../../../shared/invoice.model';
 import { AdsPackageDetail } from 'src/app/shared/adsPackageDetail.model';
 declare let paypal: any;
 declare var alertFunction: any;
@@ -14,8 +14,8 @@ declare var alertFunction: any;
 export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
 
   constructor(private adsPackageService: AdsPackageService, private formBuilder: FormBuilder, private invoiceService: InvoiceService) {
-    this.loadScripts();
     this.loadStyle();
+    this.loadScripts();
   }
   // Pagination 
   isFilter = false;

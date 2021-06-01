@@ -17,6 +17,7 @@ import { AdminManagePropertyComponent } from './property/adminManage.component';
 import { UserManagePropertyComponent } from './property/userManage.component';
 import { ReportComponent } from './reports/reports.component';
 import { SettingComponent } from './setting/setting.component';
+import { EditPropertyComponent } from './property/editProperty.component';
 
 // Admin Services
 
@@ -36,6 +37,8 @@ const routes: Routes = [
   { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'reports', component: ReportComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+  { path: 'addProperty', component: AddNewPropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Agent.'] } },
+{ path: 'editProperty/:propertyId', component: EditPropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Agent.'] } },
 
 
 

@@ -25,18 +25,22 @@ export class RegistrationComponent implements OnInit {
   registration: Registration;
   public errorMessage: string = '';
   public showError: boolean;
+  position: string;
+  agent: string;
 
   ngOnInit(): void {
 
-    this.registrationForm.reset;
-    this.registrationForm = this.formBuilder.group({
-      position: new FormControl('op', [Validators.required]),
+    this.registrationForm = new FormGroup({
+      position: new FormControl('option', [Validators.required]),
       fullName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
-      confirm: new FormControl('', [Validators.required]),
+      confirm: new FormControl('', [Validators.required])
     });
+
+    this.registrationForm.get('confirm').setValidators([Validators.required,
+    this._passConfValidator.validateConfirmPassword(this.registrationForm.get('password'))]);
 
   }
 
@@ -50,18 +54,19 @@ export class RegistrationComponent implements OnInit {
   }
 
 
-  onSubmit(form) {
-
+  onSubmit() {
     this.showError = false;
     this.registration = this.registrationForm.value;
+    //var position = document.getElementById(#agent).nodeValue;
+    //var position =  (<HTMLInputElement>document.getElementById('position')).textContent  as any as string
+    //console.log(position);
+    //this.registration.position = position;
     this.registration.clientURI = 'http://localhost:4200/confirmEmail';
     this.accountService.register(this.registration).subscribe(() => {
       this.router.navigateByUrl('/successRegistration', { state: this.registration });
     },
-      (error) => {
-        this.errorMessage = error;
-        console.table(error[0]);
-        console.log(error.value);
+      (error: HttpErrorResponse) => {
+        this.errorMessage = error.error;
         this.showError = true;
       });
   }

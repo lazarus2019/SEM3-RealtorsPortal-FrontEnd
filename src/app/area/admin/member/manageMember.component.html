@@ -75,8 +75,9 @@
                                                 <td>{{member?.createDate|date:'dd/MM/y'}}</td>
                                                 <td>{{member?.status ? 'Active' : 'Blocked'}}</td>
                                                 <td>
-                                                    <a class="btn btn-info btn-sm btn-block " data-toggle="modal"
-                                                        data-target="#sendMail"><i class="fas fa-envelope " (click)="onEmail(member?.email)"></i> Send
+                                                    <a class="btn btn-info btn-sm btn-block " 
+                                                        (click)="onEmail(member.email)" data-toggle="modal"
+                                                        data-target="#sendMail"><i class="fas fa-envelope "></i> Send
                                                         mail</a>
                                                     <a class="btn btn-danger btn-sm btn-block mt-2 "
                                                         *ngIf="member?.status == true" (click)="blockAlert(member)"><i
@@ -105,7 +106,7 @@
             <div class="d-flex justify-content-between">
                 <div>
                     Showing {{currentPage==1? 1 : (currentPage-1)*10}} to {{currentPage*10 > memberLength?
-                        memberLength :
+                    memberLength :
                     currentPage*10}} of {{memberLength}} entries
                 </div>
                 <div aria-label="Page navigation example">
@@ -114,8 +115,8 @@
                             <li (click)="minusPage()" class="page-item"><a class="page-link">Previous</a></li>
                         </ng-container>
                         <ng-container *ngFor="let in of memberLengthArray; index as i">
-                            <li (click)="executeMemberPerPage(i+1)" class="page-item"><a
-                                    class="page-link">{{i+1}}</a></li>
+                            <li (click)="executeMemberPerPage(i+1)" class="page-item"><a class="page-link">{{i+1}}</a>
+                            </li>
                         </ng-container>
                         <ng-container *ngIf="currentPage !== memberPer">
                             <li (click)="plusPage()" class="page-item"><a class="page-link">Next</a></li>
@@ -142,7 +143,7 @@
                 <form [formGroup]="emailFormGroup">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Send to:</label>
-                        <input type="text" class="form-control" formControlName="email" readonly>
+                        <input type="text" class="form-control" value="youremail@gmail.com" formControlName="email" readonly>
                     </div>
                     <div class="form-group">
                         <label for="example1">
@@ -158,8 +159,8 @@
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" data-dismiss="modal"
-                            (click)="sendAlert()">Send</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="sendAlert()"
+                            [disabled]="!emailFormGroup.valid">Send</button>
                     </div>
                 </form>
             </div>

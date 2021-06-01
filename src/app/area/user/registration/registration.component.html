@@ -8,12 +8,12 @@
                 <div *ngIf="showError" class="alert alert-danger" role="alert">
                     <span [innerHTML]="errorMessage"></span>
                 </div>
-                <form [formGroup]="registrationForm" autocomplete="off" novalidate (ngSubmit)="onSubmit(registrationForm.value)">
+                <form [formGroup]="registrationForm" autocomplete="off" (ngSubmit)="onSubmit()">
                     <div class="formGroup">
                         <div class="input-group">
                             <select class="custom-select" formControlName="position" style="background: #fafafa;">
-                                <option value="op" selected hidden>Which partner do you want to be?</option>
-                                <option value="Agent">Agent</option>
+                                <option value="option" selected hidden>Which partner do you want to be?</option>
+                                <option value="Agent" >Agent</option>
                                 <option value="Private Seller">Private Seller</option>
                                 <option value="Customer">Customer</option>
                             </select>
@@ -21,58 +21,61 @@
                     </div>
                     <div class="formGroup">
                         <div class="input-group">
-                            <input class="input--style-4" type="text"
-                            name="fullName"
-                            placeholder="FullName" formControlName="fullName" required>
+                            <input class="input--style-4" type="text" name="fullName" placeholder="FullName"
+                                formControlName="fullName" name="fullName" required>
+                            <em class="text-danger"
+                                *ngIf="validateControl('fullName') && hasError('fullName', 'required')">FullName is
+                                required</em>
                         </div>
-
-                        <!-- <ng-container *ngIf="showValidationErrors && fullName.invalid">
-                            <p *ngIf="fullName.errors.required">
-                                Please enter a note title
-                            </p>
-                         
-                        </ng-container> -->
-                      
                     </div>
                     <div class="formGroup">
                         <div class="input-group">
                             <input class="input--style-4" type="email" placeholder="Email" formControlName="email">
-                            <em *ngIf="validateControl('email') && hasError('email', 'email')">Please provide a valid email</em>
-                            <em *ngIf="validateControl('email') && hasError('email', 'required')">Email is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('email') && hasError('email', 'email')">Please provide a valid
+                                email</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('email') && hasError('email', 'required')">Email is required</em>
                         </div>
                     </div>
                     <div class="formGroup">
                         <div class="input-group">
                             <input class="input--style-4" type="text" placeholder="Username" formControlName="username">
-                            <!--
-                            <label class="text-danger"
-                                *ngIf="accountService.formModel.get('username').touched && accountService.formModel.get('username').errors?.required ">This
-                                field is mandatory.</label>-->
+
+                            <em class="text-danger"
+                                *ngIf="validateControl('username') && hasError('username', 'required')">Username is
+                                required</em>
                         </div>
                     </div>
                     <div class="formGroup">
                         <div class="input-group">
-                            <input class="input--style-4"  type="password" placeholder="Password"
+                            <input class="input--style-4" type="password" placeholder="Password"
                                 formControlName="password">
-                          
+                            <em class="text-danger"
+                                *ngIf="validateControl('password') && hasError('password', 'required')">Password is
+                                required</em>
                         </div>
                     </div>
                     <div class="formGroup">
                         <div class="input-group">
-                            <input class="input--style-4"  type="password" placeholder="Confirm your password"
+                            <input class="input--style-4" type="password" placeholder="Confirm your password"
                                 formControlName="confirm">
-                                <em *ngIf="validateControl('confirm') && hasError('confirm', 'required')">Confirmation is required</em>
-                                <em *ngIf="hasError('confirm', 'mustMatch')">Passwords must match</em>
+                            <em class="text-danger"
+                                *ngIf="validateControl('confirm') && hasError('confirm', 'required')">Confirmation is
+                                required</em>
+                            <em class="text-danger" *ngIf="hasError('confirm', 'mustMatch')">Password must match</em>
                         </div>
                     </div>
                     <div class="p-t-10 p-b-15 text-center">
-                        <button class="my-btn btn--radius-2 btn--blue" type="submit">Sign
+                        <button class="my-btn btn--radius-2 btn--blue" type="submit"
+                            [disabled]="!registrationForm.valid">Sign
                             Up</button>
+                        <div class="lgi">
+                            Already have an account?
+                            <a [routerLink]="['/login']"> or Login</a>
+                        </div>
                     </div>
-                    <div class="lgi">
-                        Already have an account?
-                        <a [routerLink]="['/login']"> Login</a>
-                    </div>
+
                 </form>
             </div>
         </div>

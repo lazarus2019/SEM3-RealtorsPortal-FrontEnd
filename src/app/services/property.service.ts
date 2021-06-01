@@ -30,12 +30,12 @@ export class PropertyService {
   }
 
   getAllPropertyByMember(userId: string): Observable<number> {
-    var url = `${this.baseUrl}/getallbymember/${userId}`; 
+    var url = `${this.baseUrl}/getallbymember/${userId}`;
     return this.http.get<number>(url);
   }
 
   getAllPropertyPageByMember(userId: string, page: number): Observable<Property[]> {
-    var url = `${this.baseUrl}/getallpagebymember/${userId}/${page}`; 
+    var url = `${this.baseUrl}/getallpagebymember/${userId}/${page}`;
     return this.http.get<Property[]>(url);
   }
 
@@ -45,22 +45,22 @@ export class PropertyService {
   }
 
   search(title: string, partners: string, categoryId: string, status: string): Observable<number> {
-    var url = `${this.baseUrl}/search/${title}/${partners}/${categoryId}/${status}`; 
+    var url = `${this.baseUrl}/search/${title}/${partners}/${categoryId}/${status}`;
     return this.http.get<number>(url);
   }
 
   searchPage(title: string, partners: string, categoryId: string, status: string, page: number): Observable<Property[]> {
-    var url = `${this.baseUrl}/search/${title}/${partners}/${categoryId}/${status}/${page}`; 
+    var url = `${this.baseUrl}/search/${title}/${partners}/${categoryId}/${status}/${page}`;
     return this.http.get<Property[]>(url);
   }
- 
+
   searchByMember(userId: string, title: string, partners: string, categoryId: string, status: string): Observable<number> {
-    var url = `${this.baseUrl}/search/${userId}/${title}/${partners}/${categoryId}/${status}`; 
+    var url = `${this.baseUrl}/search/${userId}/${title}/${partners}/${categoryId}/${status}`;
     return this.http.get<number>(url);
   }
 
   searchPageByMember(userId: string, title: string, partners: string, categoryId: string, status: string, page: number): Observable<Property[]> {
-    var url = `${this.baseUrl}/search/${userId}/${title}/${partners}/${categoryId}/${status}/${page}`; 
+    var url = `${this.baseUrl}/search/${userId}/${title}/${partners}/${categoryId}/${status}/${page}`;
     return this.http.get<Property[]>(url);
   }
 
@@ -98,6 +98,10 @@ export class PropertyService {
 
   countPropertyPending(): Observable<number> {
     return this.http.get<number>(this.baseUrl + "/countpropertypending");
+  }
+
+  getMaxPropertyImage(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + "getmaxpropertyimage");
   }
 
   handleError(error) {

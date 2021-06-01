@@ -13,8 +13,8 @@ declare var alertFunction: any;
 export class AdminManageAdPackageComponent implements OnInit {
 
   constructor(private adsPackageService: AdsPackageService, private formBuilder: FormBuilder) {
-    this.loadScripts();
     this.loadStyle();
+    this.loadScripts();
   }
 
   // Pagination 

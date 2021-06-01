@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberService } from 'src/app/services/member.service';
-import { MailRequest } from '../../../shared/mailrequest.model';
-import { Member } from '../../../shared/member.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Role } from '../../../shared/role.model';
 import { RoleService } from 'src/app/services/role.service';
 import Swal from 'sweetalert2';
 import { AccountService } from 'src/app/services/account.service';
+import { MailRequest } from 'src/app/shared/mailrequest.model';
+import { Member } from 'src/app/shared/member.model';
 declare var alertFunction: any;
 
 @Component({
@@ -24,9 +24,6 @@ export class AdminManageMemberComponent implements OnInit {
   }
 
   // Pagination 
-
-  sendEmail: string;
-
   isFilter = false;
 
   NoNum: number = 10;
@@ -53,9 +50,8 @@ export class AdminManageMemberComponent implements OnInit {
 
   member: Member;
 
-  positions: string[];
 
- 
+  positions: string[];
 
   ngOnInit(): void {
     //get member
@@ -63,9 +59,9 @@ export class AdminManageMemberComponent implements OnInit {
 
     //get emailRequest to sendMail
     this.emailFormGroup = this.formBuilder.group({
-      email:  new FormControl('sendEmail', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
       subject: new FormControl('', [Validators.required]),
-      content: new FormControl('', [Validators.required])
+      content: new FormControl('', [Validators.required]),
     });
 
     //get member to search
@@ -74,6 +70,10 @@ export class AdminManageMemberComponent implements OnInit {
       position: new FormControl('all', [Validators.required]),
       status: new FormControl('all', [Validators.required])
     });
+  }
+
+  onEmail(email: string){
+    this.emailFormGroup.get('email').setValue(email);
   }
 
   loadData() {
@@ -155,13 +155,8 @@ export class AdminManageMemberComponent implements OnInit {
     });
   }
 
-  onEmail(email: string){
-    this.sendEmail = email;
-    console.log(email);
-  }
-
   blockAlert(member: Member) {
-    console.table( member);
+    console.table(member);
     Swal.fire({
       title: 'Block member!',
       text: 'Are you sure you want to block member?',
@@ -172,7 +167,8 @@ export class AdminManageMemberComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //update action        
-        this.memberService.updateStatus(member.memberId, member.email, member.status).subscribe(() => {
+        var userId = localStorage.getItem('userId');
+        this.memberService.updateStatus(member.memberId, userId, member.status).subscribe(() => {
           Swal.fire({
             icon: 'success',
             title: 'Block successful!',
@@ -197,7 +193,8 @@ export class AdminManageMemberComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //update action        
-        this.memberService.updateStatus(member.memberId, member.email, member.status).subscribe(() => {
+        var userId = localStorage.getItem('userId');
+        this.memberService.updateStatus(member.memberId, userId, member.status).subscribe(() => {
           Swal.fire({
             icon: 'success',
             title: 'Unblock successful!',

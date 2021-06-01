@@ -66,12 +66,12 @@ import { SuccessRegistrationComponent } from './area/user/registration/successRe
 import { AddressService } from './services/address.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { MemberAPIService } from './services/member/memberAPI.service';
 import { MailBoxAPIService } from './services/admin/mailbox/mailboxAPI.service';
 import { SettingAPIService } from './services/admin/setting/settingAPI.service';
 import { CategoryService } from './services/category.service';
 import { ReportsService } from './services/reports.service';
 import { PropertyService } from './services/property.service';
+import { MemberAPIService } from './services/member/memberAPI.service';
 import { HomeService } from './services/user/index.service';
 import { SellerService } from './services/user/seller.service';
 import { FindSellerService } from './services/user/findseller.service';
