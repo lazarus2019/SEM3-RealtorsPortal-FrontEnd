@@ -75,19 +75,19 @@
                                                 <img [src]="getUrlImage(property?.images[0].name)"
                                                     style="width: 100%; max-height: 150px;">
                                             </td>
-                                            <td>{{property?.category.name}}</td>
-                                            <td>{{property?.member.fullName}}</td>
+                                            <td>{{property?.categoryName}}</td>
+                                            <td>{{property?.memberFullName}}</td>
                                             <td>{{property?.uploadDate | date: 'dd/MM/y'}}</td>
-                                            <td>{{property?.status.name}}</td>
+                                            <td>{{property?.statusName}}</td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm btn-block " data-toggle="modal"
-                                                    *ngIf="property?.status.name != 'Pending'" data-target="#details"
+                                                    *ngIf="property?.statusName != 'Pending'" data-target="#details"
                                                     (click)="onDetails(property?.propertyId)"><i
                                                         class="fas fa-info-circle "></i>
                                                     Details
                                                 </button>
                                                 <a class="btn btn-primary btn-sm btn-block "
-                                                    *ngIf="property?.status.name == 'Pending'" data-toggle="modal"
+                                                    *ngIf="property?.statusName == 'Pending'" data-toggle="modal"
                                                     data-target="#details" (click)="onCheck(property.propertyId)">
                                                     <i class="fas fa-check-circle"></i>
                                                     Check

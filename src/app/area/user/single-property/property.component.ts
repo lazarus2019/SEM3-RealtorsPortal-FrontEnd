@@ -1,31 +1,117 @@
+import { MailboxModel } from 'src/app/models/mailbox.model';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { PropertyModel } from 'src/app/models/property.model';
+import { ListingService } from 'src/app/services/user/listing.service';
+import { MailboxUserService } from 'src/app/services/user/mailbox.service';
+// import { NgImageSliderModule } from 'ng-image-slider';
+import { PropertyService } from 'src/app/services/property.service';
 
+declare var alertFunction : any 
 @Component({
   templateUrl: './property.component.html'
 })
 export class PropertyComponent implements OnInit {
-    ngOnInit(): void {
+  propertyId : number
+  property : PropertyModel 
+  popularpost : PropertyModel[] 
+  formContact : FormGroup  
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private listingService : ListingService ,
+    private mailboxService : MailboxUserService ,
+    private propertyService : PropertyService
+
+  ) {
+    this.loadScripts();
+  }
+ 
+  get Email(){
+    return this.formContact.get('email')
     }
+  get Phone(){
+    return this.formContact.get('phone')
+    }
+  
+  ngOnInit(): void {
+    this.loadScripts() ;
+    this.loadStyle() ;
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.propertyId = Number.parseInt(params.get('propertyId'));
+      console.log("propertyId : " + this.propertyId);
+    })     
+    this.listingService.propertyDetail(this.propertyId).then(
+      res => { 
+        this.property = res
+        this.propertyService.getPopularPost(this.property.memberId).then(
+          res => {
+            this.popularpost = res 
+          },
+          err => {
+            console.log(err) 
+          });
+      },
+      err => {
+        console.log(err)
+      }); 
     
-    constructor() {
-      this.loadScripts();
-   }
-  
-    // Method to dynamically load JavaScript
-    loadScripts() {
-  
-      // This array contains all the files/CDNs
-      const dynamicScripts = [
-        '../../../../assets/user/js/jquery.start.js',
-  
-      ];
-      for (let i = 0; i < dynamicScripts.length; i++) {
-        const node = document.createElement('script');
-        node.src = dynamicScripts[i];
-        node.type = 'text/javascript';
-        node.async = false;
-        document.body.appendChild(node);
-      }
+    this.formContact = this.formBuilder.group({
+      fullName : '',
+      email : new FormControl('',[
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]), 
+        phone : ['', [Validators.required, Validators.pattern("^((\\+84-?)|0)?[0-9]{10}$")]] ,
+      message : '' 
+    })
+  }
+  // Method to dynamically load JavaScript
+  loadScripts() {
+
+    // This array contains all the files/CDNs
+    const dynamicScripts = [
+      '../../../../assets/user/js/jquery.start.js',
+      '../../../assets/user/js/sweetalert.min.js'
+
+    ];
+    for (let i = 0; i < dynamicScripts.length; i++) {
+      const node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      document.body.appendChild(node);
     }
+  }
+  loadStyle() {
+    const dynamicStyles = [
+      '../../../assets/user/css/style-starter.css',
+      '../../../assets/user/css/sweetalert.css',
+
+    ];
+  }
+  // send Email
+  send() {
+    var mailbox : MailboxModel = this.formContact.value ;
+    mailbox.propertyId = this.propertyId ;
+    mailbox.time = new Date() ;
+    mailbox.isRead = false 
+    this.mailboxService.addMailbox(mailbox).then(
+      res => {
+        if( res == true) {
+          alertFunction.success("We will contact you as soon as possible.") ; 
+        }
+        else {
+          alertFunction.error("Maybe something went wrong .Please try again !") ; 
+        }
+           
+      },
+      err => {
+          console.log(err)
+      }
+  )
+
+  }
+  
 
 }

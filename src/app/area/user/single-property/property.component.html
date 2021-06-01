@@ -19,26 +19,27 @@
         <div class="inner mb-4">
             <ul class="blog-single-author-date align-items-center">
                 <li>
-                    <div class="listing-category"><span>Buy</span><span>Rent</span></div>
+                    <div class="listing-category "><span style="background-color: lightgreen;"> {{property.type}}
+                        </span></div>
                 </li>
-                <li><span class="fa fa-clock-o"></span> 5 months ago</li>
-                <li><span class="fa fa-eye"></span> 250 views</li>
+                <li><span class="fa fa-clock-o"></span> Upload : {{property.uploadDate| date: 'dd/MM/yyyy'}} </li>
             </ul>
         </div>
         <div class="post-content">
-            <h2 class="title-single"> A digital prescription for the pharma industry</h2>
+            <h2 class="title-single"> {{property.title}}</h2>
         </div>
         <div class="blo-singl mb-4">
             <ul class="blog-single-author-date align-items-center">
                 <li>
-                    <p>Unnamed road, San Francisco, CA 94102</p>
+                    <p>{{property.address}}</p>
                 </li>
-                <li><span class="fa fa-bed"></span> 3 Beds</li>
-                <li><span class="fa fa-bath"></span> 4 Baths</li>
-                <li><span class="fa fa-share-square-o"></span> 1258 sqrft</li>
+                <li><span class="fa fa-bed"></span> {{property.bedNumber}} Beds</li>
+                <li><span class="fa fa-bed"></span> {{property.roomNumber}} Rooms </li>
+                <li><span class="fa fa-share-square-o"></span> {{property.area}} sqrft</li>
             </ul>
             <ul class="share-post">
-                <a href="#url" class="cost-estate m-o">$25,0045</a>
+                <a href="#url" class="cost-estate m-o">${{property.price}} {{ (property.type == 'Rent') ? ' / month ' :
+                    ''}}</a>
             </ul>
         </div>
         <div class="row">
@@ -47,80 +48,41 @@
                     <div class="single-post-image mb-5">
                         <div class="owl-blog owl-carousel owl-theme">
                             <div class="item">
-                                <div class="card">
-                                    <img src="assets/user/images/p1.jpg" class="img-fluid radius-image" alt="image">
+                                <div class="card" *ngFor="let pi of property.images">
+                                    <img src="http://localhost:65320/images/property/{{pi.name}}" class="img-fluid radius-image"
+                                        alt="image">
                                 </div>
+
                             </div>
-                            <div class="item">
-                                <div class="card">
-                                    <img src="assets/user/images/p2.jpg" class="img-fluid radius-image" alt="image">
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="card">
-                                    <img src="assets/user/images/p3.jpg" class="img-fluid radius-image" alt="image">
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
                     <div class="single-post-content">
                         <h3 class="post-content-title mb-3">Description</h3>
-                        <p class="mb-4">
-                            Lorem model text, and a search for 'lorem ipsum' will uncover many web sites still in their
-                            infancy. Various
-                            versions have evolved over the years, sometimes by accident, sometimes on purpose
-                            injected humour and the like. </p>
-                        <p class="mb-4">When you decide to put your business online it is a little bet tricky step
-                            for novice
-                            computer users because they want to keep data safe & secure.
-                            This problem developed from companies which did not take security seriously. Lorem ipsum
-                            dolor sit amet elit. </p>
+                        <p class="mb-4" style="white-space:pre-wrap;">
+                            {{property.description}}
+                        </p>
                         <div class="single-bg-white">
                             <h3 class="post-content-title mb-4">Property detail</h3>
                             <ul class="details-list">
-                                <li><strong>Property id :</strong> PRPT12345 </li>
-                                <li><strong>Property size :</strong> 1200sqft </li>
-                                <li><strong>Rooms :</strong> 2 </li>
-                                <li><strong>Bedrooms :</strong> 5 </li>
-                                <li><strong>Bathrooms :</strong> 2 </li>
-                                <li><strong>Exterior material :</strong> Brick </li>
-                                <li><strong>Structure type :</strong> Wood </li>
-                                <li><strong>Garage size :</strong> 15 cars </li>
-                                <li><strong>Garages :</strong> 15 </li>
-                                <li><strong>Property Price :</strong> $ 750 </li>
-                                <li><strong>Built Year :</strong> 2018 </li>
-                                <li><strong>Avaiable from :</strong> Aug 2019 </li>
+                                <li><strong>Property id :</strong> {{property.propertyId}} </li>
+                                <li><strong>Property size :</strong> {{property.area}} sqrft </li>
+                                <li><strong>Rooms :</strong> {{property.roomNumber}} </li>
+                                <li><strong>Bedrooms :</strong> {{property.bedNumber}} </li>
+                                <li><strong>Property Price :</strong>{{property.price }} </li>
+                                <li><strong>Built Year :</strong> {{property.buildYear | date: 'yyyy'}} </li>
+
                             </ul>
                         </div>
-                        <div class="single-bg-white">
-                            <h3 class="post-content-title mb-4">Amenities</h3>
-                            <ul class="details-list">
-                                <li><strong>Air Conditioning </strong></li>
-                                <li><strong>Buil-In Wardrobes </strong> </li>
-                                <li><strong>Dishwasher</strong> </li>
-                                <li><strong>Floor Coverings </strong> </li>
-                                <li><strong>Medical / Clinic </strong> </li>
-                                <li><strong>Fencing</strong> </li>
-                                <li><strong>Internet and wifi </strong> </li>
-                            </ul>
-                        </div>
+                      
                     </div>
 
                     <div class="single-bg-white">
                         <h3 class="post-content-title mb-4">Location</h3>
                         <div class="agent-map">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.2895687731!2d-74.26055986835598!3d40.697668402590374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sin!4v1562582305883!5m2!1sen!2sin"
-                                frameborder="0" style="border:0" allowfullscreen=""></iframe>
-                        </div>
-                    </div>
-
-                    <div class="single-bg-white mb-0">
-                        <h3 class="post-content-title mb-4">Video</h3>
-                        <div class="post-content">
-                            <iframe src="https://www.youtube.com/embed/jqP3m3ElcxA" frameborder="0"
-                                allowfullscreen=""></iframe>
+                            <!-- <iframe [src]="property.googleMap | safe" width="600" height="450" style="border:0;"
+                                allowfullscreen="" loading="lazy"></iframe> -->
                         </div>
                     </div>
                 </div>
@@ -137,19 +99,89 @@
                         <article class="post">
                             <figure class="post-thumb"><img src="assets/user/images/l5.jpg" class="radius-image" alt="">
                             </figure>
-                            <div class="text mb-0"><a href="#blog-single">Company realty
+                            <!-- Cho nay se link qua ben page agent detail cua T.Anh-->
+                            <div class="text mb-0"><a href="#blog-single">{{property.memberName}}
                                 </a>
-                                <div class="post-info">+(12) 324 567 89</div>
-                                <div class="post-info">companyrealty@mail.com</div>
+                                <div class="post-info">{{property.memberPhone}}</div>
+                                <div class="post-info">{{property.memberEmail}} </div>
                             </div>
                         </article>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-style w-100">Call</button>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-style w-100">Send Contact</button>
+                        <div class="btn-contact-property form-group3">
+                            <button type="submit" class="btn btn-primary btn-style w-100" id="btnContactProperty"> Send
+                                Contact</button>
+                        </div>
+                        <!-- popup contact form -->
+                        <div class="w3l-contact-7 popup-contact-form-property hide ">
+                            <div class="map-content-9">
+                                <div class="contact-form max-width-650">
+                                    <span class="btn-close-contact-property fa icon-close fa-times"></span>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h5 class="mb-2">Get in touch</h5>
+                                            <p class="mb-4">We will contact you as soon as possible.</p>
+
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <form method="post" class="ng-untouched ng-pristine ng-valid "
+                                                [formGroup]="formContact">
+                                                <div class="form-group">
+                                                    <div class="form-grid">
+                                                        <div class="input-field">
+                                                            <input type="text" name="w3lName" id="w3lName"
+                                                                placeholder="Your Name" required
+                                                                formControlName="fullName">
+                                                        </div> <br>
+                                                        <div class="input-field">
+                                                            <input
+                                                                [class.is-invalid]="Email.invalid && Email.touched"
+                                                                type="email" placeholder="Email"
+                                                                name="w3lSender" id="w3lSender"
+                                                                formControlName="email" />
+                                                            <div
+                                                                *ngIf="(Email.invalid && Email.touched) || Email.dirty">
+                                                                <small *ngIf="Email.errors?.required"
+                                                                    class="text-danger">Email is
+                                                                    required</small>
+                                                                <!--question mark(?) is a safe navigation operator-->
+                                                                <small *ngIf="Email.errors?.pattern"
+                                                                    class="text-danger">Please provide a valid email
+                                                                    address</small>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="input-field">
+                                                            <input type="text" name="w3lSender"
+                                                                id="w3lSender" placeholder="Phone" required
+                                                                formControlName="phone" >
+                                                            <div *ngIf="Phone.touched && Phone.invalid"
+                                                                class="text-danger">
+                                                                <small *ngIf="Phone.errors.required">Mobile
+                                                                    Number is required.</small>
+                                                                <small *ngIf="Phone.errors.pattern">Please, Enter
+                                                                    10 digit Mobile Number.</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-field mt-4"><textarea name="w3lMessage"
+                                                            id="w3lMessage" placeholder="Message"
+                                                            formControlName="message"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-primary btn-style mt-2"
+                                                        (click)="send()" [disabled]="!formContact.valid">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
 
 
                     <!-- Popular Post Widget-->
@@ -158,66 +190,18 @@
                             <h4>Popular Post</h4>
                         </div>
 
-                        <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l1.jpg" class="radius-image" alt="">
+                        <article class="post" *ngFor="let pp of popularpost">
+                            <figure class="post-thumb"><img src="http://localhost:65320/images/property/{{pp.images[0].name}}" class="radius-image" alt="">
                             </figure>
-                            <div class="text"><a href="#blog-single">Why we are the best in the business
+                            <div class="text"><a href="#blog-single">{{pp.title}}
                                 </a>
-                                <div class="post-info">Sep 09, 2020</div>
+                                <div class="post-info">{{pp.uploadDate | date : "MMM dd , yyyy"}}</div>
                             </div>
                         </article>
 
-                        <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l2.jpg" class="radius-image" alt="">
-                            </figure>
-                            <div class="text"><a href="#blog-single">Build your next landing page.
-                                </a>
-                                <div class="post-info">Sep 09, 2020</div>
-                            </div>
-                        </article>
-
-                        <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l3.jpg" class="radius-image" alt="">
-                            </figure>
-                            <div class="text"><a href="#blog-single">
-                                    Simply the best. Better than the rest.</a>
-                                <div class="post-info">Sep 10, 2020</div>
-                            </div>
-                        </article>
 
                     </div>
                     <!-- Popular Post Widget-->
-                    <div class="sidebar-widget popular-posts">
-                        <div class="sidebar-title">
-                            <h4>Category</h4>
-                        </div>
-
-                        <ul>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Office space</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Shops</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Commercial land</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Industrial property</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Apartments</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Villas</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Businesses for sale</a>
-                            </li>
-
-                        </ul>
-
-                    </div>
 
                 </aside>
             </div>
@@ -225,3 +209,9 @@
     </div>
 </section>
 <!--//blog-posts-->
+<script>
+    function myFunction() {
+        var popup = document.getElementById("btnContactProperty");
+        popup.classList.toggle("show");
+    }
+</script>

@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Property } from '../shared/property.model';
 import { Image } from '../shared/image.model';
+import { PropertyModel } from '../models/property.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -129,4 +130,10 @@ export class PropertyService {
     return throwError(errorMessage);
 
   }
+
+  getPopularPost(memberId : number) {
+    return this.http.get(this.baseUrl + 'getpopularpost/' + memberId )
+                    .toPromise()
+                    .then( res => res as PropertyModel[] ) ;
+}
 }

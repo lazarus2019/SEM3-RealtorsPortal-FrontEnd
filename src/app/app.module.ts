@@ -72,7 +72,7 @@ import { CategoryService } from './services/category.service';
 import { ReportsService } from './services/reports.service';
 import { PropertyService } from './services/property.service';
 import { MemberAPIService } from './services/member/memberAPI.service';
-import { HomeService } from './services/user/index.service';
+import { IndexService } from './services/user/index.service';
 import { SellerService } from './services/user/seller.service';
 import { FindSellerService } from './services/user/findseller.service';
 import { DetailService } from './services/user/detail.service';
@@ -133,7 +133,8 @@ import { FAQUserService } from './services/user/faqapi.service';
     SuccessRegistrationComponent,
     ForgetPasswordComponent,
     ResetPasswordComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -153,7 +154,7 @@ import { FAQUserService } from './services/user/faqapi.service';
     UserRoutingModule,
     CommonModule,
 
-    NoopAnimationsModule
+    NoopAnimationsModule,
   ],
   providers: [
     // Admin Services
@@ -178,7 +179,6 @@ import { FAQUserService } from './services/user/faqapi.service';
     AddNewService,
     AdminService,
     PropertyService,
-    HomeService,
     SellerService,
     FindSellerService,
     DetailService,
@@ -191,6 +191,7 @@ import { FAQUserService } from './services/user/faqapi.service';
     MailboxUserService,
     ListingService,
     FAQUserService,
+    IndexService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

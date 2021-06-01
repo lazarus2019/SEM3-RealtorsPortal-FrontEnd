@@ -21,7 +21,7 @@
                 <h4>Search</h4>
             </div>
 
-            <form [formGroup]="formGroup" (ngsubmit)='search()'>
+            <form [formGroup]="formGroup" (ngSubmit)='getData()'>
                 <div class="form-group">
                     <input type="text" id="nameProperty" formControlName='keyword' class="form-control"
                         placeholder="Keyword">
@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
                         data-select2-id="example1" tabindex="-1" aria-hidden="true" ng-required="true"
-                        formControlName='country' placeholder="Country" (change)="loadcity($event)" >
+                        formControlName='country' placeholder="Country" (click)="loadcity($event)" >
                         <option disabled selected value="0" >Country</option>
                         <ng-container *ngFor="let co of loadcountries">
                             <option value="{{co.countryId}}"  >{{co.name}}</option>
@@ -142,7 +142,21 @@
         <section class="locations-1" id="locations">
             <div class="locations py-1">
                 <div class="container py-lg-2 py-md-4 py-2">
-                    <div class="row py-md-4">
+                    <div *ngIf="this.listing.length == 0 "> 
+                        <ul class="blog-meta">
+                            <li>
+                                <span class="meta-value " > <h3> Sorry !</h3> </span>
+                            </li>
+                            <li class="meta-item blog-lesson">
+                                <span class="meta-value">
+                                    We so sorry for the absence of any Property on this list. <br>
+                                    We hope yoy visit our website late . <br> 
+                                    Will definitely have best Property for you <i class="fa fa-heart" aria-hidden="true"></i>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row py-md-4" *ngIf="this.listing.length != 0 ">
                         <div class="col-lg-4 col-md-6 listing-img" *ngFor="let p of listing">
                             <a [routerLink]="['/user/single-property', {propertyId: p.propertyId}]">
 
@@ -191,7 +205,6 @@
 
                     <!-- pagination -->
                     <div class="pagination-wrapper mt-5 pt-lg-3 text-center">
-                        
                         <!-- <div aria-label="Page navigation example"> -->
                             <ul class="page-pagination">
                                 <ng-container *ngIf="currentPage!==1">

@@ -22,6 +22,10 @@ export class PropertyModel {
     memberId : number ; 
     memberName : string ; 
     memberType : string ;
+    memberEmail : string ;
+    memberPhone : string ;
+    memberPhoto :string ;
     description : string ;
     photo:string;
+    images : ImageModel[] ;
 }

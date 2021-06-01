@@ -4,7 +4,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MemberAPI } from 'src/app/models/member/member.model';
 import { ImageService } from 'src/app/services/admin/image/imageService.service';
 import { PublicService } from 'src/app/services/publicService.service';
-import { max } from './../../../validators/max.validator';
 import { ResetPassword } from 'src/app/shared/forgotPassword.model';
 import { Registration } from 'src/app/shared/registration.model';
 

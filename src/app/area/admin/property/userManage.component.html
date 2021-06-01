@@ -33,7 +33,7 @@
                                     formControlName="statusId" required="required">
                                     <option value="all">All status</option>
                                     <ng-container *ngFor="let status of statuses">
-                                        <option value="{{status.statusId}}" [disable]="status.name == 'Pending'">
+                                        <option value="{{status.statusId}}" [disabled]="status.name == 'Pending'">
                                             {{status.name}}</option>
                                     </ng-container>
                                 </select>
@@ -77,25 +77,25 @@
                                                 <img [src]="getUrlImage(property?.images[0].name)"
                                                 style="width: 100%; max-height: 150px;">
                                             </td>
-                                            <td>{{property?.category.name}}</td>
+                                            <td>{{property?.categoryName}}</td>
                                             <td>{{property?.uploadDate | date: 'dd/MM/y'}}</td>
-                                            <td>{{property?.status.name}}</td>
+                                            <td>{{property?.statusName}}</td>
                                             <td>
                                                 <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
                                                     data-target="#details" (click)="onDetails(property.propertyId)"><i
                                                         class="fas fa-info-circle "></i>
                                                     Details</a>
                                                 <a class="btn btn-primary btn-sm btn-block "
-                                                    *ngIf="property?.status.name != 'Pending' && property?.status.name != 'Sold'"
+                                                    *ngIf="property?.statusName != 'Pending' && property?.statusName != 'Sold'"
                                                     (click)="onEdit(property)"><i
                                                         class="fas fa-pencil-alt "></i> Edit</a>
                                                 <a class="btn btn-primary btn-sm btn-block mt-2 "
-                                                    *ngIf="property?.status.name != 'Pending' && property?.statusName != 'Sold' && property?.status.name == 'Activate'"
+                                                    *ngIf="property?.statusName != 'Pending' && property?.statusName != 'Sold' && property?.statusName == 'Activate'"
                                                     (click)="changeStatus(property.propertyId)" data-toggle="modal"
                                                     data-target="#changeStatus"><i class="fas fa-exchange-alt "></i>
                                                     Status</a>
                                                 <a class="btn btn-primary btn-sm btn-block mt-2"
-                                                    *ngIf="property?.status.name == 'Deactivate' || property?.status.name == 'Rented'"
+                                                    *ngIf="property?.statusName == 'Deactivate' || property?.statusName == 'Rented'"
                                                     (click)="activateAlert(property)"><i class="fas fa-trash "></i>
                                                     Activate</a>
                                                 <a class="btn btn-danger btn-sm btn-block mt-2 "

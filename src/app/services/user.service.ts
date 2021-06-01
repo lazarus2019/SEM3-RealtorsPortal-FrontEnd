@@ -1,7 +1,8 @@
+import { CategoryModel } from 'src/app/models/category.model';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CategoryModel } from "../models/category.model";
 import { PropertyModel } from "../models/property.model";
+import { SettingModel } from "../models/setting.model";
 
 
 @Injectable()
@@ -13,9 +14,14 @@ export class UserService {
     ) { }
 
     getAllCategory() {
-        return this.httpClient.get(this.BASE_URL + 'getallcategory' )
+        return this.httpClient.get(this.BASE_URL + 'loadcategories')
                         .toPromise()
                         .then( res => res as CategoryModel[] ) ;
+    }
+    getSetting() {
+        return this.httpClient.get(this.BASE_URL + 'getsetting' )
+                        .toPromise()
+                        .then( res => res as SettingModel ) ;
     }
     
 }
