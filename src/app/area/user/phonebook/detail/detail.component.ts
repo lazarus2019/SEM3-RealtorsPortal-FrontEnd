@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PropertyModel } from 'src/app/models/property.model';
 import { SellerProfileModel } from 'src/app/models/sellerProfile.models';
+import { PublicService } from 'src/app/services/publicService.service';
 import { DetailService } from 'src/app/services/user/detail.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class DetailsComponent implements OnInit {
   memberId : number;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private detailService : DetailService
+    private detailService : DetailService,
+    private publicService: PublicService,
   ){}
     ngOnInit(): void {
       this.activatedRoute.paramMap.subscribe(params => {
@@ -40,6 +42,10 @@ export class DetailsComponent implements OnInit {
         }
       )
       
+    }
+
+    getUrlImage(namePath: string ,imageName: string) {
+      return this.publicService.getUrlImage(namePath, imageName);
     }
     
 }

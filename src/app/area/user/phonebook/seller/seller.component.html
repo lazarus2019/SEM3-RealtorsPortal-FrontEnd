@@ -4,172 +4,68 @@
         </div>
     </div>
 </section>
-<div class="row py-3">
-    <div class="col-lg-3 col-md-12">
-        <!-- Popular Post Widget-->
-        <div class="sidebar-widget popular-posts">
-            <div class="sidebar-title">
-                <h4>Search</h4>
-            </div>
 
-            <form>
-                <div class="form-group">
-                    <input type="text" id="nameProperty" class="form-control" placeholder="Keyword">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="exampleInputNumber1" aria-describedby="numberlHelp"
-                        placeholder="Location" required="">
 
-                </div>
-                <div class="form-group">
-                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
-                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
-                        <option value="" disabled selected>Region</option>
-                        <option value="">USA</option>
-                        <option value="">Thailand</option>
-                        <option value="">Africa</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
-                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
-                        <option value="" disabled selected>Type</option>
-                        <option value="">For Rent</option>
-                        <option value="">For Sell</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    Area
-                    <input type="range">
-                </div>
-                <div class="form-group">
-                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
-                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
-                        <option value="" disabled selected>Beds</option>
-                        <option value="">1+</option>
-                        <option value="">2+</option>
-                        <option value="">3+</option>
-                        <option value="">4+</option>
-                        <option value="">5+</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select class="form-control select2 select2-hidden-accessible " id="example1" name="state"
-                        data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
-                        <option value="" disabled selected>Baths</option>
-                        <option value="">1+</option>
-                        <option value="">2+</option>
-                        <option value="">3+</option>
-                        <option value="">4+</option>
-                        <option value="">5+</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    Value
-                    <input type="range">
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Search">
-                </div>
-            </form>
+    <section class="locations-1" id="locations">
+        <div class="locations py-1">
+            <div class="container py-lg-2 py-md-4 py-2">
+                <div class="row">
 
-        </div>
-    </div>
-    <div class="col-lg-9 col-md-12">
-        <section class="locations-1" id="locations">
-            <div class="locations py-1">
-                <div class="container py-lg-2 py-md-4 py-2">
-                    <div class="row">
-
-                        <div class="container py-lg-5 py-md-4 py-2">
-                            <h3 class="title-big text-center mb-lg-5 mb-4">Meet our Seller</h3>
-                            <!-- block -->
-                            <div class="row">
-                                <ng-container *ngFor="let p  of sellers">
-                                    <div class="col-lg-3 col-sm-6 column-item">
-                                        <div class="users_box">
-                                            <div class="user-avatar">
-                                                <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
-                                                    class="nav-link avatar">
-                                                    <img src="assets/user/images/{{p.photo}}" alt=""
-                                                        class="img-fluid w-100 radius-image">
-                                                </a>
+                    <div class="container py-lg-5 py-md-4 py-2">
+                        <h3 class="title-big text-center mb-lg-5 mb-4">Meet our Seller</h3>
+                        <!-- block -->
+                        <div class="row">
+                            <ng-container *ngFor="let p  of sellers">
+                                <div class="col-lg-3 col-sm-6 column-item">
+                                    <div class="users_box">
+                                        <div class="user-avatar">
+                                            <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
+                                                class="nav-link avatar">
+                                                <img [src]="getUrlImage(p.photo)" alt=""
+                                                    class="img-fluid w-100 radius-image">
+                                            </a>
+                                        </div>
+                                        <div class="users_box_info">
+                                            <p class="user_position">Selling Seller</p>
+                                            <h4 class="user_title agent">
+                                                <a
+                                                    [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]">{{p.fullName}}</a>
+                                            </h4>
+                                            <div class="user_meta user_phone">
+                                                <span class="phone-detail"> <a
+                                                        href="tel:+1-2345-678-11">{{p.phone}}</a></span>
                                             </div>
-                                            <div class="users_box_info">
-                                                <p class="user_position">Selling Seller</p>
-                                                <h4 class="user_title agent">
-                                                    <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]">{{p.fullName}}</a>
-                                                </h4>
-                                                <div class="user_meta user_phone">
-                                                    <span class="phone-detail"> <a
-                                                            href="tel:+1-2345-678-11">{{p.phone}}</a></span>
-                                                </div>
-                                                <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
-                                                    class=" nav-link btn btn-outline-primary btn-style mt-4">
-                                                    View Profile </a>
-                                            </div>
+                                            <a [routerLink]="[ '/user/detailMember', { Id: p.memberId } ]"
+                                                class=" nav-link btn btn-outline-primary btn-style mt-4">
+                                                View Profile </a>
                                         </div>
                                     </div>
+                                </div>
 
-                                </ng-container>
-                            </div>
-
+                            </ng-container>
                         </div>
 
-                        <!--
-                        <div class="col-lg-4 col-md-6 listing-img">
-                            <a [routerLink]="['/user/single-property']">
-                                <div class="box16">
-                                    <div class="rentext-listing-category"><span>Buy</span><span>Rent</span></div>
-                                    <img class="img-fluid" src="assets/user/images/p1.jpg" alt="">
-                                    <div class="box-content">
-                                        <h3 class="title"></h3>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="listing-details blog-details align-self">
-                                 <h4 class="user_title agent">
-                                        <a [routerLink]="['/user/single-property']"></a>
-                                    </h4>
-                                    <p class="user_position">{{p.email}}</p>
-                                    
-                                <div class="author align-items-center mt-4">
-                                    <a href="#img" class="comment-img">
-                                        <img src="assets/user/images/team1.jpg" alt="" class="img-fluid">
-                                    </a>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a [routerLink]="['/user/single-property']">{{p.fullName}} </a>
-                                        </li>
-                                        <li class="meta-item blog-lesson">
-                                            <span class="meta-value"> {{p.email}}</span>
-                                        </li>
-                                        <li class="meta-item blog-lesson">
-                                            <span class="meta-value"> {{p.phone}}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> -->
-
-
                     </div>
 
-                    <!-- pagination -->
-                    <div class="pagination-wrapper mt-5 pt-lg-3 text-center">
-                        <ul class="page-pagination">
-                            <li><span aria-current="page" class="page-numbers current">1</span></li>
-                            <li><a class="page-numbers" [routerLink]="['/user/single-property']">2</a></li>
-                            <li><a class="page-numbers" [routerLink]="['/user/single-property']">3</a></li>
-                            <li><a class="page-numbers" [routerLink]="['/user/single-property']">...</a></li>
-                            <li><a class="page-numbers" [routerLink]="['/user/single-property']">15</a></li>
-                            <li><a class="next" [routerLink]="['/user/single-property']">Next <span
-                                        class="fa fa-angle-right"></span></a></li>
-                        </ul>
-                    </div>
-                    <!-- //pagination -->
                 </div>
+
+                <!-- pagination -->
+                <div class="pagination-wrapper mt-5 pt-lg-3 text-center">
+                    <ul class="page-pagination">
+                        <ng-container *ngIf="currentPage!==1">
+                            <li (click)="minusPage()"><a class="next">Previous</a></li>
+                        </ng-container>
+                        <ng-container *ngFor="let in of newsLengthArray; index as i">
+                            <li (click)="executeNewsPerPage(i+1)"><a class="page-numbers">{{i+1}}</a></li>
+                        </ng-container>
+                        <ng-container *ngIf="currentPage!==newsPer">
+                            <li (click)="plusPage()"><a class="next">Next <span class="fa fa-angle-right"></span></a>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+                <!-- //pagination -->
             </div>
-        </section>
-    </div>
-</div>
+        </div>
+    </section>
+

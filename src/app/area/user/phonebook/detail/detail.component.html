@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-lg-5 pr-lg-0">
                     <div class="">
-                        <img src="assets/user/images/{{sellerId.photo}}" alt="" width="480" height="430">
+                        <img [src]="getUrlImage('member' ,sellerId.photo)" alt="" width="480" height="310">
                     </div>
                 </div>
                 <div class="col-lg-7 pl-lg-0">
@@ -27,7 +27,6 @@
                         <h3 class="title-big">Company: {{sellerId.fullName}}</h3>
                         <!-- <h3 class="title-small"></h3> -->
                         <p class="mt-4">Phone: {{sellerId.phone}}</p>
-                        <p class="mt-3">Email: {{sellerId.email}}</p>
                         <p class="mt-3">{{sellerId.description}}</p>
                     </div>
                 </div>
@@ -44,7 +43,7 @@
 
                         <div class="box16">
                             <div class="rentext-listing-category text-primary">{{p.name}}</div>
-                            <img class="img-fluid" src="assets/images/property/{{p.photo}}" alt="">
+                            <img class="img-fluid" [src]="getUrlImage('property',p.photo)" alt="">
                             <div class="box-content">
                                 <h5 class="title"></h5>
                             </div>

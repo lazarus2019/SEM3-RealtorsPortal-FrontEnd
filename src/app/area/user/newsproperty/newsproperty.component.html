@@ -45,10 +45,12 @@
 <section class="w3l-blog post-content py-5">
     <div class="container py-lg-4 py-md-3 py-2">
         <div class="inner mb-4">
-           
+
             <ul class="blog-single-author-date align-items-center">
                 <li>
-                    <div class="listing-category "><h4></h4>  </div>
+                    <div class="listing-category ">
+                        <h4></h4>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -57,35 +59,44 @@
                 {{newPropertyId.title}}
             </h2>
         </div>
- 
+
         <div class="row">
             <div class="col-lg-8 w3l-news">
                 <div class="blog-single-post">
                     <div class="single-post-image mb-5">
-                        Upload : {{newPropertyId.createdDate}}
+                        Upload : {{newPropertyId.createdDate|date:'dd/MM/y'}}
                     </div>
                     <div class="single-post-image mb-5">
                         <div class="owl-blog owl-carousel owl-theme">
+                            <ng-container *ngFor="let image of galleryNews">
                                 <div class="item">
-                                    <div class="card" >
-                                        <img [src]="getUrlImage(galleryNews[0].name)" class="img-fluid radius-image" alt="image">
+                                    <div class="card">
+                                        <img [src]="getUrlImage(image.name, 'news')" class="img-fluid radius-image"
+                                            alt="image">
                                     </div>
                                 </div>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="single-post-content single-bg-white">
-                        
+
                         <p class="mb-4" style="white-space:pre-wrap;" innerHTML="{{newPropertyId.description}}">
+                        </p>
+                        <p class="mb-4">
+                            <button class="btn-contact btn btn-primary btn-style btn-primary mt-3">Send Contact <span
+                                    class="fa fa-envelope"></span></button>
                         </p>
                         <div class="d-flex justify-content-between">
                             <div>
-                                By Admin                        
+                                By Admin
                             </div>
                             <div>Category Name</div>
                         </div>
+
                     </div>
                 </div>
             </div>
+
             <div class="sidebar-side col-lg-4 col-md-12 col-sm-12 mt-lg-0 mt-5">
                 <aside class="sidebar">
 
@@ -94,33 +105,16 @@
                         <div class="sidebar-title">
                             <h4>Popular Post</h4>
                         </div>
-
-                        <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l1.jpg" class="radius-image" alt="">
-                            </figure>
-                            <div class="text"><a href="#blog-single">Why we are the best in the business
-                                </a>
-                                <div class="post-info">Sep 09, 2020</div>
-                            </div>
-                        </article>
-
-                        <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l2.jpg" class="radius-image" alt="">
-                            </figure>
-                            <div class="text"><a href="#blog-single">Build your next landing page.
-                                </a>
-                                <div class="post-info">Sep 09, 2020</div>
-                            </div>
-                        </article>
-
-                        <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l3.jpg" class="radius-image" alt="">
-                            </figure>
-                            <div class="text"><a href="#blog-single">
-                                    Simply the best. Better than the rest.</a>
-                                <div class="post-info">Sep 10, 2020</div>
-                            </div>
-                        </article>
+                        <ng-container *ngFor="let properti of propertyNew">
+                            <article class="post">
+                                <figure class="post-thumb"><img [src]="getUrlImage(properti.name, 'property')"
+                                        class="radius-image" alt="">
+                                </figure>
+                                <div class="text"><a [routerLink]="['/user/single-property']">{{properti.title}}</a>
+                                    <div class="post-info">{{properti.uploadDate|date:'dd/MM/y'}}</div>
+                                </div>
+                            </article>
+                        </ng-container>
 
                     </div>
                     <!-- Popular Post Widget-->
@@ -131,16 +125,19 @@
 
                         <ul>
                             <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Office space</a>
+                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Office
+                                    space</a>
                             </li>
                             <li class="mb-2">
                                 <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Shops</a>
                             </li>
                             <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Commercial land</a>
+                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Commercial
+                                    land</a>
                             </li>
                             <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Industrial property</a>
+                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Industrial
+                                    property</a>
                             </li>
                             <li class="mb-2">
                                 <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Apartments</a>
@@ -149,7 +146,8 @@
                                 <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Villas</a>
                             </li>
                             <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Businesses for sale</a>
+                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Businesses for
+                                    sale</a>
                             </li>
 
                         </ul>

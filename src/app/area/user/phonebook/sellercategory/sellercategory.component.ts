@@ -14,14 +14,14 @@ export class SellerCategoryComponent implements OnInit {
 
  
   ngOnInit(): void {
-    this.sellerService.loadseller().then(
-      res => {
-        this.sellers = res
-        console.log(this.sellers[0].memberId) ;
-      },
-      err => {
-        console.log(err)
-      });
+    // this.sellerService.loadseller().then(
+    //   res => {
+    //     this.sellers = res
+    //     console.log(this.sellers[0].memberId) ;
+    //   },
+    //   err => {
+    //     console.log(err)
+    //   });
   }
 
 }

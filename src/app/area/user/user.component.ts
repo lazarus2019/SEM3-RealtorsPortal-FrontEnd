@@ -1,15 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MailboxModel } from 'src/app/models/mailbox.model';
+import { MailboxService } from 'src/app/services/user/mailbox.service';
 
 @Component({
   templateUrl: './user.component.html',
 })
 export class UserComponent implements OnInit {
-  constructor() {
+  
+  mailbox: MailboxModel;
+  formContact : FormGroup ;
+  constructor(
+    private formBuilder: FormBuilder,
+    private mailboxService : MailboxService
+  ) {
     this.loadScripts();
     this.loadStyle();
   }
+  
+  get Phone(){
+    return this.formContact.get('phone')
+  }
 
   ngOnInit(): void {
+
+    this.formContact = this.formBuilder.group({
+      fullName : '', 
+      phone : ['', [Validators.required, Validators.pattern("^((\\+84-?)|0)?[0-9]{10}$")]] ,
+      message : '' 
+    })
   }
 
   // Method to dynamically load JavaScript
@@ -48,5 +67,25 @@ export class UserComponent implements OnInit {
       node.rel = "stylesheet";
       document.getElementsByTagName('head')[0].appendChild(node);
     }
+  }
+
+  // send Email
+  send() {
+    var mailbox: MailboxModel = this.formContact.value;
+    
+    this.mailboxService.addMailbox(mailbox).then(
+      res => {
+        if (res == true) {
+          alert("Done");
+        }
+        else {
+          alert("Failed");
+        }
+
+      },
+      err => {
+        console.log(err)
+      }
+    )
   }
 }

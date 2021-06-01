@@ -92,7 +92,7 @@
             <a href="#url" class="title-small">help desk</a>
             <h4>Do you have questions or want more infomation? Call Now</h4>
             <a href="tel:+0919801192">
-              <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset">+0919801182</span> 
+              <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset">+0919801182</span>
               </p>
             </a>
           </div>
@@ -126,22 +126,31 @@
           </div>
           <div class="col-lg-12">
             <form novalidate="" action="https://sendmail.w3layouts.com/submitForm" method="post"
-              class="ng-untouched ng-pristine ng-valid">
+              class="ng-untouched ng-pristine ng-valid " [formGroup]="formContact">
               <div class="form-group">
                 <div class="form-grid">
-                  <div class="input-field"><input type="text" name="w3lName" id="w3lName" placeholder="Your Name"
-                      required="">
+                  <div class="input-field">
+                    <input type="text" name="w3lName" id="w3lName" placeholder="Your Name" required
+                      formControlName="fullName">
                   </div>
-                  <div class="input-field"><input type="email" name="w3lSender" id="w3lSender" placeholder="Email"
-                      required="">
+                  <div class="input-field">
+                    <input type="text" name="w3lSender" id="w3lSender" placeholder="Phone" required
+                      formControlName="phone">
+                    <div *ngIf="Phone.touched && Phone.invalid" class="text-danger">
+                      <small *ngIf="Phone.errors.required">Mobile
+                        Number is required.</small>
+                      <small *ngIf="Phone.errors.pattern">Please, Enter
+                        10 digit Mobile Number.</small>
+                    </div>
                   </div>
                 </div>
-                <div class="input-field mt-4"><textarea name="w3lMessage" id="w3lMessage"
-                    placeholder="Message"></textarea>
+                <div class="input-field mt-4"><textarea name="w3lMessage" id="w3lMessage" placeholder="Message"
+                    formControlName="message"></textarea>
                 </div>
               </div>
               <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn-style mt-2">Submit</button>
+                <button type="submit" class="btn btn-primary btn-style mt-2" (click)="send()"
+                  [disabled]="!formContact.valid">Submit</button>
               </div>
             </form>
           </div>
