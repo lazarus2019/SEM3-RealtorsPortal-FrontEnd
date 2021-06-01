@@ -1,0 +1,212 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <!-- Button trigger modal -->
+                <span class="pull-right"><button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#addNewAdPackage">
+                        <i class="fas fa-plus" aria-hidden="true"></i> Add new package</button></span>
+                <h3><i class="fas fa-table"></i> Ads Package</h3>
+            </div>
+
+            <div class="card-body">
+                <!-- Form Search & Filter -->
+                <form [formGroup]="searchFormGroup">
+                    <div class="from-group mb-3 d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col-md-5 mb-1 flex-fill">
+                                <div class="range-wrap">
+                                    <div class="range-value" id="rangeV">Price below: ${{maxPrice}}</div>
+                                    <input id="range" type="range" min="1" max="{{maxPrice}}" value="{{maxPrice}}"
+                                        step="2" formControlName="price">
+                                </div>
+                            </div>
+                            <div class="col-md-5 mb-1 flex-fill">
+                                <input type="text" class="form-control " placeholder="Enter name"
+                                    formControlName="name">
+                            </div>
+                            <div class="col-md-2 mb-1 flex-fill">
+                                <button type="submit" (click)="search()" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-hover display dataTable no-footer"
+                                    style="width: 100%;" role="grid" aria-describedby="dataTable_info">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 5%;">No.</th>
+                                            <th scope="col" style="width: 15%;">Name</th>
+                                            <th scope="col" style="width: 8%;">Period (day)</th>
+                                            <th scope="col" style="width: 8%;">Price</th>
+                                            <th scope="col" style="width: 8%;">Ads post</th>
+                                            <th scope="col" style="width: 37%;">Description</th>
+                                            <th scope="col" style="width: 9%;">Status</th>
+                                            <th scope="col" style="width: 10%;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let adsPackage of adsPackages index as i">
+                                            <tr>
+                                                <td>{{i+1}}</td>
+                                                <td>{{adsPackage.nameAdPackage}}</td>
+                                                <td>{{adsPackage.period}}</td>
+                                                <td>${{adsPackage.price}}</td>
+                                                <td>{{adsPackage.postNumber}}</td>
+                                                <td>{{adsPackage.description}}</td>
+                                                <td>{{adsPackage.statusBuy ? 'On sale' : 'Stop selling'}}</td>
+                                                <td>
+                                                    <a class="btn btn-primary btn-sm btn-block "
+                                                        *ngIf="adsPackage.statusBuy == true"
+                                                        (click)="lockAlert(adsPackage)"><i class="fas fa-lock "></i>
+                                                        Lock</a>
+                                                    <a class="btn btn-primary btn-sm btn-block "
+                                                        *ngIf="adsPackage.statusBuy == false"
+                                                        (click)="unlockAlert(adsPackage)"><i
+                                                            class="fas fa-lock-open "></i>
+                                                        Unlock</a>
+                                                    <a class="btn btn-primary btn-sm btn-block " data-toggle="modal"
+                                                        data-target="#editAdPackage"
+                                                        (click)="onEdit(adsPackage.packageId)"><i
+                                                            class="fas fa-pencil-alt "></i>
+                                                        Edit</a>
+                                                    <a class="btn btn-danger btn-sm btn-block mt-2 "
+                                                        (click)="deleteAlert(adsPackage.packageId)"><i
+                                                            class="fas fa-trash "></i>
+                                                        Delete</a>
+                                                </td>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end card-->
+        </div>
+    </div>
+
+
+    <!-- Modal of add new ads-->
+    <div class="modal fade" id="addNewAdPackage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add new Ads Package</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="GET" [formGroup]="addFormGroup">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Ad Package name: <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter name" required
+                                formControlName="nameAdPackage">
+                        </div>
+                        <div class="form-group">
+                            <label for="example1">
+                                Price: <span class="text-danger">*</span>
+                            </label>
+                            <input data-parsley-type="number" type="number" min="1" max="5000" class="form-control"
+                                required="" placeholder="Enter price" required="required" formControlName="price">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Description: <span
+                                    class="text-danger">*</span></label>
+                            <textarea class="form-control" id="message-text" placeholder="Enter description" required
+                                formControlName="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="recipient-name" class="col-form-label">Ads post: <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" placeholder="Enter number" min="1"
+                                        max="50" required formControlName="postNumber">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="userName">Period (day): <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" placeholder="Enter number" min="1"
+                                        max="50" required formControlName="period">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="onSubmitAdd()">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal of edit ads-->
+    <div class="modal fade" id="editAdPackage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Ads Package</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="GET" [formGroup]="editFormGroup">
+                        <input type="text" class="form-control" formControlName="packageId" hidden>
+                        <input type="text" class="form-control" formControlName="statusBuy" hidden>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Ad Package name: <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter name" required
+                                formControlName="nameAdPackage">
+                        </div>
+                        <div class="form-group">
+                            <label for="example1">
+                                Price: <span class="text-danger">*</span>
+                            </label>
+                            <input data-parsley-type="number" type="number" min="1" max="5000" class="form-control"
+                                required="" placeholder="Enter price" required="required" formControlName="price">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Description: <span
+                                    class="text-danger">*</span></label>
+                            <textarea class="form-control" id="message-text" placeholder="Enter description" required
+                                formControlName="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="recipient-name" class="col-form-label">Ads post: <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" placeholder="Enter number" min="1"
+                                        max="50" required formControlName="postNumber">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="userName">Period (day): <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" placeholder="Enter number" min="1"
+                                        max="50" required formControlName="period">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="onSubmitEdit()">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

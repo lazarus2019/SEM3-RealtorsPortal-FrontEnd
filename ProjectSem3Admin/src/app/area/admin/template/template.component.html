@@ -1,0 +1,196 @@
+
+<!-- Basic Form -->
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="far fa-check-square"></i> Setting Account</h3>
+            </div>
+
+            <div class="card-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address (required)</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter email" required="">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your
+                            email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Your lucky number (required)</label>
+                        <input type="number" class="form-control" id="exampleInputNumber1"
+                            aria-describedby="numberlHelp" placeholder="Enter number" required="">
+                        <small id="numberlHelp" class="form-text text-muted">We'll never share your
+                            email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password (required)</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                            required="">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+        </div><!-- end card-->
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="far fa-check-square"></i> Setting Payment</h3>
+            </div>
+
+            <div class="card-body">
+
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Default input">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control form-control-lg">
+                        <option>Large select</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control">
+                        <option>Default select</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control form-control-sm">
+                        <option>Small select</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Date of birth</label>
+                    <input type="text" class="form-control" name="singledatepicker">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Readonly input here" readonly="">
+                </div>
+
+            </div>
+        </div><!-- end card-->
+    </div>
+</div>
+
+ <!-- Form Search & Filter -->
+ <div class="from-group mb-3">
+    <div class="row">
+        <div class="col-md-3 mb-1">
+            <input type="text" class="form-control" value="" placeholder="Enter name">
+        </div>
+        <div class="col-md-3 mb-1">
+            <input data-parsley-type="text" type="text" class="form-control" required=""
+                placeholder="Enter email" required="required">
+        </div>
+        <div class="col-md-3 mb-1">
+            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
+                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                <option value="customer">Customer</option>
+                <option value="agent">Agent</option>
+                <option value="seller">Seller</option>
+                <option value="administration">Administration</option>
+            </select>
+        </div>
+        <div class="col-md-2 mb-1">
+            <select class="form-control select2 select2-hidden-accessible" id="example1" name="state"
+                data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required">
+                <option value="activate">Activate</option>
+                <option value="deactivate">Deactivate</option>
+                <option value="pending">Pending</option>
+            </select>
+        </div>
+        <div class="col-md-1 mb-1">
+            <button type="button" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</div>
+
+<!-- Button Success and Error -->
+<a class="btn btn-success" role="button" (click)="test_success_alert()">Show alert</a>
+<a class="btn btn-danger" role="button" (click)="test_error_alert()">Show alert</a>
+
+<div>
+    <a class="btn btn-primary btn-sm btn-block " data-toggle="modal" data-target="#exampleModalCenter"><i
+            class="fas fa-pencil-alt "></i> Show Dialog</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add new/Edit Ad Package</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Ad Package name:</label>
+                        <input type="text" class="form-control" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="example1">
+                            Price: <span class="text-danger">*</span>
+                        </label>
+                        <input data-parsley-type="number" type="number" min="1" max="5000" class="form-control"
+                            required="" placeholder="Enter price" required="required">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="message-text" placeholder="Enter description"
+                            required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="recipient-name" class="col-form-label">Ads amount:</label>
+                                <input type="number" class="form-control" placeholder="Enter number" min="1" max="50"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="userName">Period (day)<span class="text-danger">*</span></label>
+                                <div class="mb-1"></div>
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    required="required">
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                    <option value="60">60</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Date of birth</label>
+                        <input type="text" class="form-control" name="singledatepicker">
+                    </div>
+
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

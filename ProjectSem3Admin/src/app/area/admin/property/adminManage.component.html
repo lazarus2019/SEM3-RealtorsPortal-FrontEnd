@@ -1,0 +1,296 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="fas fa-table"></i> Manage Agent/Seller Ads/Posts</h3>
+            </div>
+            <div class="card-body">
+                <div class="from-group mb-3 d-flex justify-content-center">
+                    <form method="GET" [formGroup]="searchFormGroup" (ngSubmit)="search()">
+                        <div class="row">
+                            <div class="col-md-4 mb-1 flex-fill">
+                                <input type="text" class="form-control" value="" placeholder="Enter title"
+                                    formControlName="title">
+                            </div>
+                            <div class="col-md-3 mb-1 flex-fill">
+                                <input type="text" class="form-control" value="" placeholder="Enter partners"
+                                    formControlName="partners">
+                            </div>
+                            <div class="col-md-2 mb-1 flex-fill">
+                                <select class="form-control select2 select2-hidden-accessible" id="example1"
+                                    name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                    formControlName="categoryId" required="required">
+                                    <option value="all">All Category</option>
+                                    <ng-container *ngFor="let category of categories">
+                                        <option value="{{category.categoryId}}">{{category.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-1 flex-fill">
+                                <select class="form-control" formControlName="statusId">
+                                    <option value="all">All status</option>
+                                    <ng-container *ngFor="let status of statuses">
+                                        <option value="{{status.statusId}}">{{status.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-1 flex-fill">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="table-responsive">
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-hover display dataTable no-footer"
+                                    style="width: 100%;" role="grid" aria-describedby="dataTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 5%;">No.</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 37%;">Name/Title</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 20%;">Thumbnail</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 7%;">Category</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 7%;">Partners</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 7%;">Date</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 7%;">Status</th>
+                                            <th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                                style="width: 10%;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr role="row" class="odd" *ngFor="let property of properties index as i">
+                                            <td class="sorting_1">{{i+1}}</td>
+                                            <td class="sorting_1">{{property.title}}</td>
+                                            <td>
+                                                <img src="https://via.placeholder.com/180x120g" alt=""
+                                                    style="width: 100%; max-height: 150px;">
+                                            </td>
+                                            <td>{{property.categoryName}}</td>
+                                            <td>{{property.memberFullName}}</td>
+                                            <td>{{property.uploadDate | date: 'dd/MM/y'}}</td>
+                                            <td>{{property.statusName}}</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm btn-block " data-toggle="modal"
+                                                    *ngIf="property.statusName !== 'Pending'" data-target="#details"
+                                                    (click)="onDetails(property.propertyId)"><i
+                                                        class="fas fa-info-circle "></i>
+                                                    Details
+                                                </button>
+                                                <a class="btn btn-primary btn-sm btn-block "
+                                                    *ngIf="property.statusName == 'Pending'" data-toggle="modal"
+                                                    data-target="#details">
+                                                    <i class="fas fa-check-circle"></i>
+                                                    Check
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end table-responsive-->
+
+            </div>
+            <!-- end card-body-->
+
+        </div>
+        <!-- end card-->
+
+    </div>
+
+</div>
+<!--Modal of details -->
+<div class="modal fade bd-example-modal-lg" id="details" tabindex="-1" role="dialog" aria-labelledby="details"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Property details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="title" class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="title" readonly value="{{property?.title}}"
+                            style="background-color:white;">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="price">Price: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="price" readonly
+                                    value="${{property?.price}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="area">Area: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="area" readonly
+                                    value="{{property?.area}} m&#178;" style="background-color:white;">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="rooms">Rooms:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="rooms" readonly
+                                    value="{{property?.roomNumber}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="bedrooms">Bedrooms:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="bedrooms" readonly
+                                    value="{{property?.bedNumber}}" style="background-color:white;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="category">Category: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="category" readonly
+                                    value="{{property?.categoryName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="editor">Partners: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="editor" readonly
+                                    value="{{property?.memberFullName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="status">Status: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="status" readonly
+                                    value="{{property?.statusName}}" style="background-color:white;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="type">Type: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="type" readonly
+                                    value="${{property?.type}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="publicday">Public day:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="publicday" readonly
+                                    value="{{property?.uploadDate | date:'dd/MM/y'}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="dayofsale">Day of Rent/Sale: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="dayofsale" readonly
+                                    value="{{property?.soldDate ? (property?.soldDate | date:'dd/MM/y') : 'still for Rent/Sale'}}"
+                                    style="background-color:white;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="city">City: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="city" readonly
+                                    value="{{property?.cityName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="region">Region:</label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="region" readonly
+                                    value="{{property?.cityRegionName}}" style="background-color:white;">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="country">Country: </label>
+                                <input data-parsley-type="text" type="text" class="form-control" id="country" readonly
+                                    value="{{property?.cityRegionCountryName}}" style="background-color:white;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address: </label>
+                        <input data-parsley-type="text" type="text" class="form-control" id="address" readonly
+                            value="{{property?.address}}" style="background-color:white;">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <div class="slider-image">
+                            <div class="slideshow-container">
+                                <ng-container *ngFor="let image of images index as i">
+
+                                    <div class="mySlides" *ngIf="i===0" style="display: block;">
+                                        <img [src]="getUrlImage(image.name)" style="width:100%">
+                                    </div>
+                                    <div class="mySlides" *ngIf="i!==0" style="display: none;">
+                                        <img [src]="getUrlImage(image.name)" style="width:100%">
+                                    </div>
+
+                                </ng-container>
+                            </div>
+
+                            <br>
+                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <div class="text">
+
+                            <span innerHTML="{{property?.description}}"></span>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#sendMail"
+                            *ngIf="property?.statusName == 'Pending'">Public</button>
+                        <button type="button" class="btn btn-primary mr-2"
+                            *ngIf="property?.statusName == 'Pending'">Send
+                            Mail</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal of send email-->
+<div class="modal fade" id="sendMail" tabindex="-1" role="dialog" aria-labelledby="sendMailTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">New email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Send to:</label>
+                        <input type="text" class="form-control" value="youremail@gmail.com" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="example1">
+                            Title: <span class="text-danger">*</span>
+                        </label>
+                        <input data-parsley-type="text" type="text" class="form-control" required=""
+                            placeholder="Enter title" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="message-text" placeholder="Enter description"
+                            required></textarea>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

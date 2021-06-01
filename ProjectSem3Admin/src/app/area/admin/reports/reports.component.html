@@ -1,0 +1,275 @@
+<script src="assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+<div class="from-group mb-3">
+    <div class="row ">
+        <form style="width:100%" class="from-group mb-1  d-flex justify-content-center">
+            <div class="col-sm-12 col-md-2 col-lg-6">
+                From:
+                <input type="text" class="form-control mb-1" name="singledatepicker" id="fromDateInput" #fromDateInput>
+                To:
+                <input type="text" class="form-control d-inline mb-1" name="singledatepicker" id="toDateInput"
+                    id="toDateInput" #toDateInput>
+                <button (click)="searchByDate()" class="btn btn-primary r-0">Search</button>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
+                Duration:
+                <select class="form-control select2 select2-hidden-accessible mb-1" id="example1" name="state"
+                    data-select2-id="example1" tabindex="-1" aria-hidden="true" required="required"
+                    [(ngModel)]="durationInput">
+                    <option value="select" disabled selected>Select...</option>
+                    <option value="today">Today</option>
+                    <option value="yesterday">Yesterday</option>
+                    <option value="week">A week ago</option>
+                    <option value="month">A month ago</option>
+                    <option value="all">All</option>
+                </select>
+                <button (click)="searchByDuration()" class="btn btn-primary r-0">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-sm-12 col-md-12 ">
+        <div class="row">
+            <div class="col-12" data-toggle="modal" data-target="#showModal">
+                <div class="card-box hover noradius noborder bg-danger">
+                    <i class="far fa-user float-right text-white"></i>
+                    <h6 class="text-white text-uppercase m-b-20">Members</h6>
+                    <h1 class="m-b-20 text-white">{{report.memberCount}}</h1>
+                    <span class="text-white">{{report.memberToday}} Today</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" data-toggle="modal" data-target="#showModal">
+                <div class="card-box hover noradius noborder bg-purple">
+                    <i class="fas fa-people-carry float-right text-white"></i>
+                    <h6 class="text-white text-uppercase m-b-20">Payment transaction</h6>
+                    <h1 class="m-b-20 text-white">{{report.invoiceCount}}</h1>
+                    <span class="text-white">{{report.invoiceToday}} Today</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" data-toggle="modal" data-target="#showModal">
+                <div class="card-box hover noradius noborder bg-warning">
+                    <i class="fas fa-shopping-cart float-right text-white"></i>
+                    <h6 class="text-white text-uppercase m-b-20">Ad Package</h6>
+                    <h1 class="m-b-20 text-white">{{report.adPackageCount}}</h1>
+                    <span class="text-white">0 New</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" data-toggle="modal" data-target="#showModal">
+                <div class="card-box hover noradius noborder bg-primary">
+                    <i class="fas fa-th-large float-right text-white"></i>
+                    <h6 class="text-white text-uppercase m-b-20">Categories</h6>
+                    <h1 class="m-b-20 text-white">{{report.categoryCount}}</h1>
+                    <span class="text-white">0 New</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-6 col-sm-12 col-md-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3><i class="fas fa-envelope"></i> Payment transaction</h3>
+            </div>
+            <div class="card-body">
+
+                <div class="widget-messages nicescroll" style="height: 550px; overflow: hidden; outline: none;"
+                    tabindex="5000" data-toggle="modal" data-target="#invoiceDetailModal">
+                    <a *ngFor="let i of invoicelist " (click)="invoiceDetailModal(i)">
+                        <div class="message-item">
+                            <p class="message-item-user">{{i.member.fullName }} </p>
+                            <p class="message-item-msg">Ads Package : {{i.adsPackage.nameAdPackage}} </p>
+                            <p class="message-item-msg text-success "> <strong> $ {{i.total}}</strong> </p>
+                            <p class="message-item-date">{{i.created | date : "hh:MM , dd/MM/yyyy" }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- end card-->
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Report Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Member modal -->
+                <h3>Member modal</h3>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr align="center">
+                            <th scope="col">Customer</th>
+                            <th scope="col">Private Sellers</th>
+                            <th scope="col">Agents</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center" class="table-primary">
+                            <td>3500</td>
+                            <td>1000</td>
+                            <td>500</td>
+                            <th scope="row">5000</th>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Payment transaction -->
+                <h3>Payment transaction</h3>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr align="center">
+                            <th scope="col">Unverified</th>
+                            <th scope="col">Approved</th>
+                            <th scope="col">Unapproved</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center" class="table-primary">
+                            <td>25</td>
+                            <td>400</td>
+                            <td>75</td>
+                            <th scope="row">500</th>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Order ad package -->
+                <h3>Order ad package</h3>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr align="center">
+                            <th scope="col">Pending</th>
+                            <th scope="col">Approved</th>
+                            <th scope="col">Cancel</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center" class="table-primary">
+                            <td>70</td>
+                            <td>150</td>
+                            <td>80</td>
+                            <th scope="row">300</th>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Invoice Details-->
+<div class="modal fade" id="invoiceDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Invoice Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Member modal -->
+                <h3>Member</h3>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr align="center">
+                            <th scope="col">Member Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center" class="table-primary">
+                            <td>{{invoiceDetail.memberId}}</td>
+                            <td>{{invoiceDetail.member.fullName}}</td>
+                            <td>{{invoiceDetail.member.roleName}}</td>
+                            <th>{{invoiceDetail.member.email}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Payment transaction -->
+                <h3>Ads Package</h3>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr align="center">
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Period</th>
+                            <th scope="col">Number of Post</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center" class="table-primary">
+                            <td>{{invoiceDetail.adsPackage.nameAdPackage}}</td>
+                            <td>{{invoiceDetail.adsPackage.price}}</td>
+                            <td>{{invoiceDetail.adsPackage.period}}</td>
+                            <td>{{invoiceDetail.adsPackage.postNumber}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Order ad package -->
+                <h3>Invoice</h3>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr align="center">
+                            <th scope="col">Method</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center" class="table-primary">
+                            <td>{{invoiceDetail.paymentMethod}}</td>
+                            <td>{{invoiceDetail.total}}</td>
+                            <td>{{invoiceDetail.created | date : "hh:MM , dd/MM/yyyy "}} </td>
+                            <th class="text-success" scope="row">Done</th>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
