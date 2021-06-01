@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MemberAPI } from 'src/app/models/member/member.model';
 import { MailBoxAPIService } from 'src/app/services/admin/mailbox/mailboxAPI.service';
 import { MemberAPIService } from 'src/app/services/member/memberAPI.service';
@@ -18,6 +19,7 @@ export class AdminComponent implements OnInit {
   resultMemberAPI: MemberAPI[] = [];
 
   constructor(
+    private router : Router,
     // Declare services
     private mailboxAPIService: MailBoxAPIService,
     private memberAPIService: MemberAPIService
@@ -67,6 +69,14 @@ export class AdminComponent implements OnInit {
         alertFunction.error("Can not get mailbox!");
       }
     )
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('role');
+    this.router.navigate(['/login']);
   }
 
   // Method to dynamically load JavaScript

@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { MemberAPI } from "src/app/models/member/member.model";
+import { Registration } from 'src/app/shared/registration.model';
 
 @Injectable()
 export class MemberAPIService {
@@ -25,13 +26,13 @@ export class MemberAPIService {
             .then(res => res);
     }
 
-    findMember(memberId: number){
+    findMember(memberId: number) {
         return this.http.get(this.BASE_URL + "findMember/" + memberId)
             .toPromise()
             .then(res => res as MemberAPI[]);
     }
 
-    findUser(userId: string){
+    findUser(userId: string) {
         return this.http.get(this.BASE_URL + "findUser/" + userId)
             .toPromise()
             .then(res => res as MemberAPI[]);
@@ -43,14 +44,13 @@ export class MemberAPIService {
             .then(res => res);
     }
 
-    changeEmailPassword(memberId: number, password: string) {
-        return this.http.put(this.BASE_URL + "changeEmailPassword/" + memberId, password)
-            .toPromise()
-            .then(res => res);
-    }
-
-    checkPasswordDB(memberId: number, password: string) {
-        return this.http.put(this.BASE_URL + "checkPasswordDB/" + memberId, password)
+    checkPasswordDB(member: MemberAPI, oldPassword:string) {
+        var accountModel: Registration;
+        accountModel.password = oldPassword;
+        accountModel.fullName = member.fullName;
+        accountModel.username = member.username;
+        accountModel.email = member.email;
+        return this.http.post(this.BASE_URL_ACCOUNT + "CheckPasswordDB", accountModel)
             .toPromise()
             .then(res => res);
     }

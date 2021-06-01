@@ -1,6 +1,6 @@
 import { SettingAPI } from './../../../models/setting/setting.model';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingAPIService } from 'src/app/services/admin/setting/settingAPI.service';
 import { ImageService } from 'src/app/services/admin/image/imageService.service';
 import { PublicService } from 'src/app/services/publicService.service';
@@ -84,18 +84,18 @@ export class SettingComponent implements OnInit {
 
     this.formSettingGroup = this.formBuilder.group({
       settingId: 0,
-      numTopProperty: 0,
-      numPopularLocation: 0,
-      numNews: 0,
-      numPopularAgent: 0,
-      numProperty: 0,
-      numSatisfiedCustomer: 0,
-      numMaxImageProperty: 0,
-      numMaxImageNews: 0,
+      numTopProperty: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1), Validators.max(10)]],
+      numPopularLocation: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1), Validators.max(10)]],
+      numNews: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1), Validators.max(10)]],
+      numPopularAgent: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1), Validators.max(10)]],
+      numProperty: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1), Validators.max(10)]],
+      numSatisfiedCustomer: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1)]],
+      numMaxImageProperty: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1)]],
+      numMaxImageNews: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1)]],
       phone: "0000000000",
       email: "",
-      address: "",
-      description: "",
+      address: ['', [Validators.required, Validators.maxLength(200), Validators.minLength(10)]],
+      description: ['', [Validators.required, Validators.maxLength(2000), Validators.minLength(10)]],
       services: "",
       aboutUsTitle: "",
       thumbnailWebsite: "",
@@ -103,6 +103,14 @@ export class SettingComponent implements OnInit {
       thumbnailHome: "",
       reviews: ""
     });
+  }
+
+  public hasError = (controlName: string, errorName: string) => {
+    return this.formSettingGroup.controls[controlName].hasError(errorName)
+  }
+
+  public validateControl = (controlName: string) => {
+    return this.formSettingGroup.controls[controlName].invalid && this.formSettingGroup.controls[controlName].touched
   }
 
   // Method to dynamically load JavaScript

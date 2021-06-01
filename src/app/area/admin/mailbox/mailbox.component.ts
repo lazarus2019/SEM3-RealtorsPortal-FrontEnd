@@ -3,6 +3,8 @@ import { MailBoxAPIService } from './../../../services/admin/mailbox/mailboxAPI.
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { MemberAPIService } from 'src/app/services/member/memberAPI.service';
+import { MemberAPI } from 'src/app/models/member/member.model';
 
 // Declare custom function
 declare var alertFunction: any;
@@ -22,11 +24,16 @@ export class AdminMailBoxComponent implements OnInit {
 
   formSearchMailbox: FormGroup = new FormGroup({});
 
+  currentMember: MemberAPI = new MemberAPI;
+
+  resultMemberAPI: MemberAPI[] = [];
+
   constructor(
     // Declare form builder
     private formBuilder: FormBuilder,
 
-    private mailboxAPIService: MailBoxAPIService
+    private mailboxAPIService: MailBoxAPIService,
+    private memberAPIService: MemberAPIService
   ) { }
 
   ngOnInit() {
@@ -41,8 +48,22 @@ export class AdminMailBoxComponent implements OnInit {
 
   }
 
+  findUser() {
+    var userId = localStorage.getItem('userId');
+
+    this.memberAPIService.findUser(userId).then(
+      res => {
+        this.resultMemberAPI = res;
+        this.currentMember = this.resultMemberAPI[0];
+      },
+      err => {
+        alertFunction.error("Cant not get your profile!");
+      }
+    )
+  }
+
   getMailboxByMemberId() {
-    this.mailboxAPIService.getMailboxByMemberId(1).then(
+    this.mailboxAPIService.getMailboxByMemberId(this.currentMember.memberId).then(
       res => {
         this.listMailbox = res;
       },

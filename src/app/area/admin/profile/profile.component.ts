@@ -6,6 +6,7 @@ import { ImageService } from 'src/app/services/admin/image/imageService.service'
 import { PublicService } from 'src/app/services/publicService.service';
 import { max } from './../../../validators/max.validator';
 import { ResetPassword } from 'src/app/shared/forgotPassword.model';
+import { Registration } from 'src/app/shared/registration.model';
 
 // Declare Func custom
 declare var alertFunction: any;
@@ -50,9 +51,9 @@ export class ProfileComponent implements OnInit {
       roleId: 0,
       email: new FormControl(''),
       isShowMail: false,
-      phone: '',
-      description: "",
-      fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+      phone: ['', [Validators.required, Validators.pattern("[0-9]{8,12}")]],
+      description: ['', [Validators.required, Validators.maxLength(2000), Validators.minLength(10)]],
+      fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       password: '',
       emailPassword: ''
     });
@@ -72,9 +73,9 @@ export class ProfileComponent implements OnInit {
     this.findUser();
   }
 
-  findUser(){
+  findUser() {
     var userId = localStorage.getItem('userId');
-    
+
     this.memberAPIService.findUser(userId).then(
       res => {
         this.resultMemberAPI = res;
@@ -93,6 +94,14 @@ export class ProfileComponent implements OnInit {
     )
   }
 
+  public hasError = (controlName: string, errorName: string) => {
+    return this.formMemberGroup.controls[controlName].hasError(errorName)
+  }
+
+  public validateControl = (controlName: string) => {
+    return this.formMemberGroup.controls[controlName].invalid && this.formMemberGroup.controls[controlName].touched
+  }
+
   updateMember() {
     var member: MemberAPI = this.formMemberGroup.value;
     this.memberAPIService.updateMember(member).then(
@@ -109,7 +118,7 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadImage() {
-    this.imageService.uploadImage("1", "member", this.fileUpload[0]).then(
+    this.imageService.uploadImage(this.currentMember.memberId.toString(), "member", this.fileUpload[0]).then(
       res => {
         // Delete old photo
         this.imageService.deleteImage(1, this.currentMember.photo, "member").then(
@@ -135,42 +144,42 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  changePassword() {
-    // Check password
-    //var resetPassword: ResetPassword;
-    // Check password
-    // var password = this.formPasswordGroup.get("oldPassword")?.value;
-    //resetPassword.password = this.formPasswordGroup.value.;
-    //resetPassword.email = this.currentMember.email;
-    const resetPassword: ResetPassword = {
-      password: this.formPasswordGroup.get('newPassword').value,
-      confirmPassword: this.formPasswordGroup.get('confirmPassword').value,
-      token: "",
-      email: this.currentMember.email
-    }
-    console.table(resetPassword);
-    // this.memberAPIService.checkPasswordDB(this.currentMember.memberId, password).then(
-      // res => {
-        // if (this.checkPassword(newPassword, confirmPassword)) {
-        this.memberAPIService.updatePassword(resetPassword).then(
-          res => {
-            alertFunction.success("Your password had changed");
-          },
-          err => {
-            alertFunction.error("Cant update your password!");
-          }
-        )
-        // } else {
-        // alertFunction.error("New password and confirm password must be match!");
-        // }
-      // },
-      // err => {
-        // alertFunction.error("Your password is incorrect!");
-      // }
-    // )
+  checkPasswordDB(password: string) {
+
   }
 
-  changeEmailPassword() {
+  changePassword() {
+    // Check password
+    var newPassword = this.formPasswordGroup.get("newPassword")?.value;
+    var confirmPassword = this.formPasswordGroup.get("confirmPassword")?.value;
+    var oldPassword = this.formPasswordGroup.get("oldPassword")?.value;
+    // this.memberAPIService.checkPasswordDB(this.currentMember, oldPassword).then(
+    //   res => {
+    //     console.log("ok");
+        if (this.checkPassword(newPassword, confirmPassword)) {
+          const resetPassword: ResetPassword = {
+            password: newPassword,
+            confirmPassword: confirmPassword,
+            token: "",
+            email: this.currentMember.email
+          }
+          this.memberAPIService.updatePassword(resetPassword).then(
+            res => {
+              console.log("ok 2")
+              alertFunction.success("Your password had changed");
+            },
+            err => {
+              alertFunction.error("Cant update your password!");
+            }
+          )
+        } else {
+          alertFunction.error("New password and confirm password must be match!");
+        }
+    //   },
+    //   err => {
+    //     alertFunction.error("Your password must match the old password!");
+    //   }
+    // )
 
 
   }
