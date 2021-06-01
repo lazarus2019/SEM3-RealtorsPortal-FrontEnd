@@ -11,7 +11,7 @@ import { Region } from 'src/app/shared/region.model';
 import { Country } from 'src/app/shared/country.model';
 import { City } from 'src/app/shared/city.model';
 import { AddressService } from 'src/app/services/address.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 declare var alertFunction: any;
 
 @Component({
@@ -22,6 +22,7 @@ export class EditPropertyComponent implements OnInit {
   constructor(
     private imageService: ImageService,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
     private propertyService: PropertyService,
     private categoryService: CategoryService,
@@ -56,12 +57,22 @@ export class EditPropertyComponent implements OnInit {
 
   cities: City[];
 
+  propertyId: number = 0;
+
+
   public ngOnInit(): void {
     //get data from userManage component
-    this.property = history.state;
+    var id = this.route.snapshot.paramMap.get('propertyId');
 
-    //get region
-    this.getAllRegion();
+    if (id != null) {
+      // set id from query to newsId
+      this.propertyId = parseInt(id);
+      this.getPropertyById(this.propertyId);
+    } else {
+      alertFunction.error("Doesn't receive any data!");
+    }
+
+
 
     //get category 
     this.categoryService.getAllCategory().subscribe(categories => {
@@ -70,27 +81,53 @@ export class EditPropertyComponent implements OnInit {
 
     //configure addFromGroup
     this.editFormGroup = this.formBuilder.group({
-      propertyId: new FormControl(this.property.propertyId, [Validators.required]),
-      title: new FormControl(this.property.title, [Validators.required]),
-      regionId: new FormControl(this.property.cityCountryRegionId, [Validators.required]),
-      countryId: new FormControl(this.property.citycountryId, [Validators.required]),
-      cityId: new FormControl(this.property.cityId, [Validators.required]),
-      address: new FormControl(this.property.address, [Validators.required]),
-      type: new FormControl(this.property.type, [Validators.required]),
-      categoryId: new FormControl(this.property.categoryId, [Validators.required]),
-      price: new FormControl(this.property.price, [Validators.required]),
-      area: new FormControl(this.property.area, [Validators.required]),
-      roomNumber: new FormControl(this.property.roomNumber, [Validators.required]),
-      bedNumber: new FormControl(this.property.bedNumber, [Validators.required]),
-      description: new FormControl(this.property.description, [Validators.required]),
+      propertyId: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required]),
+      regionId: new FormControl('', [Validators.required]),
+      countryId: new FormControl('', [Validators.required]),
+      cityId: new FormControl('', [Validators.required]),
+      address: new FormControl('', [Validators.required]),
+      type: new FormControl('', [Validators.required]),
+      categoryId: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required]),
+      area: new FormControl('', [Validators.required]),
+      roomNumber: new FormControl('', [Validators.required]),
+      bedNumber: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
     });
-    //get gallery image
-    this.getGallery(this.property.propertyId);
+
+  }
+
+  getPropertyById(propertyId: number) {
+    this.propertyService.getPropertyById(propertyId).subscribe(property => {
+      this.property = property;
+      console.log(this.property.description);
+      if (property != null) {
+        //get region
+        this.getAllRegion();
+        this.getGallery(this.property.propertyId);
+      }
+    });
   }
 
   onChangeRegion(regionId: any) {
     this.addressService.getAllCountry(regionId.target.value).subscribe(countries => {
       this.countries = countries;
+    })
+  }
+
+  getAllCountryCity(regionId: number) {
+    this.addressService.getAllCountry(regionId).subscribe(countries => {
+      this.countries = countries;
+      if (this.countries.length > 0) {
+        this.editFormGroup.get('countryId').setValue(this.property.cityCountryId);
+      }
+      this.addressService.getAllCity(this.property.cityCountryId).subscribe(cities => {
+        this.cities = cities;
+        if (this.cities.length > 0) {
+          this.editFormGroup.get('cityId').setValue(this.property.cityId);
+        }
+      })
     })
   }
 
@@ -103,12 +140,24 @@ export class EditPropertyComponent implements OnInit {
   getAllRegion() {
     this.addressService.getAllRegion().subscribe(region => {
       this.regions = region;
+      if (this.regions.length > 0) {
+        this.editFormGroup.get('regionId').setValue(this.property.cityCountryRegionId);
+      }
+      this.getAllCountryCity(this.property.cityCountryRegionId);
+      this.editFormGroup.get('title').setValue(this.property.title);
+      this.editFormGroup.get('address').setValue(this.property.address);
+      this.editFormGroup.get('type').setValue(this.property.type);
+      this.editFormGroup.get('categoryId').setValue(this.property.categoryId);
+      this.editFormGroup.get('price').setValue(this.property.price);
+      this.editFormGroup.get('area').setValue(this.property.area);
+      this.editFormGroup.get('roomNumber').setValue(this.property.roomNumber);
+      this.editFormGroup.get('bedNumber').setValue(this.property.bedNumber);
+      this.editFormGroup.get('description').setValue(this.property.description);
     })
   }
 
   editProperty() {
     this.updateProperty = this.editFormGroup.value;
-    console.log(this.editFormGroup.get('cityId').value);
     this.updateProperty.memberId = this.property.memberId;
     this.updateProperty.statusId = this.property.statusId;
     this.propertyService.updateProperty(this.updateProperty).subscribe(() => {
@@ -188,7 +237,6 @@ export class EditPropertyComponent implements OnInit {
   deleteImage() {
     for (var delImage of this.listImageDelete) {
       let image = Object.values(delImage);
-      console.table(image);
       this.imageService.deleteImage(image[2], image[5], "property").then(
         res => {
         },

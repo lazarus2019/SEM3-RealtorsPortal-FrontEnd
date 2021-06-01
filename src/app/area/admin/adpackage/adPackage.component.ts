@@ -14,8 +14,8 @@ declare var alertFunction: any;
 export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
 
   constructor(private adsPackageService: AdsPackageService, private formBuilder: FormBuilder, private invoiceService: InvoiceService) {
-    this.loadScripts();
     this.loadStyle();
+    this.loadScripts();
   }
   // Pagination 
   isFilter = false;

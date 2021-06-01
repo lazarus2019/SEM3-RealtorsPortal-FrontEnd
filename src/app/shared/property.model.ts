@@ -5,7 +5,7 @@ export class Property {
     title: string;
     cityId: number;
     cityName: string;
-    citycountryId: number;
+    cityCountryId: number;
     cityCountryName: string;
     cityCountryRegionId: number;
     cityCountryRegionName: string;

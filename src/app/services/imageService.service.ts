@@ -43,6 +43,4 @@ export class ImageService {
         return this.http.delete<number>(`${this.baseUrl}delete/${id}`);
     }
 
-    
-
 }

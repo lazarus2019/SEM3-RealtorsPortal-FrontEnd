@@ -181,8 +181,7 @@ export class UserManagePropertyComponent implements OnInit {
   }
 
   onEdit(property: Property) {
-    console.log(property.cityId);
-    this.router.navigateByUrl('/admin/updateProperty', { state: this.property });
+    this.router.navigate(['/admin/editProperty', property.propertyId]);
   }
 
   onDetails(propertyId: number) {

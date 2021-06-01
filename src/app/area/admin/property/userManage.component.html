@@ -87,7 +87,7 @@
                                                     Details</a>
                                                 <a class="btn btn-primary btn-sm btn-block "
                                                     *ngIf="property?.status.name != 'Pending' && property?.status.name != 'Sold'"
-                                                    [routerLink]="['/admin/editProperty']" [state]="property"><i
+                                                    (click)="onEdit(property)"><i
                                                         class="fas fa-pencil-alt "></i> Edit</a>
                                                 <a class="btn btn-primary btn-sm btn-block mt-2 "
                                                     *ngIf="property?.status.name != 'Pending' && property?.statusName != 'Sold' && property?.status.name == 'Activate'"

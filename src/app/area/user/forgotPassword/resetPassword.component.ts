@@ -3,6 +3,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResetPassword } from 'src/app/shared/forgotPassword.model';
+import { PasswordConfirmationValidatorService } from 'src/app/services/PasswordConfirmationValidatorService.service';
 
 @Component({
   templateUrl: './resetPassword.component.html'
@@ -17,7 +18,8 @@ export class ResetPasswordComponent implements OnInit {
   private token: string;
   private email: string;
 
-  constructor(private accountService: AccountService, private router: Router, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(private accountService: AccountService, private router: Router, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder,
+    private passConfValidator: PasswordConfirmationValidatorService) {
     this.loadStyle();
 
   }
@@ -32,13 +34,10 @@ export class ResetPasswordComponent implements OnInit {
     //   password: new FormControl('', [Validators.required]),
     //   confirm: new FormControl('')
     // });
-    // this.resetPasswordForm.get('confirm').setValidators([Validators.required,
-    //   this._passConfValidator.validateConfirmPassword(this.resetPasswordForm.get('password'))]);
 
     this.token = this.activeRoute.snapshot.queryParams['token'];
     this.email = this.activeRoute.snapshot.queryParams['email'];
   }
-
 
   onSubmit() {
     this.showError = this.showSuccess = false;
@@ -52,10 +51,11 @@ export class ResetPasswordComponent implements OnInit {
     this.accountService.resetPassword(resetPassword)
       .subscribe(() => {
         this.showSuccess = true;
+        this.router.navigateByUrl('/login');
       },
         error => {
           this.showError = true;
-          this.errorMessage = error;
+          this.errorMessage = error.error;
         })
   }
 

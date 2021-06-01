@@ -27,7 +27,7 @@
                                         <div>
                                             <select class="form-control select2 select2-hidden-accessible" id="region"
                                                 name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                                formControlName="region" required="required"
+                                                formControlName="regionId" required="required"
                                                 (change)="onChangeRegion($event)">
                                                 <option value="" disabled hidden>Choose region</option>
                                                 <option value="{{region.regionId}}" *ngFor="let region of regions">
@@ -42,7 +42,7 @@
                                         <div>
                                             <select class="form-control select2 select2-hidden-accessible" id="country"
                                                 name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                                formControlName="country" required="required"
+                                                formControlName="countryId" required="required"
                                                 (change)="onChangeCountry($event)">
                                                 <option value="" disabled hidden>Choose country</option>
                                                 <option value="{{country.countryId}}" *ngFor="let country of countries">
@@ -141,8 +141,8 @@
                                 <label>
                                     <h3>Ad/Post content</h3>
                                 </label>
-                                <textarea id="format-custom"  class="form-control"
-                                    formControlName="description">{{property.description}}</textarea>
+                                <textarea id="format-custom" class="form-control" formControlName="description"
+                                    >{{property?.description}}</textarea>
                             </div>
                             <div class="form-group">
                                 <label>

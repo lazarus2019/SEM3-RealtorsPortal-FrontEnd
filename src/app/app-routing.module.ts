@@ -88,7 +88,7 @@ const routes: Routes = [
         { path: '', component: AdminDashboardComponent },
         { path: 'dashboard', component: AdminDashboardComponent },
         { path: 'addProperty', component: AddNewPropertyComponent },
-        { path: 'editProperty', component: EditPropertyComponent },
+        { path: 'editProperty/:propertyId', component: EditPropertyComponent },
         { path: 'mailbox', component: AdminMailBoxComponent },
         { path: 'gallery', component: AdminGalleryComponent },
         { path: 'adPackage', component: AdminAdPackageComponent },

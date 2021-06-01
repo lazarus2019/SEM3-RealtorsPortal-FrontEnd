@@ -10,11 +10,15 @@ declare var alertFunction: any;
 })
 export class SuccessRegistrationComponent implements OnInit {
 
-  constructor(public accountService: AccountService, private router: Router, private _route: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(public accountService: AccountService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
     this.loadStyle();
   }
 
   registration: Registration;
+  
+  public errorMessage: string = '';
+
+  public showSuccess: boolean;
 
   ngOnInit(): void {
     this.registration = history.state;
@@ -23,7 +27,8 @@ export class SuccessRegistrationComponent implements OnInit {
 
   onSubmit() {
     this.accountService.resendEmailConfirm(this.registration).subscribe(() => {
-      alertFunction.success("Success", "Please check your mail again!");
+      this.showSuccess = true;
+      this.errorMessage = "Please check email again."
     });
   }
 

@@ -17,6 +17,7 @@ import { AdminManageMemberComponent } from './member/manageMember.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddNewPropertyComponent } from './property/addNew.component';
 import { AdminManagePropertyComponent } from './property/adminManage.component';
+import { EditPropertyComponent } from './property/editProperty.component';
 import { UserManagePropertyComponent } from './property/userManage.component';
 import { ReportComponent } from './reports/reports.component';
 import { SettingComponent } from './setting/setting.component';
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: '', component: AdminDashboardComponent },
   { path: 'dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'mailbox', component: AdminMailBoxComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
-  { path: 'addNew', component: AddNewPropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Agent.'] } },
+  { path: 'addProperty', component: AddNewPropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Agent.'] } },
+  { path: 'editProperty/:propertyId', component: EditPropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Agent.'] } },
   { path: 'gallery', component: AdminGalleryComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'adPackage', component: AdminAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
   { path: 'adminManage', component: AdminManagePropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },

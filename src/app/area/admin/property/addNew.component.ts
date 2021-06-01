@@ -13,8 +13,6 @@ import { AddressService } from 'src/app/services/address.service';
 import { Region } from 'src/app/shared/region.model';
 import { Country } from 'src/app/shared/country.model';
 import { City } from 'src/app/shared/city.model';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { startWith, map } from 'rxjs/operators';
 
 
 import { Observable, Subject } from 'rxjs';
@@ -61,12 +59,10 @@ export class AddNewPropertyComponent implements OnInit {
 
   public ngOnInit(): void {
     //check to add new property
-    if (this.checkBuyPackage() != true) {
-      this.checkBuyPackage();
-    } else {
+    if (this.checkBuyPackage() == false) {
       this.checkToAddProperty();
       this.checkExpiryDate();
-    }
+    } 
 
     //get region
     this.getAllRegion();
@@ -193,7 +189,6 @@ export class AddNewPropertyComponent implements OnInit {
       alertFunction.success("Add New Property", "Successfully added!")
     }
     );
-    this.router.navigateByUrl('/admin/userManage')
   }
 
   uploadImage(propertyId: string) {
@@ -218,13 +213,19 @@ export class AddNewPropertyComponent implements OnInit {
 
   detectFiles(event: any) {
     let files = event.target.files;
+    var maxImage;
+    this.propertyService.getMaxPropertyImage().subscribe(res => {
+      maxImage = res;
+      console.log(res);
+    });
     // Maximum 5 file each news/post
-    if (this.urls.length + files.length > 5) {
-      alertFunction.error("You are only allowed to upload a maximum of 5 files!");
+    console.log(maxImage);
+    if (this.urls.length + files.length > maxImage) {
+      alertFunction.error(`You are only allowed to upload a maximum of ${maxImage} files!`);
     } else {
       if (files) {
-        if (files.length > 5) {
-          alertFunction.error("You are only allowed to upload a maximum of 5 files at a time!");
+        if (files.length > maxImage) {
+          alertFunction.error(`You are only allowed to upload a maximum of ${maxImage} files at a time!`);
         } else {
           for (let file of files) {
             let status = this.imageService.validate(file);
