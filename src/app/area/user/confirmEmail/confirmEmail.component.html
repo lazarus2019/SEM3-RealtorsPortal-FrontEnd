@@ -9,7 +9,7 @@
                     {{errorMessage}}
                 </div>
 
-                <div class="alert alert-success" role="alert">
+                <div *ngIf="showSuccess" class="alert alert-success" role="alert">
                     Your email has been successfully confirmed. Please <a [routerLink]="['/login']">
                         click here to Login. </a>
                 </div>

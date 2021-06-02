@@ -22,7 +22,7 @@ export class AccountService {
     private baseUrl = 'http://localhost:5000/api/account';
 
     constructor(private fb: FormBuilder, private http: HttpClient) { }
-    
+
     SendEmail(mailRequest: MailRequest): Observable<MailRequest> {
         return this.http.post<MailRequest>(this.baseUrl + '/sendEmail', mailRequest, httpOptions);
     }
@@ -51,19 +51,21 @@ export class AccountService {
         return this.http.post(url, resetPassword);
     }
 
-    resendEmailConfirm(registration: Registration){
+    resendEmailConfirm(registration: Registration) {
         return this.http.post<void>(this.baseUrl + '/resendemailconfirm', registration, httpOptions);
     }
 
     roleMatch(allowedRoles): boolean {
         var isMatch = false;
-        var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
-        var userRole = payLoad.role;
+        //var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+        //var userRole = payLoad.role;
+        var userRole = localStorage.getItem('role');
         allowedRoles.forEach(element => {
             if (userRole == element) {
                 isMatch = true;
                 return false;
             }
+
         });
         return isMatch;
     }

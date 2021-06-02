@@ -168,7 +168,7 @@ export class AdminManageMemberComponent implements OnInit {
       if (result.isConfirmed) {
         //update action        
         var userId = localStorage.getItem('userId');
-        this.memberService.updateStatus(member.memberId, userId, member.status).subscribe(() => {
+        this.memberService.updateStatus(member.memberId, member.email, member.status).subscribe(() => {
           Swal.fire({
             icon: 'success',
             title: 'Block successful!',
@@ -194,7 +194,7 @@ export class AdminManageMemberComponent implements OnInit {
       if (result.isConfirmed) {
         //update action        
         var userId = localStorage.getItem('userId');
-        this.memberService.updateStatus(member.memberId, userId, member.status).subscribe(() => {
+        this.memberService.updateStatus(member.memberId, member.email, member.status).subscribe(() => {
           Swal.fire({
             icon: 'success',
             title: 'Unblock successful!',

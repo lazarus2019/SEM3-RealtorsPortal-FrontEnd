@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
@@ -26,10 +27,10 @@ export class ConfirmEmailComponent implements OnInit {
     this.accountService.confirmEmail(token, email).subscribe(() => {
       this.showSuccess = true;
     },
-      error => {
-        this.showError = true;
-        this.errorMessage = error;
-      })
+    (error: HttpErrorResponse) => {
+      this.errorMessage = error.error;
+      this.showError = true;
+    });
   }
 
 }

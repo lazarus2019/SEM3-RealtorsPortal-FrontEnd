@@ -188,11 +188,17 @@ export class UserManagePropertyComponent implements OnInit {
     if (propertyId > 0) {
       this.propertyService.getPropertyById(propertyId).subscribe((property) => {
         this.property = property;
-        this.images = property.images;
+        //this.images = property.images;
+        this.getGallery(propertyId);
       });
     }
   }
 
+  getGallery(propertyId: number) {
+    this.propertyService.getGallery(this.property.propertyId).subscribe(images => {
+      this.images = images;
+    })
+  }
 
   getUrlImage(imageName: string) {
     return this.publicService.getUrlImage("property", imageName);

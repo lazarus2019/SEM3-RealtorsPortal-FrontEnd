@@ -1,24 +1,43 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PropertyService } from 'src/app/services/property.service';
 
 @Component({
   templateUrl: './admin.component.html',
 })
 export class AdminComponent implements OnInit {
-  constructor(private propertyService: PropertyService) {
+  constructor(private propertyService: PropertyService, private router: Router) {
     this.loadScripts();
     this.loadStyle();
   }
 
   count: number;
+  userRole: string;
+
 
   ngOnInit(): void {
     this.propertyService.countPropertyPending().subscribe(count => {
       this.count = count;
     })
+
+    this.userRole = localStorage.getItem('role');
+
   }
 
 
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('role');
+    this.router.navigate(['/login']);
+  }
+
+  authenticated(){
+    if (localStorage.getItem('token') != null)
+      return true;
+    return false;
+  }
 
   // Method to dynamically load JavaScript
   loadScripts() {

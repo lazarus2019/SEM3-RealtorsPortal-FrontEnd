@@ -31,7 +31,7 @@ export class AdminManagePropertyComponent implements OnInit {
     this.loadStyle();
     this.loadScripts();
   }
-  
+
   // Pagination 
   isFilter = false;
 
@@ -108,18 +108,18 @@ export class AdminManagePropertyComponent implements OnInit {
 
   minusPage() {
     this.currentPage--;
-    if(!this.isFilter){
+    if (!this.isFilter) {
       this.getAllPropertyPage(this.currentPage);
-    }else{
+    } else {
       this.searchPage(this.currentPage);
     }
   }
 
   plusPage() {
     this.currentPage++;
-    if(!this.isFilter){
+    if (!this.isFilter) {
       this.getAllPropertyPage(this.currentPage);
-    }else{
+    } else {
       this.searchPage(this.currentPage);
     }
   }
@@ -130,16 +130,16 @@ export class AdminManagePropertyComponent implements OnInit {
     this.searchPage(1);
   }
 
-  executePropertyPerPage(page:number){
+  executePropertyPerPage(page: number) {
     this.currentPage = page;
-    if(!this.isFilter){
+    if (!this.isFilter) {
       this.getAllPropertyPage(this.currentPage);
-    }else{
+    } else {
       this.searchPage(this.currentPage);
     }
   }
 
-  getAllPropertyPage(page: number){
+  getAllPropertyPage(page: number) {
     this.propertyService.getAllPropertyPage(page).subscribe((properties) => {
       this.properties = properties;
     })
@@ -199,15 +199,16 @@ export class AdminManagePropertyComponent implements OnInit {
   onDetails(propertyId: number) {
     this.propertyService.getPropertyById(propertyId).subscribe((property) => {
       this.property = property;
-      this.images = property.images;
-      console.table(this.images);
+      //this.images = property.images;
+      this.getGallery(propertyId);
     });
   }
 
   onCheck(propertyId: number) {
     this.propertyService.getPropertyById(propertyId).subscribe((property) => {
       this.property = property;
-      this.images = property.images;
+      //this.images = this.getGallery(propertyId);
+      this.getGallery(propertyId);
     });
   }
 
@@ -244,6 +245,11 @@ export class AdminManagePropertyComponent implements OnInit {
     return this.publicService.getUrlImage("property", imageName);
   }
 
+  getGallery(propertyId: number) {
+    this.propertyService.getGallery(this.property.propertyId).subscribe(images => {
+      this.images = images;
+    })
+  }
 
   // Method to dynamically load JavaScript
   loadScripts() {

@@ -60,9 +60,9 @@ export class AddNewPropertyComponent implements OnInit {
   public ngOnInit(): void {
     //check to add new property
     if (this.checkBuyPackage() == false) {
+      if (this.checkExpiryDate() != false)
       this.checkToAddProperty();
-      this.checkExpiryDate();
-    } 
+    }
 
     //get region
     this.getAllRegion();
@@ -151,12 +151,11 @@ export class AddNewPropertyComponent implements OnInit {
             this.router.navigateByUrl('/admin/userManage');
           }
         });
-
       }
     })
   }
 
-  checkExpiryDate() {
+  checkExpiryDate(): boolean {
     var userId = localStorage.getItem('userId');
     this.adsPackageService.checkExpiryDate(userId).subscribe(res => {
       if (res == false) {
@@ -176,7 +175,9 @@ export class AddNewPropertyComponent implements OnInit {
           }
         });
       }
+      return true;
     })
+    return false;
   }
 
   createProperty() {
