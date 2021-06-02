@@ -68,7 +68,7 @@
                                     Customer is required</em>
                                 <em class="text-danger"
                                     *ngIf="validateControl('numSatisfiedCustomer') && hasError('numSatisfiedCustomer', 'pattern')">Satisfied
-                                    Customer must be number</em>
+                                    Customer must be number no more than 1000000000</em>
                             </div>
                         </div>
                     </div>
@@ -313,135 +313,135 @@
                                 class="form-control">
                             <div *ngIf="formSettingGroup.get('numMaxImageProperty')?.touched">
                                 <em class="text-danger"
-                                *ngIf="validateControl('numMaxImageProperty') && hasError('numMaxImageProperty', 'required')">Max
-                                Image Property is required</em>
+                                    *ngIf="validateControl('numMaxImageProperty') && hasError('numMaxImageProperty', 'required')">Max
+                                    Image Property is required</em>
                                 <em class="text-danger"
-                                *ngIf="validateControl('numMaxImageProperty') && hasError('numMaxImageProperty', 'pattern')">Max
-                                Image Property must be number</em>
-                            </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <label for="title">Max Image News<span class="text-danger">*</span></label>
-                                <input formControlName="numMaxImageNews" type="text" placeholder="Enter number"
-                                    class="form-control">
-                                    <div *ngIf="formSettingGroup.get('numMaxImageNews')?.touched">
-                                        <em class="text-danger"
-                                        *ngIf="validateControl('numMaxImageNews') && hasError('numMaxImageNews', 'required')">Max
-                                        Image News is required</em>
-                                        <em class="text-danger"
-                                        *ngIf="validateControl('numMaxImageNews') && hasError('numMaxImageNews', 'pattern')">Max
-                                        Image News must be number</em>
-                                    </div>
+                                    *ngIf="validateControl('numMaxImageProperty') && hasError('numMaxImageProperty', 'pattern')">Max
+                                    Image Property must be number</em>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <label for="title">Max Image News<span class="text-danger">*</span></label>
+                            <input formControlName="numMaxImageNews" type="text" placeholder="Enter number"
+                                class="form-control">
+                            <div *ngIf="formSettingGroup.get('numMaxImageNews')?.touched">
+                                <em class="text-danger"
+                                    *ngIf="validateControl('numMaxImageNews') && hasError('numMaxImageNews', 'required')">Max
+                                    Image News is required</em>
+                                <em class="text-danger"
+                                    *ngIf="validateControl('numMaxImageNews') && hasError('numMaxImageNews', 'pattern')">Max
+                                    Image News must be number</em>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="form-group text-right">
-                            <button (click)="updateAdminSetting()" class="btn btn-primary" type="submit">
-                                Save
-                            </button>
-                        </div>
+                    <div class="form-group text-right">
+                        <button (click)="updateAdminSetting()" class="btn btn-primary" type="submit">
+                            Save
+                        </button>
                     </div>
-                    <!-- end card-body -->
                 </div>
-                <!-- end card -->
+                <!-- end card-body -->
             </div>
-            <!-- end col -->
+            <!-- end card -->
         </div>
+        <!-- end col -->
+    </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h3>Category setting</h3>
-                    </div>
-                    <!-- end card-header -->
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-lg-6">
-                                <div class="row mb-3">
-                                    <div class="col-lg-12">
-                                        <label>News Category</label>
-                                        <select (change)="sendNewsCategoryId($event)"
-                                            class="form-control select2 select2-hidden-accessible" id="example1"
-                                            name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                            required="required">
-                                            <ng-container *ngFor="let category of allNewsCategory;">
-                                                <option value="{{category.newsCategoryId}}">{{category.name}}
-                                                </option>
-                                            </ng-container>
-                                        </select>
-                                    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3>Category setting</h3>
+                </div>
+                <!-- end card-header -->
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <label>News Category</label>
+                                    <select (change)="sendNewsCategoryId($event)"
+                                        class="form-control select2 select2-hidden-accessible" id="example1"
+                                        name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                        required="required">
+                                        <ng-container *ngFor="let category of allNewsCategory;">
+                                            <option value="{{category.newsCategoryId}}">{{category.name}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>News Category</label>
-                                        <input type="text" class="form-control mb-3" #newCategoryInput
-                                            placeholder="Enter new category">
-                                        <button (click)="addNewsCategory(newCategoryInput.value)" type="button"
-                                            class="btn btn-primary" data-dismiss="modal">Create</button>
-                                    </div>
-                                    <div class="col-6">
-                                        <label>Edit category</label>
-                                        <input type="text" class="form-control mb-3" #editCategoryInput
-                                            placeholder="Enter new category" [(ngModel)]="oldCategoryName"
-                                            [ngModelOptions]="{standalone: true}">
-                                        <div class="d-flex justify-content-between">
-                                            <button (click)="deleteNewsCategory(newsCategoryId)" type="button"
-                                                class="btn btn-danger" data-dismiss="modal"
-                                                [disabled]="newsCategoryId==0">Delete</button>
-                                            <button (click)="updateNewsCategory(editCategoryInput.value)" type="button"
-                                                class="btn btn-primary" data-dismiss="modal"
-                                                [disabled]="newsCategoryId==0">Update</button>
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>News Category</label>
+                                    <input type="text" class="form-control mb-3" #newCategoryInput
+                                        placeholder="Enter new category">
+                                    <button (click)="addNewsCategory(newCategoryInput.value)" type="button"
+                                        class="btn btn-primary" data-dismiss="modal">Create</button>
+                                </div>
+                                <div class="col-6">
+                                    <label>Edit category</label>
+                                    <input type="text" class="form-control mb-3" #editCategoryInput
+                                        placeholder="Enter new category" [(ngModel)]="oldCategoryName"
+                                        [ngModelOptions]="{standalone: true}">
+                                    <div class="d-flex justify-content-between">
+                                        <button (click)="deleteNewsCategory(newsCategoryId)" type="button"
+                                            class="btn btn-danger" data-dismiss="modal"
+                                            [disabled]="newsCategoryId==0">Delete</button>
+                                        <button (click)="updateNewsCategory(editCategoryInput.value)" type="button"
+                                            class="btn btn-primary" data-dismiss="modal"
+                                            [disabled]="newsCategoryId==0">Update</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="row mb-3">
-                                    <div class="col-lg-12">
-                                        <label>Property Category</label>
-                                        <select (change)="sendPropertyCategoryId($event)"
-                                            class="form-control select2 select2-hidden-accessible" id="example1"
-                                            name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
-                                            required="required">
-                                            <ng-container *ngFor="let propertyCategory of allPropertyCategory;">
-                                                <option value="{{propertyCategory.categoryId}}">
-                                                    {{propertyCategory.name}}
-                                                </option>
-                                            </ng-container>
-                                        </select>
-                                    </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <label>Property Category</label>
+                                    <select (change)="sendPropertyCategoryId($event)"
+                                        class="form-control select2 select2-hidden-accessible" id="example1"
+                                        name="state" data-select2-id="example1" tabindex="-1" aria-hidden="true"
+                                        required="required">
+                                        <ng-container *ngFor="let propertyCategory of allPropertyCategory;">
+                                            <option value="{{propertyCategory.categoryId}}">
+                                                {{propertyCategory.name}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>Property Category</label>
-                                        <input type="text" class="form-control mb-3" #propertyCategoryInput
-                                            placeholder="Enter property category">
-                                        <button (click)="addPropertyCategory(propertyCategoryInput.value)" type="button"
-                                            class="btn btn-primary" data-dismiss="modal">Create</button>
-                                    </div>
-                                    <div class="col-6">
-                                        <label>Property category</label>
-                                        <input type="text" class="form-control mb-3" #editPropertyCategoryInput
-                                            placeholder="Enter property category" [(ngModel)]="oldPropertyName"
-                                            [ngModelOptions]="{standalone: true}">
-                                        <div class="d-flex justify-content-between">
-                                            <button (click)="deletePropertyCategory(propertyCategoryId)" type="button"
-                                                class="btn btn-danger" data-dismiss="modal"
-                                                [disabled]="propertyCategoryId==0">Delete</button>
-                                            <button (click)="updatePropertyCategory(editPropertyCategoryInput.value)"
-                                                type="button" class="btn btn-primary" data-dismiss="modal"
-                                                [disabled]="propertyCategoryId==0">Update</button>
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Property Category</label>
+                                    <input type="text" class="form-control mb-3" #propertyCategoryInput
+                                        placeholder="Enter property category">
+                                    <button (click)="addPropertyCategory(propertyCategoryInput.value)" type="button"
+                                        class="btn btn-primary" data-dismiss="modal">Create</button>
+                                </div>
+                                <div class="col-6">
+                                    <label>Property category</label>
+                                    <input type="text" class="form-control mb-3" #editPropertyCategoryInput
+                                        placeholder="Enter property category" [(ngModel)]="oldPropertyName"
+                                        [ngModelOptions]="{standalone: true}">
+                                    <div class="d-flex justify-content-between">
+                                        <button (click)="deletePropertyCategory(propertyCategoryId)" type="button"
+                                            class="btn btn-danger" data-dismiss="modal"
+                                            [disabled]="propertyCategoryId==0">Delete</button>
+                                        <button (click)="updatePropertyCategory(editPropertyCategoryInput.value)"
+                                            type="button" class="btn btn-primary" data-dismiss="modal"
+                                            [disabled]="propertyCategoryId==0">Update</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- end card-body -->
                 </div>
-                <!-- end card -->
+                <!-- end card-body -->
             </div>
-            <!-- end col -->
+            <!-- end card -->
         </div>
+        <!-- end col -->
+    </div>
 </form>

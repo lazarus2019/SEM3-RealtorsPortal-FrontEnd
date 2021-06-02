@@ -89,7 +89,7 @@ export class SettingComponent implements OnInit {
       numNews: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1), Validators.max(10)]],
       numPopularAgent: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1), Validators.max(10)]],
       numProperty: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1), Validators.max(10)]],
-      numSatisfiedCustomer: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1)]],
+      numSatisfiedCustomer: ['', [Validators.required, Validators.pattern("[0-9]{1,10}"), Validators.min(1)]],
       numMaxImageProperty: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1)]],
       numMaxImageNews: ['', [Validators.required, Validators.pattern("[0-9]"), Validators.min(1)]],
       phone: "0000000000",
