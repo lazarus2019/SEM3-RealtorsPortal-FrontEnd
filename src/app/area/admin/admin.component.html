@@ -15,31 +15,22 @@
 
             <ul class="list-inline float-right mb-0">
 
-                <li class="list-inline-item dropdown notif">
-                    <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" aria-haspopup="false"
-                        aria-expanded="false">
-                        <img src="assets/images/avatars/admin.png" alt="Profile image" class="avatar-rounded">
+                <li class="list-inline-item dropdown notif user-hover">
+                    <a class="nav-link dropdown-toggle nav-user">
+                        <img [src]="getUrlImage(currentMember.photo)" alt="Profile image" class="avatar-rounded">
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                        <!-- item-->
+
+                    <div class="dropdown-menu dropdown-menu-right profile-dropdown"
+                        style="will-change: transform; position: absolute; transform: translate3d(-109px, 50px, 0px); top: 0px; left: 0px;"
+                        x-placement="bottom-end">
                         <div class="dropdown-item noti-title">
-                            <h5 class="text-overflow">
-                                <small>Hello, {{currentMember.username}}</small>
-                            </h5>
+                            <h5 class="text-overflow"><small>Hello, {{currentMember.username}}</small></h5>
                         </div>
-
-                        <!-- item-->
-                        <a [routerLink]="['/admin/profile']" class="dropdown-item notify-item">
-                            <i class="fas fa-user"></i>
-                            <span>Profile</span>
-                        </a>
-
-                        <!-- item-->
-                        <a (click)="logout()" class="dropdown-item notify-item">
-                            <i class="fas fa-power-off"></i>
-                            <span>Logout</span>
-                        </a>
+                        <a [routerLink]="['/admin/profile']" class="dropdown-item notify-item"><i
+                                class="fas fa-user"></i><span>Profile</span></a>
+                        <a (click)="logout()" class="dropdown-item notify-item" style="cursor: pointer;"><i class="fas fa-power-off"></i><span>Logout</span></a>
                     </div>
+
                 </li>
 
             </ul>
@@ -72,14 +63,14 @@
                         </a>
                     </li>
 
-                    <li class="submenu">
+                    <li class="submenu" *ngIf="userRole == 'SuperAdmin'">
                         <a [routerLink]="['/admin/manageMember']">
                             <i class="fas fa-users"></i>
                             <span> Members </span>
                         </a>
                     </li>
 
-                    <li class="submenu">
+                    <li class="submenu" *ngIf="userRole == 'SuperAdmin' || userRole == 'Admin'">
                         <a [routerLink]="['/admin/mailbox']">
                             <ng-container *ngIf="unReadMailBox !== 0">
                                 <span class="label radius-circle bg-danger float-right">{{unReadMailBox}}</span>
@@ -90,15 +81,23 @@
                     </li>
 
 
-                    <li class="submenu">
+                    <li class="submenu" *ngIf="userRole == 'SuperAdmin'">
                         <a [routerLink]="['/admin/manageInvoiceAdPackage']">
                             <i class="fab fa-wpforms"></i>
                             <span> Admin Invoices </span>
                         </a>
-        
+
                     </li>
 
-                    <li class="submenu">
+                    <li class="submenu" *ngIf="userRole == 'SuperAdmin'">
+                        <a [routerLink]="['/admin/adminManage']">
+                            <span class="label radius-circle bg-danger float-right">{{count}} new</span>
+                            <i class="fas fa-envelope"></i>
+                            <span> Manage Property</span>
+                        </a>
+                    </li>
+
+                    <li class="submenu" *ngIf="userRole == 'Admin'">
                         <a>
                             <i class="fas fa-building"></i>
                             <span> Property </span>
@@ -106,58 +105,51 @@
                         </a>
                         <ul class="list-unstyled">
                             <li>
-                                <a [routerLink]="['/admin/adminManage']">Manage Property (Admin)</a>
+                                <a [routerLink]="['/admin/userManage']">Manage Property</a>
                             </li>
                             <li>
-                                <a [routerLink]="['/admin/userManage']">Manage Property (User)</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="['/admin/addNew']">Add New Property</a>
+                                <a [routerLink]="['/admin/addProperty']">Add New Property</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="submenu">
-                        <a>
-                            <i class="fas fa-th-list"></i>
-                            <span> Ads Package </span>
-                            <span class="menu-arrow"></span>
+                    <li class="submenu" *ngIf="userRole == 'SuperAdmin'">
+                        <a [routerLink]="['/admin/manageAdPackage']">
+                            <i class="fas fa-envelope"></i>
+                            <span> Manage Ad Package</span>
                         </a>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a [routerLink]="['/admin/manageAdPackage']">Manage</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="['/admin/adPackage']">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    <span> Upgrade </span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
-                    <li class="submenu">
+                    <li class="submenu" *ngIf="userRole == 'Admin'">
+                        <a [routerLink]="['/admin/adPackage']">
+                            <i class="fas fa-envelope"></i>
+                            <span> Ad Package</span>
+                        </a>
+                    </li>
+
+
+                    <li class="submenu" *ngIf="userRole == 'SuperAdmin'">
                         <a [routerLink]="['/admin/manageNews']">
                             <i class="fas fa-file-alt"></i>
                             <span>Manage News </span>
                         </a>
                     </li>
 
-                    <li class="submenu">
+                    <li class="submenu" *ngIf="userRole == 'SuperAdmin'">
                         <a [routerLink]="['/admin/faq']">
                             <i class="fas fa-question-circle"></i>
                             <span> FAQ </span>
                         </a>
                     </li>
 
-                    <li class="submenu">
+                    <li class="submenu" *ngIf="userRole == 'SuperAdmin'">
                         <a [routerLink]="['/admin/reports']">
                             <i class="fas fa-chart-bar"></i>
                             <span> Reports </span>
                         </a>
                     </li>
 
-                    <li class="submenu">
+                    <li class="submenu" *ngIf="userRole == 'SuperAdmin'">
                         <a [routerLink]="['/admin/setting']">
                             <i class="fas fa-cogs"></i>
                             <span> Setting </span>

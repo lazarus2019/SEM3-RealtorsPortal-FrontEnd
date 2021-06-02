@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MemberAPI } from 'src/app/models/member/member.model';
 import { MailBoxAPIService } from 'src/app/services/admin/mailbox/mailboxAPI.service';
 import { MemberAPIService } from 'src/app/services/member/memberAPI.service';
+import { PublicService } from 'src/app/services/publicService.service';
 
 // Declare custom function
 declare var alertFunction: any;
@@ -18,11 +19,16 @@ export class AdminComponent implements OnInit {
 
   resultMemberAPI: MemberAPI[] = [];
 
+  userRole:string = "SuperAdmin";
+
+  count:number = 2;
+
   constructor(
     private router:Router,
     // Declare services
     private mailboxAPIService: MailBoxAPIService,
-    private memberAPIService: MemberAPIService
+    private memberAPIService: MemberAPIService,
+    private publicService: PublicService,
   ) {
     this.loadScripts();
     this.loadStyle();
@@ -77,6 +83,10 @@ export class AdminComponent implements OnInit {
         alertFunction.error("Can not get mailbox!");
       }
     )
+  }
+
+  getUrlImage(imageName: string) {
+    return this.publicService.getUrlImage("member", imageName);
   }
 
   // Method to dynamically load JavaScript
