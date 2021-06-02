@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { FAQAPI } from 'src/app/models/faq/faq.model';
 import { FAQAPIService } from 'src/app/services/admin/faq/faqAPI.service';
+import Swal from 'sweetalert2';
 
 // Declare custom function
 declare var alertFunction: any;
@@ -120,15 +121,33 @@ export class AdminFAQComponent implements OnInit {
   }
 
   deleteFAQ(faqId: number){
-    this.faqService.deleteFAQ(faqId).then(
-      res=>{
-        alertFunction.success("Your FAQ had been deleted!");
-        this.getAllFAQ();
-      },
-      err =>{
-        alertFunction.error("Can not delete this FAQ!");
-      }
-    )
+    Swal.fire({
+      title: 'Delete news!',
+      text: 'Are you sure you want to delete this news?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //delete action
+        this.faqService.deleteFAQ(faqId).then(
+          res=>{
+            Swal.fire({
+              icon: 'success',
+              title: 'Delete successful!',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            this.getAllFAQ();
+          },
+          err =>{
+            alertFunction.error("Can not delete this FAQ!");
+          }
+        )
+      };
+    });
+
   }
 
   updateFAQ(faqId:number){

@@ -96,6 +96,14 @@ export class AdminEditNewsComponent implements OnInit {
     });
   }
 
+  public hasError = (controlName: string, errorName: string) => {
+    return this.formEditNewsGroup.controls[controlName].hasError(errorName)
+  }
+
+  public validateControl = (controlName: string) => {
+    return this.formEditNewsGroup.controls[controlName].invalid && this.formEditNewsGroup.controls[controlName].touched
+  }
+
 
   ngAfterViewInit() {
     // This array contains all the files/CDNs
@@ -143,7 +151,7 @@ export class AdminEditNewsComponent implements OnInit {
   }
 
   updateNews() {
-    if (this.imageForm.length + this.urls.length > 0) {
+    if (this.galleryNews.length + this.urls.length > 0) {
       var news: NewsOrgAPI = this.formEditNewsGroup.value;
       news.description = getTinyMCEContent();
       news.newsId = this.newsId;
@@ -158,25 +166,29 @@ export class AdminEditNewsComponent implements OnInit {
           alertFunction.error("Please try again!")
         }
       )
-    }else{
+    } else {
       alertFunction.error("Must have at least 1 photo in your post!");
     }
   }
 
   addNewsCategory(categoryName: string) {
-    var myCategory: NewsCategoryAPI = new NewsCategoryAPI;
-    myCategory.name = categoryName;
-    myCategory.isShow = true;
-    this.newsCategoryAPIService.createNewsCategory(myCategory).then(
-      res => {
-        this.newCategoryId = res;
-        this.loadAllNewsCategory();
-        alertFunction.success("Your new category had saved!")
-      },
-      err => {
-        alertFunction.error("Can not create new category!")
-      }
-    )
+    if (categoryName.trim.length > 5) {
+      var myCategory: NewsCategoryAPI = new NewsCategoryAPI;
+      myCategory.name = categoryName;
+      myCategory.isShow = true;
+      this.newsCategoryAPIService.createNewsCategory(myCategory).then(
+        res => {
+          this.newCategoryId = res;
+          this.loadAllNewsCategory();
+          alertFunction.success("Your new category had saved!")
+        },
+        err => {
+          alertFunction.error("Can not create new category!")
+        }
+      )
+    } else {
+      alertFunction.error("category name must at least 5 characters!")
+    }
   }
 
   detectFiles(event: any) {

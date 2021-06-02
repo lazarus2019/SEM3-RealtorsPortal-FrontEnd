@@ -16,6 +16,14 @@
                                         <input formControlName="title" type="text" name="title"
                                             data-parsley-trigger="change" required placeholder="Enter title"
                                             class="form-control" minlength="6">
+                                            <div *ngIf="formAddNewGroup.get('title')?.touched">
+                                                <div class="text-danger" *ngIf="formAddNewGroup.hasError('required', ['title'])">
+                                                    This field is required.
+                                                </div>
+                                                <div class="text-danger" *ngIf="formAddNewGroup.hasError('minlength', ['title'])">
+                                                    Please enter at least 5 characters.
+                                                </div>            
+                                            </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="d-flex justify-content-between">
@@ -46,10 +54,10 @@
                             </div>
 
                             <div class="form-group text-right m-b-0">
-                                <button class="btn btn-primary mr-2" type="submit" (click)="addNews('draft')">
+                                <button class="btn btn-primary mr-2" type="submit" (click)="addNews('draft')" [disabled]="formAddNewGroup.invalid">
                                     Save Draft
                                 </button>
-                                <button class="btn btn-primary" type="button" (click)="addNews('public')">
+                                <button class="btn btn-primary" type="button" (click)="addNews('public')" [disabled]="formAddNewGroup.invalid">
                                     Save & Public
                                 </button>
                                 <!-- <button class="btn btn-primary click-success" type="submit">

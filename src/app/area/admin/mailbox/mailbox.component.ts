@@ -3,6 +3,8 @@ import { MailBoxAPIService } from './../../../services/admin/mailbox/mailboxAPI.
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { MemberAPI } from 'src/app/models/member/member.model';
+import { MemberAPIService } from 'src/app/services/member/memberAPI.service';
 
 // Declare custom function
 declare var alertFunction: any;
@@ -22,17 +24,23 @@ export class AdminMailBoxComponent implements OnInit {
 
   formSearchMailbox: FormGroup = new FormGroup({});
 
+  resultMemberAPI: MemberAPI[] = [];
+
+  currentMember: MemberAPI = new MemberAPI;
+
+  roleMember: string;
+
   constructor(
     // Declare form builder
     private formBuilder: FormBuilder,
 
-    private mailboxAPIService: MailBoxAPIService
+    private mailboxAPIService: MailBoxAPIService,
+    private memberAPIService: MemberAPIService
   ) { }
 
   ngOnInit() {
 
-    this.getMailboxByMemberId();
-    this.getAmountMailboxUnread();
+    this.findUser();
 
     this.formSearchMailbox = this.formBuilder.group({
       status: "all",
@@ -41,10 +49,49 @@ export class AdminMailBoxComponent implements OnInit {
 
   }
 
-  getMailboxByMemberId() {
-    this.mailboxAPIService.getMailboxByMemberId(1).then(
+  findUser() {
+    var userId = localStorage.getItem('userId');
+    this.roleMember = localStorage.getItem('role');
+    this.memberAPIService.findUser(userId).then(
       res => {
-        this.listMailbox = res;
+        this.resultMemberAPI = res;
+        this.currentMember = this.resultMemberAPI[0];
+        this.getMailboxByMemberId(this.currentMember.memberId);
+      },
+      err => {
+        alertFunction.error("Cant not get your profile!");
+      }
+    )
+  }
+
+  getMailboxByMemberId(memberId: number) {
+    if (this.roleMember.toLowerCase() == "superadmin") {
+      this.mailboxAPIService.getMailboxAdmin().then(
+        res => {
+          this.listMailbox = res;
+          this.getAmountMailboxAdminUnread();
+        },
+        err => {
+          alertFunction.error("Can not get mailbox!");
+        }
+      )
+    } else {
+      this.mailboxAPIService.getMailboxByMemberId(memberId).then(
+        res => {
+          this.listMailbox = res;
+          this.getAmountMailboxUnread(memberId);
+        },
+        err => {
+          alertFunction.error("Can not get mailbox!");
+        }
+      )
+    }
+  }
+
+  getAmountMailboxUnread(memberId: number) {
+    this.mailboxAPIService.getAmountMailboxUnread(memberId).then(
+      res => {
+        this.unReadMailBox = res;
       },
       err => {
         alertFunction.error("Can not get mailbox!");
@@ -52,8 +99,8 @@ export class AdminMailBoxComponent implements OnInit {
     )
   }
 
-  getAmountMailboxUnread() {
-    this.mailboxAPIService.getAmountMailboxUnread(1).then(
+  getAmountMailboxAdminUnread() {
+    this.mailboxAPIService.getAmountMailboxAdminUnread().then(
       res => {
         this.unReadMailBox = res;
       },
@@ -70,6 +117,11 @@ export class AdminMailBoxComponent implements OnInit {
         this.mailboxAPIService.readMailbox(mailboxId).then(
           res => {
             this.listMailbox[index].isRead = true;
+            if (this.roleMember.toLowerCase() == "superadmin") {
+              this.getAmountMailboxAdminUnread();
+            } else {
+              this.getAmountMailboxUnread(this.currentMember.memberId);
+            }
           },
           err => {
             alertFunction.error("Can not change mailbox status!");
@@ -92,14 +144,26 @@ export class AdminMailBoxComponent implements OnInit {
     var sortDate = this.formSearchMailbox.get("sortDate")?.value;
     var status = this.formSearchMailbox.get("status")?.value
 
-    this.mailboxAPIService.filterMail(1, sortDate, status).then(
-      res => {
-        this.listMailbox = res;
-      },
-      err => {
-        alertFunction.error("Can not filter your options!");
-      }
-    )
+    if (this.roleMember.toLowerCase() == "superadmin") {
+      this.mailboxAPIService.filterMailAdmin(sortDate, status).then(
+        res => {
+          this.listMailbox = res;
+        },
+        err => {
+          alertFunction.error("Can not filter your options!");
+        }
+      )
+    } else {
+      this.mailboxAPIService.filterMail(this.currentMember.memberId, sortDate, status).then(
+        res => {
+          this.listMailbox = res;
+        },
+        err => {
+          alertFunction.error("Can not filter your options!");
+        }
+      )
+    }
+
   }
 
   deleteMailbox(mailboxId: number) {
@@ -121,7 +185,7 @@ export class AdminMailBoxComponent implements OnInit {
               showConfirmButton: false,
               timer: 2000
             });
-            this.getMailboxByMemberId();
+            this.getMailboxByMemberId(this.currentMember.memberId);
           },
           err => {
             alertFunction.error("Can not delete mailbox!");

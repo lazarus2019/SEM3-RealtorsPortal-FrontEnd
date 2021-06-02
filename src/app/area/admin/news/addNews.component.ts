@@ -75,6 +75,14 @@ export class AdminNewsComponent implements OnInit {
     });
   }
 
+  public hasError = (controlName: string, errorName: string) => {
+    return this.formAddNewGroup.controls[controlName].hasError(errorName)
+  }
+
+  public validateControl = (controlName: string) => {
+    return this.formAddNewGroup.controls[controlName].invalid && this.formAddNewGroup.controls[controlName].touched
+  }
+
 
   loadScripts() {
     // This array contains all the files/CDNs
@@ -159,19 +167,24 @@ export class AdminNewsComponent implements OnInit {
   }
 
   addNewsCategory(categoryName: string) {
-    var myCategory: NewsCategoryAPI = new NewsCategoryAPI;
-    myCategory.name = categoryName;
-    myCategory.isShow = true;
-    this.newsCategoryAPIService.createNewsCategory(myCategory).then(
-      res => {
-        this.newCategoryId = res;
-        this.loadAllNewsCategory();        
-        alertFunction.success("Your new category had saved!")
-      },
-      err => {
-        alertFunction.error("Can not create new category!")
-      }
-    )
+    if(categoryName.trim.length > 5){
+      var myCategory: NewsCategoryAPI = new NewsCategoryAPI;
+      myCategory.name = categoryName;
+      myCategory.isShow = true;
+      this.newsCategoryAPIService.createNewsCategory(myCategory).then(
+        res => {
+          this.newCategoryId = res;
+          this.loadAllNewsCategory();        
+          alertFunction.success("Your new category had saved!")
+        },
+        err => {
+          alertFunction.error("Can not create new category!")
+        }
+      )
+    }else{
+      alertFunction.error("category name must at least 5 characters!")
+    }
+
   }
 
   // FUNCTION UPLOAD GALLERY START

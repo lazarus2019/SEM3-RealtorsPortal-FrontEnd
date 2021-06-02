@@ -312,18 +312,22 @@ export class SettingComponent implements OnInit {
   // News Category Start
 
   addNewsCategory(categoryName: string) {
-    var myCategory: NewsCategoryAPI = new NewsCategoryAPI;
-    myCategory.name = categoryName;
-    myCategory.isShow = true;
-    this.newsCategoryAPIService.createNewsCategory(myCategory).then(
-      res => {
-        this.loadAllNewsCategory();
-        alertFunction.success("Your new category had saved!")
-      },
-      err => {
-        alertFunction.error("Can not create new category!")
-      }
-    )
+    if (categoryName.trim.length > 5) {
+      var myCategory: NewsCategoryAPI = new NewsCategoryAPI;
+      myCategory.name = categoryName;
+      myCategory.isShow = true;
+      this.newsCategoryAPIService.createNewsCategory(myCategory).then(
+        res => {
+          this.loadAllNewsCategory();
+          alertFunction.success("Your new category had saved!")
+        },
+        err => {
+          alertFunction.error("Can not create new category!")
+        }
+      )
+    } else {
+      alertFunction.error("category name must at least 5 characters!")
+    }
   }
 
   deleteNewsCategory(newsCategoryId: number) {
@@ -392,18 +396,22 @@ export class SettingComponent implements OnInit {
   // Property Category Start
 
   addPropertyCategory(categoryName: string) {
-    var myCategory: Category = new Category;
-    myCategory.name = categoryName;
-    myCategory.isShow = true;
-    this.categoryService.createCategory(myCategory).then(
-      res => {
-        this.getAllCategory();
-        alertFunction.success("Your new category had saved!")
-      },
-      err => {
-        alertFunction.error("Can not create new category!")
-      }
-    )
+    if (categoryName.trim.length > 5) {
+      var myCategory: Category = new Category;
+      myCategory.name = categoryName;
+      myCategory.isShow = true;
+      this.categoryService.createCategory(myCategory).then(
+        res => {
+          this.getAllCategory();
+          alertFunction.success("Your new category had saved!")
+        },
+        err => {
+          alertFunction.error("Can not create new category!")
+        }
+      )
+    } else {
+      alertFunction.error("category name must at least 5 characters!")
+    }
   }
 
   deletePropertyCategory(newsCategoryId: number) {
@@ -440,7 +448,7 @@ export class SettingComponent implements OnInit {
   updatePropertyCategory(categoryName: string) {
     var updateCategory: Category = new Category;
     updateCategory.name = categoryName;
-    updateCategory.categoryId = this.newsCategoryId;
+    updateCategory.categoryId = this.propertyCategoryId;
     this.categoryService.updateCategory(updateCategory).then(
       res => {
         alertFunction.success("Your change had saved!");

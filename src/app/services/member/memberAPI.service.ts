@@ -1,8 +1,16 @@
 import { ResetPassword } from 'src/app/shared/forgotPassword.model';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { MemberAPI } from "src/app/models/member/member.model";
+import { Registration } from 'src/app/shared/registration.model';
+import { LoginRequest } from 'src/app/shared/login.model';
+
+const httpOptions = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+    })
+}
 
 @Injectable()
 export class MemberAPIService {
@@ -25,13 +33,13 @@ export class MemberAPIService {
             .then(res => res);
     }
 
-    findMember(memberId: number){
+    findMember(memberId: number) {
         return this.http.get(this.BASE_URL + "findMember/" + memberId)
             .toPromise()
             .then(res => res as MemberAPI[]);
     }
 
-    findUser(userId: string){
+    findUser(userId: string) {
         return this.http.get(this.BASE_URL + "findUser/" + userId)
             .toPromise()
             .then(res => res as MemberAPI[]);
@@ -48,9 +56,9 @@ export class MemberAPIService {
             .toPromise()
             .then(res => res);
     }
-
-    checkPasswordDB(memberId: number, password: string) {
-        return this.http.put(this.BASE_URL + "checkPasswordDB/" + memberId, password)
+    
+    checkPasswordDB(loginRequest: LoginRequest) {
+        return this.http.post(this.BASE_URL_ACCOUNT + 'CheckPasswordDB', loginRequest, httpOptions)
             .toPromise()
             .then(res => res);
     }

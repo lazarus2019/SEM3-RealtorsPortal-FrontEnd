@@ -104,7 +104,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" [value]="currentMailbox?.email" readonly #emailContact>
                             <div class="input-group-append">
-                                <span (click)="copyContact(emailContact)" class="input-group-text bg-primary" style="color:#fff">Copy</span>
+                                <span (click)="copyContact(emailContact)" class="input-group-text bg-primary" style="color:#fff; cursor: pointer;">Copy</span>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" [value]="currentMailbox?.phone" readonly #phoneContact>
                             <div class="input-group-append">
-                                <span (click)="copyContact(phoneContact)" class="input-group-text bg-primary" style="color:#fff">Copy</span>
+                                <span (click)="copyContact(phoneContact)" class="input-group-text bg-primary" style="color:#fff; cursor: pointer;">Copy</span>
                             </div>
                         </div>
                     </div>
@@ -120,12 +120,11 @@
             </div>
             <div class="modal-footer d-flex justify-content-between">
                 <div class="form-group">
-                    <button class="btn btn-primary" [routerLink]="['/user/single-property', {propertyId: currentMailbox?.propertyId}]">
-                            View Property
-                        </button>
-                    <button class="btn btn-primary">
-                            View Property
-                        </button>
+                    <ng-component *ngIf="roleMember!=='SuperAdmin'">
+                        <button class="btn btn-primary" [routerLink]="['/user/single-property', {propertyId: currentMailbox?.propertyId}]">
+                                View Property
+                            </button>
+                    </ng-component>
                 </div>
                 <div class="form-group">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

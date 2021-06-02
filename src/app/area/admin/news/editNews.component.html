@@ -15,6 +15,14 @@
                                         <label for="title">Title<span class="text-danger">*</span></label>
                                         <input formControlName="title" type="text"
                                             placeholder="Enter title" name="title" class="form-control">
+                                            <div *ngIf="formEditNewsGroup.get('title')?.touched">
+                                                <div class="text-danger" *ngIf="formEditNewsGroup.hasError('required', ['title'])">
+                                                    This field is required.
+                                                </div>
+                                                <div class="text-danger" *ngIf="formEditNewsGroup.hasError('minlength', ['title'])">
+                                                    Please enter at least 5 characters.
+                                                </div>            
+                                            </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="d-flex justify-content-between">
@@ -85,11 +93,11 @@
                     </div>
 
                     <div class="form-group text-right m-b-0">
-                        <button class="btn btn-primary mr-2" type="submit" (click)="updateNews()">
+                        <button class="btn btn-primary mr-2" type="submit" (click)="updateNews()" [disabled]="formEditNewsGroup.invalid">
                             Update
                         </button>
                         <ng-container *ngIf="currentNews.status!='public'">
-                            <button class="btn btn-primary" type="submit" (click)="updateNews()">
+                            <button class="btn btn-primary" type="submit" (click)="updateNews()" [disabled]="formEditNewsGroup.invalid">
                                 Save draft
                             </button>
                         </ng-container>

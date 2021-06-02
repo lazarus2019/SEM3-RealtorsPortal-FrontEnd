@@ -53,25 +53,34 @@
                         <label for="exampleInputEmail1">Phone</label>
                         <input formControlName="phone" type="text" class="form-control" aria-describedby="fullName"
                             placeholder="Enter phone" required="">
+                        <div *ngIf="formMemberGroup.get('phone')?.touched">
                             <em class="text-danger"
                                 *ngIf="validateControl('phone') && hasError('phone', 'required')">Phone is required</em>
                             <em class="text-danger"
-                                *ngIf="validateControl('phone') && hasError('phone', 'pattern')">Phone must be number, 8-12 characters</em>
+                                *ngIf="validateControl('phone') && hasError('phone', 'pattern')">Phone must be number,
+                                8-12 characters</em>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Description</label>
                         <textarea formControlName="description" name="" id="" cols="30" rows="10"
                             class="form-control"></textarea>
+                        <div *ngIf="formMemberGroup.get('description')?.touched">
                             <em class="text-danger"
-                                *ngIf="validateControl('description') && hasError('description', 'required')">Description is required</em>
+                                *ngIf="validateControl('description') && hasError('description', 'required')">Description
+                                is required</em>
                             <em class="text-danger"
-                                *ngIf="validateControl('description') && hasError('description', 'maxLength')">Maximum 2000 characters</em>
+                                *ngIf="validateControl('description') && hasError('description', 'maxLength')">Maximum
+                                2000 characters</em>
                             <em class="text-danger"
-                                *ngIf="validateControl('description') && hasError('description', 'minLength')">At least 10 characters</em>
+                                *ngIf="validateControl('description') && hasError('description', 'minLength')">At least
+                                10 characters</em>
+                        </div>
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary" [disabled]="formMemberGroup.invalid">Update</button>
+                        <button type="submit" class="btn btn-primary"
+                            [disabled]="formMemberGroup.invalid">Update</button>
                         <!-- <ng-container *ngIf="currentMember.roleId==1;">
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#changePasswordSendMail">Email Password</button>
@@ -102,20 +111,45 @@
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Old Password</label>
                         <input formControlName="oldPassword" type="password" class="form-control" required>
+                        <div *ngIf="formPasswordGroup.get('oldPassword')?.touched">
+                            <em class="text-danger"
+                                *ngIf="validateControlPassword('oldPassword') && hasErrorPassword('oldPassword', 'required')">Password
+                                is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControlPassword('oldPassword') && hasErrorPassword('oldPassword', 'pattern')">Only
+                                include number, letter and special character @#$%, 6-20</em>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">New Password</label>
                         <input formControlName="newPassword" type="password" class="form-control" required
                             aria-describedby="newPassword">
+                        <div *ngIf="formPasswordGroup.get('newPassword')?.touched">
+                            <em class="text-danger"
+                                *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'required')">New
+                                Password is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'pattern')">Only
+                                include number, letter and special character @#$%, 6-20</em>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Confirm Password</label>
                         <input formControlName="confirmPassword" type="password" class="form-control" required
                             aria-describedby="confirmPassword">
+                        <div *ngIf="formPasswordGroup.get('newPassword')?.touched">
+                            <em class="text-danger"
+                                *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'required')">Confirm
+                                Password is required</em>
+                            <em class="text-danger"
+                                *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'pattern')">Only
+                                include number, letter and special character @#$%, 6-20</em>
+                        </div>
                     </div>
                     <div class="form-group d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" (click)="changePassword()">Save changes</button>
+                        <button type="button" class="btn btn-primary" (click)="changePassword()"
+                        [disabled]="formPasswordGroup.invalid">Save changes</button>
                     </div>
                 </form>
             </div>

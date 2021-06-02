@@ -17,14 +17,31 @@ export class MailBoxAPIService {
             .then(res => res as mailboxAPI[])
     }
 
+    getMailboxAdmin(){
+        return this.http.get(this.BASE_URL + "getMailboxAdmin")
+            .toPromise()
+            .then(res => res as mailboxAPI[])
+    }
+
     filterMail(memberId:number, sortDate:string, status:string){
         return this.http.get(`${this.BASE_URL}filterMail/${memberId}/${sortDate}/${status}` )
             .toPromise()
             .then(res => res as mailboxAPI[])
     }
 
+    filterMailAdmin(sortDate:string, status:string){
+        return this.http.get(`${this.BASE_URL}filterMailAdmin/${sortDate}/${status}` )
+            .toPromise()
+            .then(res => res as mailboxAPI[])
+    }
+
     getAmountMailboxUnread(memberId:number){
         return this.http.get(this.BASE_URL + "getAmountMailboxUnread/" + memberId)
+            .toPromise()
+            .then(res => res as number)
+    }
+    getAmountMailboxAdminUnread(){
+        return this.http.get(this.BASE_URL + "getAmountMailboxAdminUnread")
             .toPromise()
             .then(res => res as number)
     }

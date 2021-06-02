@@ -34,13 +34,23 @@ a {
     font-style: italic;
 }
 
+blockquote {
+    border-left: 1px solid #636363;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.4;
+    margin: 40px 10%;
+    padding: 10px 20px;
+}
+
 /* Preview Image */
 
 .image-box {
     width: 100%;
     height: 200px;
     overflow: hidden;
-    vertical-align: middle;    
+    vertical-align: middle;
 }
 
 .remove-image {
@@ -53,13 +63,13 @@ a {
     display: none;
 }
 
-.image-box:hover .remove-image{
-    display:block;
+.image-box:hover .remove-image {
+    display: block;
 }
 
 .preview-image {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     justify-content: center;
     padding: 5px;
     width: 100%;
@@ -931,6 +941,12 @@ body.adminbody .main-sidebar.left {
 .nav-user {
     padding: 0 12px!important
 }
+
+.user-hover:hover .dropdown-menu{
+    display: block;
+}
+
+
 
 .nav-user img {
     height: 36px;

@@ -6,6 +6,7 @@ import { ImageService } from 'src/app/services/admin/image/imageService.service'
 import { PublicService } from 'src/app/services/publicService.service';
 import { ResetPassword } from 'src/app/shared/forgotPassword.model';
 import { Registration } from 'src/app/shared/registration.model';
+import { LoginRequest } from 'src/app/shared/login.model';
 
 // Declare Func custom
 declare var alertFunction: any;
@@ -25,8 +26,6 @@ export class ProfileComponent implements OnInit {
   formMemberGroup: FormGroup = new FormGroup({});
 
   formPasswordGroup: FormGroup = new FormGroup({});
-
-  formEmailPasswordGroup: FormGroup = new FormGroup({});
 
   fileUpload: FormData[] = [];
 
@@ -58,15 +57,9 @@ export class ProfileComponent implements OnInit {
     });
 
     this.formPasswordGroup = this.formBuilder.group({
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: ''
-    });
-
-    this.formEmailPasswordGroup = this.formBuilder.group({
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: ''
+      oldPassword: ['', [Validators.required, Validators.pattern('^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})$')]],
+      newPassword: ['', [Validators.required, Validators.pattern('^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})$')]],
+      confirmPassword: ['', [Validators.required, Validators.pattern('^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})$')]]
     });
 
     this.findUser();
@@ -99,6 +92,14 @@ export class ProfileComponent implements OnInit {
 
   public validateControl = (controlName: string) => {
     return this.formMemberGroup.controls[controlName].invalid && this.formMemberGroup.controls[controlName].touched
+  }
+
+  public hasErrorPassword = (controlName: string, errorName: string) => {
+    return this.formPasswordGroup.controls[controlName].hasError(errorName)
+  }
+
+  public validateControlPassword = (controlName: string) => {
+    return this.formPasswordGroup.controls[controlName].invalid && this.formPasswordGroup.controls[controlName].touched
   }
 
   updateMember() {
@@ -152,9 +153,13 @@ export class ProfileComponent implements OnInit {
     var newPassword = this.formPasswordGroup.get("newPassword")?.value;
     var confirmPassword = this.formPasswordGroup.get("confirmPassword")?.value;
     var oldPassword = this.formPasswordGroup.get("oldPassword")?.value;
-    // this.memberAPIService.checkPasswordDB(this.currentMember, oldPassword).then(
-    //   res => {
-    //     console.log("ok");
+
+    const loginRequest: LoginRequest = {
+      username: this.currentMember.username,
+      password: oldPassword
+    }
+    this.memberAPIService.checkPasswordDB(loginRequest).then(
+      res => {
         if (this.checkPassword(newPassword, confirmPassword)) {
           const resetPassword: ResetPassword = {
             password: newPassword,
@@ -164,7 +169,6 @@ export class ProfileComponent implements OnInit {
           }
           this.memberAPIService.updatePassword(resetPassword).then(
             res => {
-              console.log("ok 2")
               alertFunction.success("Your password had changed");
             },
             err => {
@@ -174,12 +178,11 @@ export class ProfileComponent implements OnInit {
         } else {
           alertFunction.error("New password and confirm password must be match!");
         }
-    //   },
-    //   err => {
-    //     alertFunction.error("Your password must match the old password!");
-    //   }
-    // )
-
+      },
+      err => {
+        alertFunction.error("Your password must match the old password!");
+      }
+    )
 
   }
 
