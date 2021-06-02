@@ -7,14 +7,14 @@ import { CategoryService } from 'src/app/services/category.service';
 import { Category } from '../../../shared/category.model';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AdsPackageService } from 'src/app/services/ads-package.service';
+import { AddressService } from 'src/app/services/address.service';
 import { Region } from 'src/app/shared/region.model';
 import { Country } from 'src/app/shared/country.model';
 import { City } from 'src/app/shared/city.model';
 
 
 import { Observable, Subject } from 'rxjs';
-import { AdsPackageService } from 'src/app/services/ads-package.service';
-import { AddressService } from 'src/app/services/address.service';
 declare var alertFunction: any;
 declare var getTinyMCEContent: any;
 
@@ -58,9 +58,9 @@ export class AddNewPropertyComponent implements OnInit {
   public ngOnInit(): void {
     //check to add new property
     if (this.checkBuyPackage() == false) {
+      if (this.checkExpiryDate() != false)
       this.checkToAddProperty();
-      this.checkExpiryDate();
-    } 
+    }
 
     //get region
     this.getAllRegion();
@@ -149,12 +149,11 @@ export class AddNewPropertyComponent implements OnInit {
             this.router.navigateByUrl('/admin/userManage');
           }
         });
-
       }
     })
   }
 
-  checkExpiryDate() {
+  checkExpiryDate(): boolean {
     var userId = localStorage.getItem('userId');
     this.adsPackageService.checkExpiryDate(userId).subscribe(res => {
       if (res == false) {
@@ -174,7 +173,9 @@ export class AddNewPropertyComponent implements OnInit {
           }
         });
       }
+      return true;
     })
+    return false;
   }
 
   createProperty() {

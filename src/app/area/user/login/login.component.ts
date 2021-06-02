@@ -52,10 +52,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', res.username);
         localStorage.setItem('userId', res.userId);
         localStorage.setItem('role', res.role);
-        var userRole = res.role;
-        if(userRole == "SuperAdmin" || userRole == "Admin"){
+        var userRole = res.role.toString();
+        if(userRole === 'SuperAdmin' || userRole === 'Admin'){
           this.router.navigateByUrl('/admin');
-        } else if(userRole == "User"){
+        } else if(userRole === "User"){
           this.router.navigateByUrl('/');
         }
       },

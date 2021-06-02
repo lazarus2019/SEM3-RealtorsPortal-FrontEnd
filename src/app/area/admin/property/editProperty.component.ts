@@ -63,7 +63,7 @@ export class EditPropertyComponent implements OnInit {
   public ngOnInit(): void {
     //get data from userManage component
     var id = this.route.snapshot.paramMap.get('propertyId');
-
+    console.log(id);
     if (id != null) {
       // set id from query to newsId
       this.propertyId = parseInt(id);
@@ -101,7 +101,6 @@ export class EditPropertyComponent implements OnInit {
   getPropertyById(propertyId: number) {
     this.propertyService.getPropertyById(propertyId).subscribe(property => {
       this.property = property;
-      console.log(this.property.description);
       if (property != null) {
         //get region
         this.getAllRegion();
@@ -157,10 +156,21 @@ export class EditPropertyComponent implements OnInit {
   }
 
   editProperty() {
-    this.updateProperty = this.editFormGroup.value;
-    this.updateProperty.memberId = this.property.memberId;
-    this.updateProperty.statusId = this.property.statusId;
-    this.propertyService.updateProperty(this.updateProperty).subscribe(() => {
+    this.property.title = this.editFormGroup.get('title').value;
+    this.property.address = this.editFormGroup.get('address').value;
+    this.property.type = this.editFormGroup.get('type').value;
+    this.property.categoryId = this.editFormGroup.get('categoryId').value;
+    this.property.price = this.editFormGroup.get('price').value;
+    this.property.area = this.editFormGroup.get('area').value;
+    this.property.roomNumber = this.editFormGroup.get('roomNumber').value;
+    this.property.bedNumber = this.editFormGroup.get('bedNumber').value;
+    this.property.description = this.editFormGroup.get('description').value;
+    this.property.cityId = this.editFormGroup.get('cityId').value;
+
+    //this.property = this.property.memberId;
+    //this.property = this.property.statusId;
+    console.table(this.property);
+    this.propertyService.updateProperty(this.property).subscribe(() => {
       this.uploadImage();
       if (this.listImageDelete != null) {
         this.deleteImage();

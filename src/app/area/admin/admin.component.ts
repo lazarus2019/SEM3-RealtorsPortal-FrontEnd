@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MemberAPI } from 'src/app/models/member/member.model';
 import { MailBoxAPIService } from 'src/app/services/admin/mailbox/mailboxAPI.service';
 import { MemberAPIService } from 'src/app/services/member/memberAPI.service';
+import { PropertyService } from 'src/app/services/property.service';
 import { PublicService } from 'src/app/services/publicService.service';
 
 // Declare custom function
@@ -13,19 +14,20 @@ declare var alertFunction: any;
 })
 export class AdminComponent implements OnInit {
 
-  unReadMailBox:number = 0;
+  unReadMailBox: number = 0;
 
   currentMember: MemberAPI = new MemberAPI;
 
   resultMemberAPI: MemberAPI[] = [];
 
-  userRole:string = "SuperAdmin";
+  userRole: string = "SuperAdmin";
 
-  count:number = 2;
+  count: number = 2;
 
   constructor(
-    private router:Router,
+    private router: Router,
     // Declare services
+    private propertyService: PropertyService,
     private mailboxAPIService: MailBoxAPIService,
     private memberAPIService: MemberAPIService,
     private publicService: PublicService,
@@ -37,7 +39,11 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     // this.findMember();
     this.findUser();
+    this.propertyService.countPropertyPending().subscribe(count => {
+      this.count = count;
+    })
     this.getAmountMailboxUnread();
+    this.userRole = localStorage.getItem('role');
   }
 
   // findMember() {
@@ -52,9 +58,9 @@ export class AdminComponent implements OnInit {
   //   )
   // }
 
-  findUser(){
+  findUser() {
     var userId = localStorage.getItem('userId');
-    
+
     this.memberAPIService.findUser(userId).then(
       res => {
         this.resultMemberAPI = res;
@@ -87,6 +93,11 @@ export class AdminComponent implements OnInit {
 
   getUrlImage(imageName: string) {
     return this.publicService.getUrlImage("member", imageName);
+  }
+  authenticated() {
+    if (localStorage.getItem('token') != null)
+      return true;
+    return false;
   }
 
   // Method to dynamically load JavaScript

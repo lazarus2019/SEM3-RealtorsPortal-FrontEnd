@@ -38,8 +38,8 @@ export class MemberService {
     return this.http.get<Member[]>(url);
   }
 
-  updateStatus(memberId: number, userId: string, status: boolean): Observable<void> {
-    var url = `${this.baseUrl}/updateStatus/${memberId}/${userId}`;
+  updateStatus(memberId: number, email: string, status: boolean): Observable<void> {
+    var url = `${this.baseUrl}/updateStatus/${memberId}/${email}`;
     return this.http.put<void>(url, status, httpOptions);
   }
 
