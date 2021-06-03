@@ -112,7 +112,6 @@ export class PropertyComponent implements OnInit {
   getProperty() {
     this.listingService.propertyDetail(this.propertyId).then(
       res => {
-        console.table(res)
         this.property = res;
         res.images.forEach(image => {
           this.imageObject.push({
@@ -146,6 +145,12 @@ export class PropertyComponent implements OnInit {
 
   getUrlImage(imageName: string) {
     return this.publicService.getUrlImage("property", imageName);
+  }
+  readMoreFunc(message: string) {
+    if(message.length > 25) {
+      return message.substr(0, 25) + '...';
+    }
+    else return message
   }
 
 }

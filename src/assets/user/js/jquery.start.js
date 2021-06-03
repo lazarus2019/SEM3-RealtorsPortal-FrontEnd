@@ -125,6 +125,13 @@ $(".btn-close-contact").on("click",function(){
   $(".popup-contact-form").addClass("hide");
 })
 
+$("#btnContactProperty").on("click",function(){
+  $(".popup-contact-form-property").removeClass("hide");
+})
+$(".btn-close-contact-property").on("click",function(){
+  $(".popup-contact-form-property").addClass("hide");
+})
+
 
 $(document).on("ready", function () {
   if ($(window).width() > 991) {

@@ -85,8 +85,8 @@
                     <div class="single-post-content">
                         <h3 class="post-content-title mb-3">Description</h3>
                         <div class="single-bg-white">
-                            <p class="mb-4" style="white-space:pre-wrap;">
-                                <span [innerHTML]="property.description" style="color: #666;"></span>
+                            <p class="mb-4" style="white-space:pre-wrap; color:#3f3a64">
+                                <span [innerHTML]="property.description"></span>
                             </p>
                         </div>
                         <div class="single-bg-white">
@@ -104,13 +104,13 @@
                       
                     </div>
 
-                    <div class="single-bg-white">
+                    <!-- <div class="single-bg-white">
                         <h3 class="post-content-title mb-4">Location</h3>
                         <div class="agent-map">
-                            <!-- <iframe [src]="property.googleMap | safe" width="600" height="450" style="border:0;"
-                                allowfullscreen="" loading="lazy"></iframe> -->
+                            <iframe [src]="property.googleMap | safe" width="600" height="450" style="border:0;"
+                                allowfullscreen="" loading="lazy"></iframe>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="sidebar-side col-lg-4 col-md-12 col-sm-12 mt-lg-0 mt-5">
@@ -133,7 +133,9 @@
                             </div>
                         </article>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-style w-100">Call</button>
+                            <a href="tel:{{property.memberPhone}}">
+                                <button type="submit" class="btn btn-primary btn-style w-100">Call</button>
+                            </a>
                         </div>
                         <div class="btn-contact-property form-group3">
                             <button type="submit" class="btn btn-primary btn-style w-100" id="btnContactProperty"> Send
@@ -154,12 +156,12 @@
                                             <form method="post" class="ng-untouched ng-pristine ng-valid "
                                                 [formGroup]="formContact">
                                                 <div class="form-group">
+                                                    <div class="input-field mb-4">
+                                                        <input type="text" name="w3lName" id="w3lName"
+                                                            placeholder="Your Name" required
+                                                            formControlName="fullName">
+                                                    </div>
                                                     <div class="form-grid">
-                                                        <div class="input-field">
-                                                            <input type="text" name="w3lName" id="w3lName"
-                                                                placeholder="Your Name" required
-                                                                formControlName="fullName">
-                                                        </div> <br>
                                                         <div class="input-field">
                                                             <input
                                                                 [class.is-invalid]="Email.invalid && Email.touched"
@@ -219,7 +221,7 @@
                         <article class="post" *ngFor="let pp of popularpost">
                             <figure class="post-thumb"><img src="http://localhost:5000/images/property/{{pp.images[0].name}}" class="radius-image" alt="">
                             </figure>
-                            <div class="text"><a href="#blog-single">{{pp.title}}
+                            <div class="text"><a href="#blog-single">{{readMoreFunc(pp.title)}}
                                 </a>
                                 <div class="post-info">{{pp.uploadDate | date : "MMM dd , yyyy"}}</div>
                             </div>
@@ -235,9 +237,3 @@
     </div>
 </section>
 <!--//blog-posts-->
-<script>
-    function myFunction() {
-        var popup = document.getElementById("btnContactProperty");
-        popup.classList.toggle("show");
-    }
-    </script>

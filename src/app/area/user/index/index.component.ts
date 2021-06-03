@@ -64,7 +64,10 @@ export class IndexComponent implements OnInit {
       });
   }
   readMoreFunc(message: string) {
-    return message.substr(0, 165);
+    if(message.length > 25) {
+      return message.substr(0, 25) + '...';
+    }
+    else return message
   }
   save() {
     //var data =  this.formSearch.value ;
