@@ -12,9 +12,9 @@ export class StatusService {
 
   constructor(private http: HttpClient) { }
 
-  private baseUrl = 'http://localhost:5000/api/status';
+  private baseUrl = 'http://localhost:5000/api/status/';
   
   getAllStatus(): Observable<Status[]> {
-    return this.http.get<Status[]>(this.baseUrl);
+    return this.http.get<Status[]>(this.baseUrl + "getStatus");
   }
 }

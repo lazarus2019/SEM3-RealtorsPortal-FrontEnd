@@ -28,4 +28,9 @@ export class PropertyModel {
     description : string ;
     photo:string;
     images : ImageModel[] ;
+    cityCountryId: number;
+    cityCountryName: string;
+    cityCountryRegionId: number;
+    cityCountryRegionName: string;
+    imageName: ImageModel;
 }

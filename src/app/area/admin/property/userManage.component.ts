@@ -10,7 +10,7 @@ import { Category } from '../../../shared/category.model';
 import { Status } from '../../../shared/status.model';
 import { Image } from '../../../shared/image.model';
 import { PublicService } from 'src/app/services/publicService.service';
-import { ImageService } from 'src/app/services/imageService.service';
+import { ImageService } from 'src/app/services/admin/image/imageService.service';
 
 @Component({
   templateUrl: './userManage.component.html'
@@ -72,9 +72,13 @@ export class UserManagePropertyComponent implements OnInit {
     });
 
     //get category
-    this.categoryService.getAllCategory().subscribe((categories) => {
-      this.categories = categories;
-    });
+    this.categoryService.getAllCategory().then(
+      res => {
+        this.categories = res;
+      },
+      err => {
+      }
+    )
 
     //configure searchFromGroup
     this.searchFormGroup = this.formBuilder.group({

@@ -5,7 +5,7 @@ import { SettingModel } from "src/app/models/setting.model";
 
 @Injectable()
 export class AboutUsService {
-    private BASE_URL: string = 'http://localhost:50625/api/user/' ;
+    private BASE_URL: string = 'http://localhost:5000/api/user/' ;
 
     constructor(
         private httpClient: HttpClient

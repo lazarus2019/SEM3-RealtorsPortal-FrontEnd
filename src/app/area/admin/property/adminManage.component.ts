@@ -77,9 +77,14 @@ export class AdminManagePropertyComponent implements OnInit {
     });
 
     //get category
-    this.categoryService.getAllCategory().subscribe((categories) => {
-      this.categories = categories;
-    });
+    this.categoryService.getAllCategory().then(
+      res => {
+        this.categories = res;
+      },
+      err => {
+        alertFunction.error("Can not get category");
+      }
+    )
 
     //configure searchFromGroup
     this.searchFormGroup = this.formBuilder.group({
@@ -102,6 +107,7 @@ export class AdminManagePropertyComponent implements OnInit {
       this.properties.length = result;
       this.setPagination();
       this.getAllPropertyPage(1);
+      
     });
   }
 
@@ -142,6 +148,7 @@ export class AdminManagePropertyComponent implements OnInit {
   getAllPropertyPage(page: number) {
     this.propertyService.getAllPropertyPage(page).subscribe((properties) => {
       this.properties = properties;
+      console.table(this.properties)
     })
   }
 

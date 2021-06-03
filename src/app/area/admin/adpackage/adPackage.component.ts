@@ -127,7 +127,7 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
     this.adsPackage = adsPackage;
   }
 
-  
+
   loadData() {
     this.adsPackageService.getAllAdsPackageForSalePage().subscribe((result) => {
       this.adsPackages.length = result;
@@ -139,18 +139,18 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
 
   minusPage() {
     this.currentPage--;
-    if(!this.isFilter){
+    if (!this.isFilter) {
       this.getAllAdsPackageForSalePagePerPage(this.currentPage);
-    }else{
+    } else {
       this.searchPage(this.currentPage);
     }
   }
 
   plusPage() {
     this.currentPage++;
-    if(!this.isFilter){
+    if (!this.isFilter) {
       this.getAllAdsPackageForSalePagePerPage(this.currentPage);
-    }else{
+    } else {
       this.searchPage(this.currentPage);
     }
   }
@@ -161,16 +161,16 @@ export class AdminAdPackageComponent implements OnInit, AfterViewChecked {
     this.searchPage(1);
   }
 
-  executeAdPackagePerPage(page:number){
+  executeAdPackagePerPage(page: number) {
     this.currentPage = page;
-    if(!this.isFilter){
+    if (!this.isFilter) {
       this.getAllAdsPackageForSalePagePerPage(this.currentPage);
-    }else{
+    } else {
       this.searchPage(this.currentPage);
     }
   }
 
-  getAllAdsPackageForSalePagePerPage(page: number){
+  getAllAdsPackageForSalePagePerPage(page: number) {
     this.adsPackageService.getAllAdsPackageForSalePagePerPage(page).subscribe((adsPackages) => {
       this.adsPackages = adsPackages;
     })

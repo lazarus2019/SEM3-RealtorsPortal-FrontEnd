@@ -1,5 +1,4 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { ImageService } from 'src/app/services/imageService.service';
 import { Property } from '../../../shared/property.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { PropertyService } from 'src/app/services/property.service';
@@ -15,6 +14,7 @@ import { City } from 'src/app/shared/city.model';
 
 
 import { Observable, Subject } from 'rxjs';
+import { ImageService } from 'src/app/services/admin/image/imageService.service';
 declare var alertFunction: any;
 declare var getTinyMCEContent: any;
 
@@ -66,9 +66,14 @@ export class AddNewPropertyComponent implements OnInit {
     this.getAllRegion();
 
     //get category 
-    this.categoryService.getAllCategory().subscribe(categories => {
-      this.categories = categories;
-    });
+    this.categoryService.getAllCategory().then(
+      res => {
+        this.categories = res;
+      },
+      err => {
+        alertFunction.error("Can not get category");
+      }
+    )
 
     //configure addFromGroup
     this.addFormGroup = this.formBuilder.group({

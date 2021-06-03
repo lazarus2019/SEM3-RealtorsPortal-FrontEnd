@@ -1,0 +1,10 @@
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+aria-haspopup="true" aria-expanded="false">
+Category <span class="fa fa-angle-down"></span>
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item " [routerLink]="['/user/category']">All</a>
+    <ng-container *ngFor="let c of categories">
+      <a class="dropdown-item " [routerLink]="['/user/category' , {Id: c.categoryId}] " >{{c.name}}</a>
+    </ng-container>
+  </div>

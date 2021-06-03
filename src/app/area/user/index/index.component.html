@@ -64,7 +64,7 @@
                         <a [routerLink]="['/user/single-property', {propertyId: p.propertyId} ]">
                             <div class="box16">
                                 <div class="rentext-listing-category"><span>{{p.type}}</span></div>
-                                <img class="img-fluid" width="100%" height="100%" src="http://localhost:65320/images/property/{{p.images[0].name}} " alt="{{p.images[0].name}}" >
+                                <img class="img-fluid" width="100%" height="100%" src="http://localhost:5000/images/property/{{p.images[0].name}} " alt="{{p.images[0].name}}" >
                                 <div class="box-content">
                                     <h3 class="title" > {{readMoreFunc(p.title)}}  </h3>
                                     <h4 class="post" > $ {{p.price}}  {{ (p.type == 'Rent') ? ' / month ' : ''}}</h4>
@@ -160,8 +160,8 @@
 
                 <div class="col-lg-3 col-md-4 col-6" *ngFor="let pl of loadpopularlocation">
                     <a [routerLink]="['/user/searchResult',{cityId : pl.cityId , pg : 'index2'}]">
-                        <div class="box16">
-                            <img class="img-fluid" src="assets/user/images/p1.jpg" alt="">
+                        <div class="box16 box16-edit">
+                            <img class="img-fluid" src="assets/user/images/p1.jpg" alt="" width="100%" height="100%">
                             <div class="box-content">
                                 <h3 class="title mb-1">{{pl.name}}</h3>
                                 <span class="post">{{pl.numberProperties}} </span>

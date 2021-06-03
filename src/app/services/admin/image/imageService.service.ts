@@ -51,4 +51,8 @@ export class ImageService {
             .then(res => res);
     }
 
+    deleteImageByPropertyId(id: number):Observable<number> {
+        return this.http.delete<number>(`${this.BASE_URL}delete/${id}`);
+    }
+
 }

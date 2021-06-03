@@ -1,4 +1,7 @@
+import { Category } from "./category.model";
 import { Image } from "./image.model";
+import { Member } from "./member.model";
+import { Status } from "./status.model";
 
 export class Property {
     propertyId: number;
@@ -26,4 +29,7 @@ export class Property {
     type: string;
     imageName: Image;
     images: Image[];
+    category:Category;
+    status:Status;
+    member:Member;
 }

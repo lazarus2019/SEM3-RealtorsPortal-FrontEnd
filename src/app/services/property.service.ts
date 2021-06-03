@@ -18,6 +18,7 @@ const httpOptions = {
 export class PropertyService {
 
   private baseUrl = 'http://localhost:5000/api/property';
+  private baseUrl_user = 'http://localhost:5000/api/user';
 
 
   constructor(private http: HttpClient) { }
@@ -131,9 +132,9 @@ export class PropertyService {
 
   }
 
-  getPopularPost(memberId : number) {
-    return this.http.get(this.baseUrl + 'getpopularpost/' + memberId )
-                    .toPromise()
-                    .then( res => res as PropertyModel[] ) ;
-}
+  getPopularPost(memberId: number) {
+    return this.http.get(this.baseUrl_user + '/getpopularpost/' + memberId)
+      .toPromise()
+      .then(res => res as PropertyModel[]);
+  }
 }

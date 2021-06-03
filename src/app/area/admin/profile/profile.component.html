@@ -116,8 +116,7 @@
                                 *ngIf="validateControlPassword('oldPassword') && hasErrorPassword('oldPassword', 'required')">Password
                                 is required</em>
                             <em class="text-danger"
-                                *ngIf="validateControlPassword('oldPassword') && hasErrorPassword('oldPassword', 'pattern')">Only
-                                include number, letter and special character @#$%, 6-20</em>
+                                *ngIf="validateControlPassword('oldPassword') && hasErrorPassword('oldPassword', 'pattern')">Require more than 6 characters that contain at least one uppercase, one lower case and one number</em>
                         </div>
                     </div>
                     <div class="form-group">
@@ -129,8 +128,7 @@
                                 *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'required')">New
                                 Password is required</em>
                             <em class="text-danger"
-                                *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'pattern')">Only
-                                include number, letter and special character @#$%, 6-20</em>
+                                *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'pattern')">Require more than 6 characters that contain at least one uppercase, one lower case and one number</em>
                         </div>
                     </div>
                     <div class="form-group">
@@ -142,8 +140,7 @@
                                 *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'required')">Confirm
                                 Password is required</em>
                             <em class="text-danger"
-                                *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'pattern')">Only
-                                include number, letter and special character @#$%, 6-20</em>
+                                *ngIf="validateControlPassword('newPassword') && hasErrorPassword('newPassword', 'pattern')">Require more than 6 characters that contain at least one uppercase, one lower case and one number</em>
                         </div>
                     </div>
                     <div class="form-group d-flex justify-content-end">

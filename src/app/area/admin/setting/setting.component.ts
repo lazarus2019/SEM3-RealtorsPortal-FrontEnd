@@ -179,15 +179,20 @@ export class SettingComponent implements OnInit {
         this.allNewsCategory = res;
       },
       err => {
-        alertFunction.error("Connection error, please reset server and refresh this page");
+        alertFunction.error("Can not get news category");
       }
     )
   }
 
   getAllCategory() {
-    this.categoryService.getAllCategory().subscribe((result) => {
-      this.allPropertyCategory = result;
-    });
+    this.categoryService.getAllCategory().then(
+      res => {
+        this.allPropertyCategory = res;
+      },
+      err => {
+        alertFunction.error("Can not get property category");
+      }
+    )
   }
 
   // Update setting

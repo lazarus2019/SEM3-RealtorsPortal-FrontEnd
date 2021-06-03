@@ -11,10 +11,12 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  private BASE_URL = 'http://localhost:5000/api/admin/category/';
+  private BASE_URL = 'http://localhost:5000/api/category/';
 
-  getAllCategory(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.BASE_URL + 'GetAllCategory');
+  getAllCategory() {
+    return this.http.get(this.BASE_URL + "GetAllCategory")
+      .toPromise()
+      .then(res => res as Category[]);
   }
 
   createCategory(Category: Category) {

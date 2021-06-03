@@ -83,6 +83,14 @@ body {
   color: #fff;
 }
 
+.hide{
+  display:none;
+}
+
+.box16-edit{
+  height: 100%;
+}
+
 @media only screen and (max-width: 991px) {
   .text-ahref {
     display: block;
@@ -119,6 +127,10 @@ body {
 }
 
 .popup-contact-form.hide{
+  display: none;
+}
+
+.popup-contact-form-property.hide{
   display: none;
 }
 

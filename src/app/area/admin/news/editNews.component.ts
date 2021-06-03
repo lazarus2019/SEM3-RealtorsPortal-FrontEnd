@@ -68,7 +68,7 @@ export class AdminEditNewsComponent implements OnInit {
     private publicService: PublicService,
     private settingAPIService: SettingAPIService,
   ) {
-
+    this.loadScripts();
   }
 
   ngOnInit() {
@@ -102,41 +102,6 @@ export class AdminEditNewsComponent implements OnInit {
 
   public validateControl = (controlName: string) => {
     return this.formEditNewsGroup.controls[controlName].invalid && this.formEditNewsGroup.controls[controlName].touched
-  }
-
-
-  ngAfterViewInit() {
-    // This array contains all the files/CDNs
-    const dynamicScripts = [
-      '../../../../assets/js/modernizr.min.js',
-      '../../../../assets/js/jquery.min.js',
-      '../../../../assets/js/moment.min.js',
-
-      '../../../../assets/js/popper.min.js',
-      '../../../../assets/js/bootstrap.min.js',
-
-      '../../../../assets/js/detect.js',
-      '../../../../assets/js/fastclick.js',
-      '../../../../assets/js/jquery.blockUI.js',
-      '../../../../assets/js/jquery.nicescroll.js',
-
-      '../../../../assets/js/jquery.goToTop.js',
-
-      '../../../../assets/plugins/tinymce/jquery.tinymce.min.js',
-      '../../../../assets/plugins/tinymce/tinymce.min.js',
-      '../../../../assets/plugins/tinymce/init-tinymce.js',
-      '../../../../assets/plugins/sweetalert/sweetalert.min.js',
-      '../../../../assets/js/jquery.sweetalert.js',
-      '../../../../assets/js/jquery.generateUrl.js',
-      '../../../../assets/js/jquery.tinymce.js',
-
-    ];
-    for (let i = 0; i < dynamicScripts.length; i++) {
-      let jquery = document.createElement('script');
-      jquery.type = 'text/javascript';
-      jquery.src = dynamicScripts[i];
-      this.elementRef.nativeElement.appendChild(jquery);
-    }
   }
 
   getMaxNewsImage() {
@@ -288,6 +253,7 @@ export class AdminEditNewsComponent implements OnInit {
       res => {
         this.currentNews = res;
         this.formEditNewsGroup.get("title")?.setValue(this.currentNews.title);
+        
         this.formEditNewsGroup.get("description")?.setValue(this.currentNews.description);
         this.formEditNewsGroup.get("categoryId")?.setValue(this.currentNews.categoryId);
       },
@@ -319,5 +285,39 @@ export class AdminEditNewsComponent implements OnInit {
 
   test_error_alert() {
     alertFunction.error("new");
+  }
+
+  loadScripts() {
+    // This array contains all the files/CDNs
+    const dynamicScripts = [
+      '../../../../assets/js/modernizr.min.js',
+      '../../../../assets/js/jquery.min.js',
+      '../../../../assets/js/moment.min.js',
+
+      '../../../../assets/js/popper.min.js',
+      '../../../../assets/js/bootstrap.min.js',
+
+      '../../../../assets/js/detect.js',
+      '../../../../assets/js/fastclick.js',
+      '../../../../assets/js/jquery.blockUI.js',
+      '../../../../assets/js/jquery.nicescroll.js',
+
+      '../../../../assets/js/jquery.goToTop.js',
+
+      '../../../../assets/plugins/tinymce/jquery.tinymce.min.js',
+      '../../../../assets/plugins/tinymce/tinymce.min.js',
+      '../../../../assets/plugins/tinymce/init-tinymce.js',
+      '../../../../assets/plugins/sweetalert/sweetalert.min.js',
+      '../../../../assets/js/jquery.sweetalert.js',
+      '../../../../assets/js/jquery.generateUrl.js',
+      '../../../../assets/js/jquery.tinymce.js',
+
+    ];
+    for (let i = 0; i < dynamicScripts.length; i++) {
+      let jquery = document.createElement('script');
+      jquery.type = 'text/javascript';
+      jquery.src = dynamicScripts[i];
+      this.elementRef.nativeElement.appendChild(jquery);
+    }
   }
 }

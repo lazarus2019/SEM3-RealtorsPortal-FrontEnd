@@ -40,6 +40,7 @@ import { ForgetPasswordComponent } from './area/user/forgotPassword/forgetPasswo
 import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword.component';
 import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
 import { AdminFAQComponent } from './area/admin/faq/faq.component';
+import { ResultComponent } from './area/user/listing/searchResult.component';
 
 
 const routes: Routes = [
@@ -68,6 +69,7 @@ const routes: Routes = [
 
         { path: 'index', component: IndexComponent },
         { path: 'single-property', component: PropertyComponent },
+        { path: 'searchproperty', component: ResultComponent },
         { path: 'listing', component: ListingComponent },
         { path: 'aboutUs', component: AboutUsComponent },
         { path: 'contact', component: ListingComponent },

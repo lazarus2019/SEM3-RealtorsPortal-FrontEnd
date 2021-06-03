@@ -5,7 +5,7 @@ import { mailboxAPI } from 'src/app/models/mailbox/mailbox.model';
 @Injectable()
 export class MailBoxAPIService {
 
-    private BASE_URL = 'http://localhost:5000/api/admin/mailbox/';
+    private BASE_URL = 'http://localhost:5000/api/mailbox/';
 
     constructor(
         private http: HttpClient

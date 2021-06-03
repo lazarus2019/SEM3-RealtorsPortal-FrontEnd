@@ -33,6 +33,9 @@ var alertFunction = (function () {
         function callBackFunc() {
           return true;
         }
+    },
+    payment: function () {
+      swal("Good job!", "Payment success!", "success")
     }
   }
 })(alertFunction || {})

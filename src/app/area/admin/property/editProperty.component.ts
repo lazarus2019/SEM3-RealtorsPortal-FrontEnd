@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageService } from 'src/app/services/imageService.service';
 import { Property } from '../../../shared/property.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { PropertyService } from 'src/app/services/property.service';
@@ -12,6 +11,7 @@ import { Country } from 'src/app/shared/country.model';
 import { City } from 'src/app/shared/city.model';
 import { AddressService } from 'src/app/services/address.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ImageService } from 'src/app/services/admin/image/imageService.service';
 declare var alertFunction: any;
 
 @Component({
@@ -75,9 +75,14 @@ export class EditPropertyComponent implements OnInit {
 
 
     //get category 
-    this.categoryService.getAllCategory().subscribe(categories => {
-      this.categories = categories;
-    });
+    this.categoryService.getAllCategory().then(
+      res => {
+        this.categories = res;
+      },
+      err => {
+        alertFunction.error("Can not get category");
+      }
+    )
 
     //configure addFromGroup
     this.editFormGroup = this.formBuilder.group({

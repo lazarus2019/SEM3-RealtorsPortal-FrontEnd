@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class MemberAPIService {
 
-    private BASE_URL = 'http://localhost:5000/api/admin/member/';
+    private BASE_URL = 'http://localhost:5000/api/member/';
     private BASE_URL_ACCOUNT = 'http://localhost:5000/api/account/';
 
     constructor(

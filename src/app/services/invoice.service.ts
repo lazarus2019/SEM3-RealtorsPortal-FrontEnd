@@ -15,12 +15,12 @@ const httpOptions = {
 })
 export class InvoiceService {
 
-  private baseUrl = 'http://localhost:5000/api/invoice';
+  private baseUrl = 'http://localhost:5000/api/invoice/';
   
   constructor(private http: HttpClient) { }
 
   createInvoice(userId: string, invoice: Invoice): Observable<void> {
-    const url = `${this.baseUrl}/create/${userId}`;
+    const url = `${this.baseUrl}create/${userId}`;
     return this.http.post<void>(url, invoice, httpOptions);
   }
 

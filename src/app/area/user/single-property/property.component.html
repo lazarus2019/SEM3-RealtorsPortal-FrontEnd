@@ -48,21 +48,47 @@
                     <div class="single-post-image mb-5">
                         <div class="owl-blog owl-carousel owl-theme">
                             <div class="item">
-                                <div class="card" *ngFor="let pi of property.images">
-                                    <img src="http://localhost:65320/images/property/{{pi.name}}" class="img-fluid radius-image"
-                                        alt="image">
-                                </div>
+                                <ng-image-slider 
+                                    [images]="imageObject" class="card"
+                                    [autoSlide]="1" 
+                                    [imageSize]="{width: 768 , height: 650}"
+                                    [animationSpeed] = 0.5 
+                                ></ng-image-slider>                                
 
                             </div>
+                            <!-- <div class="slider-image">
+                                <div class="slideshow-container">
+                                    <ng-container *ngFor="let image of imagesList; index as i">
+                                        <div class="mySlides" >
+                                            <img [src]="getUrlImage(image.name)" style="width:100%">
+                                        </div>
+                                    </ng-container>
+            
+                                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                                </div>
+                                <br>  
+                            </div> -->
+                            <!-- <div class="single-post-image mb-5">
+                                <div class="owl-blog owl-carousel owl-theme" *ngFor="let image of imagesList">
+                                    <div class="item" >
+                                        <div class="card">
+                                            <img  [src]="getUrlImage(image.name)" class="img-fluid radius-image" alt="image">
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div> -->
 
                         </div>
                     </div>
 
                     <div class="single-post-content">
                         <h3 class="post-content-title mb-3">Description</h3>
-                        <p class="mb-4" style="white-space:pre-wrap;">
-                            {{property.description}}
-                        </p>
+                        <div class="single-bg-white">
+                            <p class="mb-4" style="white-space:pre-wrap;">
+                                <span [innerHTML]="property.description" style="color: #666;"></span>
+                            </p>
+                        </div>
                         <div class="single-bg-white">
                             <h3 class="post-content-title mb-4">Property detail</h3>
                             <ul class="details-list">
@@ -97,7 +123,7 @@
                         </div>
 
                         <article class="post">
-                            <figure class="post-thumb"><img src="assets/user/images/l5.jpg" class="radius-image" alt="">
+                            <figure class="post-thumb"><img src="http://localhost:5000/images/member/{{property.memberPhoto}}" class="radius-image" alt="">
                             </figure>
                             <!-- Cho nay se link qua ben page agent detail cua T.Anh-->
                             <div class="text mb-0"><a href="#blog-single">{{property.memberName}}
@@ -191,7 +217,7 @@
                         </div>
 
                         <article class="post" *ngFor="let pp of popularpost">
-                            <figure class="post-thumb"><img src="http://localhost:65320/images/property/{{pp.images[0].name}}" class="radius-image" alt="">
+                            <figure class="post-thumb"><img src="http://localhost:5000/images/property/{{pp.images[0].name}}" class="radius-image" alt="">
                             </figure>
                             <div class="text"><a href="#blog-single">{{pp.title}}
                                 </a>
@@ -214,4 +240,4 @@
         var popup = document.getElementById("btnContactProperty");
         popup.classList.toggle("show");
     }
-</script>
+    </script>

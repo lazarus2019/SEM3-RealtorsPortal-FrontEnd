@@ -52,6 +52,7 @@ export class AdminMailBoxComponent implements OnInit {
   findUser() {
     var userId = localStorage.getItem('userId');
     this.roleMember = localStorage.getItem('role');
+    console.log(this.roleMember)
     this.memberAPIService.findUser(userId).then(
       res => {
         this.resultMemberAPI = res;
@@ -141,6 +142,7 @@ export class AdminMailBoxComponent implements OnInit {
   }
 
   filterMail() {
+    console.log(this.roleMember)
     var sortDate = this.formSearchMailbox.get("sortDate")?.value;
     var status = this.formSearchMailbox.get("status")?.value
 

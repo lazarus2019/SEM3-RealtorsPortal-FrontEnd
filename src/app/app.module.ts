@@ -1,3 +1,4 @@
+import { NgImageSliderModule } from 'ng-image-slider';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,7 +40,6 @@ import { IndexComponent } from './area/user/index/index.component';
 import { ListingComponent } from './area/user/listing/listing.component';
 import { AgentComponent } from './area/user/phonebook/agent/agent.component';
 import { SellerComponent } from './area/user/phonebook/seller/seller.component';
-import { AddPropertyComponent } from './area/user/single-property/add_property/addproperty.component';
 import { PropertyComponent } from './area/user/single-property/property.component';
 import { UserComponent } from './area/user/user.component';
 import { DetailsComponent } from './area/user/phonebook/detail/detail.component';
@@ -84,6 +84,9 @@ import { NewsUserService } from './services/user/news.service';
 import { MailboxUserService } from './services/user/mailbox.service';
 import { ListingService } from './services/user/listing.service';
 import { FAQUserService } from './services/user/faqapi.service';
+import { MyCategoryComponent } from './area/user/tagHelper/mycategory.component';
+import { UserService } from './services/user.service';
+import { ResultComponent } from './area/user/listing/searchResult.component';
 
 
 @NgModule({
@@ -119,7 +122,6 @@ import { FAQUserService } from './services/user/faqapi.service';
     ContactComponent,
     PropertyComponent,
     AboutUsComponent,
-    AddPropertyComponent,
     AgentComponent,
     SellerComponent,
     ListingComponent,
@@ -134,6 +136,8 @@ import { FAQUserService } from './services/user/faqapi.service';
     ForgetPasswordComponent,
     ResetPasswordComponent,
     ConfirmEmailComponent,
+    MyCategoryComponent,
+    ResultComponent
 
   ],
   imports: [
@@ -155,6 +159,7 @@ import { FAQUserService } from './services/user/faqapi.service';
     CommonModule,
 
     NoopAnimationsModule,
+    NgImageSliderModule
   ],
   providers: [
     // Admin Services
@@ -174,6 +179,7 @@ import { FAQUserService } from './services/user/faqapi.service';
     SettingAPIService,
     CategoryService,
     InvoiceService,
+    UserService,
 
     // T.Anh
     AddNewService,

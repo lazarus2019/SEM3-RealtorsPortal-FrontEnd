@@ -18,16 +18,15 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav ml-lg-5 mr-auto">
 
-          <li class="nav-item bg-before-80 active">
+          <li class="nav-item bg-before-80 @@home_active">
             <a [routerLink]="[ '/user/index' ]" class="nav-link">Home <span class="sr-only">(current)</span></a>
           </li>
 
           <li class="nav-item bg-before-80 @@listing__active">
             <a [routerLink]="[ '/user/listing' ]" class="nav-link">Property</a>
           </li>
-
-          <li class="nav-item bg-before-80 @@listing__active">
-            <a class="nav-link" [routerLink]="['/user/category']">Category</a>
+          <li class="nav-item bg-before-80 dropdown @@pages__active">
+            <mycategory></mycategory>
           </li>
 
           <li class="nav-item bg-before-80 dropdown @@pages__active">
@@ -50,7 +49,7 @@
           </li>
         </ul>
         <div class="top-quote mt-lg-0">
-          <a href="" class="text-ahref mr-2"> Login
+          <a [routerLink]="['/login']" class="text-ahref mr-2"> Login
           </a>
           <a href="" class="btn btn-style btn-primary"> Join
           </a>
@@ -91,9 +90,8 @@
             <a href="#url" class="link"><span class="fa fa-phone"></span></a>
             <a href="#url" class="title-small">help desk</a>
             <h4>Do you have questions or want more infomation? Call Now</h4>
-            <a href="tel:+1-2345-678-11">
-              <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span> +1-2345-678-11
-              </p>
+            <a href="tel:{{setting.phone}}">
+              <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span> {{setting.phone.split(',')[0]}}</p> 
             </a>
           </div>
           <div class="column mt-lg-0 mt-md-5">
@@ -104,9 +102,9 @@
             <ul class="footers-17_social">
               <h4 class="d-inline mr-4">Follow us</h4>
               <li><a href="#url" class="twitter"><span class="fa fa-twitter"></span></a></li>
-              <li><a href="#url" class="facebook"><span class="fa fa-facebook"></span></a></li>
+              <li><a href="https://www.facebook.com/joker.tn16" class="facebook"><span class="fa fa-facebook"></span></a></li>
               <li><a href="#url" class="linkedin"><span class="fa fa-linkedin"></span></a></li>
-              <li><a href="#url" class="instagram"><span class="fa fa-instagram"></span></a></li>
+              <li><a href="https://www.instagram.com/_thungjk16_/" class="instagram"><span class="fa fa-instagram"></span></a></li>
             </ul>
           </div>
         </div>
@@ -125,56 +123,62 @@
 
           </div>
           <div class="col-lg-12">
-            <form novalidate="" action="https://sendmail.w3layouts.com/submitForm" method="post"
-              class="ng-untouched ng-pristine ng-valid">
-              <div class="form-group">
+
+            <form method="post" class="ng-untouched ng-pristine ng-valid "
+            [formGroup]="formContact">
+            <div class="form-group">
+              <div class="input-field mb-4">
+                <input type="text" name="w3lName" id="w3lName" 
+                    placeholder="Your Name" required
+                    formControlName="fullName">
+            </div> 
                 <div class="form-grid">
-                  <div class="input-field"><input type="text" name="w3lName" id="w3lName" placeholder="Your Name"
-                      required="">
-                  </div>
-                  <div class="input-field"><input type="email" name="w3lSender" id="w3lSender" placeholder="Email"
-                      required="">
-                  </div>
+                   
+                    <div class="input-field">
+                        <input
+                            [class.is-invalid]="Email.invalid && Email.touched"
+                            type="email" placeholder="Email"
+                            name="w3lSender" id="w3lSender"
+                            formControlName="email" />
+                        <div
+                            *ngIf="(Email.invalid && Email.touched) || Email.dirty">
+                            <small *ngIf="Email.errors?.required"
+                                class="text-danger">Email is
+                                required</small>
+                            <!--question mark(?) is a safe navigation operator-->
+                            <small *ngIf="Email.errors?.pattern"
+                                class="text-danger">Please provide a valid email
+                                address</small>
+                        </div>
+
+                    </div>
+                    <div class="input-field">
+                        <input type="text" name="w3lSender"
+                            id="w3lSender" placeholder="Phone" required
+                            formControlName="phone" >
+                        <div *ngIf="Phone.touched && Phone.invalid"
+                            class="text-danger">
+                            <small *ngIf="Phone.errors.required">Mobile
+                                Number is required.</small>
+                            <small *ngIf="Phone.errors.pattern">Please, Enter
+                                10 digit Mobile Number.</small>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-field mt-4"><textarea name="w3lMessage" id="w3lMessage"
-                    placeholder="Message"></textarea>
+                <div class="input-field mt-4"><textarea name="w3lMessage"
+                        id="w3lMessage" placeholder="Message"
+                        formControlName="message"></textarea>
                 </div>
-              </div>
-              <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn-style mt-2">Submit</button>
-              </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn-style mt-2"
+                    (click)="send()" [disabled]="!formContact.valid">Submit</button>
+            </div>
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-
-
-
-  <!-- move top -->
-  <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i
-      class="fas fa-chevron-up"></i></a>
-  <script>
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function () {
-      scrollFunction()
-    };
-
-    function scrollFunction() {
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("movetop").style.display = "block";
-      } else {
-        document.getElementById("movetop").style.display = "none";
-      }
-    }
-
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-  </script>
   <!-- /move top -->
 </section>
