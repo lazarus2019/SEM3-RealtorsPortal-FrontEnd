@@ -35,6 +35,7 @@ import { NewsComponent } from './area/user/news/news.component';
 import { CategoryComponent } from './area/user/category/category.component';
 import { LoginComponent } from './area/user/login/login.componet';
 import { NewsPropertyComponent } from './area/user/newsproperty/newsproperty.component';
+import { NewsCategoryComponent } from './area/user/newscategory/newscategory.component';
 
 const routes: Routes = [
 
@@ -66,7 +67,7 @@ const routes: Routes = [
         { path: 'category', component: CategoryComponent },
         { path: 'detailMember', component: DetailsComponent },
         { path: 'newPropertyMember', component: NewsPropertyComponent },
-        
+        { path: 'newsCategory', component: NewsCategoryComponent },
 
       ]
     },

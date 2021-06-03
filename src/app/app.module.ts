@@ -62,6 +62,7 @@ import { SettingService } from './services/user/setting.service';
 import { ShareFormService } from './services/user/shareFormSearchData';
 import { NewsPropertyComponent } from './area/user/newsproperty/newsproperty.component';
 import { FAQService } from './services/user/faqapi.service';
+import { NewsCategoryComponent } from './area/user/newscategory/newscategory.component';
 
 
 @NgModule({
@@ -111,7 +112,8 @@ import { FAQService } from './services/user/faqapi.service';
     CategoryComponent,
     LoginComponent,
     SellerCategoryComponent,
-    NewsPropertyComponent
+    NewsPropertyComponent,
+    NewsCategoryComponent,
   ],
   imports: [
     BrowserModule,
