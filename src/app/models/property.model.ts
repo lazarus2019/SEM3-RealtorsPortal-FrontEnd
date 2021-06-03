@@ -33,4 +33,5 @@ export class PropertyModel {
     cityCountryRegionId: number;
     cityCountryRegionName: string;
     imageName: ImageModel;
+    thumbailName:string;
 }

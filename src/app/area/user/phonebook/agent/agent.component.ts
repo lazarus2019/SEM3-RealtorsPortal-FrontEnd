@@ -4,6 +4,7 @@ import { SellerProfileModel } from 'src/app/models/sellerProfile.models';
 import { PublicService } from 'src/app/services/publicService.service';
 import { SellerService } from 'src/app/services/user/seller.service';
 import { ShareFormService } from 'src/app/services/user/shareFormSearchData';
+declare var alerFunction : any;
 
 @Component({
   templateUrl: './agent.component.html'
@@ -58,7 +59,6 @@ export class AgentComponent implements OnInit {
         this.agentCount = res;
         this.setPagination();
         this.getNewsPerPage(1);
-        console.log(this.agentCount)
       }, err => {
         console.log(err);
       }

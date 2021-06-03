@@ -57,7 +57,7 @@
                                     [src]="getUrlImage(m.thumbailName)" alt="" class="img-fluid news-image" /></a>
                             <div class="blog-info">
                                 <a [routerLink]="[ '/user/newPropertyMember', { Id: m.newsId } ]"
-                                    class="category">{{m.title}}</a>
+                                    class="category">{{readMoreFunc(m.title)}}</a>
                             </div>
                         </div>
                     </div>
@@ -81,6 +81,7 @@
         </ng-container>
     </ul>
 </div>
+<br>
 <!-- //pagination -->
 
 <!-- <div class="col-12">

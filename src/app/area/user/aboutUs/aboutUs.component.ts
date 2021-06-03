@@ -115,8 +115,8 @@ export class AboutUsComponent implements OnInit {
   }
 
   //Get Image
-  getUrlImage(name : string ,imageName: string) {
-    return this.publicService.getUrlImage(name, imageName);
+  getUrlImage(folderName: string, imageName: string) {
+    return this.publicService.getUrlImage(folderName, imageName);
   }
 
 }

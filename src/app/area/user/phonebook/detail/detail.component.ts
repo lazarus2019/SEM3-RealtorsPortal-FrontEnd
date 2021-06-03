@@ -11,41 +11,41 @@ import { DetailService } from 'src/app/services/user/detail.service';
 export class DetailsComponent implements OnInit {
 
   sellerId: SellerProfileModel;
-  propertyId: PropertyModel[] = [];
-  memberId: number;
+  propertyId : PropertyModel[] = [] ;
+  memberId : number;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private detailService: DetailService,
+    private detailService : DetailService,
     private publicService: PublicService,
-  ) { }
-  ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.memberId = Number.parseInt(params.get('Id'));
-      console.log("agentId : " + this.memberId);
-    })
+  ){}
+    ngOnInit(): void {
+      this.activatedRoute.paramMap.subscribe(params => {
+        this.memberId = Number.parseInt(params.get('Id'));
+        console.log("agentId : " + this.memberId);
+      })
+      
+      
+      this.detailService.loadSellerId(this.memberId).then(
+        res => {
+          this.sellerId = res       
+        },
+        err => {
+          console.log(err)
+        });
 
+      this.detailService.loadPropertyId(this.memberId).then(
+        res => {
+          this.propertyId = res;
+        },
+        err => {
+          console.log(err)
+        }
+      )
+      
+    }
 
-    this.detailService.loadSellerId(this.memberId).then(
-      res => {
-        this.sellerId = res
-      },
-      err => {
-        console.log(err)
-      });
-
-    this.detailService.loadPropertyId(this.memberId).then(
-      res => {
-        this.propertyId = res;
-      },
-      err => {
-        console.log(err)
-      }
-    )
-
-  }
-
-  getUrlImage(namePath: string, imageName: string) {
-    return this.publicService.getUrlImage(namePath, imageName);
-  }
-
+    getUrlImage(folderName: string, imageName: string) {
+      return this.publicService.getUrlImage( folderName,imageName);
+    }
+    
 }

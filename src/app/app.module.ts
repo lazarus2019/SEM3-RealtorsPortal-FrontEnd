@@ -87,6 +87,8 @@ import { FAQUserService } from './services/user/faqapi.service';
 import { MyCategoryComponent } from './area/user/tagHelper/mycategory.component';
 import { UserService } from './services/user.service';
 import { ResultComponent } from './area/user/listing/searchResult.component';
+import { NewsPropertyComponent } from './area/user/newsproperty/newsproperty.component';
+import { NewsCategoryComponent } from './area/user/newscategory/newscategory.component';
 
 
 @NgModule({
@@ -129,6 +131,9 @@ import { ResultComponent } from './area/user/listing/searchResult.component';
     DetailsComponent,
     NewsComponent,
     CategoryComponent,
+    NewsPropertyComponent,
+    NewsCategoryComponent,
+
     //login-Registration
     LoginComponent,
     RegistrationComponent,
@@ -137,7 +142,8 @@ import { ResultComponent } from './area/user/listing/searchResult.component';
     ResetPasswordComponent,
     ConfirmEmailComponent,
     MyCategoryComponent,
-    ResultComponent
+    ResultComponent,
+    
 
   ],
   imports: [

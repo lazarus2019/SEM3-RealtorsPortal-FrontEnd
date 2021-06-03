@@ -9,6 +9,9 @@ import { AgentComponent } from './phonebook/agent/agent.component';
 import { AboutUsComponent } from './aboutUs/aboutUs.component';
 import { NewsComponent } from './news/news.component';
 import { CategoryComponent } from './category/category.component';
+import { ResultComponent } from './listing/searchResult.component';
+import { NewsPropertyComponent } from './newsproperty/newsproperty.component';
+import { NewsCategoryComponent } from './newscategory/newscategory.component';
 
 
 // User components
@@ -18,6 +21,7 @@ const routes: Routes = [
   { path: '', component: IndexComponent },
   { path: 'index', component: IndexComponent },
   { path: 'single-property', component: PropertyComponent },
+  { path: 'searchproperty', component: ResultComponent },
   { path: 'listing', component: ListingComponent },
   { path: 'aboutUs', component: AboutUsComponent },
   { path: 'contact', component: ListingComponent },
@@ -26,6 +30,9 @@ const routes: Routes = [
   { path: 'agents', component: AgentComponent },
   { path: 'news', component: NewsComponent },
   { path: 'category', component: CategoryComponent },
+  { path: 'newPropertyMember', component: NewsPropertyComponent },
+  { path: 'newsCategory', component: NewsCategoryComponent },
+  { path: 'detailMember', component: DetailsComponent },
 
 
 ];

@@ -1,0 +1,114 @@
+<section class="w3l-about-breadcrumb">
+    <div class="breadcrumb-bg breadcrumb-bg-about pt-5">
+        <div class="container pt-lg-5 py-3">
+        </div>
+    </div>
+</section>
+<section class="w3l-breadcrumb">
+    <div class="container">
+        <ul class="breadcrumbs-custom-path">
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><span class="fa fa-angle-right mx-2" aria-hidden="true"></span> News </li>
+        </ul>
+    </div>
+</section>
+
+
+<!--/blog-post-->
+<section class="w3l-blog post-content py-5">
+    <div class="container py-lg-4 py-md-3 py-2">
+        <div class="inner mb-4">
+
+            <ul class="blog-single-author-date align-items-center">
+                <li>
+                    <div class="listing-category ">
+                        <h4></h4>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="post-content">
+            <h2 class="title-single">
+                {{newPropertyId.title}}
+            </h2>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 w3l-news">
+                <div class="blog-single-post">
+                    <div class="single-post-image mb-4">
+                        <span class="fa fa-clock-o"></span> Upload : {{newPropertyId.createdDate|date:'dd/MM/y'}}
+                    </div>
+                    <div class="single-post-image mb-4">
+                        <div class="owl-blog owl-carousel owl-theme">
+                            <ng-container *ngFor="let image of galleryNews">
+                                <div class="item" style="height: 100%;">
+                                    <div class="card">
+                                        <img [src]="getUrlImage('news',image.name)" class="img-fluid radius-image"
+                                            alt="image">
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="single-post-content single-bg-white">
+
+                        <p class="mb-4 p-edit" style="white-space:pre-wrap;" innerHTML="{{newPropertyId.description}}">
+                        </p>
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                By Admin
+                            </div>
+                            <div>{{newPropertyId.categoryName}}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-side col-lg-4 col-md-12 col-sm-12 mt-lg-0 mt-5">
+                <aside class="sidebar">
+
+                    <!-- Popular Post Widget-->
+                    <div class="sidebar-widget popular-posts">
+                        <div class="sidebar-title">
+                            <h4>Popular Post</h4>
+                        </div>
+                        <ng-container *ngFor="let properti of propertyNew">
+                            <article class="post">
+                                <figure class="post-thumb"><img [src]="getUrlImage('property',properti.thumbailName)"
+                                        class="radius-image" alt="">
+                                </figure>
+                                <div class="text"><a [routerLink]="['/user/single-property']">{{properti.title}}</a>
+                                    <div class="post-info">{{properti.uploadDate|date:'dd/MM/y'}}</div>
+                                </div>
+                            </article>
+                        </ng-container>
+
+                    </div>
+                    <!-- Popular Post Widget-->
+                    <div class="sidebar-widget popular-posts">
+                        <div class="sidebar-title">
+                            <h4>Category</h4>
+                        </div>
+                        <ul>
+                            <ng-container *ngFor="let c of categoryIds">
+                                <li class="mb-2">
+
+                                    <a class="propertyType" [routerLink]="['/user/newsCategory']"
+                                        [routerLink]="[ '/user/newsCategory', { Id: c.newsCategoryId } ]"><i
+                                            class="fa fa-angle-double-right"></i> {{c.name}}
+                                    </a>
+
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<!--//blog-posts-->

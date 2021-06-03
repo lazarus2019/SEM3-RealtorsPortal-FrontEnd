@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CategoryComponent } from 'src/app/area/user/category/category.component';
 import { CategoryModel } from 'src/app/models/category.model';
 import { MailboxModel } from 'src/app/models/mailbox.model';
@@ -17,6 +18,8 @@ export class UserComponent implements OnInit {
   formContact: FormGroup
 
   constructor(
+    private router : Router,
+
     private userService: UserService,
     private formBuilder: FormBuilder,
     private mailboxService: MailboxUserService
@@ -102,6 +105,20 @@ export class UserComponent implements OnInit {
       }
     )
 
+  }
+
+  authenticated(){
+    if (localStorage.getItem('token') != null)
+      return true;
+    return false;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('role');
+    this.router.navigate(['/login']);
   }
   
   loadStyle() {

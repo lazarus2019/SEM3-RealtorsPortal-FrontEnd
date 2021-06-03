@@ -3,6 +3,7 @@ export class NewCategoryModel {
      title : string;
      description : string;
      categoryId : number;
+     categoryName : string;
      createdDate : Date;
      status : string;
      thumbailName:string;

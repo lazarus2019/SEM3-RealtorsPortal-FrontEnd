@@ -25,7 +25,7 @@ export class NewsPropertyService {
     }
 
     getGalleryNews(newsId: number) {
-        return this.httpClient.get(this.BASE_URL + "getGallery/" + newsId)
+        return this.httpClient.get(this.BASE_URL + "getNewsGallery/" + newsId)
             .toPromise()
             .then(res => res as ImageModel[])
     }

@@ -41,6 +41,8 @@ import { ResetPasswordComponent } from './area/user/forgotPassword/resetPassword
 import { ConfirmEmailComponent } from './area/user/confirmEmail/confirmEmail.component';
 import { AdminFAQComponent } from './area/admin/faq/faq.component';
 import { ResultComponent } from './area/user/listing/searchResult.component';
+import { NewsPropertyComponent } from './area/user/newsproperty/newsproperty.component';
+import { NewsCategoryComponent } from './area/user/newscategory/newscategory.component';
 
 
 const routes: Routes = [
@@ -78,6 +80,9 @@ const routes: Routes = [
         { path: 'agents', component: AgentComponent },
         { path: 'news', component: NewsComponent },
         { path: 'category', component: CategoryComponent },
+        { path: 'newPropertyMember', component: NewsPropertyComponent },
+        { path: 'newsCategory', component: NewsCategoryComponent },
+        { path: 'detailMember', component: DetailsComponent },
       ]
   },
 

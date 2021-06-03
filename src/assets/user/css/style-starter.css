@@ -12400,6 +12400,10 @@ p {
   font-family: 'Kumbh Sans', sans-serif;
 }
 
+.p-edit{
+  opacity: 1 !important;
+}
+
 li {
   list-style-type: none;
 }
@@ -14573,7 +14577,7 @@ p.indentity {
 a.category {
   margin-bottom: 8px;
   display: inline-block;
-  font-size: 17px;
+  font-size: 20px;
 }
 
 span.posted-date {

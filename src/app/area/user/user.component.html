@@ -49,9 +49,13 @@
           </li>
         </ul>
         <div class="top-quote mt-lg-0">
-          <a [routerLink]="['/login']" class="text-ahref mr-2"> Login
+          <a *ngIf="authenticated()" class="text-ahref mr-2" [routerLink]="['/admin/dashboard']"> <b>Go Admin</b></a>
+          <a *ngIf="authenticated()" class="btn btn-style btn-primary" [routerLink]="" (click)="logout()">
+            <b>Logout</b>
           </a>
-          <a href="" class="btn btn-style btn-primary"> Join
+          <a *ngIf="!authenticated()" class="text-ahref mr-2" [routerLink]="['/login']"> <b>Login</b>
+          </a>
+          <a *ngIf="!authenticated()" class="btn btn-style btn-primary" [routerLink]="['/registration']"> Sign Up
           </a>
         </div>
         <!--/search-right-->
@@ -91,7 +95,8 @@
             <a href="#url" class="title-small">help desk</a>
             <h4>Do you have questions or want more infomation? Call Now</h4>
             <a href="tel:{{setting.phone}}">
-              <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span> {{setting.phone.split(',')[0]}}</p> 
+              <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span> {{setting.phone.split(',')[0]}}
+              </p>
             </a>
           </div>
           <div class="column mt-lg-0 mt-md-5">
@@ -102,9 +107,11 @@
             <ul class="footers-17_social">
               <h4 class="d-inline mr-4">Follow us</h4>
               <li><a href="#url" class="twitter"><span class="fa fa-twitter"></span></a></li>
-              <li><a href="https://www.facebook.com/joker.tn16" class="facebook"><span class="fa fa-facebook"></span></a></li>
+              <li><a href="https://www.facebook.com/joker.tn16" class="facebook"><span
+                    class="fa fa-facebook"></span></a></li>
               <li><a href="#url" class="linkedin"><span class="fa fa-linkedin"></span></a></li>
-              <li><a href="https://www.instagram.com/_thungjk16_/" class="instagram"><span class="fa fa-instagram"></span></a></li>
+              <li><a href="https://www.instagram.com/_thungjk16_/" class="instagram"><span
+                    class="fa fa-instagram"></span></a></li>
             </ul>
           </div>
         </div>
@@ -124,56 +131,45 @@
           </div>
           <div class="col-lg-12">
 
-            <form method="post" class="ng-untouched ng-pristine ng-valid "
-            [formGroup]="formContact">
-            <div class="form-group">
-              <div class="input-field mb-4">
-                <input type="text" name="w3lName" id="w3lName" 
-                    placeholder="Your Name" required
+            <form method="post" class="ng-untouched ng-pristine ng-valid " [formGroup]="formContact">
+              <div class="form-group">
+                <div class="input-field mb-4">
+                  <input type="text" name="w3lName" id="w3lName" placeholder="Your Name" required
                     formControlName="fullName">
-            </div> 
+                </div>
                 <div class="form-grid">
-                   
-                    <div class="input-field">
-                        <input
-                            [class.is-invalid]="Email.invalid && Email.touched"
-                            type="email" placeholder="Email"
-                            name="w3lSender" id="w3lSender"
-                            formControlName="email" />
-                        <div
-                            *ngIf="(Email.invalid && Email.touched) || Email.dirty">
-                            <small *ngIf="Email.errors?.required"
-                                class="text-danger">Email is
-                                required</small>
-                            <!--question mark(?) is a safe navigation operator-->
-                            <small *ngIf="Email.errors?.pattern"
-                                class="text-danger">Please provide a valid email
-                                address</small>
-                        </div>
 
+                  <div class="input-field">
+                    <input [class.is-invalid]="Email.invalid && Email.touched" type="email" placeholder="Email"
+                      name="w3lSender" id="w3lSender" formControlName="email" />
+                    <div *ngIf="(Email.invalid && Email.touched) || Email.dirty">
+                      <small *ngIf="Email.errors?.required" class="text-danger">Email is
+                        required</small>
+                      <!--question mark(?) is a safe navigation operator-->
+                      <small *ngIf="Email.errors?.pattern" class="text-danger">Please provide a valid email
+                        address</small>
                     </div>
-                    <div class="input-field">
-                        <input type="text" name="w3lSender"
-                            id="w3lSender" placeholder="Phone" required
-                            formControlName="phone" >
-                        <div *ngIf="Phone.touched && Phone.invalid"
-                            class="text-danger">
-                            <small *ngIf="Phone.errors.required">Mobile
-                                Number is required.</small>
-                            <small *ngIf="Phone.errors.pattern">Please, Enter
-                                10 digit Mobile Number.</small>
-                        </div>
+
+                  </div>
+                  <div class="input-field">
+                    <input type="text" name="w3lSender" id="w3lSender" placeholder="Phone" required
+                      formControlName="phone">
+                    <div *ngIf="Phone.touched && Phone.invalid" class="text-danger">
+                      <small *ngIf="Phone.errors.required">Mobile
+                        Number is required.</small>
+                      <small *ngIf="Phone.errors.pattern">Please, Enter
+                        10 digit Mobile Number.</small>
                     </div>
+                  </div>
                 </div>
-                <div class="input-field mt-4"><textarea name="w3lMessage"
-                        id="w3lMessage" placeholder="Message"
-                        formControlName="message"></textarea>
+                <div class="input-field mt-4"><textarea name="w3lMessage" id="w3lMessage" placeholder="Message"
+                    formControlName="message"></textarea>
                 </div>
-            </div>
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn-style mt-2"
-                    (click)="send()" [disabled]="!formContact.valid">Submit</button>
-            </div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn-style mt-2" (click)="send()"
+                  [disabled]="!formContact.valid">Submit</button>
+              </div>
             </form>
           </div>
         </div>

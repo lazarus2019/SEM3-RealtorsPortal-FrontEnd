@@ -1,0 +1,42 @@
+<section class="w3l-about-breadcrumb">
+    <div class="breadcrumb-bg breadcrumb-bg-about pt-5">
+        <div class="container pt-lg-5 py-3">
+        </div>
+    </div>
+</section>
+<section class="w3l-breadcrumb">
+    <div class="container">
+        <ul class="breadcrumbs-custom-path">
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><span class="fa fa-angle-right mx-2" aria-hidden="true"></span> News</li>
+        </ul>
+    </div>
+</section>
+
+<div class="w3l-news" id="news">
+    <section id="grids5-block" class="py-2">
+        <div class="container py-lg-5 py-md-4 py-2">
+            <h3 class="title-big text-center">News And Tips</h3>
+            <div class="row mt-lg-5 mt-4 pt-3">
+                <ng-container>
+                    <div class="col-lg-4 col-md-6 mt-md-0 mt-sm-4 mb-4"  *ngFor="let m of newcategory">
+                        <div class="grids5-info">
+                            <span class="posted-date">  
+                                <a href="#blog-single">
+                                    <span class="small">{{m.createdDate|date:'dd/MM/y'}}
+                                    </span>
+                                </a>
+                            </span>
+                            <a class="d-block zoom"><img style="width: 370px; height: 200px;"
+                                    [src]="getUrlImage(m.thumbailName)" alt="" class="img-fluid news-image" /></a>
+                            <div class="blog-info">
+                                <a [routerLink]="[ '/user/newPropertyMember', { Id: m.newsId } ]"
+                                    class="category">{{m.title}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </section>
+</div>

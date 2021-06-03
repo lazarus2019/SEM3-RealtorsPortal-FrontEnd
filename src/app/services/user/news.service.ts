@@ -6,7 +6,7 @@ import { NewsCategoryModel } from "src/app/models/newscategory.model";
 
 @Injectable()
 export class NewsUserService {
-    private BASE_URL: string = 'http://localhost:50625/api/user/' ;
+    private BASE_URL: string = 'http://localhost:5000/api/user/' ;
 
     constructor(
         private httpClient: HttpClient

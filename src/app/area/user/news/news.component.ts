@@ -31,6 +31,7 @@ export class NewsComponent implements OnInit {
   categoryIds : NewsCategoryModel[];
 
   newcategory: NewCategoryModel[] = [];
+  
   newcategorycount: number;
   constructor(
     private publicService: PublicService,
@@ -93,7 +94,7 @@ export class NewsComponent implements OnInit {
     this.currentPage = page;
     if (!this.isFilter) {
       this.getNewsPerPage(this.currentPage);
-    } else {
+    } else {      
       this.filterNewsPerPage(this.currentPage);
     }
   }
@@ -155,6 +156,13 @@ export class NewsComponent implements OnInit {
 
   getUrlImage(imageName: string) {
     return this.publicService.getUrlImage("news", imageName);
+  }
+
+  readMoreFunc(message: string) {
+    if(message.length > 60) {
+      return message.substr(0, 60) + '...';
+    }
+    else return message
   }
 
 }

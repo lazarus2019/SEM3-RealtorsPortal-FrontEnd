@@ -1,5 +1,5 @@
 export class ImageModel{
-    imageId : number
+    imageId : number;
     name: string = "";
     newsId:number = 0;
 }

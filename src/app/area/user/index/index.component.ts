@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryModel } from 'src/app/models/category.model';
 import { CountryModel } from 'src/app/models/country.model';
+import { NewCategoryModel } from 'src/app/models/newcategory.model';
 import { PopularLocations } from 'src/app/models/popularLocation.model';
 import { PropertyModel } from 'src/app/models/property.model';
 import { PropertyService } from 'src/app/services/property.service';
+import { PublicService } from 'src/app/services/publicService.service';
 import { IndexService } from 'src/app/services/user/index.service';
+import { NewsUserService } from 'src/app/services/user/news.service';
 import { ShareFormService } from 'src/app/services/user/shareFormSearchData';
 
 @Component({
@@ -18,11 +21,14 @@ export class IndexComponent implements OnInit {
   countries: CountryModel[] = [];
   categories: CategoryModel[] = [];
   formSearch: FormGroup;
+  newcategory: NewCategoryModel[] = [];
 
   constructor(
     private indexService: IndexService,
     private formBuilder: FormBuilder,
-    private shareFormSearchData : ShareFormService 
+    private shareFormSearchData : ShareFormService ,
+    private newsService: NewsUserService,
+    private publicService: PublicService,
   ) { }
 
 
@@ -62,10 +68,12 @@ export class IndexComponent implements OnInit {
       err => {
         console.log(err)
       });
+
+      this.getNewsPerPage(1);
   }
-  readMoreFunc(message: string) {
-    if(message.length > 25) {
-      return message.substr(0, 25) + '...';
+  readMoreFunc(message: string, length: number) {
+    if(message.length > length) {
+      return message.substr(0, length) + '...';
     }
     else return message
   }
@@ -82,5 +90,18 @@ export class IndexComponent implements OnInit {
     
   }
 
+  getNewsPerPage(page: number) {
+    this.newsService.loadAllNews(page, 6).then(
+      res => {
+        this.newcategory = res;
+      },
+      err => {
+        alert("Connection error, please reset server and refresh this page");
+      }
+    )
+  }
 
+  getUrlImage(imageName: string) {
+    return this.publicService.getUrlImage("news", imageName);
+  }
 }
