@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MailboxModel } from 'src/app/models/mailbox.model';
 import { MailboxService } from 'src/app/services/user/mailbox.service';
 
+declare var alertFunction: any;
 @Component({
   templateUrl: './user.component.html',
 })
@@ -29,6 +30,7 @@ export class UserComponent implements OnInit {
       phone : ['', [Validators.required, Validators.pattern("^((\\+84-?)|0)?[0-9]{10}$")]] ,
       message : '' 
     })
+    
   }
 
   // Method to dynamically load JavaScript
@@ -44,6 +46,8 @@ export class UserComponent implements OnInit {
       '../../../assets/user/js/bootstrap.min.js',
       '../../../assets/user/js/jquery.start.js',
       '../../../assets/user/js/jquery.goToTop.js',
+      '../../../assets/user/js/sweetalert.min.js',
+      '../../../assets/user/js/jquery.sweetalert.js',
 
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {
@@ -58,6 +62,7 @@ export class UserComponent implements OnInit {
   loadStyle() {
     const dynamicStyles = [
       '../../../assets/user/css/style-starter.css',
+      '../../../assets/user/css/sweetalert.css',
 
     ];
     for (let i = 0; i < dynamicStyles.length; i++) {
@@ -68,7 +73,6 @@ export class UserComponent implements OnInit {
       document.getElementsByTagName('head')[0].appendChild(node);
     }
   }
-
   // send Email
   send() {
     var mailbox: MailboxModel = this.formContact.value;
@@ -76,10 +80,12 @@ export class UserComponent implements OnInit {
     this.mailboxService.addMailbox(mailbox).then(
       res => {
         if (res == true) {
-          alert("Done");
+          alert("Send Success");
+          //alertFunction.Success("Send Success");
         }
         else {
-          alert("Failed");
+          alert("Please Try Again");
+          //alertFunction.error("Please Try Again")
         }
 
       },

@@ -31,6 +31,7 @@ export class NewsComponent implements OnInit {
   categoryIds : NewsCategoryModel[];
 
   newcategory: NewCategoryModel[] = [];
+  
   newcategorycount: number;
   constructor(
     private publicService: PublicService,

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ImageModel } from 'src/app/models/image.model';
 import { MailboxModel } from 'src/app/models/mailbox.model';
 import { NewCategoryModel } from 'src/app/models/newcategory.model';
+import { NewsCategoryModel } from 'src/app/models/newscategory.model';
 import { PropertyModel } from 'src/app/models/property.model';
 import { PublicService } from 'src/app/services/publicService.service';
 import { MailboxService } from 'src/app/services/user/mailbox.service';
@@ -21,36 +22,44 @@ export class NewsPropertyComponent implements OnInit {
   propertyNew: PropertyModel[];
   memberId: number;
   galleryNews: ImageModel[];
-  formContact : FormGroup ;
+  formContact: FormGroup;
+  categoryIds : NewsCategoryModel[];
+  formListCategory : FormGroup;
+  newcategorys: NewCategoryModel[] = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private newPropertyService: NewsPropertyService,
     private publicService: PublicService,
     private formBuilder: FormBuilder,
-    private mailboxService : MailboxService
-  ) { 
+    private mailboxService: MailboxService,
+    private newsService : NewsService
+  ) {
     this.loadScripts();
   }
 
-  get Phone(){
+  get Phone() {
     return this.formContact.get('phone')
   }
 
   ngOnInit(): void {
-    this.formContact = this.formBuilder.group({
-      fullName : '', 
-      phone : ['', [Validators.required, Validators.pattern("^((\\+84-?)|0)?[0-9]{10}$")]] ,
-      message : '' 
-    })
-
+    this.loadScripts();
     this.activatedRoute.paramMap.subscribe(params => {
       this.memberId = Number.parseInt(params.get('Id'));
+      this.getGalleryNews(this.memberId);
     })
+
+    this.newsService.loadAllNewsCategory().then(
+      res => {
+        this.categoryIds = res
+      },
+      err => {
+        console.log(err)
+      });
 
     this.newPropertyService.loadPropertyId(this.memberId).then(
       res => {
         this.newPropertyId = res;
-        this.getGalleryNews(this.newPropertyId.newsId);
       },
       err => {
         console.log(err)
@@ -65,6 +74,12 @@ export class NewsPropertyComponent implements OnInit {
         console.log(err)
       }
     )
+
+    this.formContact = this.formBuilder.group({
+      fullName: '',
+      phone: ['', [Validators.required, Validators.pattern("^((\\+84-?)|0)?[0-9]{10}$")]],
+      message: ''
+    })
   }
 
   getGalleryNews(newsId: number) {
@@ -79,11 +94,11 @@ export class NewsPropertyComponent implements OnInit {
   }
   send() {
     var mailbox: MailboxModel = this.formContact.value;
-    
+
     this.mailboxService.addMailbox(mailbox).then(
       res => {
         if (res == true) {
-          alert("Done");
+          alert("Send Success");
         }
         else {
           alert("Failed");
@@ -100,28 +115,28 @@ export class NewsPropertyComponent implements OnInit {
   //   return this.publicService.getUrlImage("news", imageName);
   // }
 
-  getUrlImage(imageName: string, folderName: string) {
+  getUrlImage(folderName: string, imageName: string) {
     return this.publicService.getUrlImage(folderName, imageName);
   }
 
-    // Method to dynamically load JavaScript
-    loadScripts() {
+  // Method to dynamically load JavaScript
+  loadScripts() {
 
-      // This array contains all the files/CDNs
-      const dynamicScripts = [
-        '../../../../assets/user/js/jquery-3.3.1.min.js',
-        '../../../../assets/user/js/jquery.waypoints.min.js',
-        '../../../../assets/user/js/owl.carousel.js',
-        '../../../../assets/user/js/jquery.magnific-popup.min.js',
-  
-      ];
-      for (let i = 0; i < dynamicScripts.length; i++) {
-        const node = document.createElement('script');
-        node.src = dynamicScripts[i];
-        node.type = 'text/javascript';
-        node.async = false;
-        document.body.appendChild(node);
-      }
+    // This array contains all the files/CDNs
+    const dynamicScripts = [
+      '../../../../assets/user/js/jquery-3.3.1.min.js',
+      '../../../../assets/user/js/jquery.waypoints.min.js',
+      '../../../../assets/user/js/owl.carousel.js',
+      '../../../../assets/user/js/jquery.magnific-popup.min.js',
+
+    ];
+    for (let i = 0; i < dynamicScripts.length; i++) {
+      const node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      document.body.appendChild(node);
     }
+  }
 
 }

@@ -1,0 +1,19 @@
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w480">
+        <div class="card card-4">
+            <div class="card-header">
+                <h2>Confirmation Your Email</h2>
+            </div>
+            <div class="card-body">
+                <div *ngIf="showSuccess" class="alert alert-primary" role="alert">
+                    <span [innerHTML]="errorMessage"></span>
+                </div>
+                <span>Please check your email and confirm email to login, or click Resend to send again.</span>
+                <div class="p-t-10 p-b-15 text-center">
+                    <button class="my-btn btn--radius-2 btn--blue" type="submit" (click)="onSubmit()">Resend
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

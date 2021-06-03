@@ -44,8 +44,8 @@ export class DetailsComponent implements OnInit {
       
     }
 
-    getUrlImage(namePath: string ,imageName: string) {
-      return this.publicService.getUrlImage(namePath, imageName);
+    getUrlImage(folderName: string, imageName: string) {
+      return this.publicService.getUrlImage( folderName,imageName);
     }
     
 }

@@ -71,7 +71,7 @@
                             <ng-container *ngFor="let image of galleryNews">
                                 <div class="item">
                                     <div class="card">
-                                        <img [src]="getUrlImage(image.name, 'news')" class="img-fluid radius-image"
+                                        <img [src]="getUrlImage('news',image.name)" class="img-fluid radius-image"
                                             alt="image">
                                     </div>
                                 </div>
@@ -82,10 +82,7 @@
 
                         <p class="mb-4" style="white-space:pre-wrap;" innerHTML="{{newPropertyId.description}}">
                         </p>
-                        <p class="mb-4">
-                            <button class="btn-contact btn btn-primary btn-style btn-primary mt-3">Send Contact <span
-                                    class="fa fa-envelope"></span></button>
-                        </p>
+
                         <div class="d-flex justify-content-between">
                             <div>
                                 By Admin
@@ -107,7 +104,7 @@
                         </div>
                         <ng-container *ngFor="let properti of propertyNew">
                             <article class="post">
-                                <figure class="post-thumb"><img [src]="getUrlImage(properti.name, 'property')"
+                                <figure class="post-thumb"><img [src]="getUrlImage('property',properti.thumbailName)"
                                         class="radius-image" alt="">
                                 </figure>
                                 <div class="text"><a [routerLink]="['/user/single-property']">{{properti.title}}</a>
@@ -122,36 +119,17 @@
                         <div class="sidebar-title">
                             <h4>Category</h4>
                         </div>
-
                         <ul>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Office
-                                    space</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Shops</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Commercial
-                                    land</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Industrial
-                                    property</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Apartments</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Villas</a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="propertyType" href=""> <i class="fa fa-angle-double-right"></i> Businesses for
-                                    sale</a>
-                            </li>
+                            <ng-container *ngFor="let c of categoryIds">
+                                <li class="mb-2">
 
+                                    <a class="propertyType" [routerLink]="['/user/newsCategory']"
+                                        [routerLink]="[ '/user/newsCategory', { Id: c.newsCategoryId } ]">{{c.name}}
+                                    </a>
+
+                                </li>
+                            </ng-container>
                         </ul>
-
                     </div>
 
                 </aside>
