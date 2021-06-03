@@ -59,6 +59,7 @@ import { MailboxService } from './services/user/mailbox.service';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { MyCategoryComponent } from './area/user/tagHelper/mycategory.component';
 import { PublicService } from './services/publicService.service';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -135,7 +136,9 @@ import { PublicService } from './services/publicService.service';
     HttpClientModule,
 
     //image 
-    NgImageSliderModule
+    NgImageSliderModule,
+
+    RouterModule
   ],
   providers: [
     AddNewService,
