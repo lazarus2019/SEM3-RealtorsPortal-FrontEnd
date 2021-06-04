@@ -31,8 +31,8 @@
                                             <a role="button" data-toggle="collapse" href="#collapse_{{faq.faqId}}"
                                                 aria-expanded="true">{{faq.title}}</a>
                                         </div>
-                                        <div id="collapse_{{faq.faqId}}" class="collapse show" data-parent="#accordion_2"
-                                            role="tabpanel">
+                                        <div id="collapse_{{faq.faqId}}" class="collapse show"
+                                            data-parent="#accordion_2" role="tabpanel">
                                             <div class="card-body pa-15 h6">{{faq.description}}</div>
                                         </div>
                                     </div>
@@ -40,8 +40,8 @@
                                 <ng-template #elseFAQ>
                                     <div class="card">
                                         <div class="h5 card-header d-flex justify-content-between"><a role="button"
-                                                data-toggle="collapse" aria-expanded="false" href="#collapse_{{faq.faqId}}"
-                                                class="collapsed">{{faq.title}}</a>
+                                                data-toggle="collapse" aria-expanded="false"
+                                                href="#collapse_{{faq.faqId}}" class="collapsed">{{faq.title}}</a>
                                         </div>
                                         <div id="collapse_{{faq.faqId}}" class="collapse" data-parent="#accordion_2"
                                             role="tabpanel">
@@ -63,7 +63,7 @@
                 <div class="col-lg-4 col-md-6 grids-feature">
                     <div class="area-box">
                         <span class="fa fa-home"></span>
-                        <h4><a  class="title-head">Guidance you need</a></h4>
+                        <h4><a class="title-head">Guidance you need</a></h4>
                         <p>Vivamus a ligula quam tesque et libero ut justo, ultrices in. Ut eu leo non. Duis sed et
                             dolor amet.</p>
                     </div>
@@ -71,7 +71,7 @@
                 <div class="col-lg-4 col-md-6 grids-feature mt-md-0 mt-4">
                     <div class="area-box">
                         <span class="fa fa-search-plus"></span>
-                        <h4><a  class="title-head">Search that feels familiar</a></h4>
+                        <h4><a class="title-head">Search that feels familiar</a></h4>
                         <p>Vivamus a ligula quam tesque et libero ut justo, ultrices in. Ut eu leo non. Duis sed dolor
                             et amet.</p>
                     </div>
@@ -79,7 +79,7 @@
                 <div class="col-lg-4 col-md-6 grids-feature mt-lg-0 mt-4">
                     <div class="area-box">
                         <span class="fa fa-dollar"></span>
-                        <h4><a  class="title-head">Premium values</a></h4>
+                        <h4><a class="title-head">Premium values</a></h4>
                         <p>Vivamus a ligula quam tesque et libero ut justo, ultrices in. Ut eu leo non. Duis sed dolor
                             et amet.</p>
                     </div>
@@ -94,23 +94,13 @@
         <div class="container py-lg-5 py-md-4 py-2">
             <div class="row" *ngFor="let aboutus of setting">
                 <div class="col-lg-6 left-wthree-img">
-                    <img [src]="getUrlImage('setting',aboutus.thumbnailAboutUs)" alt="" class="img-fluid radius-image" />
+                    <img [src]="getUrlImage('user',aboutus.thumbnailAboutUs)" alt="" class="img-fluid radius-image" />
                 </div>
-                <div class="col-lg-6 mt-lg-0 mt-5 align-self" >
+                <div class="col-lg-6 mt-lg-0 mt-5 align-self">
                     <h6 class="title-small">Why us</h6>
                     <h3 class="title-big">{{aboutus.aboutUsTitle}}</h3>
                     <p class="mt-4">{{aboutus.description}}
                     </p>
-                    <ul class="w3l-right-book mt-lg-5 mt-4">
-                        <li><span class="fa fa-check" aria-hidden="true"></span>Help sellers get the most for their
-                            properties</li>
-                        <li><span class="fa fa-check" aria-hidden="true"></span>Help sellers price their properties
-                            fairly</li>
-                        <li><span class="fa fa-check" aria-hidden="true"></span>Help buyers find the property that fits
-                            their needs</li>
-                        <li><span class="fa fa-check" aria-hidden="true"></span>Avoid over paying by strategically
-                            negotiating purchase</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -153,7 +143,7 @@
 <!-- stats -->
 <section class="w3l-stats py-5" id="stats">
     <div class="gallery-inner container py-lg-5 py-md-4 py-2">
-        <div class="row stats-con" >
+        <div class="row stats-con">
             <div class="col-md-3 col-6 stats_info counter_grid">
                 <p class="counter">{{saleCount}}</p>
                 <span class="plus">+</span><br>
@@ -189,7 +179,7 @@
                         <div class="contact-form">
                             <h5 class="mb-2">Get in touch</h5>
                             <p class="mb-4"></p>
-                        
+
                             <form novalidate="" action="https://sendmail.w3layouts.com/submitForm" method="post"
                                 class="ng-untouched ng-pristine ng-valid " [formGroup]="formContact">
                                 <div class="form-group">
@@ -228,17 +218,21 @@
                             <p><span class="fa fa-map-marker"></span> {{l.address}}</p>
 
                             <h5 class="mt-4 pt-lg-3">Phone informatiom</h5>
-                            <p><span class="fa fa-mobile"></span> <strong>Phone : </strong>
-                                <a href="tel:{{l.phone[0]}}">{{l.phone}}</a>
-                            </p>
+                            <ng-container *ngFor="let phonea of l.phone.split(',')">
+                                <p><span class="fa fa-mobile"></span> <strong>Phone : </strong>
+                                    <a href="tel:{{phonea}}">{{phonea}}</a>
+                                </p>
+                            </ng-container>
 
                             <!-- <p><span class="fa fa-phone"></span> <strong>Tel : </strong>
                                 <a href="tel:{{l.phone}}">{{l.phone}}</a>
                             </p> -->
-
-                            <p> <span class="fa fa-envelope"></span> <strong>Email : </strong>
-                                <a href="mailto:{{l.email}}"> {{l.email}}</a>
-                            </p>
+                            <ng-container *ngFor="let emaila of l.email.split(',')">
+                                <p> <span class="fa fa-envelope"></span> <strong>Email : </strong>
+                                    <a href="mailto:{{emaila}}"> {{emaila}}</a>
+                                </p>
+                            </ng-container>
+                            
                         </address>
                     </div>
                 </div>

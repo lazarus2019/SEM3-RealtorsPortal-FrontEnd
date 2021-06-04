@@ -1,3 +1,4 @@
+import { SettingModel } from './../../../shared/setting.model';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryModel } from 'src/app/models/category.model';
@@ -7,6 +8,7 @@ import { PopularLocations } from 'src/app/models/popularLocation.model';
 import { PropertyModel } from 'src/app/models/property.model';
 import { PropertyService } from 'src/app/services/property.service';
 import { PublicService } from 'src/app/services/publicService.service';
+import { UserService } from 'src/app/services/user.service';
 import { IndexService } from 'src/app/services/user/index.service';
 import { NewsUserService } from 'src/app/services/user/news.service';
 import { ShareFormService } from 'src/app/services/user/shareFormSearchData';
@@ -22,6 +24,7 @@ export class IndexComponent implements OnInit {
   categories: CategoryModel[] = [];
   formSearch: FormGroup;
   newcategory: NewCategoryModel[] = [];
+  setting: SettingModel;
 
   constructor(
     private indexService: IndexService,
@@ -29,6 +32,7 @@ export class IndexComponent implements OnInit {
     private shareFormSearchData : ShareFormService ,
     private newsService: NewsUserService,
     private publicService: PublicService,
+    private userService: UserService,
   ) { }
 
 
@@ -70,6 +74,15 @@ export class IndexComponent implements OnInit {
       });
 
       this.getNewsPerPage(1);
+
+      this.userService.getSetting().then(
+        res => {
+          this.setting = res
+        },
+        err => {
+          console.log(err)
+        }
+      )
   }
   readMoreFunc(message: string, length: number) {
     if(message.length > length) {
@@ -104,4 +117,5 @@ export class IndexComponent implements OnInit {
   getUrlImage(imageName: string) {
     return this.publicService.getUrlImage("news", imageName);
   }
+  
 }
