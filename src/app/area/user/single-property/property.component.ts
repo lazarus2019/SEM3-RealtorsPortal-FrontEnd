@@ -132,6 +132,39 @@ export class PropertyComponent implements OnInit {
       });
   }
 
+  goDetails(propertyId: number){
+    this.imagesList = [];
+    this.imageObject = [];
+    this.listingService.getGallery(propertyId).then(
+      res => {
+        this.imagesList = res;
+        console.table(this.imagesList)
+      },
+      err => {
+        console.log(err)
+      });
+    this.listingService.propertyDetail(propertyId).then(
+      res => {
+        this.property = res;
+        res.images.forEach(image => {
+          this.imageObject.push({
+            image: this.getUrlImage(image.name) , 
+            thumbImage : this.getUrlImage(image.name) 
+          })
+        });
+        this.propertyService.getPopularPost(this.property.memberId).then(
+          res => {
+            this.popularpost = res
+          },
+          err => {
+            console.log(err)
+          });
+      },
+      err => {
+        console.log(err)
+      });
+  }
+
   getGallery() {
     this.listingService.getGallery(this.propertyId).then(
       res => {

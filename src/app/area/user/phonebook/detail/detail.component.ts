@@ -48,4 +48,10 @@ export class DetailsComponent implements OnInit {
       return this.publicService.getUrlImage( folderName,imageName);
     }
     
+    readMoreFunc(message: string) {
+      if(message.length > 25) {
+        return message.substr(0, 25) + '...';
+      }
+      else return message
+    }
 }

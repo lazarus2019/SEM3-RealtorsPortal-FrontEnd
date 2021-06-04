@@ -221,8 +221,7 @@
                         <article class="post" *ngFor="let pp of popularpost">
                             <figure class="post-thumb"><img src="http://localhost:5000/images/property/{{pp.images[0].name}}" class="radius-image" alt="">
                             </figure>
-                            <div class="text"><a href="#blog-single">{{readMoreFunc(pp.title)}}
-                                </a>
+                            <div class="text"><a (click)="goDetails(pp.propertyId)">{{readMoreFunc(pp.title)}} </a>
                                 <div class="post-info">{{pp.uploadDate | date : "MMM dd , yyyy"}}</div>
                             </div>
                         </article>

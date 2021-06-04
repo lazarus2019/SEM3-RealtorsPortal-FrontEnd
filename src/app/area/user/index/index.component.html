@@ -159,7 +159,18 @@
             <div class="row pt-5">
 
                 <div class="col-lg-3 col-md-4 col-6 mb-4" *ngFor="let pl of loadpopularlocation">
-                    <a [routerLink]="['/user/searchResult',{cityId : pl.cityId , pg : 'index2'}]">
+                    <a  [routerLink]="['/user/searchproperty', 
+                        {
+                            keyword: 'all',
+                            category: 0,
+                            country: 0,
+                            city: pl.cityId ,
+                            type: 'all',
+                            area: 0,
+                            bed: 0,
+                            room: 0,
+                            price: 0 ,
+                            pg : 'listing'}]">
                         <div class="box16 box16-edit">
                             <img class="img-fluid" src="assets/user/images/p1.jpg" alt="" width="100%" height="100%">
                             <div class="box-content">
