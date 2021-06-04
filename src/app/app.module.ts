@@ -165,7 +165,8 @@ import { NewsCategoryComponent } from './area/user/newscategory/newscategory.com
     CommonModule,
 
     NoopAnimationsModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+
   ],
   providers: [
     // Admin Services

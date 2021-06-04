@@ -43,10 +43,19 @@ import { AdminFAQComponent } from './area/admin/faq/faq.component';
 import { ResultComponent } from './area/user/listing/searchResult.component';
 import { NewsPropertyComponent } from './area/user/newsproperty/newsproperty.component';
 import { NewsCategoryComponent } from './area/user/newscategory/newscategory.component';
+import { AuthGuard } from './authenticate/auth.guard';
 
 
 const routes: Routes = [
 
+  {
+    path: '', component: UserComponent,
+    children:
+      [
+        // { path: '', component: AdminDashboardComponent }
+        { path: '', component: IndexComponent }
+      ]
+  },
   // Default Component
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
@@ -54,21 +63,12 @@ const routes: Routes = [
   { path: 'forgetPassword', component: ForgetPasswordComponent },
   { path: 'resetPassword', component: ResetPasswordComponent },
   { path: 'confirmEmail', component: ConfirmEmailComponent },
-  {
-    path: '', component: AdminComponent,
-    children:
-      [
-        { path: '', component: AdminDashboardComponent }
-        // { path: '', component: IndexComponent }
-      ]
-  },
 
   // User Components
   {
     path: 'user', component: UserComponent,
     children:
       [
-
         { path: 'index', component: IndexComponent },
         { path: 'single-property', component: PropertyComponent },
         { path: 'searchproperty', component: ResultComponent },
@@ -91,27 +91,28 @@ const routes: Routes = [
     path: 'admin', component: AdminComponent,
     children:
       [
-        { path: '', component: AdminDashboardComponent },
-        { path: 'dashboard', component: AdminDashboardComponent },
-        { path: 'addNew', component: AddNewPropertyComponent },
-        { path: 'mailbox', component: AdminMailBoxComponent },
-        { path: 'gallery', component: AdminGalleryComponent },
-        { path: 'adPackage', component: AdminAdPackageComponent },
-        { path: 'adminManage', component: AdminManagePropertyComponent },
-        { path: 'userManage', component: UserManagePropertyComponent },
-        { path: 'manageMember', component: AdminManageMemberComponent },
-        { path: 'manageAdPackage', component: AdminManageAdPackageComponent },
-        { path: 'manageInvoice', component: AdminManageInvoiceAdPackageComponent },
-        { path: 'setting', component: SettingComponent },
-        { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent },
-        { path: 'reports', component: ReportComponent },
-        { path: 'profile', component: ProfileComponent },
-        { path: 'news', component: AdminNewsComponent },
-        { path: 'editNews/:newsId', component: AdminEditNewsComponent },
-        { path: 'manageNews', component: AdminManageNewsComponent },
-        { path: 'faq', component: AdminFAQComponent },
-        { path: 'addProperty', component: AddNewPropertyComponent },
-        { path: 'editProperty', component: EditPropertyComponent },
+        { path: '', component: AdminDashboardComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin', 'Admin'] } },
+        { path: 'dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin', 'Admin'] } },
+        { path: 'addProperty', component: AddNewPropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+        { path: 'editProperty/:propertyId', component: EditPropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+        { path: 'mailbox', component: AdminMailBoxComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin', 'Admin'] } },
+        //{ path: 'gallery', component: AdminGalleryComponent },
+        { path: 'adPackage', component: AdminAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+        { path: 'adminManage', component: AdminManagePropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'userManage', component: UserManagePropertyComponent, canActivate: [AuthGuard], data: { permittedRoles: ['Admin'] } },
+        { path: 'manageMember', component: AdminManageMemberComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'manageAdPackage', component: AdminManageAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'manageInvoice', component: AdminManageInvoiceAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'setting', component: SettingComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        //{ path: 'template', component: TemplateComponent },
+        //{ path: 'invoiceTemplate', component: InvoiceTemplateComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'manageInvoiceAdPackage', component: AdminManageInvoiceAdPackageComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'reports', component: ReportComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'faq', component: AdminFAQComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'editNews/:newsId', component: AdminEditNewsComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'manageNews', component: AdminManageNewsComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
+        { path: 'news', component: AdminNewsComponent, canActivate: [AuthGuard], data: { permittedRoles: ['SuperAdmin'] } },
       ]
   },
 

@@ -57,7 +57,8 @@ export class AccountService {
 
     roleMatch(allowedRoles): boolean {
         var isMatch = false;
-        // var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+        //var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+        //var userRole = payLoad.role;
         var userRole = localStorage.getItem('role');
         allowedRoles.forEach(element => {
             if (userRole == element) {
@@ -65,6 +66,7 @@ export class AccountService {
                 return false;
             }
             return true;
+
         });
         return isMatch;
     }
